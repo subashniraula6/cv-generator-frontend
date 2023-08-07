@@ -1,7 +1,8 @@
 import Questions from "../../Questions";
 import { QuestionWrapper } from "../Wrappers/QuestionWrapper";
 import { useState, useEffect } from "react";
-import { Input, Button } from 'antd';
+import { Input } from 'antd';
+import Button from '../Wrappers/Button';
 
 export default function Form() {
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(1);
@@ -94,6 +95,7 @@ export default function Form() {
             />
             <Button
               onClick={(e) => handleContinue(e, "basicInfo", question.index)}
+              disabled={!currentAnswer}
             >
               Continue
             </Button>

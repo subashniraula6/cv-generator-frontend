@@ -6,6 +6,7 @@ import { Row, Col, Space } from 'antd';
 
 function App() {
   return (
+    <div className='container'>
       <Space>
         <Row>
           <Col>
@@ -16,6 +17,7 @@ function App() {
           </Col>
         </Row>
       </Space>
+      </div>
   );
 }
 
