@@ -1,6 +1,7 @@
 import Questions from "../../Questions";
 import { QuestionWrapper } from "../Wrappers/QuestionWrapper";
 import { useState, useEffect } from "react";
+import { Input, Button } from 'antd';
 
 export default function Form() {
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(1);
@@ -85,17 +86,17 @@ export default function Form() {
             key={question.index}
           >
             <label> {question.question} </label>
-            <input
+            <Input
               type="text"
               name={question.index}
               onChange={handleInputChange}
               defaultValue={question.answer}
             />
-            <button
+            <Button
               onClick={(e) => handleContinue(e, "basicInfo", question.index)}
             >
               Continue
-            </button>
+            </Button>
           </QuestionWrapper>
         ))}
 
@@ -108,22 +109,22 @@ export default function Form() {
             key={question.index}
           >
             <label> {question.question} </label>
-            <input
+            <Input
               type="text"
               name={question.index}
               onChange={handleInputChange}
               defaultValue={question.answer}
             />
-            <button
+            <Button
               onClick={(e) => handleContinue(e, "workExp", question.index)}
             >
               Continue
-            </button>
+            </Button>
           </QuestionWrapper>
         ))}
       </form>
-      <button onClick={handlePrev}>Previous</button>
-      <button onClick={handleNext}>Next</button>
+      <Button onClick={handlePrev}>Previous</Button>
+      <Button onClick={handleNext}>Next</Button>
     </>
   );
 }
