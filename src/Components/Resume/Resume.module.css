@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background: white;
+  font-size: 16px;
+  line-height: 25px;
+}
+.container {
+  width: 900px;
+  height: auto;
+  background: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  margin: 50px auto;
+  border-top: 8px solid grey;
+  border-bottom: 3px solid grey;
+}
+hr {
+  border: 5;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0)
+  );
+}
+.info {
+  padding: 25px;
+}
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+}
+.name-style,
+.profile,
+.experience,
+.education {
+  padding: 10px;
+}
+.name-style .bold {
+  font-size: 25px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.name-style p + p {
+  text-align: center;
+  font-family: cursive;
+  font-weight: 400;
+}
+.contact-info {
+  padding: 10px;
+  text-align: center;
+  font-weight: 400;
+}
+.info-profile,
+.info-skills,
+.info-experience,
+.info-education,
+.info-hobby {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 25px;
+}
+.profile-content,
+.skills-content,
+.experience-content,
+.education-content {
+  padding: 10px 10px 10px 10px;
+}
+.profile-content p {
+  margin-left: 50px;
+  font-size: 18px;
+}
+.profile,
+.skills,
+.experience,
+.education, .hobby {
+  text-align: center;
+  font-family: cursive;
+  font-size: 18px;
+}
+.skills-content {
+  display: flex;
+}
+.info-skills {
+  padding-right: 210px;
+  margin-top: 5px;
+}
+.skills-content {
+  padding-left: 50px;
+}
+.skills-name {
+  padding-left: 20px;
+  margin-top: -8px;
+  font-size: 18px;
+}
+.experience-content,
+.education-content {
+  font-size: 18px;
+}
+.company-name,
+.college-name {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+}
+.info-experience {
+  margin-top: -8px;
+}
+.experience-content .more-info p {
+  padding-bottom: 8px;
+}
+.education-content .more-info p {
+  padding-bottom: 8px;
+}
+.work-content,
+.college-content {
+  font-weight: lighter;
+  font-size: 16px;
+}
+.college-content span {
+  font-size: 18px;
+  font-weight: 700;
+}
+.experience {
+  margin-top: 7px;
+}
+.education {
+  margin-top: 7px;
+}
+.hobby-content{
+display: flex;
+}
+.hobby{
+/* margin-right: 70px; */
+font-size: 18px;
+padding-right: 0px; 
+margin-left: -25px;
+}
+.icon{
+  margin: 0px 0px 0px 0px;
+  padding-left: 80px
+}
+i{
+padding-right: 5px;
+}
+.section-title {
+  font-size: 42px;
+  font-weight: 400;
+}
+
+span {
+  color: rgb(102, 103, 102);
+  font-size: 14px;
+}
+
+.contact-label {
+  font-size: '12px';
+}

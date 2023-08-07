@@ -1,30 +1,27 @@
-import Questions from "../../Questions";
 import { QuestionWrapper } from "../Wrappers/QuestionWrapper";
-import { useState, useEffect, useRef } from "react";
-import { Input, Select, Space, Divider } from 'antd';
+import { useState, useEffect } from "react";
+import Select from '../Wrappers/Select';
 import Button from '../Wrappers/Button';
-import { PlusOutlined } from '@ant-design/icons'
 import MultiSelect from "../Common/MultiSelect";
+import { toSentenceCase } from '../../utils';
+import Input from '../Wrappers/Input'
 
-export default function Form() {
-  const toSentenceCase = camelCase => {
-    if (camelCase) {
-        const result = camelCase.replace(/([A-Z])/g, ' $1');
-        return result[0].toUpperCase() + result.substring(1).toLowerCase();
-    }
-    return '';
-  };
-
+export default function Form({ questions, setQuestions }) {
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(1);
-  let [questions, setQuestions] = useState(Questions);
   let [currentAnswer, setCurrentAnswer] = useState("");
   let [currentSection, setCurrentSection] = useState("basicInfo");
+  let [lastEvent, setLastEvent] = useState("");
 
   useEffect(() => {
     // Change current questionIndex to the first question of current section
     // as soon as current section changes
-    let firstQuestionIdx = findFirstQuestionIdx();
-    setcurrentQuestionIdx(firstQuestionIdx);
+    if(lastEvent == "next") {
+      let firstQuestionIdx = findFirstQuestionIdx();
+      setcurrentQuestionIdx(firstQuestionIdx || currentQuestionIdx);
+    } else if (lastEvent == "prev") {
+      let lastQuestionIdx = findLastQuestionIndex();
+      setcurrentQuestionIdx(lastQuestionIdx || currentQuestionIdx);
+    }
   }, [currentSection]);
 
   const handleNext = () => {
@@ -33,14 +30,23 @@ export default function Form() {
       setcurrentQuestionIdx(currentQuestionIdx + 1);
     } else {
       let nextSection = findNextSection();
-      console.log("nextSection ", nextSection);
       setCurrentSection(nextSection);
     }
+    setLastEvent("next");
   };
+
+  const findPrevSection = () => {
+    let sections = Object.keys(questions);
+    let currentSectionIndex = sections.findIndex(
+      (section) => section === currentSection
+    );
+    let prevSection = sections[currentSectionIndex - 1];
+    return prevSection;
+  };
+
 
   const findNextSection = () => {
     let sections = Object.keys(questions);
-    console.log("sections ", sections);
     let currentSectionIndex = sections.findIndex(
       (section) => section === currentSection
     );
@@ -61,16 +67,24 @@ export default function Form() {
   };
 
   const handlePrev = (e) => {
-    setcurrentQuestionIdx(currentQuestionIdx - 1);
+    let firstQuestionIndex = findFirstQuestionIdx();
+    if (currentQuestionIdx > firstQuestionIndex) {
+      setcurrentQuestionIdx(currentQuestionIdx - 1);
+    } else {
+      let prevSection = findPrevSection();
+      setCurrentSection(prevSection);
+    }
+    setLastEvent("prev");
   };
 
-  const handleContinue = (e, sectionName, questionIndex) => {
+  const handleContinue = (e) => {
     e.preventDefault();
     let updatedQuestions = JSON.parse(JSON.stringify(questions));
-    let currentQuesArrIndex = questions[sectionName]["questions"].findIndex(
-      (q) => q.index === questionIndex
+    let currentQuesArrIndex = questions[currentSection]["questions"].findIndex(
+      (q) => q.index === currentQuestionIdx
     );
-    updatedQuestions[sectionName]["questions"][currentQuesArrIndex][
+
+    updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "answer"
     ] = currentAnswer;
     console.log("updatedQuestions", updatedQuestions);
@@ -87,102 +101,89 @@ export default function Form() {
   const handleSelectChange = (options) => {
     setCurrentAnswer(options.join(',').trim());
   }
-
+  
   return (
     <>
       <h1>Form</h1>
       <form>
-        <h4>{toSentenceCase(currentSection)}</h4>
+        <h3>{toSentenceCase(currentSection)}</h3>
         {/* Basic Info */}
-        {questions?.basicInfo?.questions?.map((question) => (
-          <QuestionWrapper
-            currentQuestionIdx={currentQuestionIdx}
-            questionIdx={question.index}
-            key={question.index}
-          >
-            <label> {question.question} </label>
-            {
-              question.type === 'text' &&
-              <Input
-                type="text"
-                name={question.index}
-                onChange={handleInputChange}
-                defaultValue={question.answer}
-              />
-            }
-
-            {
-              question.type === 'boolean' &&
-              <Input
-                type="radio"
-                // name={question.index}
-                // onChange={handleInputChange}
-                // defaultValue={question.answer}
-              />
-            }
-
-            {
-              question.type === 'select' &&
-              <Select
-                mode="multiple"
-                placeholder="Inserted are removed"
-                // value={selectedItems}
-                onChange={handleSelectChange}
-                style={{
-                  width: '100%',
-                }}
-                options={question.options.split(',').map((item) => ({
-                  value: item,
-                  label: item,
-                }))}
-              />
-            }
-
-            {
-              question.type === 'textSelect' &&
-                <MultiSelect 
-                  questions={questions}
-                  currentSection={currentSection}
-                  currentQuestionIdx={currentQuestionIdx}
-                  setQuestions={setQuestions}
-                  handleSelectChange={handleSelectChange}
-                  question={question}
-                />
-            } 
-
-            <Button
-              onClick={(e) => handleContinue(e, "basicInfo", question.index)}
-              disabled={!currentAnswer}
-            >
-              Continue
-            </Button>
-          </QuestionWrapper>
-        ))}
-
-        {/* Work Experience */}
-        {questions?.workExp?.questions?.map((question) => (
-          <QuestionWrapper
-            currentQuestionIdx={currentQuestionIdx}
-            questionIdx={question.index}
-            key={question.index}
-          >
-            <label> {question.question} </label>
-            <Input
-              type="text"
-              name={question.index}
-              onChange={handleInputChange}
-              defaultValue={question.answer}
-            />
-            <Button
-              onClick={(e) => handleContinue(e, "workExp", question.index)}
-            >
-              Continue
-            </Button>
-          </QuestionWrapper>
-        ))}
+        {
+          Object.keys(questions)?.map(section => {
+            return questions[section].questions?.map((question) => (
+              <QuestionWrapper
+                currentQuestionIdx={currentQuestionIdx}
+                questionIdx={question.index}
+                key={question.index}
+              >
+                <div>
+                  <label> {question.question} </label>
+                </div>
+                {
+                  question.type === 'text' &&
+                  <Input
+                    type="text"
+                    name={question.index}
+                    onBlur={handleInputChange}
+                    defaultValue={question.answer}
+                  />
+                }
+    
+                {
+                  question.type === 'boolean' &&
+                  <Input
+                    type="radio"
+                    // name={question.index}
+                    // onChange={handleInputChange}
+                    // defaultValue={question.answer}
+                  />
+                }
+    
+                {
+                  question.type === 'select' &&
+                  <Select
+                    mode="multiple"
+                    placeholder="Inserted are removed"
+                    // value={selectedItems}
+                    onChange={handleSelectChange}
+                    style={{
+                      width: '100%',
+                    }}
+                    options={question.options.split(',').map((item) => ({
+                      value: item,
+                      label: item,
+                    }))}
+                  />
+                }
+    
+                {
+                  question.type === 'textSelect' &&
+                    <MultiSelect 
+                      questions={questions}
+                      currentSection={currentSection}
+                      currentQuestionIdx={currentQuestionIdx}
+                      setQuestions={setQuestions}
+                      handleSelectChange={handleSelectChange}
+                      question={question}
+                    />
+                } 
+                <div>
+                  <Button
+                    onClick={(e) => handleContinue(e)}
+                    // disabled={!currentAnswer}
+                  >
+                    Continue
+                  </Button>
+                </div>
+              </QuestionWrapper>
+            ))
+          })
+        }
       </form>
-      <Button onClick={handlePrev}>Previous</Button>
-      <Button onClick={handleNext}>Next</Button>
+      <div>
+        <Button onClick={handlePrev} disabled={currentQuestionIdx<=1}>Previous</Button>
+        <Button onClick={handleNext}>Next</Button>
+      </div>
     </>
   );
 }
