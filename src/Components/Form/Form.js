@@ -1,10 +1,20 @@
 import Questions from "../../Questions";
 import { QuestionWrapper } from "../Wrappers/QuestionWrapper";
-import { useState, useEffect } from "react";
-import { Input } from 'antd';
+import { useState, useEffect, useRef } from "react";
+import { Input, Select, Space, Divider } from 'antd';
 import Button from '../Wrappers/Button';
+import { PlusOutlined } from '@ant-design/icons'
+import MultiSelect from "../Common/MultiSelect";
 
 export default function Form() {
+  const toSentenceCase = camelCase => {
+    if (camelCase) {
+        const result = camelCase.replace(/([A-Z])/g, ' $1');
+        return result[0].toUpperCase() + result.substring(1).toLowerCase();
+    }
+    return '';
+  };
+
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(1);
   let [questions, setQuestions] = useState(Questions);
   let [currentAnswer, setCurrentAnswer] = useState("");
@@ -74,12 +84,16 @@ export default function Form() {
     setCurrentAnswer(e.target.value);
   };
 
+  const handleSelectChange = (options) => {
+    setCurrentAnswer(options.join(',').trim());
+  }
+
   return (
     <>
       <h1>Form</h1>
       <form>
+        <h4>{toSentenceCase(currentSection)}</h4>
         {/* Basic Info */}
-        <h4>{questions.basicInfo.title}</h4>
         {questions?.basicInfo?.questions?.map((question) => (
           <QuestionWrapper
             currentQuestionIdx={currentQuestionIdx}
@@ -87,12 +101,55 @@ export default function Form() {
             key={question.index}
           >
             <label> {question.question} </label>
-            <Input
-              type="text"
-              name={question.index}
-              onChange={handleInputChange}
-              defaultValue={question.answer}
-            />
+            {
+              question.type === 'text' &&
+              <Input
+                type="text"
+                name={question.index}
+                onChange={handleInputChange}
+                defaultValue={question.answer}
+              />
+            }
+
+            {
+              question.type === 'boolean' &&
+              <Input
+                type="radio"
+                // name={question.index}
+                // onChange={handleInputChange}
+                // defaultValue={question.answer}
+              />
+            }
+
+            {
+              question.type === 'select' &&
+              <Select
+                mode="multiple"
+                placeholder="Inserted are removed"
+                // value={selectedItems}
+                onChange={handleSelectChange}
+                style={{
+                  width: '100%',
+                }}
+                options={question.options.split(',').map((item) => ({
+                  value: item,
+                  label: item,
+                }))}
+              />
+            }
+
+            {
+              question.type === 'textSelect' &&
+                <MultiSelect 
+                  questions={questions}
+                  currentSection={currentSection}
+                  currentQuestionIdx={currentQuestionIdx}
+                  setQuestions={setQuestions}
+                  handleSelectChange={handleSelectChange}
+                  question={question}
+                />
+            } 
+
             <Button
               onClick={(e) => handleContinue(e, "basicInfo", question.index)}
               disabled={!currentAnswer}
@@ -103,7 +160,6 @@ export default function Form() {
         ))}
 
         {/* Work Experience */}
-        <h4>{questions.workExp.title}</h4>
         {questions?.workExp?.questions?.map((question) => (
           <QuestionWrapper
             currentQuestionIdx={currentQuestionIdx}

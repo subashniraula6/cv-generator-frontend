@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Button as AntButton } from 'antd';
 
 const Button = styled(AntButton)`
-  margin: 10px 0;
+  margin: 10px 2px;
 `
 
 // const Button = () => {

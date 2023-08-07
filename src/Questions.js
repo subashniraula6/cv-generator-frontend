@@ -117,7 +117,7 @@ const Questions = {
         }
       ]
     },
-    workExp: {
+    workExperience: {
       title: "Work Experience",
       questions: [
         {
