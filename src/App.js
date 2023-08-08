@@ -1,6 +1,8 @@
 import './App.css';
 import Form from './Components/Form/Form';
 import Resume from './Components/Resume/Resume';
+import Resume2 from './Components/Resume/Resume2/Resume2';
+import Resume3 from './Components/Resume/Resume3/Resume3';
 import 'antd/dist/reset.css';
 import { Row, Col, Space } from 'antd';
 import { useState } from 'react';
@@ -10,7 +12,7 @@ import { ResumeWrapper, FormWrapper } from './Components/Wrappers/Wrappers'
 function App() {
   let [questions, setQuestions] = useState(Questions);
   return (
-    <div className='flex-container'>
+    <div>
           <FormWrapper>
             <Form 
               questions={questions} 
@@ -23,6 +25,14 @@ function App() {
               questions={questions} 
               setQuestions={setQuestions}
             />    
+          </ResumeWrapper>
+
+          <ResumeWrapper>
+            <Resume2 />
+          </ResumeWrapper>
+          
+          <ResumeWrapper>
+            <Resume3 />
           </ResumeWrapper>
     </div>
   );

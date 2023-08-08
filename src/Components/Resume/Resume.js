@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useRef, useState } from "react";
 import "./Resume.module.css";
 import { Layout, Space, Row, Col, Typography } from 'antd';
 import {MailOutlined} from '@ant-design/icons'
-const { Sider } = Layout;
+const { Sider, Content } = Layout;
 
 const Resume = forwardRef(({questions, setQuestions}, ref) => {
   const siderStyle = {
@@ -11,82 +11,119 @@ const Resume = forwardRef(({questions, setQuestions}, ref) => {
     padding: '30px'
   };
 
-  const sectionHeadingStyle = {
-    fontSize: '20px'
+  const contentStyle = {
   };
   
   return (
-    <div>
+    <Layout>
       <Sider style={siderStyle} width={280}>
         <div className="info-header">
           <div className="name-style">
             <Typography.Title level={2}>{questions?.basicInfo?.questions[0].answer}</Typography.Title>
-            {/* <Typography.Title level={4}>{resumeSelector?.basicInfo?.jobTitle?.value}</Typography.Title> */}
+            <Typography.Title level={4}>{questions?.basicInfo?.questions[1].answer}</Typography.Title>
           </div>
-          {/* <div className="contact-info">
-            <small>
+          <div className="contact-info">
+            {/* <small>
               <MailOutlined />
               <label className="contact-label">{resumeSelector?.basicInfo?.email?.value}</label>
             </small>
             <p>{resumeSelector?.basicInfo?.linkedIn?.value}</p>
             <p>{resumeSelector?.basicInfo?.github?.value}</p>
-            <p>{resumeSelector?.basicInfo?.email?.value}</p>
-            <p>{resumeSelector?.basicInfo?.phone?.value}</p>
-          </div> */}
+            <p>{resumeSelector?.basicInfo?.email?.value}</p> */}
+            <p>{questions?.basicInfo?.questions.find(q => q.index===6)?.answer}</p>
+          </div>
         </div>
       </Sider>
-      {/* <Layout>
-      <Space direction="vertical" style={{ padding: '50px' }}>
-        <div className="info-profile">
-          <Typography.Title level={4}>Profile</Typography.Title>
+      <Content style={contentStyle}>
+      <div style={{ padding: '40px' }}>
+      <div className="info-profile">
+        <h3>Profile Summary</h3>
           <div className="profile-content">
             <p>
-            {resumeSelector?.basicInfo?.summary?.value}
+            {questions?.basicInfo?.questions.find(q => q.index===18)?.answer}
             </p>
           </div>
         </div>
         <hr />
-        <div className="info-skills">
-        <Typography.Title level={4}>Skill's</Typography.Title>
-          <Space>
-            <div className="skills-name">Python</div>
-            <div className="skills-name">Java</div>
-            <div className="skills-name">Django</div>
-            <div className="skills-name">HTML</div>
-            <div className="skills-name">CSS</div>
-            <div className="skills-name">JavaScript</div>
-            <div className="skills-name">Selenium</div>
-          </Space>
-        </div>
-        <hr />
-        <div className="info-experience">
-          <Typography.Title level={4}>Work Experience</Typography.Title>
+        <div>
           {
-            resumeSelector?.workExp?.map((workExp, idx) => (
-              <div className="experience-content" key={idx}>
-            <div className="experience-content more-info">
-              <Row justify={'space-between'}>
-                <Col>
-                  <span>{workExp?.jobTitle?.value}</span>
-                  <span> - </span>
-                  <span>{workExp?.companyName?.value}</span>
-                  <span>{workExp?.location?.value}</span>
-                </Col>
-                <Col>
-                  <span>{workExp?.startDate?.value} - {workExp?.endDate?.value}</span>
-                </Col>
-              </Row>
-              <div className="work-content">
-                <p>{workExp?.description?.value}</p>
-              </div>
-            </div>
-          </div>
-          ))
+            // questions?.basicInfo?.questions[7].answer &&
+            <>
+              <h3>Skill's</h3>
+              <Space>
+              {
+                questions?.basicInfo?.questions.find(q => q.index===8)?.answer.split(',').map(skill => (
+                  <span className="skills-name" style={{whiteSpace: 'nowrap'}}>&bull; {skill}</span>
+                ))
+              }
+              </Space>
+            </>
+          }
+        </div>
+        <div>
+        {
+            // questions?.basicInfo?.questions[8].answer &&
+            <>
+              <h3>Languages</h3>
+              <Space>
+              {
+                questions?.basicInfo?.questions.find(q => q.index===9)?.answer.split(',').map(language => (
+                  <span className="skills-name" style={{whiteSpace: 'nowrap'}}>&bull; {language}</span>
+                ))
+              }
+              </Space>
+            </>
+        }
+        </div>
+        <div>
+        {
+            // questions?.basicInfo?.questions[8].answer &&
+            <>
+              <h3>Interests</h3>
+              <Space>
+              {
+                questions?.basicInfo?.questions.find(q => q.index===12)?.answer.split(',').map(interest => (
+                  <span className="skills-name" style={{whiteSpace: 'nowrap'}}>&bull; {interest}</span>
+                ))
+              }
+              </Space>
+            </>
         }
         </div>
         <hr />
+        {
+          // questions?.workExperience?.questions &&
+          // <>
+          //   <h3>Work Experience</h3>
+          //   <div className="info-experience">
+          //     {
+          //       // resumeSelector?.workExp?.map((workExp, idx) => (
+          //       <div className="experience-content" key={idx}>
+          //         <div className="experience-content more-info">
+          //           <Row justify={'space-between'}>
+          //             <Col>
+          //               <span>{questions?.workExperience?.questions[0].answer}</span>
+          //               <span> - </span>
+          //               <span>{questions?.workExperience?.questions[0].answer}</span>
+          //               <span>{workExp?.location?.value}</span>
+          //             </Col>
+          //             <Col>
+          //               <span>{workExp?.startDate?.value} - {workExp?.endDate?.value}</span>
+          //             </Col>
+          //           </Row>
+          //           <div className="work-content">
+          //             <p>{workExp?.description?.value}</p>
+          //           </div>
+          //         </div>
+          //       </div>
+          //     // ))
+          //   }
+          //   </div>
+          // </>
+        }
+        <hr />
 
-        <div className="info-project">
+      {/* <div className="info-project">
           <Typography.Title level={4}>Projects</Typography.Title>
           <div className="project-content">
             <Space wrap="true">
@@ -163,10 +200,10 @@ const Resume = forwardRef(({questions, setQuestions}, ref) => {
               }
             </Space>
           </div>
-        </div>
-      </Space>
-      </Layout> */}
-    </div>
+        </div> */}
+      </div>
+      </Content>
+    </Layout>
   );
 });
 

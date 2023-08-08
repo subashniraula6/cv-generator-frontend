@@ -161,6 +161,7 @@ padding-right: 5px;
 span {
   color: rgb(102, 103, 102);
   font-size: 14px;
+  display: inline;
 }
 
 .contact-label {

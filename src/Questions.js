@@ -10,7 +10,7 @@ const Questions = {
         },
         {
           index: 2,
-          question: "What is your age in years?",
+          question: "What is your job title?",
           type: "text",
           answer: ""
         },
@@ -114,6 +114,19 @@ const Questions = {
           type: "textSelect",
           options: "Summary for a specific job, General summary",
           answer: ""
+        },
+        {
+          index: 18,
+          question: "Wanna include some summary?.",
+          type: "text",
+          answer: "sjjssfbsdkfksd sjsbfbfkjsf asknksjfb jdkjfbsdkjf askjbskfbak akjbaks"
+        },
+        {
+          index: 19,
+          question: "Which position should you apply for?.",
+          type: "textSelect",
+          options: "Summary for a specific job, General summary",
+          answer: ""
         }
       ]
     },
@@ -122,7 +135,8 @@ const Questions = {
       questions: [
         {
           index: 1000,
-          question: "What is your company title?",
+          question: "Enter your professional title",
+          hint: "Here you can either enter your professional title if you have one, for example \"Authorised accountant\". You can also write something more creative, for example \"Problem solver of rank\".",
           type: "text",
           answer: ""
         },

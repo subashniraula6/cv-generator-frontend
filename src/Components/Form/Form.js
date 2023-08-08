@@ -169,6 +169,7 @@ export default function Form({ questions, setQuestions }) {
                 } 
                 <div>
                   <Button
+                  style={{ borderRadius: '2px 0 0 2px' }}
                     onClick={(e) => handleContinue(e)}
                     // disabled={!currentAnswer}
                   >
