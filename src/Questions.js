@@ -89,7 +89,7 @@ const Questions = {
         },
         {
           index: 14,
-          question: "What prizes or awards do you want to include in your CV?",
+          question: "What prizes or awards do you want to include in your CV ?",
           type: "textSelect",
           options: "Teacher of the year, Salesperson of the year, Gold at the Swedish Content Awards, Aret's newcomer",
           answer: ""
@@ -103,7 +103,7 @@ const Questions = {
         },
         {
           index: 16,
-          question: "What are your main personal qualities?",
+          question: "What are your main personal qualities ?",
           type: "textSelect",
           options: "Ambition, Analytical, Responsible, Driven, Efficient, Committed, Flexible, Taking initiative, Innovative, Communicative, Creative, Solution-focused, Methodical, Accurate, Curious, Organized, Prestige loss, Professional, Relationship building, Results oriented, Service oriented, Self-propelled, Socially competent, Strategic, Convincing",          
           answer: ""
@@ -117,9 +117,9 @@ const Questions = {
         },
         {
           index: 18,
-          question: "Wanna include some summary?.",
+          question: "Wanna include some summary ?",
           type: "text",
-          answer: "sjjssfbsdkfksd sjsbfbfkjsf asknksjfb jdkjfbsdkjf askjbskfbak akjbaks"
+          answer: "Here you can either enter your professional title if you have one, for example \"Authorised accountant\". You can also write something more creative, for example \"Problem solver of rank\"."
         },
         {
           index: 19,
@@ -135,14 +135,14 @@ const Questions = {
       questions: [
         {
           index: 1000,
-          question: "Enter your professional title",
+          question: "Where did you last work? Example: IBM",
           hint: "Here you can either enter your professional title if you have one, for example \"Authorised accountant\". You can also write something more creative, for example \"Problem solver of rank\".",
           type: "text",
           answer: ""
         },
         {
           index: 1001,
-          question: "What is your company address?",
+          question: "What is your company address ?",
           type: "text",
           answer: ""
         },
@@ -178,28 +178,40 @@ const Questions = {
         },
         {
           index: 1007,
-          question: "Your title/position at Microsoft: Type any text. You don't need to scroll through the list.",
+          question: "When did you start working as a Software Engineer at Wolfmatrix? Write either just the year (2023) or month and year (April 2023). Preferably then use the same format on the remaining date questions. Please select 1 option(s).",
           type: "text",
           answer: ""
         },
         {
           index: 1008,
-          question: "When did you stop working as a database administrator at Microsoft? Write either just the year (2023) or month and year (April 2023). Preferably then use the same format on the remaining date questions.",
+          question: "Your title/position at Microsoft: Type any text. You don't need to scroll through the list.",
           type: "text",
           answer: ""
         },
         {
           index: 1009,
-          question: "Do you want to add information about something important you did or achieved in the role of database administrator at Microsoft?",
+          question: "When did you stop working as a database administrator at Microsoft? Write either just the year (2023) or month and year (April 2023). Preferably then use the same format on the remaining date questions.",
           type: "text",
           answer: ""
         },
         {
           index: 1010,
+          question: "Do you want to add information about something important you did or achieved in the role of database administrator at Microsoft?",
+          type: "boolean",
+          answer: ""
+        },
+        {
+          index: 1011,
           question: "Describe the most important thing you did or achieved in the role of database administrator. You must answer this question in English.",
           type: "text",
           answer: ""
-        }
+        },
+        {
+          index: 1012,
+          question: "What do you want to do now?",
+          type: "Select",
+          answer: "Add a previous job, Proceed to next category"
+        },
       ]
     },
     education: {

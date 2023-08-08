@@ -182,8 +182,8 @@ export default function Form({ questions, setQuestions }) {
         }
       </form>
       <div>
-        <Button onClick={handlePrev} disabled={currentQuestionIdx<=1}>Previous</Button>
-        <Button onClick={handleNext}>Next</Button>
+        <Button style={{ borderRadius: '2px 0 0 2px' }} onClick={handlePrev} disabled={currentQuestionIdx<=1}>Previous</Button>
+        <Button style={{ borderRadius: '2px 0 0 2px' }} onClick={handleNext}>Next</Button>
       </div>
     </>
   );
