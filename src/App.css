@@ -40,4 +40,6 @@
 .flex-container {
   padding: 20px;  
   display: flex;
+  background: white;
 }
+
