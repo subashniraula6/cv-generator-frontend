@@ -59,14 +59,16 @@ const Resume = forwardRef(({ questions, setQuestions }, ref) => {
                   {questions?.basicInfo?.questions
                     .find((q) => q.index === 8)
                     ?.answer.split(",")
-                    .map((skill) => (
-                      <span
-                        className="skills-name"
-                        style={{ whiteSpace: "nowrap" }}
-                      >
-                        &bull; {skill}
-                      </span>
-                    ))}
+                    .map((skill) => {
+                      return skill ? (
+                        <span
+                          className="skills-name"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          &bull; {skill}
+                        </span>
+                      ) : null;
+                    })}
                 </Space>
               </>
             }
@@ -80,14 +82,16 @@ const Resume = forwardRef(({ questions, setQuestions }, ref) => {
                   {questions?.basicInfo?.questions
                     .find((q) => q.index === 9)
                     ?.answer.split(",")
-                    .map((language) => (
-                      <span
-                        className="skills-name"
-                        style={{ whiteSpace: "nowrap" }}
-                      >
-                        &bull; {language}
-                      </span>
-                    ))}
+                    .map((language) => {
+                      return language ? (
+                        <span
+                          className="skills-name"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          &bull; {language}
+                        </span>
+                      ) : null;
+                    })}
                 </Space>
               </>
             }
@@ -101,14 +105,16 @@ const Resume = forwardRef(({ questions, setQuestions }, ref) => {
                   {questions?.basicInfo?.questions
                     .find((q) => q.index === 12)
                     ?.answer.split(",")
-                    .map((interest) => (
-                      <span
-                        className="skills-name"
-                        style={{ whiteSpace: "nowrap" }}
-                      >
-                        &bull; {interest}
-                      </span>
-                    ))}
+                    .map((interest) => {
+                      return interest ? (
+                        <span
+                          className="skills-name"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          &bull; {interest}
+                        </span>
+                      ) : null;
+                    })}
                 </Space>
               </>
             }
@@ -137,14 +143,16 @@ const Resume = forwardRef(({ questions, setQuestions }, ref) => {
                   {questions?.basicInfo?.questions
                     .find((q) => q.index === 13)
                     ?.answer.split(",")
-                    .map((certificate) => (
-                      <span
-                        className="skills-name"
-                        style={{ whiteSpace: "nowrap" }}
-                      >
-                        &bull; {certificate}
-                      </span>
-                    ))}
+                    .map((certificate) => {
+                      return certificate ? (
+                        <span
+                          className="skills-name"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          &bull; {certificate}
+                        </span>
+                      ) : null;
+                    })}
                 </Space>
               </>
             }

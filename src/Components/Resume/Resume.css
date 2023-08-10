@@ -5,6 +5,7 @@
 
 .content {
   padding: 0;
+  min-width: 500px;
 }
 
 ._container {
