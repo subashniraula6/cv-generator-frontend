@@ -121,75 +121,78 @@ const Questions = {
         ]
       },
       {
-        category: "Work Experience Current",
+        category: "Work Experience",
         questions: [
           {
+            condition: null,
             index: 500,
             question: "Are you currently working?",
             type: "boolean",
             answer:"",
-            condition:["","exit"]
           },
           {
+            condition: [500,"Yes"],
             index: 501,
             question: "Name of the company you are working at?",
             type: "string",
             answer:""
           },
           {
+            condition: [500,"Yes"],
             index: 502,
             question: "What is your current title?",
             type: "string",
             answer:""
           },
           {
+            condition: [500,"Yes"],
             index: 503,
             question: "When did you join the company?",
             type: "date",
             answer: ""
           },
           {
+            condition: [500,"Yes"],
             index: 504,
             question: "What are your Achievements on your company?",
             type: "string",
             answer: ""
-          }
-        ]
-        },
-        {
-          category: "Work Experience Past",
-          questions:[
-        
+          },
           {
+            condition: null,
             index: 550,
             question: "Do you want to add more experiences?",
             type: "string",
-            answer: "",
-            condition: ["","exit"]
+            answer: ""
           },
           {
+            condition: [550,"Yes"],
             index: 551,
             question: "Where did you previously work at?",
             type: "string",
             answer: ""
           },
           {
+            condition: [550,"Yes"],
             index: 552,
             question: "When did you join the company?",
             type: "date",
             answer: ""
           },
           {
+            condition: [550,"Yes"],
             index: 553,
             question: "When did you leave the company?",
             type: "date",
             answer: ""
           },
           {
+            condition: [550,"Yes"],
             index: 554,
             question: "What were you achievements in that company?",
             type: "string",
             answer: "",
+            goto: 550
           }
         ]
       },
@@ -229,27 +232,8 @@ const Questions = {
         ]
       },
       {
-        category: "Education Past",
-        questions:[
-          {
-            index:1500,
-            question: "Are you currently studying?",
-            type: "text",
-            answer: "",
-            condition: ["", "exit"]
-          }
-        ]
-      },
-      {
-        category: "Education Current",
+        category: "Education",
         questions: [
-          {
-            index:2000,
-            question: "Are you currently stuying?",
-            type: "boolean",
-            answer: "",
-            condition: ["", "exit"]
-          },
           {
             index: 2001,
             question: "What kind of degree will you have when you finish your studies?",
@@ -271,13 +255,7 @@ const Questions = {
           {
             index: 2004,
             question: "When did you start studying at Beckmans School of Design?",
-            type: "date",
-            answer: ""
-          },
-          {
-            index: 2005,
-            question: "When did you finish your study at ${schoolName}?",
-            type: "date",
+            type: "text",
             answer: ""
           }
         ]
