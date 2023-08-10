@@ -4,10 +4,10 @@ import { Layout, Space, Row, Col, Typography } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 const { Sider, Content } = Layout;
 
-const Resume = forwardRef(({ questions, setQuestions }, ref) => {
+const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
   return (
     <div className="_container">
-      <div className="sider">
+      <div className="sider" style={{backgroundColor: activeColor}}>
         <div className="info-header">
           <div className="name-style">
             <h2>
