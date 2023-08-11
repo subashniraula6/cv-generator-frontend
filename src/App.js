@@ -10,24 +10,40 @@ import Questions from "./Questions";
 import { ResumeWrapper, FormWrapper } from './Components/Wrappers/Wrappers'
 import Resumes from './Components/Resumes/Resumes'
 
+import { BrowserRouter as Router, Switch, Route, Routes, BrowserRouter } from 'react-router-dom';
+import Login from './Components/Login/Login';
+import Signup from './Components/Login/Signup';
+import ForgotPassword from './Components/Login/ForgotPassword';
+
 function App() {
   let [questions, setQuestions] = useState(Questions);
   return (
-    <div className='flex-container'>
-          <FormWrapper>
-            <Form 
-              questions={questions} 
-              setQuestions={setQuestions}
-            />
-          </FormWrapper>
+    // <div className='flex-container'>
+    //       <FormWrapper>
+    //         <Form 
+    //           questions={questions} 
+    //           setQuestions={setQuestions}
+    //         />
+    //       </FormWrapper>
 
-          <Resumes 
-            questions={questions} 
-            setQuestions={setQuestions} 
-          />
+    //       <Resumes 
+    //         questions={questions} 
+    //         setQuestions={setQuestions} 
+    //       />
       
           
-    </div>
+    // </div>
+    <BrowserRouter>
+      {/* <Login></Login> */}
+      <Routes>
+        <Route path='/'></Route>
+        <Route path='/login' element={<Login />}></Route>
+        <Route path='/signup' element={<Signup />}></Route>
+        <Route path='/forgot-password' element={<ForgotPassword />}></Route>
+      </Routes>
+      {/* <Signup></Signup> */}    
+      
+    </BrowserRouter>
   );
 }
 
