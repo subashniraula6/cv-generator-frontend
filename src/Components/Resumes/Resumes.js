@@ -29,7 +29,7 @@ function Resumes({ questions, setQuestions }) {
         <ReactToPrint
           trigger={() => {
             return (
-              <Button type="primary">
+              <Button type="primary" style={{ borderRadius: '2px 0 0 2px' }}>
                 <DownloadOutlined />
                 Download
               </Button>
@@ -38,9 +38,8 @@ function Resumes({ questions, setQuestions }) {
           content={() => resumeRef.current}
         />
       </div>
-      <ResumeWrapper>
+      <ResumeWrapper ref={resumeRef}>
         <Resume
-          ref={resumeRef}
           questions={questions}
           setQuestions={setQuestions}
           activeColor={activeColor}

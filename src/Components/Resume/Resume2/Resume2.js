@@ -1,6 +1,6 @@
 import "./Resume2.css";
 
-export default function Resume2() {
+export default function Resume2({ questions, setQuestions, activeColor }) {
   return (
     <>
       <link
@@ -11,8 +11,14 @@ export default function Resume2() {
       <div className="container">
         <div className="header">
           <div className="full-name">
-            <span className="first-name">John</span>
-            <span className="last-name">Doe</span>
+            <span className="first-name">{
+                questions?.basicInfo?.questions.find((q) => q.index === 1)
+                  ?.answer
+              }</span>
+            <span className="last-name">{
+                " " + questions?.basicInfo?.questions.find((q) => q.index === 2)
+                  ?.answer
+              }</span>
           </div>
           <div className="contact-info">
             <span className="email">Email: </span>

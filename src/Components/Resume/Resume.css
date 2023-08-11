@@ -27,6 +27,13 @@ hr {
   );
 }
 
+.header .first-name {
+  font-weight: 700;
+}
+.header .last-name {
+  font-weight: 300;
+}
+
 .info {
 }
 
@@ -40,7 +47,7 @@ hr {
 .profile,
 .experience,
 .education {
-  padding: 10px;
+  padding: 10px 0;
 }
 .name-style .bold {
   font-size: 25px;
@@ -90,4 +97,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .side-menu {
   padding: 20px 0;
+  position: relative;
+}
+.side-menu:hover {
+  background: #dad7d7;
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
 }

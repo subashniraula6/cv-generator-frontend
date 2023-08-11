@@ -1,27 +1,35 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import "./Resume.css";
-import { Layout, Space, Row, Col, Typography } from "antd";
-import { MailOutlined } from "@ant-design/icons";
+import { Layout, Space, Row, Col, Typography, Button } from "antd";
+import { CloseOutlined, DeleteOutlined, MailOutlined } from "@ant-design/icons";
+
 const { Sider, Content } = Layout;
 
 const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
   return (
     <div className="_container">
-      <div className="sider" style={{backgroundColor: activeColor}}>
+      <div className="sider" style={{ backgroundColor: activeColor }}>
         <div className="info-header">
           <div className="name-style">
             <h2>
-              {
-                questions?.basicInfo?.questions.find((q) => q.index === 1)
-                  ?.answer
-              }
+              <span className="first-name">
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 1)
+                    ?.answer
+                }
+              </span>
+              <span className="last-name">
+                {" " +
+                  questions?.basicInfo?.questions.find((q) => q.index === 2)
+                    ?.answer}
+              </span>
             </h2>
             <h4>
-              {(questions?.basicInfo?.questions.find((q) => q.index === 2)
+              {(questions?.basicInfo?.questions.find((q) => q.index === 3)
                 ?.answer
                 ? "- "
                 : "") +
-                questions?.basicInfo?.questions.find((q) => q.index === 2)
+                questions?.basicInfo?.questions.find((q) => q.index === 3)
                   ?.answer}
             </h4>
           </div>
@@ -45,34 +53,36 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             </small>
             <p>
               {
-                questions?.basicInfo?.questions.find((q) => q.index === 6)
+                questions?.basicInfo?.questions.find((q) => q.index === 7)
                   ?.answer
               }
             </p>
           </div>
-          <div className="side-menu">
-            {
-              // questions?.basicInfo?.questions[7].answer &&
-              <>
-                <h4>Skill's</h4>
-                <Space direction="vertical">
-                  {questions?.basicInfo?.questions
-                    .find((q) => q.index === 8)
-                    ?.answer.split(",")
-                    .map((skill) => {
-                      return skill ? (
-                        <span
-                          className="skills-name"
-                          style={{ whiteSpace: "nowrap" }}
-                        >
-                          &bull; {skill}
-                        </span>
-                      ) : null;
-                    })}
-                </Space>
-              </>
-            }
-          </div>
+          {/* <Popover content={<DeleteOutlined />}>
+            <div className="side-menu">
+              {
+                // questions?.basicInfo?.questions[7].answer &&
+                <>
+                  <h4>Skill's</h4>
+                  <Space direction="vertical">
+                    {questions?.basicInfo?.questions
+                      .find((q) => q.index === 9)
+                      ?.answer.split(",")
+                      .map((skill) => {
+                        return skill ? (
+                          <span
+                            className="skills-name"
+                            style={{ whiteSpace: "nowrap" }}
+                          >
+                            &bull; {skill}
+                          </span>
+                        ) : null;
+                      })}
+                  </Space>
+                </>
+              }
+            </div>
+          </Popover> */}
           <div className="side-menu">
             {
               // questions?.basicInfo?.questions[8].answer &&
@@ -80,7 +90,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 <h4>Language skills</h4>
                 <Space direction="vertical">
                   {questions?.basicInfo?.questions
-                    .find((q) => q.index === 9)
+                    .find((q) => q.index === 10)
                     ?.answer.split(",")
                     .map((language) => {
                       return language ? (
@@ -103,7 +113,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 <h4>Interests</h4>
                 <Space direction="vertical">
                   {questions?.basicInfo?.questions
-                    .find((q) => q.index === 12)
+                    .find((q) => q.index === 11)
                     ?.answer.split(",")
                     .map((interest) => {
                       return interest ? (
@@ -128,7 +138,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             <div className="profile-content">
               <p>
                 {
-                  questions?.basicInfo?.questions.find((q) => q.index === 18)
+                  questions?.basicInfo?.questions.find((q) => q.index === 19)
                     ?.answer
                 }
               </p>
@@ -141,7 +151,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 <h4>Certificates</h4>
                 <Space>
                   {questions?.basicInfo?.questions
-                    .find((q) => q.index === 13)
+                    .find((q) => q.index === 14)
                     ?.answer.split(",")
                     .map((certificate) => {
                       return certificate ? (
@@ -314,14 +324,16 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 {questions?.basicInfo?.questions
                   .find((q) => q.index === 14)
                   ?.answer?.split(",")
-                  .map((awards) => (
-                    <span
-                      className="skills-name"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
-                      &bull; {awards}
-                    </span>
-                  ))}
+                  .map((award) => {
+                    return award ? (
+                      <span
+                        className="skills-name"
+                        style={{ whiteSpace: "nowrap" }}
+                      >
+                        &bull; {award}
+                      </span>
+                    ) : null;
+                  })}
               </Space>
             </div>
           </div>
