@@ -27,11 +27,18 @@ hr {
   );
 }
 
-.header .first-name {
+.first-name {
   font-weight: 700;
+  font-size: 22px;
+  padding: 0;
+  display: inline;
 }
-.header .last-name {
-  font-weight: 300;
+
+.last-name {
+  font-weight: 400;
+  font-size: 22px;
+  padding: 0;
+  display: inline;
 }
 
 .info {
@@ -41,14 +48,17 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 35px;
+  padding: 25px;
 }
+
 .name-style,
 .profile,
 .experience,
 .education {
   padding: 10px 0;
+  width: 100%;
 }
+
 .name-style .bold {
   font-size: 25px;
   font-weight: 900;
@@ -95,23 +105,28 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700 !important;
 }
 
-.side-menu {
-  padding: 20px 0;
+.section-wrapper {
+  padding: 0;
+  width: 100%;
   position: relative;
 }
-.side-menu:hover {
+.section-wrapper:hover {
   background: #dad7d7;
   -webkit-filter: invert(100%);
   filter: invert(100%);
+  background-color: rgb(255,255,255); /* Fallback color */
+  background-color: rgba(255,255,255,0.6); /* Black w/ opacity */
 }
 .manage-section {
   display: none;
   position: absolute;
+  width: 100%;
+  text-align: center;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.side-menu:hover .manage-section {
+.section-wrapper:hover .manage-section {
   display: inline;
 }
 

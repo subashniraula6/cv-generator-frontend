@@ -5,6 +5,8 @@ import { CloseOutlined, DeleteOutlined, MailOutlined } from "@ant-design/icons";
 import CustomModal from "../Common/CustomModal";
 import PopConfirm from "../Common/PopConfirm";
 import Field from "../Common/Field";
+import UpdateResume from "../Common/UpdateResume";
+import UpdateResumeWrapper from "../Wrappers/UpdateResumeWrapper";
 
 const { Sider, Content } = Layout;
 
@@ -16,7 +18,17 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
     setTempQuestions(questions);
   }, [questions]);
 
-  function handleInputChange(e, section, questionIdx) {}
+  function handleInputChange(e, section, questionIdx) {
+    setTempQuestions({
+      ...tempQuestions,
+      [section]: {
+        ...tempQuestions[section],
+        questions: tempQuestions[section]["questions"].map((q) =>
+          q.index === questionIdx ? { ...q, answer: e.target.value } : q
+        ),
+      },
+    });
+  }
 
   function handleSelectChange(options, section, questionIdx) {
     let answerStr = options.join(",").trim();
@@ -32,7 +44,6 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
   }
 
   function handleDeleteSection(sectionName) {
-    console.log("Handle delete", sectionName);
     // set removed flag
     setQuestions({
       ...questions,
@@ -45,97 +56,102 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
   }
 
   function handleCancelSection() {
-    setFieldKey(fieldKey+1);
+    setTempQuestions(questions);
+    setFieldKey(fieldKey + 1);
   }
 
-  function addDropdownOption(e) {}
+  function addDropdownOption(option, section, questionIdx) {
+    // add question options
+    let updatedQuestions = JSON.parse(JSON.stringify(tempQuestions));
+    let quesArrIndex = questions[section]["questions"].findIndex(
+      (q) => q.index === questionIdx
+    );
+
+    updatedQuestions[section]["questions"][quesArrIndex]["options"] +=
+      ", " + option;
+    // Update DB
+    // Fetch DB and set questions state
+    setQuestions(updatedQuestions);
+  }
   return (
     <div className="_container">
       <div className="sider" style={{ backgroundColor: activeColor }}>
         <div className="info-header">
           <div className="name-style">
-            <h2>
-              <span className="first-name">
-                {
-                  questions?.basicInfo?.questions.find((q) => q.index === 1)
-                    ?.answer
-                }
-              </span>
-              <span className="last-name">
-                {" " +
-                  questions?.basicInfo?.questions.find((q) => q.index === 2)
-                    ?.answer}
-              </span>
-            </h2>
-            <h4>
-              {(questions?.basicInfo?.questions.find((q) => q.index === 3)
-                ?.answer
-                ? "- "
-                : "") +
-                questions?.basicInfo?.questions.find((q) => q.index === 3)
-                  ?.answer}
-            </h4>
-          </div>
-          <div className="contact-info">
-            <small>
-              <label className="contact-label">
-                {/* {
-                  <>
-                    {questions?.basicInfo?.questions.find((q) => q.index === 6)
-                      .answer && <MailOutlined />}
-                    <p>
-                      {
-                        questions?.basicInfo?.questions.find(
-                          (q) => q.index === 6
-                        )?.answer
-                      }
-                    </p>
-                  </>
-                } */}
-              </label>
-            </small>
-            <p>
+            <UpdateResumeWrapper className="first-name">
+              <UpdateResume
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={1}
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              {questions?.basicInfo?.questions.find((q) => q.index === 1)
+                ?.answer.length === 0 && "FIRSTNAME"}
               {
-                questions?.basicInfo?.questions.find((q) => q.index === 7)
+                questions?.basicInfo?.questions.find((q) => q.index === 1)
                   ?.answer
               }
-            </p>
+            </UpdateResumeWrapper>
+            <UpdateResumeWrapper className="last-name">
+              <UpdateResume
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={2}
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              {questions?.basicInfo?.questions.find((q) => q.index === 2)
+                ?.answer.length === 0 && "LASTNAME"}
+              {" " +
+                questions?.basicInfo?.questions.find((q) => q.index === 2)
+                  ?.answer}
+            </UpdateResumeWrapper>
+            <UpdateResumeWrapper className="title">
+              <UpdateResume
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={3}
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <h4>
+                {questions?.basicInfo?.questions.find((q) => q.index === 3)
+                  ?.answer.length === 0 && "TITLE"}
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 3)
+                    ?.answer
+                }
+              </h4>
+            </UpdateResumeWrapper>
           </div>
-          <div className="side-menu">
-            <div className="manage-section">
-              <span className="custom-modal">
-                <CustomModal
-                  handleEditSection={(e) => handleEditSection()}
-                  handleCancelSection={(e) => handleCancelSection()}
-                  title="Edit Skill's"
-                >
-                  {questions?.basicInfo?.questions.find(
-                    (q) => q.index === 9
-                  ) && (
-                    <Field
-                      key={fieldKey}
-                      question={questions?.basicInfo?.questions.find(
-                        (q) => q.index === 9
-                      )}
-                      handleInputChange={(e) =>
-                        handleInputChange(e, "basicInfo", 9)
-                      }
-                      handleSelectChange={(e) =>
-                        handleSelectChange(e, "basicInfo", 9)
-                      }
-                      addDropdownOption={(e) =>
-                        addDropdownOption(e, "basicInfo", 9)
-                      }
-                    />
-                  )}
-                </CustomModal>
-              </span>
-              <span className="pop-confirm">
-                <PopConfirm
-                  confirm={(e) => handleDeleteSection("basicInfo")}
-                />
-              </span>
-            </div>
+          <div className="contact-info">
+            <UpdateResumeWrapper className="phone">
+              <UpdateResume
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={7}
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <p>
+                {questions?.basicInfo?.questions.find((q) => q.index === 7)
+                  ?.answer.length === 0 && "CONTACT"}
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 7)
+                    ?.answer
+                }
+              </p>
+            </UpdateResumeWrapper>
+          </div>
+          <UpdateResumeWrapper className="skill">
+            <UpdateResume
+              key={JSON.stringify(questions)}
+              section="basicInfo"
+              index={9}
+              questions={questions}
+              setQuestions={setQuestions}
+            />
             {
               // questions?.basicInfo?.questions[7].answer &&
               <>
@@ -157,8 +173,15 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 </Space>
               </>
             }
-          </div>
-          <div className="side-menu">
+          </UpdateResumeWrapper>
+          <UpdateResumeWrapper className="side-menu">
+            <UpdateResume
+              key={JSON.stringify(questions)}
+              section="basicInfo"
+              index={10}
+              questions={questions}
+              setQuestions={setQuestions}
+            />
             {
               // questions?.basicInfo?.questions[8].answer &&
               <>
@@ -180,15 +203,22 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 </Space>
               </>
             }
-          </div>
-          <div className="side-menu">
+          </UpdateResumeWrapper>
+          <UpdateResumeWrapper className="side-menu">
+            <UpdateResume
+              key={JSON.stringify(questions)}
+              section="basicInfo"
+              index={13}
+              questions={questions}
+              setQuestions={setQuestions}
+            />
             {
               // questions?.basicInfo?.questions[8].answer &&
               <>
                 <h4>Interests</h4>
                 <Space direction="vertical">
                   {questions?.basicInfo?.questions
-                    .find((q) => q.index === 11)
+                    .find((q) => q.index === 13)
                     ?.answer.split(",")
                     .map((interest) => {
                       return interest ? (
@@ -203,12 +233,19 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 </Space>
               </>
             }
-          </div>
+          </UpdateResumeWrapper>
         </div>
       </div>
       <div className="content">
         <div style={{ padding: "40px" }}>
-          <div className="info-profile">
+        <UpdateResumeWrapper className="info-profile">
+            <UpdateResume
+              key={JSON.stringify(questions)}
+              section="basicInfo"
+              index={19}
+              questions={questions}
+              setQuestions={setQuestions}
+            />
             <h4>Profile Summary</h4>
             <div className="profile-content">
               <p>
@@ -218,9 +255,15 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 }
               </p>
             </div>
-          </div>
-          <div className="info-profile">
-            {
+          </UpdateResumeWrapper>
+          <UpdateResumeWrapper className="info-profile">
+            <UpdateResume
+              key={JSON.stringify(questions)}
+              section="basicInfo"
+              index={14}
+              questions={questions}
+              setQuestions={setQuestions}
+            />            {
               // questions?.basicInfo?.questions[8].answer &&
               <>
                 <h4>Certificates</h4>
@@ -241,7 +284,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 </Space>
               </>
             }
-          </div>
+          </UpdateResumeWrapper>
           <hr />
           <div className="info-profile">
             {questions?.workExperience?.questions && (
@@ -392,12 +435,46 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
           </div>
 
           <hr />
-          <div className="info-profile">
+          <div className="info-profile section-wrapper">
             <h4>Awards</h4>
             <div className="awards-content">
+              <div className="manage-section">
+                <span className="custom-modal">
+                  <CustomModal
+                    handleEditSection={(e) => handleEditSection()}
+                    handleCancelSection={(e) => handleCancelSection()}
+                    title="Edit First Name"
+                  >
+                    {questions?.basicInfo?.questions.find(
+                      (q) => q.index === 15
+                    ) && (
+                      <Field
+                        key={fieldKey}
+                        question={questions?.basicInfo?.questions.find(
+                          (q) => q.index === 15
+                        )}
+                        handleInputChange={(e) =>
+                          handleInputChange(e, "basicInfo", 15)
+                        }
+                        handleSelectChange={(e) =>
+                          handleSelectChange(e, "basicInfo", 15)
+                        }
+                        addDropdownOption={(e) =>
+                          addDropdownOption(e, "basicInfo", 15)
+                        }
+                      />
+                    )}
+                  </CustomModal>
+                </span>
+                <span className="pop-confirm">
+                  <PopConfirm
+                    confirm={(e) => handleDeleteSection("basicInfo")}
+                  />
+                </span>
+              </div>
               <Space>
                 {questions?.basicInfo?.questions
-                  .find((q) => q.index === 14)
+                  .find((q) => q.index === 15)
                   ?.answer?.split(",")
                   .map((award) => {
                     return award ? (
