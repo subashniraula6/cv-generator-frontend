@@ -305,7 +305,51 @@ const Questions = {
     educationPast: {
       title: "Past Education",
       removed: false,
-      questions: []
+      questions: [
+        {
+          index: 3000,
+          question: "Do you want to add more past education experiences?",
+          type: "boolean",
+          answer: "",
+          condition: ["", "exit"]
+        },
+        {
+          index: 3001,
+          question: "Where did you previously study?",
+          type: "string",
+          answer: ""
+        },
+        {
+          index: 3002,
+          question: "What kind of degree did you earn?",
+          type: "string",
+          answer: ""
+        },
+        {
+          index: 3003,
+          question: "Which field of study did you pursue?",
+          type: "string",
+          answer: ""
+        },
+        {
+          index: 3004,
+          question: "Which university or college did you attend?",
+          type: "string",
+          answer: ""
+        },
+        {
+          index: 3005,
+          question: "When did you start your studies at ${schoolName}?",
+          type: "string",
+          answer: ""
+        },
+        {
+          index: 3006,
+          question: "When did you complete your studies at ${schoolName}?",
+          type: "string",
+          answer: ""
+        }
+      ]
     },
     projects: {
       title: "Projects",
@@ -315,12 +359,63 @@ const Questions = {
     languages: {
       title: "languages",
       removed: false,
-      questions: []
+      questions: [
+        {
+          index: 4000,
+          question: "Do you want to add more languages?",
+          type: "boolean",
+          answer: "",
+          condition: ["", "exit"]
+        },
+        {
+          index: 4001,
+          question: "Which language do you have knowledge of?",
+          type: "select",
+          options: "Arabic, Danish, French, Greek, Chinese (Cantonese), Persian, Polish, Swedish, Swahili, Ukrainian, English, Farsi, Finnish, Italian, Japanese, Chinese (Mandarin), Korean, Norwegian, Russian, Somali, Spanish, Thai, Tigrinya, German",
+          answer: ""
+        },
+        {
+          index: 4002,
+          question: "How proficient are you in ${languageName}?",
+          type: "select",
+          options: "Beginner, Basic, Intermediate, Advanced, Fluent, Native",
+          answer: ""
+        },
+        {
+          index: 4003,
+          question: "Do you want to add more proficiency levels for ${languageName}?",
+          type: "boolean",
+          answer: "",
+          condition: ["", "exit"]
+        }
+      ]
     },
     interests: {
       title: "Interests",
       removed: false,
-      questions: []
+      questions: [
+        {
+          index: 5000,
+          question: "Do you want to add more interests?",
+          type: "boolean",
+          answer: "",
+          condition: ["", "exit"]
+        },
+        {
+          index: 5001,
+          question: "What are your interests?",
+          type: "select",
+          options: "Architecture, Camping, Facebook, History, Baking, Child care, Computers, Computer games, Family activities, Movie, Throat, IT, Cars, Design, Golf, Construction, Digitization, Home remedies, Reading, Marketing, Journalism, Cooking, Art, Fashion, Literature, Politics, Renovation, Writing, Spreak, Styling, TV game, Hiking, Travels, Acting, Song, Tech, Performing arts, Beauty, Textile work, Sailing, Social Media, Tiktok, Skiing, Garden work, Sports",
+          answer: ""
+        },
+        {
+          index: 5002,
+          question: "Do you want to add more interests?",
+          type: "boolean",
+          answer: "",
+          condition: ["", "exit"]
+        }
+      ]
     },
     certificates: {
       title: "Certificates",
