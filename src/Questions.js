@@ -137,8 +137,8 @@ const Questions = {
         }
       ]
     },
-    workExperience: {
-      title: "Work Experience",
+    workExperienceCurrent: {
+      title: "Current Work Experience",
       removed: false,
       questions: [
         {
@@ -222,10 +222,54 @@ const Questions = {
         },
       ]
     },
-    education: {
-      title: "Education",
+    workExperiencePast: {
+      title: "Past Work Experience",
+      removed: false,
+      questions: [ 
+        {
+          index: 2000,
+          question: "Do you want to add more experiences?",
+          type: "string",
+          answer: "",
+          condition: ["","exit"]
+        },
+        {
+          index: 2001,
+          question: "Where did you previously work at?",
+          type: "string",
+          answer: ""
+        },
+        {
+          index: 2002,
+          question: "When did you join the company?",
+          type: "date",
+          answer: ""
+        },
+        {
+          index: 2003,
+          question: "When did you leave the company?",
+          type: "date",
+          answer: ""
+        },
+        {
+          index: 2004,
+          question: "What were you achievements in that company?",
+          type: "string",
+          answer: "",
+        }
+      ]
+    },
+    educationCurrent: {
+      title: "Current Education",
       removed: false,
       questions: [
+        {
+          index:2000,
+          question: "Are you currently stuying?",
+          type: "boolean",
+          answer: "",
+          condition: ["", "exit"]
+        },
         {
           index: 2001,
           question: "What kind of degree will you have when you finish your studies?",
@@ -249,16 +293,22 @@ const Questions = {
           question: "When did you start studying at Beckmans School of Design?",
           type: "text",
           answer: ""
+        },
+        {
+          index: 2005,
+          question: "When did you finish your study at ${schoolName}?",
+          type: "date",
+          answer: ""
         }
       ]
     },
-    projects: {
-      title: "Projects",
+    educationPast: {
+      title: "Past Education",
       removed: false,
       questions: []
     },
-    skills: {
-      title: "Skills",
+    projects: {
+      title: "Projects",
       removed: false,
       questions: []
     },
@@ -305,4 +355,6 @@ const Questions = {
   };
   
   export default Questions;
+  
+
   
