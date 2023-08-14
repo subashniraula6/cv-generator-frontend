@@ -104,3 +104,21 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-filter: invert(100%);
   filter: invert(100%);
 }
+.manage-section {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.side-menu:hover .manage-section {
+  display: inline;
+}
+
+.custom-modal {
+  padding: 5px;
+}
+
+.pop-confirm {
+  padding: 5px;
+}

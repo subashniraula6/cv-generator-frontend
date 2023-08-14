@@ -3,13 +3,11 @@ import { Input, Select, Space, Divider } from 'antd';
 import Button from '../Wrappers/Button';
 import { PlusOutlined } from '@ant-design/icons'
 
-function MultiSelect({ 
-        questions, 
-        currentSection, 
-        currentQuestionIdx, 
-        setQuestions, 
+function MultiSelect({
         handleSelectChange, 
-        question }) 
+        question,
+        addDropdownOption,
+      ...other }) 
     {
     const inputRef = useRef(null);
     const [name, setName] = useState('');
@@ -18,19 +16,10 @@ function MultiSelect({
     };
     const addItem = (e) => {
         e.preventDefault();
-        // add question options
-        let updatedQuestions = JSON.parse(JSON.stringify(questions));
-        let currentQuesArrIndex = questions[currentSection]["questions"].findIndex(
-        (q) => q.index === currentQuestionIdx
-        );
-        updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
-        "options"
-        ] += ", " + name;
-        console.log("updatedQuestions", updatedQuestions);
-        // Update DB
-        // Fetch DB and set questions state
-        setQuestions(updatedQuestions);
+        
+        addDropdownOption(name)
 
+        // empty new field
         setName('');
         setTimeout(() => {
         inputRef.current?.focus();
@@ -64,16 +53,17 @@ function MultiSelect({
                 value={name}
                 onChange={onNameChange}
               />
-              <Button type="text" icon={<PlusOutlined />} onClick={addItem}>
+              <Button type="text" icon={<PlusOutlined />} onClick={(e) => addItem(e)} disabled={!name}>
                 Add item
               </Button>
             </Space>
           </>
         )}
         options={question.options?.split(',').map((item) => ({
-          value: item,
-          label: item,
+          value: item.trim(),
+          label: item.trim(),
         }))}
+        {...other}
     />
   );
 }

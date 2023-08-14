@@ -5,6 +5,7 @@ import Button from '../Wrappers/Button';
 import MultiSelect from "../Common/MultiSelect";
 import { toSentenceCase } from '../../utils';
 import Input from '../Wrappers/Input'
+import Field from "../Common/Field";
 
 export default function Form({ questions, setQuestions }) {
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(1);
@@ -101,6 +102,20 @@ export default function Form({ questions, setQuestions }) {
   const handleSelectChange = (options) => {
     setCurrentAnswer(options.join(',').trim());
   }
+
+  const addDropdownOption = (option) => {
+        // add question options
+        let updatedQuestions = JSON.parse(JSON.stringify(questions));
+        let currentQuesArrIndex = questions[currentSection]["questions"].findIndex(
+        (q) => q.index === currentQuestionIdx
+        );
+        updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
+        "options"
+        ] += ", " + option;
+        // Update DB
+        // Fetch DB and set questions state
+        setQuestions(updatedQuestions);
+    };
   
   return (
     <>
@@ -114,59 +129,14 @@ export default function Form({ questions, setQuestions }) {
               <QuestionWrapper
                 currentQuestionIdx={currentQuestionIdx}
                 questionIdx={question.index}
-                key={question.index}
+                key={question.index + JSON.stringify(question.answer)}
               >
-                <div>
-                  <label> {question.question} </label>
-                </div>
-                {
-                  question.type === 'text' &&
-                  <Input
-                    type="text"
-                    name={question.index}
-                    onBlur={handleInputChange}
-                    defaultValue={question.answer}
-                  />
-                }
-    
-                {
-                  question.type === 'boolean' &&
-                  <Input
-                    type="radio"
-                    // name={question.index}
-                    // onChange={handleInputChange}
-                    // defaultValue={question.answer}
-                  />
-                }
-    
-                {
-                  question.type === 'select' &&
-                  <Select
-                    mode="multiple"
-                    placeholder="Inserted are removed"
-                    // value={selectedItems}
-                    onChange={handleSelectChange}
-                    style={{
-                      width: '100%',
-                    }}
-                    options={question.options.split(',').map((item) => ({
-                      value: item,
-                      label: item,
-                    }))}
-                  />
-                }
-    
-                {
-                  question.type === 'textSelect' &&
-                    <MultiSelect 
-                      questions={questions}
-                      currentSection={currentSection}
-                      currentQuestionIdx={currentQuestionIdx}
-                      setQuestions={setQuestions}
-                      handleSelectChange={handleSelectChange}
-                      question={question}
-                    />
-                } 
+                <Field
+                  question={question}
+                  handleInputChange={handleInputChange}
+                  handleSelectChange={handleSelectChange}
+                  addDropdownOption={addDropdownOption}
+                />
                 <div>
                   <Button
                   style={{ borderRadius: '2px 0 0 2px' }}

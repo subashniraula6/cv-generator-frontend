@@ -1,11 +1,54 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import "./Resume.css";
-import { Layout, Space, Row, Col, Typography, Button } from "antd";
+import { Layout, Space, Row, Col, Typography, Button, Popover } from "antd";
 import { CloseOutlined, DeleteOutlined, MailOutlined } from "@ant-design/icons";
+import CustomModal from "../Common/CustomModal";
+import PopConfirm from "../Common/PopConfirm";
+import Field from "../Common/Field";
 
 const { Sider, Content } = Layout;
 
 const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
+  const [tempQuestions, setTempQuestions] = useState(questions);
+  const [fieldKey, setFieldKey] = useState(0); // Used for force re-render input fields inside Modal Component
+
+  useEffect(() => {
+    setTempQuestions(questions);
+  }, [questions]);
+
+  function handleInputChange(e, section, questionIdx) {}
+
+  function handleSelectChange(options, section, questionIdx) {
+    let answerStr = options.join(",").trim();
+    setTempQuestions({
+      ...tempQuestions,
+      [section]: {
+        ...tempQuestions[section],
+        questions: tempQuestions[section]["questions"].map((q) =>
+          q.index === questionIdx ? { ...q, answer: answerStr } : q
+        ),
+      },
+    });
+  }
+
+  function handleDeleteSection(sectionName) {
+    console.log("Handle delete", sectionName);
+    // set removed flag
+    setQuestions({
+      ...questions,
+      [sectionName]: { ...questions[sectionName], removed: true },
+    });
+  }
+
+  function handleEditSection() {
+    setQuestions(tempQuestions);
+  }
+
+  function handleCancelSection() {
+    setFieldKey(fieldKey+1);
+  }
+
+  function addDropdownOption(e) {}
   return (
     <div className="_container">
       <div className="sider" style={{ backgroundColor: activeColor }}>
@@ -58,31 +101,63 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               }
             </p>
           </div>
-          {/* <Popover content={<DeleteOutlined />}>
-            <div className="side-menu">
-              {
-                // questions?.basicInfo?.questions[7].answer &&
-                <>
-                  <h4>Skill's</h4>
-                  <Space direction="vertical">
-                    {questions?.basicInfo?.questions
-                      .find((q) => q.index === 9)
-                      ?.answer.split(",")
-                      .map((skill) => {
-                        return skill ? (
-                          <span
-                            className="skills-name"
-                            style={{ whiteSpace: "nowrap" }}
-                          >
-                            &bull; {skill}
-                          </span>
-                        ) : null;
-                      })}
-                  </Space>
-                </>
-              }
+          <div className="side-menu">
+            <div className="manage-section">
+              <span className="custom-modal">
+                <CustomModal
+                  handleEditSection={(e) => handleEditSection()}
+                  handleCancelSection={(e) => handleCancelSection()}
+                  title="Edit Skill's"
+                >
+                  {questions?.basicInfo?.questions.find(
+                    (q) => q.index === 9
+                  ) && (
+                    <Field
+                      key={fieldKey}
+                      question={questions?.basicInfo?.questions.find(
+                        (q) => q.index === 9
+                      )}
+                      handleInputChange={(e) =>
+                        handleInputChange(e, "basicInfo", 9)
+                      }
+                      handleSelectChange={(e) =>
+                        handleSelectChange(e, "basicInfo", 9)
+                      }
+                      addDropdownOption={(e) =>
+                        addDropdownOption(e, "basicInfo", 9)
+                      }
+                    />
+                  )}
+                </CustomModal>
+              </span>
+              <span className="pop-confirm">
+                <PopConfirm
+                  confirm={(e) => handleDeleteSection("basicInfo")}
+                />
+              </span>
             </div>
-          </Popover> */}
+            {
+              // questions?.basicInfo?.questions[7].answer &&
+              <>
+                <h4>Skill's</h4>
+                <Space direction="vertical">
+                  {questions?.basicInfo?.questions
+                    .find((q) => q.index === 9)
+                    ?.answer.split(",")
+                    .map((skill) => {
+                      return skill ? (
+                        <span
+                          className="skills-name"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          &bull; {skill}
+                        </span>
+                      ) : null;
+                    })}
+                </Space>
+              </>
+            }
+          </div>
           <div className="side-menu">
             {
               // questions?.basicInfo?.questions[8].answer &&
