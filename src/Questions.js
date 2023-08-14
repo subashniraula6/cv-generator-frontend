@@ -2,6 +2,7 @@ const Questions = {
     basicInfo: {
       title: "Basic info",
       removed: false,
+      repeatable: false,
       questions: [
         {
           index: 1,
@@ -140,6 +141,7 @@ const Questions = {
     workExperienceCurrent: {
       title: "Current Work Experience",
       removed: false,
+      repeatable: false,
       questions: [
         {
           index: 1000,
@@ -225,77 +227,120 @@ const Questions = {
     workExperiencePast: {
       title: "Past Work Experience",
       removed: false,
-      questions: [ 
+      repeatable: true,
+      questions: [
         {
           index: 2000,
-          question: "Do you want to add more experiences?",
-          type: "string",
-          answer: "",
-          condition: ["","exit"]
+          questions: [
+            {
+              index: "2000_0",
+              question: "Do you want to add more experiences?",
+              type: "boolean",
+              answer: "",
+              condition: ["","exit"]
+            },
+            {
+              index: "2000_1",
+              question: "Where did you previously work at?",
+              type: "string",
+              answer: ""
+            },
+            {
+              index: "2000_3",
+              question: "When did you join the company?",
+              type: "date",
+              answer: ""
+            },
+            {
+              index: "2000_4",
+              question: "When did you leave the company?",
+              type: "date",
+              answer: ""
+            },
+            {
+              index: "2000_5",
+              question: "What were your achievements in that company?",
+              type: "string",
+              answer: "",
+            }
+          ]
         },
         {
           index: 2001,
-          question: "Where did you previously work at?",
-          type: "string",
-          answer: ""
-        },
-        {
-          index: 2002,
-          question: "When did you join the company?",
-          type: "date",
-          answer: ""
-        },
-        {
-          index: 2003,
-          question: "When did you leave the company?",
-          type: "date",
-          answer: ""
-        },
-        {
-          index: 2004,
-          question: "What were you achievements in that company?",
-          type: "string",
-          answer: "",
+          questions: [
+            {
+              index: "2001_0",
+              question: "Do you want to add more experiences?",
+              type: "boolean",
+              answer: "",
+              condition: ["","exit"]
+            },
+            {
+              index: "2001_1",
+              question: "Where did you previously work at?",
+              type: "string",
+              answer: ""
+            },
+            {
+              index: "2001_3",
+              question: "When did you join the company?",
+              type: "date",
+              answer: ""
+            },
+            {
+              index: "2001_4",
+              question: "When did you leave the company?",
+              type: "date",
+              answer: ""
+            },
+            {
+              index: "2001_5",
+              question: "What were your achievements in that company?",
+              type: "string",
+              answer: "",
+            }
+          ]
         }
       ]
     },
     educationCurrent: {
       title: "Current Education",
       removed: false,
+      repeatable: false,
       questions: [
         {
-          index:2000,
+          index:3000,
           question: "Are you currently stuying?",
           type: "boolean",
           answer: "",
           condition: ["", "exit"]
         },
         {
-          index: 2001,
+          index: 3001,
           question: "What kind of degree will you have when you finish your studies?",
           type: "text",
           answer: ""
         },
         {
-          index: 2002,
+          index: 3002,
           question: "Which education (subject, specialization or program) are you studying? Type any text. You don't need to scroll.",
           type: "text",
           answer: ""
         },
         {
-          index: 2003,
+          index: 3003,
           question: "Which university or college do you study at? Type any text. You don't need to scroll through the list.",
           type: "text",
           answer: ""
         },
         {
-          index: 2004,
+          index: 3004,
           question: "When did you start studying at Beckmans School of Design?",
           type: "text",
           answer: ""
         },
         {
-          index: 2005,
+          index: 3005,
           question: "When did you finish your study at ${schoolName}?",
           type: "date",
           answer: ""
