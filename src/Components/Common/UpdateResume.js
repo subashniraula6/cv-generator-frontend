@@ -8,7 +8,9 @@ const UpdateResume = ({
   section,
   index,
   questions,
-  setQuestions
+  setQuestions,
+  title,
+  ...otherProps
 }) => {
   const [tempQuestions, setTempQuestions] = useState(questions);
   const [fieldKey, setFieldKey] = useState(0); // Used for force re-render input fields inside Modal Component
@@ -80,7 +82,7 @@ const UpdateResume = ({
         <CustomModal
           handleEditSection={(e) => handleEditSection()}
           handleCancelSection={(e) => handleCancelSection()}
-          title="Edit Skill's"
+          title={title}
         >
           {questions?.basicInfo?.questions.find((q) => q.index === index) && (
             <Field

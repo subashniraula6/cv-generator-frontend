@@ -1,6 +1,7 @@
 import React from "react";
 import MultiSelect from "./MultiSelect";
 import { Input, Select } from "antd";
+const { TextArea } = Input;
 
 const Field = ({
   question,
@@ -17,6 +18,15 @@ const Field = ({
       {question.type === "text" && (
         <Input
           type="text"
+          onBlur={handleInputChange}
+          defaultValue={question.answer}
+          {...otherProps}
+        />
+      )}
+
+      {question.type === "textArea" && (
+        <TextArea 
+          rows={4}
           onBlur={handleInputChange}
           defaultValue={question.answer}
           {...otherProps}

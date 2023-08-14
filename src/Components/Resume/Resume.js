@@ -83,6 +83,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 key={JSON.stringify(questions)}
                 section="basicInfo"
                 index={1}
+                title="Edit First Name"
                 questions={questions}
                 setQuestions={setQuestions}
               />
@@ -98,6 +99,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 key={JSON.stringify(questions)}
                 section="basicInfo"
                 index={2}
+                title="Edit Last Name"
                 questions={questions}
                 setQuestions={setQuestions}
               />
@@ -112,6 +114,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 key={JSON.stringify(questions)}
                 section="basicInfo"
                 index={3}
+                title="Edit Title"
                 questions={questions}
                 setQuestions={setQuestions}
               />
@@ -131,6 +134,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 key={JSON.stringify(questions)}
                 section="basicInfo"
                 index={7}
+                title="Edit Phone Number"
                 questions={questions}
                 setQuestions={setQuestions}
               />
@@ -149,6 +153,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               key={JSON.stringify(questions)}
               section="basicInfo"
               index={9}
+              title="Edit Skill's"
               questions={questions}
               setQuestions={setQuestions}
             />
@@ -179,6 +184,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               key={JSON.stringify(questions)}
               section="basicInfo"
               index={10}
+              title="Edit Language Skills"
               questions={questions}
               setQuestions={setQuestions}
             />
@@ -209,6 +215,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               key={JSON.stringify(questions)}
               section="basicInfo"
               index={13}
+              title="Edit Interests"
               questions={questions}
               setQuestions={setQuestions}
             />
@@ -243,6 +250,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               key={JSON.stringify(questions)}
               section="basicInfo"
               index={19}
+              title="Edit Profile Summary"
               questions={questions}
               setQuestions={setQuestions}
             />
@@ -261,6 +269,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               key={JSON.stringify(questions)}
               section="basicInfo"
               index={14}
+              title="Edit Certificates"
               questions={questions}
               setQuestions={setQuestions}
             />            {
@@ -435,43 +444,16 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
           </div>
 
           <hr />
-          <div className="info-profile section-wrapper">
+          <UpdateResumeWrapper className="awards">
+            <UpdateResume
+              section="basicInfo"
+              index={15}
+              title="Edit Awards"
+              questions={questions}
+              setQuestions={setQuestions}
+            />  
             <h4>Awards</h4>
             <div className="awards-content">
-              <div className="manage-section">
-                <span className="custom-modal">
-                  <CustomModal
-                    handleEditSection={(e) => handleEditSection()}
-                    handleCancelSection={(e) => handleCancelSection()}
-                    title="Edit First Name"
-                  >
-                    {questions?.basicInfo?.questions.find(
-                      (q) => q.index === 15
-                    ) && (
-                      <Field
-                        key={fieldKey}
-                        question={questions?.basicInfo?.questions.find(
-                          (q) => q.index === 15
-                        )}
-                        handleInputChange={(e) =>
-                          handleInputChange(e, "basicInfo", 15)
-                        }
-                        handleSelectChange={(e) =>
-                          handleSelectChange(e, "basicInfo", 15)
-                        }
-                        addDropdownOption={(e) =>
-                          addDropdownOption(e, "basicInfo", 15)
-                        }
-                      />
-                    )}
-                  </CustomModal>
-                </span>
-                <span className="pop-confirm">
-                  <PopConfirm
-                    confirm={(e) => handleDeleteSection("basicInfo")}
-                  />
-                </span>
-              </div>
               <Space>
                 {questions?.basicInfo?.questions
                   .find((q) => q.index === 15)
@@ -488,7 +470,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                   })}
               </Space>
             </div>
-          </div>
+          </UpdateResumeWrapper>
         </div>
       </div>
     </div>

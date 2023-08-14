@@ -125,7 +125,7 @@ const Questions = {
         {
           index: 19,
           question: "Wanna include some summary ?",
-          type: "text",
+          type: "textArea",
           answer: "Here you can either enter your professional title if you have one, for example \"Authorised accountant\". You can also write something more creative, for example \"Problem solver of rank\"."
         },
         {
