@@ -6,7 +6,6 @@ import Field from "../Common/Field";
 
 export default function Form({ questions, setQuestions }) {
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(1);
-  let [currentSubQuestionIdx, setcurrentSubQuestionIdx] = useState("");
   let [currentAnswer, setCurrentAnswer] = useState("");
   let [currentSection, setCurrentSection] = useState("basicInfo");
   let [lastEvent, setLastEvent] = useState("");
@@ -20,10 +19,6 @@ export default function Form({ questions, setQuestions }) {
   useEffect(() => {
     if (lastEvent == "next") {
       let firstQuestionIdx = findFirstQuestionIdx();
-      if (questions[currentSection]["repeatable"] === true) {
-        let firstSubQuestionIdx = findFirstSubQuestionIdx(firstQuestionIdx);
-        setcurrentSubQuestionIdx(firstSubQuestionIdx);
-      }
       setcurrentQuestionIdx(firstQuestionIdx || currentQuestionIdx);
     } else if (lastEvent == "prev") {
       let lastQuestionIdx = findLastQuestionIndex();
@@ -33,7 +28,6 @@ export default function Form({ questions, setQuestions }) {
 
   console.log("currentQuestionIdx", currentQuestionIdx);
   console.log("questions", questions)
-  // console.log("currentSubQuestionIdx", currentSubQuestionIdx);
   // console.log("currentSection", currentSection)
 
   function calculateSkipQuestions() {
@@ -151,17 +145,6 @@ export default function Form({ questions, setQuestions }) {
     return firstQuestionIdx;
   };
 
-  const findFirstSubQuestionIdx = (firstQuestionIdx) => {
-    let firstQuestion = questions[currentSection]["questions"].find(
-      (q) => q.index === firstQuestionIdx
-    );
-    let firstSubQuesIdx = firstQuestion["questions"].sort(
-      (a, b) =>
-        parseInt(a.index.split("_")[1]) - parseInt(b.index.split("_")[1])
-    )[0]["index"];
-    return firstSubQuesIdx;
-  };
-
   const findLastQuestionIndex = () => {
     return Math.max(
       ...questions[currentSection]["questions"].map((q) => q.index)
@@ -242,41 +225,6 @@ export default function Form({ questions, setQuestions }) {
                     </div>
                   </>
                 )}
-                {/* {questions[section]["repeatable"] === true && (
-                  <>
-                    {question.questions.map((subQues) => {
-                      console.log("SubQues", subQues)
-                      console.log("currentQuestionIdx", currentQuestionIdx)
-                      console.log("currentSubQuestionIdx", currentSubQuestionIdx)
-                      console.log("SubQues Index", subQues.index)
-                      return (
-                        <>
-                          <QuestionWrapper
-                            currentQuestionIdx={currentSubQuestionIdx}
-                            questionIdx={subQues.index}
-                            key={subQues.index + JSON.stringify(subQues.answer)}
-                          >
-                            <Field
-                              question={subQues}
-                              handleInputChange={handleInputChange}
-                              handleSelectChange={handleSelectChange}
-                              handleSlideChange={handleSlideChange}
-                              addDropdownOption={addDropdownOption}
-                            />
-                            <div>
-                              <Button
-                                style={{ borderRadius: "2px 0 0 2px" }}
-                                onClick={(e) => handleSubQuesContinue(e)}
-                              >
-                                Continue
-                              </Button>
-                            </div>
-                          </QuestionWrapper>
-                        </>
-                      );
-                    })}
-                  </>
-                )} */}
               </QuestionWrapper>
             );
           });
