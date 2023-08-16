@@ -14,6 +14,8 @@ import { BrowserRouter as Router, Switch, Route, Routes, BrowserRouter } from 'r
 import Login from './Components/Login/Login';
 import Signup from './Components/Login/Signup';
 import ForgotPassword from './Components/Login/ForgotPassword';
+import SecuredPage from './Components/SecuredPage/SecuredPage';
+
 
 function App() {
   let [questions, setQuestions] = useState(Questions);
@@ -34,15 +36,13 @@ function App() {
           
     // </div>
     <BrowserRouter>
-      {/* <Login></Login> */}
       <Routes>
         <Route path='/'></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/forgot-password' element={<ForgotPassword />}></Route>
+        <Route path='/securedpage' element={<SecuredPage />}></Route>
       </Routes>
-      {/* <Signup></Signup> */}    
-      
     </BrowserRouter>
   );
 }

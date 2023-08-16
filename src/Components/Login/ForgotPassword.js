@@ -1,13 +1,13 @@
 import React,{useState} from 'react'
-import { Button, Input } from 'antd';
+import { Button, Input,notification } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
 
-import { notification } from 'antd';
-
+// import { firebaseApp } from '../Firestore/firebaseconfig'; 
+import { getAuth, sendPasswordResetEmail } from "firebase/auth"
 
 export default function ForgotPassword() {
     const [username,setusername]= useState("");
-    const [sentEmail,setsentEmail]=useState('false');
+    const [sentEmail,setsentEmail]=useState(false);
     const loginContainer={
         height:'300px',
         width:'500px',
@@ -19,25 +19,37 @@ export default function ForgotPassword() {
         setusername(event.target.value)
     }
    
-
-    const [api, contextHolder] = notification.useNotification();
-
-    const openNotificationWithIcon = (type) => {
-        api[type]({
-        message: 'Success',
-        description:
-            'Email with the password reset link has been sent.',
-        });
-    };
-
-    const sendVerificationMail =()=>{
-        console.log(username)
-        openNotificationWithIcon('success')
+    const resetPassword =()=>{
+        if(username.length!==0)
+        { 
+            const auth = getAuth();
+                sendPasswordResetEmail(auth, username)
+                .then(() => {
+                    setsentEmail(true)
+                    notification.success({
+                        message: 'Email sent',
+                        description: "Successfully sent the activation link",
+                    })
+                })
+                .catch((error) => {
+                    const errorCode = error.code.replace('auth/', '').replace(/-/g, ' ');
+                    notification.error({
+                        message: 'Invalid Email',
+                        description: errorCode
+                    })
+                });
+            console.log(username)   
+        }
+        else{
+            notification.error({
+                message: 'Empty Fields',
+                description: "Email field is empty",
+            })
+        }
     }
   
   return (
     <div className='loginPage'>   
-    {contextHolder}  
         {!sentEmail ? (<div style={loginContainer}>
             <h1 style={{textAlign:'center',margin:'20px 0px',textTransform:'uppercase'}}>Forgot Password</h1>
             <div className='loginTextDescription' style={{textAlign:'center',width:'95%',margin:'10px auto'}}>
@@ -47,7 +59,7 @@ export default function ForgotPassword() {
                 <Input size="large" placeholder="Email Address" prefix={<MailOutlined />} style={{padding:'10px'}} className='mBottom' onChange={(text)=> {updateUsername(text)}}/>
             </div>
             <div className='flex-container' style={{justifyContent:'center',backgroundColor:'unset',marginTop:"20px"}}>
-                <Button type="primary" size="large" style={{width:"200px",height:'50px',fontSize:'20px',backgroundColor:"rgb(149, 0, 255)"}} onClick={sendVerificationMail}>Forgot Password</Button>
+                <Button type="primary" size="large" style={{width:"200px",height:'50px',fontSize:'20px',backgroundColor:"rgb(149, 0, 255)"}} onClick={resetPassword}>Forgot Password</Button>
             </div>
         </div>):
         (

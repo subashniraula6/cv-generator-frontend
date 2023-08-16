@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 .App {
   text-align: center;
 }
@@ -51,7 +52,7 @@
   justify-content: center;
   align-items: center;
   /* background-color: #64c7c7; */
-  font-family: sans-serif;
+  font-family: 'Poppins', sans-serif;
   background: linear-gradient(270deg, #7f44f9, #f75aa6);
   background-size: 400% 400%;
 
