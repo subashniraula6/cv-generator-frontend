@@ -1,78 +1,12 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import "./Resume.css";
-import { Layout, Space, Row, Col, Typography, Button, Popover } from "antd";
-import { CloseOutlined, DeleteOutlined, MailOutlined } from "@ant-design/icons";
-import CustomModal from "../Common/CustomModal";
-import PopConfirm from "../Common/PopConfirm";
-import Field from "../Common/Field";
+import { Layout, Space, Row, Col, } from "antd";
 import UpdateResume from "../Common/UpdateResume";
 import UpdateResumeWrapper from "../Wrappers/UpdateResumeWrapper";
 
 const { Sider, Content } = Layout;
 
 const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
-  const [tempQuestions, setTempQuestions] = useState(questions);
-  const [fieldKey, setFieldKey] = useState(0); // Used for force re-render input fields inside Modal Component
-
-  useEffect(() => {
-    setTempQuestions(questions);
-  }, [questions]);
-
-  function handleInputChange(e, section, questionIdx) {
-    setTempQuestions({
-      ...tempQuestions,
-      [section]: {
-        ...tempQuestions[section],
-        questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx ? { ...q, answer: e.target.value } : q
-        ),
-      },
-    });
-  }
-
-  function handleSelectChange(options, section, questionIdx) {
-    let answerStr = options.join(",").trim();
-    setTempQuestions({
-      ...tempQuestions,
-      [section]: {
-        ...tempQuestions[section],
-        questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx ? { ...q, answer: answerStr } : q
-        ),
-      },
-    });
-  }
-
-  function handleDeleteSection(sectionName) {
-    // set removed flag
-    setQuestions({
-      ...questions,
-      [sectionName]: { ...questions[sectionName], removed: true },
-    });
-  }
-
-  function handleEditSection() {
-    setQuestions(tempQuestions);
-  }
-
-  function handleCancelSection() {
-    setTempQuestions(questions);
-    setFieldKey(fieldKey + 1);
-  }
-
-  function addDropdownOption(option, section, questionIdx) {
-    // add question options
-    let updatedQuestions = JSON.parse(JSON.stringify(tempQuestions));
-    let quesArrIndex = questions[section]["questions"].findIndex(
-      (q) => q.index === questionIdx
-    );
-
-    updatedQuestions[section]["questions"][quesArrIndex]["options"] +=
-      ", " + option;
-    // Update DB
-    // Fetch DB and set questions state
-    setQuestions(updatedQuestions);
-  }
   return (
     <div className="_container">
       <div className="sider" style={{ backgroundColor: activeColor }}>
@@ -214,7 +148,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             <UpdateResume
               key={JSON.stringify(questions)}
               section="basicInfo"
-              index={13}
+              index={50}
               title="Edit Interests"
               questions={questions}
               setQuestions={setQuestions}
@@ -225,7 +159,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 <h4>Interests</h4>
                 <Space direction="vertical">
                   {questions?.basicInfo?.questions
-                    .find((q) => q.index === 13)
+                    .find((q) => q.index === 50)
                     ?.answer.split(",")
                     .map((interest) => {
                       return interest ? (
@@ -249,7 +183,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             <UpdateResume
               key={JSON.stringify(questions)}
               section="basicInfo"
-              index={19}
+              index={56}
               title="Edit Profile Summary"
               questions={questions}
               setQuestions={setQuestions}
@@ -258,7 +192,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             <div className="profile-content">
               <p>
                 {
-                  questions?.basicInfo?.questions.find((q) => q.index === 19)
+                  questions?.basicInfo?.questions.find((q) => q.index === 56)
                     ?.answer
                 }
               </p>
@@ -268,7 +202,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             <UpdateResume
               key={JSON.stringify(questions)}
               section="basicInfo"
-              index={14}
+              index={51}
               title="Edit Certificates"
               questions={questions}
               setQuestions={setQuestions}
@@ -276,9 +210,9 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               // questions?.basicInfo?.questions[8].answer &&
               <>
                 <h4>Certificates</h4>
-                <Space>
+                <Space wrap={true}>
                   {questions?.basicInfo?.questions
-                    .find((q) => q.index === 14)
+                    .find((q) => q.index === 51)
                     ?.answer.split(",")
                     .map((certificate) => {
                       return certificate ? (
@@ -447,7 +381,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
           <UpdateResumeWrapper className="awards">
             <UpdateResume
               section="basicInfo"
-              index={15}
+              index={52}
               title="Edit Awards"
               questions={questions}
               setQuestions={setQuestions}
@@ -456,7 +390,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             <div className="awards-content">
               <Space>
                 {questions?.basicInfo?.questions
-                  .find((q) => q.index === 15)
+                  .find((q) => q.index === 52)
                   ?.answer?.split(",")
                   .map((award) => {
                     return award ? (
