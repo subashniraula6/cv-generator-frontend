@@ -102,6 +102,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                     .map((skill) => {
                       return skill ? (
                         <span
+                          key={skill}
                           className="skills-name"
                           style={{ whiteSpace: "nowrap" }}
                         >
@@ -133,6 +134,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                     .map((language) => {
                       return language ? (
                         <span
+                          key={language}
                           className="skills-name"
                           style={{ whiteSpace: "nowrap" }}
                         >
@@ -164,6 +166,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                     .map((interest) => {
                       return interest ? (
                         <span
+                          key={interest}
                           className="skills-name"
                           style={{ whiteSpace: "nowrap" }}
                         >
@@ -217,6 +220,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                     .map((certificate) => {
                       return certificate ? (
                         <span
+                          key={certificate}
                           className="skills-name"
                           style={{ whiteSpace: "nowrap" }}
                         >
@@ -395,6 +399,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                   .map((award) => {
                     return award ? (
                       <span
+                        key={award}
                         className="skills-name"
                         style={{ whiteSpace: "nowrap" }}
                       >
