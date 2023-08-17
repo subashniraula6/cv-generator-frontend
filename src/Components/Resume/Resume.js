@@ -22,7 +22,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 setQuestions={setQuestions}
               />
               {questions?.basicInfo?.questions.find((q) => q.index === 1)
-                ?.answer.length === 0 && "FIRSTNAME"}
+                ?.answer.length === 0 && "FNAME"}
               {
                 questions?.basicInfo?.questions.find((q) => q.index === 1)
                   ?.answer
@@ -38,7 +38,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 setQuestions={setQuestions}
               />
               {questions?.basicInfo?.questions.find((q) => q.index === 2)
-                ?.answer.length === 0 && "LASTNAME"}
+                ?.answer.length === 0 && "LNAME"}
               {" " +
                 questions?.basicInfo?.questions.find((q) => q.index === 2)
                   ?.answer}

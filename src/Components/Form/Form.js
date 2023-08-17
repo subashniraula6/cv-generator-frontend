@@ -9,12 +9,26 @@ export default function Form({ questions, setQuestions }) {
   let [currentAnswer, setCurrentAnswer] = useState("");
   let [currentSection, setCurrentSection] = useState("basicInfo");
   let [lastEvent, setLastEvent] = useState("");
+  let [isRepeatQuestion, setIsRepeatQuestion] = useState(false);
+  let [isUpdateQuestion, setIsUpdateQuestion] = useState(false);
 
   useEffect(() => {
-    if(questions?.isNext) {
+    if (questions?.isNext) {
       handleNext();
     }
   }, [questions]);
+  
+  useEffect(() => {
+    let currentQuestion = findCurrentQuestion();
+    let currentAns = currentQuestion?.answer;
+    setCurrentAnswer(currentAns);
+
+    let isRepeat = currentQuestion?.repeatable;
+    setIsRepeatQuestion(isRepeat || false);
+
+    let isUpdate = currentQuestion?.update ? true : false;
+    setIsUpdateQuestion(isUpdate);
+  }, [currentQuestionIdx]);
   
   useEffect(() => {
     if (lastEvent == "next") {
@@ -26,15 +40,25 @@ export default function Form({ questions, setQuestions }) {
     }
   }, [currentSection]);
 
-  console.log("currentQuestionIdx", currentQuestionIdx);
-  console.log("questions", questions)
+  // console.log("currentQuestionIdx", currentQuestionIdx);
+  // console.log("currentAnswer", currentAnswer);
+  // console.log("questions", questions);
   // console.log("currentSection", currentSection)
 
   function calculateSkipQuestions() {
-    if(currentQuestionIdx === 1010 && (currentAnswer=="no" || currentAnswer=="")){
+    if (
+      currentQuestionIdx === 1010 &&
+      (currentAnswer == "no" || currentAnswer == "")
+    ) {
       return 1;
     }
     return 0;
+  }
+
+  const findCurrentQuestion = () => {
+    return questions[currentSection]["questions"].find(
+      (q) => q.index === currentQuestionIdx
+    )
   }
 
   const findNextQuestion = () => {
@@ -57,14 +81,18 @@ export default function Form({ questions, setQuestions }) {
     );
     return orderedIndexes[currentQueArrIdx - 1];
   };
-
+console.log("questions", questions)
   const updateQuestions = () => {
     if (currentQuestionIdx === 11 && currentAnswer === "yes") {
       let prevQuestion = findPrevQuestion();
       let answers = prevQuestion.answer.split(",");
+      if(!answers.length || !answers[0]) {
+        handleNext();
+        return;
+      }
       let questionTemplate = questions[currentSection][
         "auto_generated_questions"
-      ].find((q) => q.index === currentQuestionIdx);
+      ].find((q) => q.index === 1);
       if (questionTemplate) {
         let generated_questions = answers.map((a, idx) => {
           return {
@@ -73,20 +101,90 @@ export default function Form({ questions, setQuestions }) {
             question: questionTemplate["question"].replace(/{{\w+}}/, a),
           };
         });
-        setQuestions({
-          ...questions,
-          [currentSection]: { ...questions[currentSection], questions: [...questions[currentSection]['questions'], ...generated_questions].sort((a,b) => a.index-b.index) },
-        }, true);
+        setQuestions(
+          {
+            ...questions,
+            [currentSection]: {
+              ...questions[currentSection],
+              questions: [
+                ...questions[currentSection]["questions"],
+                ...generated_questions,
+              ].sort((a, b) => a.index - b.index),
+            },
+          },
+          true
+        );
       }
-    } else if (currentQuestionIdx === 11 && (currentAnswer === "no" || currentAnswer === "")) {
-      setQuestions({
-        ...questions,
-        [currentSection]: { ...questions[currentSection], questions: questions[currentSection]['questions'].filter(q => q.index <= currentQuestionIdx || q.index >= 50 ).sort((a,b) => a.index-b.index) },
-      }, true);
+    } else if (
+      currentQuestionIdx === 11 &&
+      (currentAnswer === "no" || currentAnswer === "")
+    ) {
+      setQuestions(
+        {
+          ...questions,
+          [currentSection]: {
+            ...questions[currentSection],
+            questions: questions[currentSection]["questions"]
+              .filter((q) => q.index <= currentQuestionIdx || q.index >= 50)
+              .sort((a, b) => a.index - b.index),
+          },
+        },
+        true
+      );
+    } else if (isRepeatQuestion && currentAnswer === "yes") {
+        let additionalQuestions = questions[currentSection][
+          "auto_generated_questions"
+        ].map((q, idx) => ({...q, index: currentQuestionIdx + (idx + 1)}));
+        setQuestions(
+          {
+            ...questions,
+            [currentSection]: {
+              ...questions[currentSection],
+              questions: [
+                ...questions[currentSection]["questions"],
+                ...additionalQuestions,
+              ].sort((a, b) => a.index - b.index),
+            },
+          },
+          true
+        );
+    } else if (isUpdateQuestion) {
+      let currentQuestion = findCurrentQuestion();
+      let startIdx = currentQuestionIdx + 1;
+      let stopIdx = currentQuestionIdx + currentQuestion?.update?.noOfQues;
+      let targetQuestions = questions[currentSection]["questions"]
+      .filter((q => q.index >= startIdx && q.index <= stopIdx));
+      let key = currentQuestion?.update?.key;
+      let updatedTargetQuestions = targetQuestions.map(targetQuestion => {
+        if(!targetQuestion.question) {
+          let regExp = new RegExp("{{" + key + "}}");
+          return {...targetQuestion, question: targetQuestion.template?.replace(regExp, currentAnswer) || targetQuestion.question}
+        }
+        let { question, template } = targetQuestion;
+        let ginger = "{{" + key + "}}";
+        if(template && template.includes(ginger)) {
+          // find left 3 characters and right 3 characters
+          let left3 = template.indexOf(ginger);
+        }
+        return targetQuestion;
+      });
+      console.log("updateQuestions", updatedTargetQuestions)
+      let updatedQuestions = replaceQuestions(updatedTargetQuestions);
+      setQuestions(updatedQuestions, true);
     } else {
       handleNext();
     }
   };
+
+  function replaceQuestions(targetQuestions) {
+    let updatedQuestions = JSON.parse(JSON.stringify(questions));
+    let innerQuestions = updatedQuestions[currentSection]['questions'];
+    targetQuestions.forEach(targetQuestion => {
+      let arrIdx = innerQuestions.findIndex(question => question.index === targetQuestion.index );
+      innerQuestions[arrIdx] = targetQuestion
+    });
+    return updatedQuestions;
+  }
 
   const handleNext = () => {
     let lastQuestionIndex = findLastQuestionIndex();
@@ -103,7 +201,7 @@ export default function Form({ questions, setQuestions }) {
   const handlePrev = (e) => {
     let firstQuestionIndex = findFirstQuestionIdx();
     if (currentQuestionIdx > firstQuestionIndex) {
-      let prevQuestionIdx = findPrevQuestion().index;
+      let prevQuestionIdx = findPrevQuestion()?.index;
       setcurrentQuestionIdx(prevQuestionIdx);
     } else {
       let prevSection = findPrevSection();
@@ -161,7 +259,8 @@ export default function Form({ questions, setQuestions }) {
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "answer"
     ] = currentAnswer;
-    console.log("updatedQuestions", updatedQuestions);
+    console.log("currentAnswer", currentAnswer)
+    console.log("updateQuestions", updatedQuestions)
     // Update DB
     // Fetch DB and set questions state
     setQuestions(updatedQuestions);
@@ -179,6 +278,11 @@ export default function Form({ questions, setQuestions }) {
   const handleSlideChange = ({ target }) => {
     setCurrentAnswer(target.ariaChecked === "true" ? "yes" : "no");
   };
+
+  const handleDateChange = (date, dateStr) => {
+    console.log(date, dateStr)
+    setCurrentAnswer(dateStr);
+  }
 
   const addDropdownOption = (option) => {
     // add question options
@@ -206,25 +310,24 @@ export default function Form({ questions, setQuestions }) {
                 questionIdx={question.index}
                 key={question.index + JSON.stringify(question.answer)}
               >
-                {questions[section]["repeatable"] === false && (
-                  <>
-                    <Field
-                      question={question}
-                      handleInputChange={handleInputChange}
-                      handleSelectChange={handleSelectChange}
-                      handleSlideChange={handleSlideChange}
-                      addDropdownOption={addDropdownOption}
-                    />
-                    <div>
-                      <Button
-                        style={{ borderRadius: "2px 0 0 2px" }}
-                        onClick={(e) => handleContinue(e)}
-                      >
-                        Continue
-                      </Button>
-                    </div>
-                  </>
-                )}
+                <>
+                  <Field
+                    question={question}
+                    handleInputChange={handleInputChange}
+                    handleSelectChange={handleSelectChange}
+                    handleSlideChange={handleSlideChange}
+                    handleDateChange={(date, dateStr)=>handleDateChange(date, dateStr)}
+                    addDropdownOption={addDropdownOption}
+                  />
+                  <div>
+                    <Button
+                      style={{ borderRadius: "2px 0 0 2px" }}
+                      onClick={(e) => handleContinue(e)}
+                    >
+                      Continue
+                    </Button>
+                  </div>
+                </>
               </QuestionWrapper>
             );
           });

@@ -44,6 +44,18 @@ const UpdateResume = ({
     });
   }
 
+  function handleDateChange(date, dateStr, section, questionIdx) {
+    setTempQuestions({
+      ...tempQuestions,
+      [section]: {
+        ...tempQuestions[section],
+        questions: tempQuestions[section]["questions"].map((q) =>
+          q.index === questionIdx ? { ...q, answer: dateStr } : q
+        ),
+      },
+    });
+  }
+
   function handleDeleteSection(sectionName) {
     // set removed flag
     setQuestions({
@@ -92,6 +104,7 @@ const UpdateResume = ({
               )}
               handleInputChange={(e) => handleInputChange(e, section, index)}
               handleSelectChange={(e) => handleSelectChange(e, section, index)}
+              handleDateChange={(date, dateStr) => handleDateChange(date, dateStr, section, index)}
               addDropdownOption={(e) => addDropdownOption(e, section, index)}
             />
           )}
