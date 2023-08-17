@@ -256,12 +256,20 @@ const Questions = {
   workExperiencePast: {
     title: "Past Work Experience",
     removed: false,
+    noOfItems: 0,
     auto_generated_questions: [
       {
         index: 2000,
         question: "Where did you previously work at?",
         type: "text",
-        update: {key: 'company', noOfQues: 3},
+        update: {key: 'company', noOfQues: 4},
+        answer: "",
+      },
+      {
+        index: 2000,
+        question:
+          "Your title/position at {{company}}: Type any text. You don't need to scroll through the list.",
+        type: "text",
         answer: "",
       },
       {
@@ -352,6 +360,7 @@ const Questions = {
   educationPast: {
     title: "Past Education",
     removed: false,
+    noOfItems: 0,
     auto_generated_questions: [
       {
         index: 4000,

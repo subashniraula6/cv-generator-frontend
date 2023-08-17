@@ -1,60 +1,58 @@
 import React from "react";
-import { Menu, Dropdown, Button, Tag, Typography, Row } from "antd";
-import { EllipsisOutlined } from "@ant-design/icons";
-import { PageHeader } from '@ant-design/pro-layout';
-
-const { Paragraph } = Typography;
+import {
+  Dropdown,
+  Typography,
+  Avatar,
+} from "antd";
+import {
+  LogoutOutlined,
+  PlusOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { PageHeader } from "@ant-design/pro-layout";
 
 const routes = [
   {
     path: "index",
-    breadcrumbName: "First-level Menu"
+    breadcrumbName: "First-level Menu",
   },
-  {
-    path: "first",
-    breadcrumbName: "Second-level Menu"
-  },
-  {
-    path: "second",
-    breadcrumbName: "Third-level Menu"
-  }
 ];
 
-const menu = (
-  <Menu mode="horizontal">
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="#">
-        1st menu item
+const items = [
+  {
+    key: "1",
+    label: (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.antgroup.com"
+      >
+        Add Question
+        <PlusOutlined style={{margin: "0 10px"}}/>
       </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="#">
-        2nd menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="#">
-        3rd menu item
-      </a>
-    </Menu.Item>
-  </Menu>
-);
+    ),
+  },
+  {
+    key: "2",
+    danger: true,
+    label: (
+      <>
+        <a>Logout</a>
+        <LogoutOutlined style={{margin: "0 10px"}} />
+      </>
+    ),
+  },
+];
 
 const DropdownMenu = () => (
-  <Dropdown key="more" overlay={menu}>
-    <Button
-      style={{
-        border: "none",
-        padding: 0
-      }}
-    >
-      <EllipsisOutlined
-        style={{
-          fontSize: 20,
-          verticalAlign: "top"
-        }}
-      />
-    </Button>
+  <Dropdown
+    menu={{
+      items,
+    }}
+  >
+    <a onClick={(e) => e.preventDefault()}>
+        <Avatar style={{ backgroundColor: '#87d068' }} size={35} icon={<UserOutlined />}/>
+    </a>
   </Dropdown>
 );
 
@@ -63,13 +61,12 @@ const NavBar = () => (
     title="KNEGG"
     className="site-page-header"
     subTitle="An AI generated CV/Cover letter"
-    // tags={<Tag color="blue">Running</Tag>}
     extra={[
-      menu,
-      <DropdownMenu key="more" />
+      // menu,
+      <DropdownMenu key="more" />,
     ]}
     avatar={{
-      src: 'logo-kneg.png'
+      src: "logo-kneg.png",
     }}
     breadcrumb={{ routes }}
   ></PageHeader>

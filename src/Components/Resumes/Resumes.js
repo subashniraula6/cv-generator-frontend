@@ -9,7 +9,7 @@ import { Button } from "antd";
 import { DownloadOutlined, SaveOutlined } from "@ant-design/icons";
 
 function Resumes({ questions, setQuestions }) {
-  const colors = ["#239ce2", "#48bb78", "#0bc5ea", "#a0aec0", "#ed8936"];
+  const colors = ["#239ce2", "#48bb78", "#0bc5ea", "#98B4D4", "#e3654f", "#da8bad"];
   const [activeColor, setActiveColor] = useState(colors[0]);
   const resumeRef = useRef();
 
@@ -52,7 +52,7 @@ function Resumes({ questions, setQuestions }) {
         />
       </ResumeWrapper>
 
-      {/* <ResumeWrapper>
+      <ResumeWrapper>
         <Resume2
           questions={questions}
           setQuestions={setQuestions}
@@ -60,7 +60,7 @@ function Resumes({ questions, setQuestions }) {
         />
       </ResumeWrapper>
 
-      <ResumeWrapper>
+      {/* <ResumeWrapper>
         <Resume3
           questions={questions}
           setQuestions={setQuestions}

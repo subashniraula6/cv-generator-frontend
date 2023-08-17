@@ -96,10 +96,10 @@ const UpdateResume = ({
           handleCancelSection={(e) => handleCancelSection()}
           title={title}
         >
-          {questions?.basicInfo?.questions.find((q) => q.index === index) && (
+          {questions[section].questions.find((q) => q.index === index) && (
             <Field
               key={fieldKey}
-              question={questions?.basicInfo?.questions.find(
+              question={questions[section]?.questions.find(
                 (q) => q.index === index
               )}
               handleInputChange={(e) => handleInputChange(e, section, index)}

@@ -17,7 +17,7 @@ export default function Form({ questions, setQuestions }) {
       handleNext();
     }
   }, [questions]);
-  
+
   useEffect(() => {
     let currentQuestion = findCurrentQuestion();
     let currentAns = currentQuestion?.answer;
@@ -58,8 +58,8 @@ export default function Form({ questions, setQuestions }) {
   const findCurrentQuestion = () => {
     return questions[currentSection]["questions"].find(
       (q) => q.index === currentQuestionIdx
-    )
-  }
+    );
+  };
 
   const findNextQuestion = () => {
     let orderedIndexes = questions[currentSection]["questions"].sort(
@@ -81,12 +81,12 @@ export default function Form({ questions, setQuestions }) {
     );
     return orderedIndexes[currentQueArrIdx - 1];
   };
-console.log("questions", questions)
+  
   const updateQuestions = () => {
     if (currentQuestionIdx === 11 && currentAnswer === "yes") {
       let prevQuestion = findPrevQuestion();
       let answers = prevQuestion.answer.split(",");
-      if(!answers.length || !answers[0]) {
+      if (!answers.length || !answers[0]) {
         handleNext();
         return;
       }
@@ -132,43 +132,54 @@ console.log("questions", questions)
         true
       );
     } else if (isRepeatQuestion && currentAnswer === "yes") {
-        let additionalQuestions = questions[currentSection][
-          "auto_generated_questions"
-        ].map((q, idx) => ({...q, index: currentQuestionIdx + (idx + 1)}));
-        setQuestions(
-          {
-            ...questions,
-            [currentSection]: {
-              ...questions[currentSection],
-              questions: [
-                ...questions[currentSection]["questions"],
-                ...additionalQuestions,
-              ].sort((a, b) => a.index - b.index),
-            },
+      let additionalQuestions = questions[currentSection][
+        "auto_generated_questions"
+      ].map((q, idx) => ({
+        ...q,
+        index: currentQuestionIdx + (idx + 1),
+        no: questions[currentSection]["noOfItems"] + 1,
+      }));
+      setQuestions(
+        {
+          ...questions,
+          [currentSection]: {
+            ...questions[currentSection],
+            noOfItems: questions[currentSection]["noOfItems"] + 1,
+            questions: [
+              ...questions[currentSection]["questions"],
+              ...additionalQuestions,
+            ].sort((a, b) => a.index - b.index),
           },
-          true
-        );
+        },
+        true
+      );
     } else if (isUpdateQuestion) {
       let currentQuestion = findCurrentQuestion();
       let startIdx = currentQuestionIdx + 1;
       let stopIdx = currentQuestionIdx + currentQuestion?.update?.noOfQues;
-      let targetQuestions = questions[currentSection]["questions"]
-      .filter((q => q.index >= startIdx && q.index <= stopIdx));
+      let targetQuestions = questions[currentSection]["questions"].filter(
+        (q) => q.index >= startIdx && q.index <= stopIdx
+      );
       let key = currentQuestion?.update?.key;
-      let updatedTargetQuestions = targetQuestions.map(targetQuestion => {
-        if(!targetQuestion.question) {
+      let updatedTargetQuestions = targetQuestions.map((targetQuestion) => {
+        if (!targetQuestion.question) {
           let regExp = new RegExp("{{" + key + "}}");
-          return {...targetQuestion, question: targetQuestion.template?.replace(regExp, currentAnswer) || targetQuestion.question}
+          return {
+            ...targetQuestion,
+            question:
+              targetQuestion.template?.replace(regExp, currentAnswer) ||
+              targetQuestion.question,
+          };
         }
         let { question, template } = targetQuestion;
         let ginger = "{{" + key + "}}";
-        if(template && template.includes(ginger)) {
+        if (template && template.includes(ginger)) {
           // find left 3 characters and right 3 characters
           let left3 = template.indexOf(ginger);
         }
         return targetQuestion;
       });
-      console.log("updateQuestions", updatedTargetQuestions)
+      console.log("updateQuestions", updatedTargetQuestions);
       let updatedQuestions = replaceQuestions(updatedTargetQuestions);
       setQuestions(updatedQuestions, true);
     } else {
@@ -178,10 +189,12 @@ console.log("questions", questions)
 
   function replaceQuestions(targetQuestions) {
     let updatedQuestions = JSON.parse(JSON.stringify(questions));
-    let innerQuestions = updatedQuestions[currentSection]['questions'];
-    targetQuestions.forEach(targetQuestion => {
-      let arrIdx = innerQuestions.findIndex(question => question.index === targetQuestion.index );
-      innerQuestions[arrIdx] = targetQuestion
+    let innerQuestions = updatedQuestions[currentSection]["questions"];
+    targetQuestions.forEach((targetQuestion) => {
+      let arrIdx = innerQuestions.findIndex(
+        (question) => question.index === targetQuestion.index
+      );
+      innerQuestions[arrIdx] = targetQuestion;
     });
     return updatedQuestions;
   }
@@ -259,8 +272,8 @@ console.log("questions", questions)
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "answer"
     ] = currentAnswer;
-    console.log("currentAnswer", currentAnswer)
-    console.log("updateQuestions", updatedQuestions)
+    console.log("currentAnswer", currentAnswer);
+    console.log("updateQuestions", updatedQuestions);
     // Update DB
     // Fetch DB and set questions state
     setQuestions(updatedQuestions);
@@ -280,9 +293,9 @@ console.log("questions", questions)
   };
 
   const handleDateChange = (date, dateStr) => {
-    console.log(date, dateStr)
+    console.log(date, dateStr);
     setCurrentAnswer(dateStr);
-  }
+  };
 
   const addDropdownOption = (option) => {
     // add question options
@@ -316,7 +329,9 @@ console.log("questions", questions)
                     handleInputChange={handleInputChange}
                     handleSelectChange={handleSelectChange}
                     handleSlideChange={handleSlideChange}
-                    handleDateChange={(date, dateStr)=>handleDateChange(date, dateStr)}
+                    handleDateChange={(date, dateStr) =>
+                      handleDateChange(date, dateStr)
+                    }
                     addDropdownOption={addDropdownOption}
                   />
                   <div>
