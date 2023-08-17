@@ -278,6 +278,8 @@ export default function Form({ questions, setQuestions }) {
     // Fetch DB and set questions state
     setQuestions(updatedQuestions);
     updateQuestions();
+    // setTimeout(()=>{
+    // }, [3000]);
   };
 
   const handleInputChange = (e) => {

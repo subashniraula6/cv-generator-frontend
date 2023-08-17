@@ -290,7 +290,7 @@ const Questions = {
         index: 2000,
         template: "What were you achievements in {{company}}?",
         question: "",
-        type: "text",
+        type: "textArea",
         answer: "",
       },
       {

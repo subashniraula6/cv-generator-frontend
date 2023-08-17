@@ -31,9 +31,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
       groupQuestions(questions["educationPast"]["questions"])
     );
   }, [questions]);
-  console.log("groupedExperience", groupedExperience);
-  console.log("groupedEducation", groupedEducation);
-
+  
   return (
     <div className="_container">
       <div className="sider" style={{ backgroundColor: activeColor }}>
@@ -274,44 +272,77 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                           return (
                             <div className="experience-content">
                               <div className="experience-content more-info">
-                                <Row justify={"space-between"}>
+                                <Row justify={"space-between"} align={"middle"}>
                                   <Col>
-                                    <span>
-                                      <UpdateResumeWrapper className="info-profile">
-                                        <UpdateResume
-                                          key={JSON.stringify(questions)}
-                                          section="workExperiencePast"
-                                          index={
-                                            groupedExperience[group][1].index
-                                          }
-                                          title="Edit Profile Summary"
-                                          questions={questions}
-                                          setQuestions={setQuestions}
-                                        />
-                                        {groupedExperience[group][1].answer}
-                                      </UpdateResumeWrapper>
-                                    </span>
-                                    <span> - </span>
-                                    <span>
-                                      <UpdateResumeWrapper className="info-profile">
-                                        <UpdateResume
-                                          key={JSON.stringify(questions)}
-                                          section="workExperiencePast"
-                                          index={
-                                            groupedExperience[group][0].index
-                                          }
-                                          title="Edit Profile Summary"
-                                          questions={questions}
-                                          setQuestions={setQuestions}
-                                        />
-                                        {groupedExperience[group][0].answer}
-                                      </UpdateResumeWrapper>
-                                    </span>
+                                    <Row justify={"center"} align={"middle"}>
+                                      <Col>
+                                        <UpdateResumeWrapper className="info-position">
+                                          <UpdateResume
+                                            key={JSON.stringify(questions)}
+                                            section="workExperiencePast"
+                                            index={
+                                              groupedExperience[group][1].index
+                                            }
+                                            title="Edit Profile Summary"
+                                            questions={questions}
+                                            setQuestions={setQuestions}
+                                          />
+                                          {groupedExperience[group][1].answer}
+                                        </UpdateResumeWrapper>
+                                      </Col>
+                                      <Col>
+                                        {" - "}
+                                      </Col>
+                                      <Col>
+                                        <UpdateResumeWrapper className="info-company">
+                                          <UpdateResume
+                                            key={JSON.stringify(questions)}
+                                            section="workExperiencePast"
+                                            index={
+                                              groupedExperience[group][0].index
+                                            }
+                                            title="Edit Profile Summary"
+                                            questions={questions}
+                                            setQuestions={setQuestions}
+                                          />
+                                          {groupedExperience[group][0].answer}
+                                        </UpdateResumeWrapper>
+                                      </Col>
+                                    </Row>
                                   </Col>
-                                  <Col>
+                                  <Col style={{display: 'flex', justifyContent: "center", alignItems: "center"}}>
                                     <span>
-                                      {groupedExperience[group][2].answer} -{" "}
+                                    <UpdateResumeWrapper className="info-position">
+                                          <UpdateResume
+                                            key={JSON.stringify(questions)}
+                                            section="workExperiencePast"
+                                            index={
+                                              groupedExperience[group][1].index
+                                            }
+                                            title="Edit Profile Summary"
+                                            questions={questions}
+                                            setQuestions={setQuestions}
+                                          />
+                                          {groupedExperience[group][2].answer}
+                                      </UpdateResumeWrapper>
+                                    </span>
+                                    <span>
+                                      {" - "}
+                                    </span>
+                                    <span>
+                                      <UpdateResumeWrapper className="info-position">
+                                          <UpdateResume
+                                            key={JSON.stringify(questions)}
+                                            section="workExperiencePast"
+                                            index={
+                                              groupedExperience[group][1].index
+                                            }
+                                            title="Edit Profile Summary"
+                                            questions={questions}
+                                            setQuestions={setQuestions}
+                                          />
                                       {groupedExperience[group][3].answer}
+                                      </UpdateResumeWrapper>
                                     </span>
                                   </Col>
                                 </Row>

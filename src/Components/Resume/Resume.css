@@ -46,7 +46,8 @@ hr {
   display: inline;
 }
 
-.info {
+.info-exp {
+  display: inline;
 }
 
 .info-header {
@@ -88,6 +89,9 @@ hr {
   flex-direction: column;
   justify-content: space-evenly;
   margin: 10px 0;
+}
+.info-company {
+  font-weight: 800;
 }
 .profile-content,
 .skills-content,
