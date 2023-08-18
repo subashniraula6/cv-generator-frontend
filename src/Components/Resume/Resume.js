@@ -3,6 +3,7 @@ import "./Resume.css";
 import { Layout, Space, Row, Col } from "antd";
 import UpdateResume from "../Common/UpdateResume";
 import UpdateResumeWrapper from "../Wrappers/UpdateResumeWrapper";
+import { GlobalOutlined, LinkedinOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
 
 const { Sider, Content } = Layout;
 
@@ -31,7 +32,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
       groupQuestions(questions["educationPast"]["questions"])
     );
   }, [questions]);
-  
+
   return (
     <div className="_container">
       <div className="sider" style={{ backgroundColor: activeColor }}>
@@ -97,21 +98,99 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 questions={questions}
                 setQuestions={setQuestions}
               />
-              <p>
-                {questions?.basicInfo?.questions.find((q) => q.index === 7)
-                  ?.answer.length === 0 && "CONTACT"}
+              <div>
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 7)
+                    ?.answer && <PhoneOutlined />
+                    
+                }
+                {
+                  " "
+                }
                 {
                   questions?.basicInfo?.questions.find((q) => q.index === 7)
                     ?.answer
                 }
-              </p>
+              </div>
+            </UpdateResumeWrapper>
+            <UpdateResumeWrapper className="email">
+              <UpdateResume
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={8}
+                title="Edit Email"
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <div>
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 8)
+                    ?.answer && <MailOutlined />
+                    
+                }
+                {
+                  " "
+                }
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 8)
+                    ?.answer
+                }
+              </div>
+            </UpdateResumeWrapper>
+            <UpdateResumeWrapper className="linkedin">
+              <UpdateResume
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={9}
+                title="Edit Linkedin profile"
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <div>
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 9)
+                    ?.answer && <LinkedinOutlined />
+                    
+                }
+                {
+                  " "
+                }
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 9)
+                    ?.answer
+                }
+              </div>
+            </UpdateResumeWrapper>
+            <UpdateResumeWrapper className="website">
+              <UpdateResume
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={10}
+                title="Edit Website"
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <div>
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 10)
+                    ?.answer && <GlobalOutlined />
+                    
+                }
+                {
+                  " "
+                }
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 10)
+                    ?.answer
+                }
+              </div>
             </UpdateResumeWrapper>
           </div>
           <UpdateResumeWrapper className="skill">
             <UpdateResume
               key={JSON.stringify(questions)}
               section="basicInfo"
-              index={9}
+              index={12}
               title="Edit Skill's"
               questions={questions}
               setQuestions={setQuestions}
@@ -122,7 +201,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 <h4>Skill's</h4>
                 <Space direction="vertical">
                   {questions?.basicInfo?.questions
-                    .find((q) => q.index === 9)
+                    .find((q) => q.index === 12)
                     ?.answer.split(",")
                     .map((skill) => {
                       return skill ? (
@@ -143,7 +222,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             <UpdateResume
               key={JSON.stringify(questions)}
               section="basicInfo"
-              index={10}
+              index={13}
               title="Edit Language Skills"
               questions={questions}
               setQuestions={setQuestions}
@@ -154,7 +233,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 <h4>Language skills</h4>
                 <Space direction="vertical">
                   {questions?.basicInfo?.questions
-                    .find((q) => q.index === 10)
+                    .find((q) => q.index === 13)
                     ?.answer.split(",")
                     .map((language) => {
                       return language ? (
@@ -272,7 +351,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                           return (
                             <div className="experience-content">
                               <div className="experience-content more-info">
-                                <Row justify={"space-between"} align={"middle"}>
+                                <Row justify={"space-between"} align={"top"}>
                                   <Col>
                                     <Row justify={"center"} align={"middle"}>
                                       <Col>
@@ -290,9 +369,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                           {groupedExperience[group][1].answer}
                                         </UpdateResumeWrapper>
                                       </Col>
-                                      <Col>
-                                        {" - "}
-                                      </Col>
+                                      <Col>{" - "}</Col>
                                       <Col>
                                         <UpdateResumeWrapper className="info-company">
                                           <UpdateResume
@@ -310,61 +387,65 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                       </Col>
                                     </Row>
                                   </Col>
-                                  <Col style={{display: 'flex', justifyContent: "center", alignItems: "center"}}>
-                                    <span>
-                                    <UpdateResumeWrapper className="info-position">
-                                          <UpdateResume
-                                            key={JSON.stringify(questions)}
-                                            section="workExperiencePast"
-                                            index={
-                                              groupedExperience[group][1].index
-                                            }
-                                            title="Edit Profile Summary"
-                                            questions={questions}
-                                            setQuestions={setQuestions}
-                                          />
-                                          {groupedExperience[group][2].answer}
-                                      </UpdateResumeWrapper>
-                                    </span>
-                                    <span>
-                                      {" - "}
-                                    </span>
+                                  <Col
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                    }}
+                                  >
                                     <span>
                                       <UpdateResumeWrapper className="info-position">
-                                          <UpdateResume
-                                            key={JSON.stringify(questions)}
-                                            section="workExperiencePast"
-                                            index={
-                                              groupedExperience[group][1].index
-                                            }
-                                            title="Edit Profile Summary"
-                                            questions={questions}
-                                            setQuestions={setQuestions}
-                                          />
-                                      {groupedExperience[group][3].answer}
+                                        <UpdateResume
+                                          key={JSON.stringify(questions)}
+                                          section="workExperiencePast"
+                                          index={
+                                            groupedExperience[group][2].index
+                                          }
+                                          title="Edit Profile Summary"
+                                          questions={questions}
+                                          setQuestions={setQuestions}
+                                        />
+                                        {groupedExperience[group][2].answer}
+                                      </UpdateResumeWrapper>
+                                    </span>
+                                    <span>{" - "}</span>
+                                    <span>
+                                      <UpdateResumeWrapper className="info-position">
+                                        <UpdateResume
+                                          key={JSON.stringify(questions)}
+                                          section="workExperiencePast"
+                                          index={
+                                            groupedExperience[group][3].index
+                                          }
+                                          title="Edit Profile Summary"
+                                          questions={questions}
+                                          setQuestions={setQuestions}
+                                        />
+                                        {groupedExperience[group][3].answer}
                                       </UpdateResumeWrapper>
                                     </span>
                                   </Col>
                                 </Row>
-                                <div className="work-content">
-                                  <p>
-                                    {questions?.workExperiencePast?.questions.find(
-                                      (q) => q.index === 1011
-                                    )?.answer && (
-                                      <span
-                                        className="skills-name"
-                                        style={{ whiteSpace: "nowrap" }}
-                                      >
-                                        &bull;{" "}
-                                        {
-                                          questions?.workExperiencePast?.questions.find(
-                                            (q) => q.index === 1011
-                                          )?.answer
+                              </div>
+                              <div className="work-description">
+                                <p>
+                                  {
+                                    <UpdateResumeWrapper className="info-position">
+                                      <UpdateResume
+                                        key={JSON.stringify(questions)}
+                                        section="workExperiencePast"
+                                        index={
+                                          groupedExperience[group][4].index
                                         }
-                                      </span>
-                                    )}
-                                  </p>
-                                </div>
+                                        title="Edit Profile Summary"
+                                        questions={questions}
+                                        setQuestions={setQuestions}
+                                      />
+                                      &bull; {groupedExperience[group][4].answer}
+                                    </UpdateResumeWrapper>
+                                  }
+                                </p>
                               </div>
                             </div>
                           );
@@ -405,51 +486,137 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
         */}
 
           <div className="info-profile">
-            <h4>Education</h4>
-            <div className="education-content">
-              {
-                // resumeSelector?.education?.map((education, idx) => (
-                <div className="education-content more-info">
-                  <Row justify={"space-between"}>
-                    <Col>
-                      <span>
-                        {
-                          questions?.education?.questions.find(
-                            (q) => q.index === 2001
-                          )?.answer
-                        }{" "}
-                        -{" "}
-                        {questions?.education?.questions.find(
-                          (q) => q.index === 2002
-                        )?.answer || ""}
-                      </span>
-                    </Col>
-                    <Col>
-                      <span>
-                        {
-                          questions?.education?.questions.find(
-                            (q) => q.index === 2003
-                          )?.answer
-                        }
-                      </span>
-                      /
-                      <span>
-                        {
-                          questions?.education?.questions.find(
-                            (q) => q.index === 2004
-                          )?.answer
-                        }{" "}
-                        -{" "}
-                        {questions?.education?.questions.find(
-                          (q) => q.index === 2005
-                        )?.answer || ""}
-                      </span>
-                    </Col>
-                  </Row>
-                </div>
-                // ))
-              }
-            </div>
+            {questions?.educationPast?.questions &&
+              !questions?.educationPast?.removed && (
+                <>
+                  <h4>Education</h4>
+                  <div className="info-education">
+                    {
+                      // resumeSelector?.workExp?.map((workExp, idx) => (
+                      groupedEducation &&
+                        Object.keys(groupedEducation).map((group) => {
+                          return (
+                            <div className="education-content">
+                              <div className="education-content more-info">
+                                <Row justify={"space-between"} align={"top"}>
+                                  <Col>
+                                    <Row justify={"center"} align={"middle"}>
+                                      <Col>
+                                        <UpdateResumeWrapper className="info-position">
+                                          <UpdateResume
+                                            key={JSON.stringify(questions)}
+                                            section="educationPast"
+                                            index={
+                                              groupedEducation[group][1].index
+                                            }
+                                            title="Edit Profile Summary"
+                                            questions={questions}
+                                            setQuestions={setQuestions}
+                                          />
+                                          {groupedEducation[group][1].answer}
+                                        </UpdateResumeWrapper>
+                                      </Col>
+                                      <Col>{" - "}</Col>
+                                      <Col>
+                                        <UpdateResumeWrapper className="info-college">
+                                          <UpdateResume
+                                            key={JSON.stringify(questions)}
+                                            section="educationPast"
+                                            index={
+                                              groupedEducation[group][2].index
+                                            }
+                                            title="Edit Profile Summary"
+                                            questions={questions}
+                                            setQuestions={setQuestions}
+                                          />
+                                          {groupedEducation[group][2].answer}
+                                        </UpdateResumeWrapper>
+                                      </Col>
+                                    </Row>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "start",
+                                        alignItems: "center",
+                                      }}
+                                    >
+                                      <UpdateResumeWrapper>
+                                        <UpdateResume
+                                          key={JSON.stringify(questions)}
+                                          section="educationPast"
+                                          index={
+                                            groupedEducation[group][3].index
+                                          }
+                                          title="Edit Profile Summary"
+                                          questions={questions}
+                                          setQuestions={setQuestions}
+                                        />
+                                        {groupedEducation[group][3].answer}
+                                      <span>{","}</span>
+                                        <UpdateResumeWrapper>
+                                          <UpdateResume
+                                            key={JSON.stringify(questions)}
+                                            section="educationPast"
+                                            index={
+                                              groupedEducation[group][0].index
+                                            }
+                                            title="Edit Profile Summary"
+                                            questions={questions}
+                                            setQuestions={setQuestions}
+                                          />
+                                          {groupedEducation[group][0].answer}
+                                        </UpdateResumeWrapper>
+                                      </UpdateResumeWrapper>
+                                    </div>
+                                  </Col>
+                                  <Col
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <span>
+                                      <UpdateResumeWrapper className="info-position">
+                                        <UpdateResume
+                                          key={JSON.stringify(questions)}
+                                          section="educationPast"
+                                          index={
+                                            groupedEducation[group][4].index
+                                          }
+                                          title="Edit Profile Summary"
+                                          questions={questions}
+                                          setQuestions={setQuestions}
+                                        />
+                                        {groupedEducation[group][4].answer}
+                                      </UpdateResumeWrapper>
+                                    </span>
+                                    <span>{" - "}</span>
+                                    <span>
+                                      <UpdateResumeWrapper style={{width: 'auto'}}>
+                                        <UpdateResume
+                                          key={JSON.stringify(questions)}
+                                          section="educationPast"
+                                          index={
+                                            groupedEducation[group][5].index
+                                          }
+                                          title="Edit Profile Summary"
+                                          questions={questions}
+                                          setQuestions={setQuestions}
+                                        />
+                                        {groupedEducation[group][5].answer}
+                                      </UpdateResumeWrapper>
+                                    </span>
+                                  </Col>
+                                </Row>
+                              </div>
+                            </div>
+                          );
+                        })
+                    }
+                  </div>
+                </>
+              )}
           </div>
 
           <hr />
@@ -463,7 +630,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             />
             <h4>Awards</h4>
             <div className="awards-content">
-              <Space>
+              <Space wrap>
                 {questions?.basicInfo?.questions
                   .find((q) => q.index === 52)
                   ?.answer?.split(",")

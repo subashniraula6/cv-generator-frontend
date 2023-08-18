@@ -66,12 +66,33 @@ const Questions = {
       {
         index: 8,
         question:
-          "Which city do you work in or want a job in? You don't have to answer this question if you don't want to, but your application documents will be better if you do.",
+          "Enter your Email",
         type: "text",
         answer: "",
       },
       {
         index: 9,
+        question:
+          "Enter your linkedin if you have any",
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 10,
+        question:
+          "Enter your Website if you have any",
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 11,
+        question:
+          "Which city do you work in or want a job in? You don't have to answer this question if you don't want to, but your application documents will be better if you do.",
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 12,
         question: "What skills do you want to highlight in your CV?",
         type: "select",
         options:
@@ -79,7 +100,7 @@ const Questions = {
         answer: "",
       },
       {
-        index: 10,
+        index: 13,
         question:
           "Which language(s) do you have knowledge of? If you want, you can indicate how good you are in each language in a later question.",
         type: "select",
@@ -89,7 +110,7 @@ const Questions = {
         answer: "",
       },
       {
-        index: 11,
+        index: 14,
         question: "Do you want to indicate how good you are in each language?",
         type: "boolean",
         answer: "",
@@ -364,7 +385,7 @@ const Questions = {
     auto_generated_questions: [
       {
         index: 4000,
-        question: "Where did you previously study?",
+        question: "Where did you previously study? (Location)",
         type: "text",
         answer: "",
       },
@@ -389,13 +410,13 @@ const Questions = {
       {
         index: 4000,
         question: "When did you start your studies at ${schoolName}?",
-        type: "text",
+        type: "date",
         answer: "",
       },
       {
         index: 4000,
         question: "When did you complete your studies at ${schoolName}?",
-        type: "text",
+        type: "date",
         answer: "",
       },
       {

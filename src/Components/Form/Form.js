@@ -49,7 +49,7 @@ export default function Form({ questions, setQuestions }) {
     }
     return 0;
   }
-  console.log("questions", questions)
+  
   const findCurrentQuestion = () => {
     return questions[currentSection]["questions"].find(
       (q) => q.index === currentQuestionIdx
@@ -78,7 +78,7 @@ export default function Form({ questions, setQuestions }) {
   };
   
   const updateQuestions = (updatedQuestions) => {
-    if (currentQuestionIdx === 11 && currentAnswer === "yes") {
+    if (currentQuestionIdx === 14 && currentAnswer === "yes") {
       let prevQuestion = findPrevQuestion();
       let answers = prevQuestion.answer.split(",");
       if (!answers.length || !answers[0]) {
@@ -111,7 +111,7 @@ export default function Form({ questions, setQuestions }) {
         );
       }
     } else if (
-      currentQuestionIdx === 11 &&
+      currentQuestionIdx === 14 &&
       (currentAnswer === "no" || currentAnswer === "")
     ) {
       setQuestions(
