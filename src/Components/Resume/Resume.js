@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState } from "react";
 import "./Resume.css";
-import { Layout, Space, Row, Col } from "antd";
+import { Layout, Space, Row, Col, Spin } from "antd";
 import UpdateResume from "../Common/UpdateResume";
 import UpdateResumeWrapper from "../Wrappers/UpdateResumeWrapper";
 import {
@@ -13,6 +13,7 @@ import {
 const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
   const [groupedExperience, setGroupedExperience] = useState({});
   const [groupedEducation, setGroupedEducation] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   function groupQuestions(arr) {
     const groupByCategory = arr.reduce((group, question) => {
@@ -266,23 +267,29 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
       <div className="content">
         <div style={{ padding: "40px" }}>
           <UpdateResumeWrapper className="info-profile">
-            <UpdateResume
-              key={JSON.stringify(questions)}
-              section="basicInfo"
-              index={56}
-              title="Edit Profile Summary"
-              questions={questions}
-              setQuestions={setQuestions}
-            />
-            <h4>Profile Summary</h4>
-            <div className="profile-content">
-              <p>
-                {
-                  questions?.basicInfo?.questions.find((q) => q.index === 56)
-                    ?.answer
-                }
-              </p>
-            </div>
+            <Spin spinning={isLoading}>
+              <UpdateResume
+                style={{border: "2px solid green"}}
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={56}
+                title="Edit Profile Summary"
+                questions={questions}
+                setQuestions={setQuestions}
+                AIField={true}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+              />
+              <h4>Profile Summary</h4>
+              <div className="profile-content">
+                <p>
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 56)
+                      ?.answer
+                  }
+                </p>
+              </div>
+            </Spin>
           </UpdateResumeWrapper>
           <UpdateResumeWrapper className="info-profile">
             <UpdateResume

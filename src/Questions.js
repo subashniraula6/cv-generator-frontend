@@ -167,7 +167,7 @@ const Questions = {
       },
       {
         index: 56,
-        question: "Wanna include some summary ?",
+        question: "Wanna include your profile summary ? (For best AI experience mention some of it)",
         type: "textArea",
         answer:
           'Here you can either enter your professional title if you have one, for example "Authorised accountant". You can also write something more creative, for example "Problem solver of rank".',
