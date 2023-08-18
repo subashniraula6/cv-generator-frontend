@@ -17,7 +17,7 @@ export default function Form({ questions, setQuestions }) {
       handleNext();
     }
   }, [questions]);
-
+  
   useEffect(() => {
     let currentQuestion = findCurrentQuestion();
     let currentAns = currentQuestion?.answer;
@@ -40,11 +40,6 @@ export default function Form({ questions, setQuestions }) {
     }
   }, [currentSection]);
 
-  // console.log("currentQuestionIdx", currentQuestionIdx);
-  // console.log("currentAnswer", currentAnswer);
-  // console.log("questions", questions);
-  // console.log("currentSection", currentSection)
-
   function calculateSkipQuestions() {
     if (
       currentQuestionIdx === 1010 &&
@@ -54,7 +49,7 @@ export default function Form({ questions, setQuestions }) {
     }
     return 0;
   }
-
+  console.log("questions", questions)
   const findCurrentQuestion = () => {
     return questions[currentSection]["questions"].find(
       (q) => q.index === currentQuestionIdx
@@ -82,7 +77,7 @@ export default function Form({ questions, setQuestions }) {
     return orderedIndexes[currentQueArrIdx - 1];
   };
   
-  const updateQuestions = () => {
+  const updateQuestions = (updatedQuestions) => {
     if (currentQuestionIdx === 11 && currentAnswer === "yes") {
       let prevQuestion = findPrevQuestion();
       let answers = prevQuestion.answer.split(",");
@@ -90,7 +85,7 @@ export default function Form({ questions, setQuestions }) {
         handleNext();
         return;
       }
-      let questionTemplate = questions[currentSection][
+      let questionTemplate = updatedQuestions[currentSection][
         "auto_generated_questions"
       ].find((q) => q.index === 1);
       if (questionTemplate) {
@@ -103,11 +98,11 @@ export default function Form({ questions, setQuestions }) {
         });
         setQuestions(
           {
-            ...questions,
+            ...updatedQuestions,
             [currentSection]: {
-              ...questions[currentSection],
+              ...updatedQuestions[currentSection],
               questions: [
-                ...questions[currentSection]["questions"],
+                ...updatedQuestions[currentSection]["questions"],
                 ...generated_questions,
               ].sort((a, b) => a.index - b.index),
             },
@@ -121,10 +116,10 @@ export default function Form({ questions, setQuestions }) {
     ) {
       setQuestions(
         {
-          ...questions,
+          ...updatedQuestions,
           [currentSection]: {
-            ...questions[currentSection],
-            questions: questions[currentSection]["questions"]
+            ...updatedQuestions[currentSection],
+            questions: updatedQuestions[currentSection]["questions"]
               .filter((q) => q.index <= currentQuestionIdx || q.index >= 50)
               .sort((a, b) => a.index - b.index),
           },
@@ -132,7 +127,7 @@ export default function Form({ questions, setQuestions }) {
         true
       );
     } else if (isRepeatQuestion && currentAnswer === "yes") {
-      let additionalQuestions = questions[currentSection][
+      let additionalQuestions = updatedQuestions[currentSection][
         "auto_generated_questions"
       ].map((q, idx) => ({
         ...q,
@@ -141,12 +136,12 @@ export default function Form({ questions, setQuestions }) {
       }));
       setQuestions(
         {
-          ...questions,
+          ...updatedQuestions,
           [currentSection]: {
-            ...questions[currentSection],
-            noOfItems: questions[currentSection]["noOfItems"] + 1,
+            ...updatedQuestions[currentSection],
+            noOfItems: updatedQuestions[currentSection]["noOfItems"] + 1,
             questions: [
-              ...questions[currentSection]["questions"],
+              ...updatedQuestions[currentSection]["questions"],
               ...additionalQuestions,
             ].sort((a, b) => a.index - b.index),
           },
@@ -157,7 +152,7 @@ export default function Form({ questions, setQuestions }) {
       let currentQuestion = findCurrentQuestion();
       let startIdx = currentQuestionIdx + 1;
       let stopIdx = currentQuestionIdx + currentQuestion?.update?.noOfQues;
-      let targetQuestions = questions[currentSection]["questions"].filter(
+      let targetQuestions = updatedQuestions[currentSection]["questions"].filter(
         (q) => q.index >= startIdx && q.index <= stopIdx
       );
       let key = currentQuestion?.update?.key;
@@ -179,16 +174,15 @@ export default function Form({ questions, setQuestions }) {
         }
         return targetQuestion;
       });
-      console.log("updateQuestions", updatedTargetQuestions);
-      let updatedQuestions = replaceQuestions(updatedTargetQuestions);
-      setQuestions(updatedQuestions, true);
+      
+      let replacedQuestions = replaceQuestions(updatedQuestions, updatedTargetQuestions);
+      setQuestions(replacedQuestions, true);
     } else {
       handleNext();
     }
   };
 
-  function replaceQuestions(targetQuestions) {
-    let updatedQuestions = JSON.parse(JSON.stringify(questions));
+  function replaceQuestions(updatedQuestions, targetQuestions) {
     let innerQuestions = updatedQuestions[currentSection]["questions"];
     targetQuestions.forEach((targetQuestion) => {
       let arrIdx = innerQuestions.findIndex(
@@ -272,12 +266,10 @@ export default function Form({ questions, setQuestions }) {
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "answer"
     ] = currentAnswer;
-    console.log("currentAnswer", currentAnswer);
-    console.log("updateQuestions", updatedQuestions);
     // Update DB
     // Fetch DB and set questions state
     setQuestions(updatedQuestions);
-    updateQuestions();
+    updateQuestions(updatedQuestions);
     // setTimeout(()=>{
     // }, [3000]);
   };
@@ -295,7 +287,6 @@ export default function Form({ questions, setQuestions }) {
   };
 
   const handleDateChange = (date, dateStr) => {
-    console.log(date, dateStr);
     setCurrentAnswer(dateStr);
   };
 
