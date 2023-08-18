@@ -487,7 +487,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                               <div className="education-content more-info">
                                 <Row justify={"space-between"} align={"top"}>
                                   <Col>
-                                    <Row justify={"center"} align={"middle"}>
+                                    <Row justify={"start"} align={"middle"}>
                                       <Col>
                                         <UpdateResumeWrapper className="info-position">
                                           <UpdateResume
