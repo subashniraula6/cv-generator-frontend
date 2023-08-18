@@ -10,7 +10,7 @@ const PopConfirm = ({ confirm }) => {
   return (
     <Popconfirm
       title="Delete the task"
-      description="Are you sure to delete this task?"
+      description="Are you sure to delete this section ?"
       onConfirm={(e) => confirm(e)}
       okText="Yes"
       cancelText="No"

@@ -1,14 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+* {
+  font-family: 'Poppins';
+}
+
 .sider {
-  min-width: 250px;
+  min-width: 280px;
 }
 
 .content {
   padding: 0;
-  min-width: 500px;
+  min-width: 700px;
 }
 
 ._container {
-  max-width: 800px;
+  max-width: 1000px;
   height: auto;
   background: whitesmoke;
   display: flex;
@@ -41,7 +46,8 @@ hr {
   display: inline;
 }
 
-.info {
+.info-exp {
+  display: inline;
 }
 
 .info-header {
@@ -84,6 +90,20 @@ hr {
   justify-content: space-evenly;
   margin: 10px 0;
 }
+.info-company {
+  font-weight: 800;
+}
+.info-college {
+  font-weight: 800;
+}
+
+.work-description {
+  font-style: italic;
+}
+.education-description {
+  font-style: italic;
+}
+
 .profile-content,
 .skills-content,
 .experience-content,
@@ -103,6 +123,10 @@ hr {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700 !important;
+}
+
+.awards-content {
+  flex-wrap: wrap;
 }
 
 .section-wrapper {

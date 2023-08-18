@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const UpdateResumeWrapper = styled.div`
     padding: 0;
+    margin: 10px 0;
     width: 100%;
     position: relative;
     &:hover {

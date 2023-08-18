@@ -1,15 +1,21 @@
 import React from "react";
 import MultiSelect from "./MultiSelect";
-import { Input, Select } from "antd";
+import { Input, Select, Switch, DatePicker } from "antd";
+import dayjs from 'dayjs';
 const { TextArea } = Input;
 
 const Field = ({
   question,
   handleInputChange,
   handleSelectChange,
+  handleSlideChange,
+  handleDateChange,
   addDropdownOption,
   ...otherProps
 }) => {
+  const disabledDate = (current) => {
+    return current && current > dayjs().endOf('day');
+  };  
   return (
     <div className="field">
       <div>
@@ -33,13 +39,23 @@ const Field = ({
         />
       )}
 
+      {
+        question.type === "date" && (
+          <DatePicker
+            picker="year"
+            onChange={handleDateChange}
+            disabledDate={disabledDate}
+            defaultValue={question.answer ? dayjs(question.answer): undefined}
+            {...otherProps}
+          />
+      )}
+
       {question.type === "boolean" && (
-        <Input
-          type="radio"
-          // name={question.index}
-          // onChange={handleInputChange}
-          // defaultValue={question.answer}
-          // {...otherProps}
+        <Switch defaultChecked={question.answer === "yes"? true: false} 
+          onBlur={handleSlideChange}
+          checkedChildren="Yes"
+          unCheckedChildren="No"
+          {...otherProps}
         />
       )}
 
