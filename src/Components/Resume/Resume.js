@@ -3,9 +3,12 @@ import "./Resume.css";
 import { Layout, Space, Row, Col } from "antd";
 import UpdateResume from "../Common/UpdateResume";
 import UpdateResumeWrapper from "../Wrappers/UpdateResumeWrapper";
-import { GlobalOutlined, LinkedinOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
-
-const { Sider, Content } = Layout;
+import {
+  GlobalOutlined,
+  LinkedinOutlined,
+  MailOutlined,
+  PhoneOutlined,
+} from "@ant-design/icons";
 
 const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
   const [groupedExperience, setGroupedExperience] = useState({});
@@ -99,14 +102,8 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 setQuestions={setQuestions}
               />
               <div>
-                {
-                  questions?.basicInfo?.questions.find((q) => q.index === 7)
-                    ?.answer && <PhoneOutlined />
-                    
-                }
-                {
-                  " "
-                }
+                {questions?.basicInfo?.questions.find((q) => q.index === 7)
+                  ?.answer && <PhoneOutlined />}{" "}
                 {
                   questions?.basicInfo?.questions.find((q) => q.index === 7)
                     ?.answer
@@ -123,14 +120,8 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 setQuestions={setQuestions}
               />
               <div>
-                {
-                  questions?.basicInfo?.questions.find((q) => q.index === 8)
-                    ?.answer && <MailOutlined />
-                    
-                }
-                {
-                  " "
-                }
+                {questions?.basicInfo?.questions.find((q) => q.index === 8)
+                  ?.answer && <MailOutlined />}{" "}
                 {
                   questions?.basicInfo?.questions.find((q) => q.index === 8)
                     ?.answer
@@ -147,14 +138,8 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 setQuestions={setQuestions}
               />
               <div>
-                {
-                  questions?.basicInfo?.questions.find((q) => q.index === 9)
-                    ?.answer && <LinkedinOutlined />
-                    
-                }
-                {
-                  " "
-                }
+                {questions?.basicInfo?.questions.find((q) => q.index === 9)
+                  ?.answer && <LinkedinOutlined />}{" "}
                 {
                   questions?.basicInfo?.questions.find((q) => q.index === 9)
                     ?.answer
@@ -171,14 +156,8 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 setQuestions={setQuestions}
               />
               <div>
-                {
-                  questions?.basicInfo?.questions.find((q) => q.index === 10)
-                    ?.answer && <GlobalOutlined />
-                    
-                }
-                {
-                  " "
-                }
+                {questions?.basicInfo?.questions.find((q) => q.index === 10)
+                  ?.answer && <GlobalOutlined />}{" "}
                 {
                   questions?.basicInfo?.questions.find((q) => q.index === 10)
                     ?.answer
@@ -442,7 +421,8 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                         questions={questions}
                                         setQuestions={setQuestions}
                                       />
-                                      &bull; {groupedExperience[group][4].answer}
+                                      &bull;{" "}
+                                      {groupedExperience[group][4].answer}
                                     </UpdateResumeWrapper>
                                   }
                                 </p>
@@ -516,7 +496,6 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                           {groupedEducation[group][1].answer}
                                         </UpdateResumeWrapper>
                                       </Col>
-                                      <Col>{" - "}</Col>
                                       <Col>
                                         <UpdateResumeWrapper className="info-college">
                                           <UpdateResume
@@ -529,6 +508,8 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
+                                          {groupedEducation[group][2].answer &&
+                                            " - "}{" "}
                                           {groupedEducation[group][2].answer}
                                         </UpdateResumeWrapper>
                                       </Col>
@@ -540,7 +521,13 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                         alignItems: "center",
                                       }}
                                     >
-                                      <UpdateResumeWrapper>
+                                      <UpdateResumeWrapper
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "center",
+                                          alignItems: "center",
+                                        }}
+                                      >
                                         <UpdateResume
                                           key={JSON.stringify(questions)}
                                           section="educationPast"
@@ -552,7 +539,6 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                           setQuestions={setQuestions}
                                         />
                                         {groupedEducation[group][3].answer}
-                                      <span>{","}</span>
                                         <UpdateResumeWrapper>
                                           <UpdateResume
                                             key={JSON.stringify(questions)}
@@ -564,6 +550,8 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
+                                          {groupedEducation[group][0].answer &&
+                                            ","}{" "}
                                           {groupedEducation[group][0].answer}
                                         </UpdateResumeWrapper>
                                       </UpdateResumeWrapper>
@@ -593,7 +581,9 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                     </span>
                                     <span>{" - "}</span>
                                     <span>
-                                      <UpdateResumeWrapper style={{width: 'auto'}}>
+                                      <UpdateResumeWrapper
+                                        style={{ width: "auto" }}
+                                      >
                                         <UpdateResume
                                           key={JSON.stringify(questions)}
                                           section="educationPast"
