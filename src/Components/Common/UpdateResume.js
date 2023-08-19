@@ -93,7 +93,7 @@ const UpdateResume = ({
   }
 
   function generateAI(e, section, index) {
-    let indexes = [3, 5, 6, 12, 50, 53, 54, 56];
+    let indexes = [3, 5, 6, 12, 50, 53];
     let payload = {
       questions: questions['basicInfo']['questions'].filter(q => indexes.includes(q.index)).map(q => ({question: q.question, answer: q.answer}))
     }

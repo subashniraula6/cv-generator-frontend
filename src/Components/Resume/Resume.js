@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState } from "react";
 import "./Resume.css";
-import { Layout, Space, Row, Col, Spin } from "antd";
+import { Space, Row, Col, Spin } from "antd";
 import UpdateResume from "../Common/UpdateResume";
 import UpdateResumeWrapper from "../Wrappers/UpdateResumeWrapper";
 import {
@@ -9,6 +9,7 @@ import {
   MailOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
+import { SectionHeading } from "../Wrappers/SectionHeading";
 
 const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
   const [groupedExperience, setGroupedExperience] = useState({});
@@ -271,7 +272,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               <UpdateResume
                 key={JSON.stringify(questions)}
                 section="basicInfo"
-                index={56}
+                index={53}
                 title="Edit Profile Summary"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -279,11 +280,11 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               />
-              <h4>Profile Summary</h4>
+              <SectionHeading activeColor={activeColor}>Profile Summary</SectionHeading>
               <div className="profile-content">
                 <p>
                   {
-                    questions?.basicInfo?.questions.find((q) => q.index === 56)
+                    questions?.basicInfo?.questions.find((q) => q.index === 53)
                       ?.answer
                   }
                 </p>
@@ -302,7 +303,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             {
               // questions?.basicInfo?.questions[8].answer &&
               <>
-                <h4>Certificates</h4>
+                <SectionHeading activeColor={activeColor}>Certificates</SectionHeading>
                 <Space wrap={true}>
                   {questions?.basicInfo?.questions
                     .find((q) => q.index === 51)
@@ -327,7 +328,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             {questions?.workExperiencePast?.questions &&
               !questions?.workExperiencePast?.removed && (
                 <>
-                  <h4>Work Experience</h4>
+                  <SectionHeading activeColor={activeColor}>Work Experience</SectionHeading>
                   <div className="info-experience">
                     {
                       // resumeSelector?.workExp?.map((workExp, idx) => (
@@ -475,7 +476,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             {questions?.educationPast?.questions &&
               !questions?.educationPast?.removed && (
                 <>
-                  <h4>Education</h4>
+                  <SectionHeading activeColor={activeColor}>Education</SectionHeading>
                   <div className="info-education">
                     {
                       // resumeSelector?.workExp?.map((workExp, idx) => (
@@ -632,7 +633,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               questions={questions}
               setQuestions={setQuestions}
             />
-            <h4>Awards</h4>
+            <SectionHeading activeColor={activeColor}>Awards</SectionHeading>
             <div className="awards-content">
               <Space wrap>
                 {questions?.basicInfo?.questions

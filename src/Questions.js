@@ -84,14 +84,14 @@ const questions = {
           {
               index: 12,
               question: "What skills do you want to highlight in your CV?",
-              type: "select",
+              type: "textSelect",
               options: "Business development, Accounting, Copywriting, Economics, Excel, Facebook Business Manager, Google AdWords, Google Analytics, Crafts, Cooking, Microsoft Office, Pedagogy, Powerpoint, Programming, Project management, Service, Writing, Slack, Training, Digital marketing, les, Photoshop, SAP, SEO, Words",
               answer: "Facebook Business Manager,Google AdWords"
           },
           {
               index: 13,
               question: "Which language(s) do you have knowledge of? If you want, you can indicate how good you are in each language in a later question.",
-              type: "select",
+              type: "textSelect",
               options: "Arabic, Danish, French, Greek, Chinese (Cantonese), Persian, Polish, Swedish, Swahili, Ukrainian, English, Farsi, Finnish, Italian, Japanese, Chinese (Mandarin), Korean, Norwegian, Russian, Somali, Spanish, Thai, Tigrinya, German",
               required: true,
               answer: "French,Danish,Arabic"
@@ -126,14 +126,14 @@ const questions = {
           {
               index: 50,
               question: "What are your interests?",
-              type: "select",
+              type: "textSelect",
               options: "Architecture, Camping, Facebook, History, Baking, Child care, Computers, Computer games, Family activities, Movie, Throat, IT, Cars, Design, Golf, Construction, Digitization, Home remedies, Reading, Marketing, Journalism, Cooking, Art, Fashion, Literature, Politics, Renovation, Writing, Spreak, Styling, TV game, Hiking, Travels, Acting, Song, Tech, Performing arts, Beauty, Textile work, Sailing, Social Media, Tiktok, Skiing, Garden work, Sports",
               answer: "Facebook,Computers"
           },
           {
               index: 51,
               question: "Which certification(s) do you want to include in your CV? Remember to only include certifications that are relevant to the jobs you are applying for.",
-              type: "select",
+              type: "textSelect",
               options: "driver's license, Forklift driving license, Google Ads certification, Meta-certification",
               answer: "Google Ads certification,Forklift driving license"
           },
@@ -146,37 +146,9 @@ const questions = {
           },
           {
               index: 53,
-              question: "Which area(s) do you have the most experience in? Write your own answers or choose one or more of the suggestions below.",
-              type: "textSelect",
-              options: "Administration, Analysis, Digital marketing, Economics, Finance, Communication, Creative work, Leadership, gistics, Marketing, Pedagogy, Project management, Service, Healthcare, Aldrevard",
-              answer: "Communication"
-          },
-          {
-              index: 54,
-              question: "What are your main personal qualities ?",
-              type: "textSelect",
-              options: "Ambition, Analytical, Responsible, Driven, Efficient, Committed, Flexible, Taking initiative, Innovative, Communicative, Creative, Solution-focused, Methodical, Accurate, Curious, Organized, Prestige loss, Professional, Relationship building, Results oriented, Service oriented, Self-propelled, Socially competent, Strategic, Convincing",
-              answer: "Responsible"
-          },
-          {
-              index: 55,
-              question: "Do you want a general summary or tailor your summary for a specific job/company? You increase your chances of getting an interview if you tailor your summary to each job you apply for.",
-              type: "textSelect",
-              options: "Summary for a specific job, General summary",
-              answer: ""
-          },
-          {
-              index: 56,
               question: "Wanna include your profile summary ? (For best AI experience mention some of it)",
               type: "textArea",
               answer: "I am a Software Engineer with experience in Digital Marketing, Economics, Communication, Facebook Business Manager, Google AdWords and Computers. I have a strong commitment to responsibility, flexibility and a passion for helping businesses succeed."
-          },
-          {
-              index: 57,
-              question: "Which position should you apply for?.",
-              type: "textSelect",
-              options: "Summary for a specific job, General summary",
-              answer: ""
           }
       ]
   },
@@ -239,7 +211,7 @@ const questions = {
           {
               index: 1007,
               question: "When did you start working as a Software Engineer at Wolfmatrix? Write either just the year (2023) or month and year (April 2023). Preferably then use the same format on the remaining date questions. Please select 1 option(s).",
-              type: "text",
+              type: "date",
               answer: ""
           },
           {
@@ -251,7 +223,7 @@ const questions = {
           {
               index: 1009,
               question: "When did you stop working as a database administrator at Microsoft? Write either just the year (2023) or month and year (April 2023). Preferably then use the same format on the remaining date questions.",
-              type: "text",
+              type: "date",
               answer: ""
           },
           {
@@ -263,7 +235,7 @@ const questions = {
           {
               index: 1011,
               question: "Describe the most important thing you did or achieved in the role of database administrator. You must answer this question in English.",
-              type: "text",
+              type: "textSelect",
               answer: ""
           },
           {
@@ -469,7 +441,7 @@ const questions = {
           {
               index: 3004,
               question: "When did you start studying at Beckmans School of Design?",
-              type: "text",
+              type: "date",
               answer: ""
           },
           {
@@ -661,7 +633,7 @@ const questions = {
           {
               index: 5001,
               question: "Which language do you have knowledge of?",
-              type: "select",
+              type: "textSelect",
               options: "Arabic, Danish, French, Greek, Chinese (Cantonese), Persian, Polish, Swedish, Swahili, Ukrainian, English, Farsi, Finnish, Italian, Japanese, Chinese (Mandarin), Korean, Norwegian, Russian, Somali, Spanish, Thai, Tigrinya, German",
               answer: ""
           },

@@ -22,7 +22,7 @@ export default function CustomModal({
   };
   const iconStyle = {
     fontSize: "20px",
-    color: "#e3654f",
+    color: "#5B5EA6",
   };
   return (
     <>
