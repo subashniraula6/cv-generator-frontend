@@ -355,7 +355,7 @@ const questions = {
               template: "When did you join {{company}}?",
               question: "When did you join Kathmandu?",
               type: "date",
-              answer: "2019",
+              answer: "Jan 2019",
               no: 1
           },
           {
@@ -363,7 +363,7 @@ const questions = {
               template: "When did you leave {{company}}?",
               question: "When did you leave Kathmandu?",
               type: "date",
-              answer: "2020",
+              answer: "Dec 2020",
               no: 1
           },
           {
@@ -405,7 +405,7 @@ const questions = {
               template: "When did you join {{company}}?",
               question: "When did you join Microsft?",
               type: "date",
-              answer: "2020",
+              answer: "May 2020",
               no: 2
           },
           {
@@ -413,7 +413,7 @@ const questions = {
               template: "When did you leave {{company}}?",
               question: "When did you leave Microsft?",
               type: "date",
-              answer: "2023",
+              answer: "Sep 2023",
               no: 2
           },
           {
@@ -569,14 +569,14 @@ const questions = {
               index: 4005,
               question: "When did you start your studies at ${schoolName}?",
               type: "date",
-              answer: "2015",
+              answer: "Jun 2015",
               no: 1
           },
           {
               index: 4006,
               question: "When did you complete your studies at ${schoolName}?",
               type: "date",
-              answer: "2020",
+              answer: "Jul 2020",
               no: 1
           },
           {
@@ -619,14 +619,14 @@ const questions = {
               index: 4012,
               question: "When did you start your studies at ${schoolName}?",
               type: "date",
-              answer: "2020",
+              answer: "Feb 2020",
               no: 2
           },
           {
               index: 4013,
               question: "When did you complete your studies at ${schoolName}?",
               type: "date",
-              answer: "2020",
+              answer: "Nov 2021",
               no: 2
           },
           {

@@ -15,7 +15,8 @@ const Field = ({
 }) => {
   const disabledDate = (current) => {
     return current && current > dayjs().endOf('day');
-  };  
+  };
+  const monthFormat = 'MMM YYYY'
   return (
     <div className="field">
       <div>
@@ -42,7 +43,8 @@ const Field = ({
       {
         question.type === "date" && (
           <DatePicker
-            picker="year"
+            picker="month"
+            format={monthFormat}
             onChange={handleDateChange}
             disabledDate={disabledDate}
             defaultValue={question.answer ? dayjs(question.answer): undefined}
