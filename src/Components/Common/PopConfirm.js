@@ -4,8 +4,8 @@ import { DeleteFilled } from "@ant-design/icons";
 
 const PopConfirm = ({ confirm }) => {
   const iconStyle = {
-    fontSize: "16px",
-    color: "#0ed2f6"
+    fontSize: "20px",
+    color: "#BC243C"
   };
   return (
     <Popconfirm

@@ -269,7 +269,6 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
           <UpdateResumeWrapper className="info-profile">
             <Spin spinning={isLoading}>
               <UpdateResume
-                style={{border: "2px solid green"}}
                 key={JSON.stringify(questions)}
                 section="basicInfo"
                 index={56}
@@ -525,7 +524,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                       style={{
                                         display: "flex",
                                         justifyContent: "start",
-                                        alignItems: "center",
+                                        alignItems: "end",
                                       }}
                                     >
                                       <UpdateResumeWrapper
@@ -533,6 +532,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                           display: "flex",
                                           justifyContent: "center",
                                           alignItems: "center",
+                                          paddingY: 0,
                                         }}
                                       >
                                         <UpdateResume
@@ -545,22 +545,29 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                           questions={questions}
                                           setQuestions={setQuestions}
                                         />
-                                        {groupedEducation[group][3].answer}
-                                        <UpdateResumeWrapper>
-                                          <UpdateResume
-                                            key={JSON.stringify(questions)}
-                                            section="educationPast"
-                                            index={
-                                              groupedEducation[group][0].index
-                                            }
-                                            title="Edit Profile Summary"
-                                            questions={questions}
-                                            setQuestions={setQuestions}
-                                          />
-                                          {groupedEducation[group][0].answer &&
-                                            ","}{" "}
-                                          {groupedEducation[group][0].answer}
-                                        </UpdateResumeWrapper>
+                                        <span
+                                          style={{
+                                            whiteSpace: "nowrap",
+                                            textOverflow: "inherit",
+                                          }}
+                                        >
+                                          {groupedEducation[group][3].answer}
+                                        </span>
+                                      </UpdateResumeWrapper>
+                                      <UpdateResumeWrapper>
+                                        <UpdateResume
+                                          key={JSON.stringify(questions)}
+                                          section="educationPast"
+                                          index={
+                                            groupedEducation[group][0].index
+                                          }
+                                          title="Edit Profile Summary"
+                                          questions={questions}
+                                          setQuestions={setQuestions}
+                                        />
+                                        {groupedEducation[group][0].answer &&
+                                          ","}{" "}
+                                        {groupedEducation[group][0].answer}
                                       </UpdateResumeWrapper>
                                     </div>
                                   </Col>

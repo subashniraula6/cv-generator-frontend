@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 
 const UpdateResumeWrapper = styled.div`
-    padding: 0;
+    padding: 2px;
     margin: 10px 0;
     width: 100%;
     position: relative;
     &:hover {
-        background: #dad7d7;
-        -webkit-filter: invert(100%);
-        filter: invert(100%);
+        outline: 2px solid grey;
+        outline-radius: 5px;
         background-color: rgb(255,255,255); /* Fallback color */
         background-color: rgba(255,255,255,0.6); /* Black w/ opacity */
     }

@@ -21,8 +21,8 @@ export default function CustomModal({
     setIsModalOpen(false);
   };
   const iconStyle = {
-    fontSize: "16px",
-    color: "#056afb",
+    fontSize: "20px",
+    color: "#e3654f",
   };
   return (
     <>
@@ -55,7 +55,6 @@ export default function CustomModal({
         }
       >
         {children}
-        <div></div>
       </Modal>
     </>
   );

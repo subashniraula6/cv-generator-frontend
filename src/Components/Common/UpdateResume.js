@@ -3,6 +3,7 @@ import { useState } from "react";
 import CustomModal from "./CustomModal";
 import Field from "./Field";
 import PopConfirm from "./PopConfirm";
+import MagicIcon from "./MagicIcon";
 
 const UpdateResume = ({
   section,
@@ -137,7 +138,8 @@ const UpdateResume = ({
       <span className="custom-modal">
         {
           AIField && 
-        <button onClick={(e) => generateAI(e, section, index)}>AI Generate</button>
+        // <button onClick={(e) => generateAI(e, section, index)}>AI Generate</button>
+        <MagicIcon onClick={(e) => generateAI(e, section, index)} />
         }
         <CustomModal
           handleEditSection={(e) => handleEditSection()}
