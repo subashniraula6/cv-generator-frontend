@@ -4,11 +4,13 @@ import {
   Avatar,
 } from "antd";
 import {
+  DashboardOutlined,
   LogoutOutlined,
   PlusOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { PageHeader } from "@ant-design/pro-layout";
+import { Link } from 'react-router-dom'
 
 const routes = [
   {
@@ -21,14 +23,10 @@ const getItems = () => [
   {
     key: "1",
     label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Add Question
-        <PlusOutlined style={{margin: "0 10px"}}/>
-      </a>
+      <Link to="/dashboard">
+        Dashboard
+        <DashboardOutlined style={{margin: "0 10px"}}/>
+      </Link>
     ),
   },
   {
