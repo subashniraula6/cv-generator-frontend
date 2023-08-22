@@ -229,14 +229,11 @@ export default function Form({ questions, setQuestions }) {
     let currentSectionIndex = sections.findIndex(
       (section) => section === currentSection
     );
+
     let nextSection;
-    if (
-      currentQuestionIdx === 1012 &&
-      (currentAnswer === "no" || currentAnswer === "")
-    ) {
-      nextSection = sections[currentSectionIndex + 2];
-    } else {
-      nextSection = sections[currentSectionIndex + 1];
+    nextSection = sections[currentSectionIndex + 1];
+    if(currentSection.toLocaleLowerCase() === 'others') {
+      return "basicInfo";
     }
     return nextSection;
   };
