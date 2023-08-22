@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Dropdown,
-  Typography,
   Avatar,
 } from "antd";
 import {
@@ -18,7 +17,7 @@ const routes = [
   },
 ];
 
-const items = [
+const getItems = () => [
   {
     key: "1",
     label: (
@@ -47,7 +46,7 @@ const items = [
 const DropdownMenu = () => (
   <Dropdown
     menu={{
-      items,
+      items: getItems(),
     }}
   >
     <a onClick={(e) => e.preventDefault()}>
@@ -58,7 +57,7 @@ const DropdownMenu = () => (
 
 const NavBar = () => (
   <PageHeader
-    title="KNEGG"
+    title="KNEG"
     className="site-page-header"
     subTitle="An AI generated CV/Cover letter"
     extra={[

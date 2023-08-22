@@ -78,13 +78,19 @@ export default function Form({ questions, setQuestions }) {
   };
   
   const updateQuestions = (updatedQuestions) => {
-    if (currentQuestionIdx === 14 && currentAnswer === "yes") {
+    if (currentQuestionIdx === 15 && currentAnswer === "yes") {
       let prevQuestion = findPrevQuestion();
       let answers = prevQuestion.answer.split(",");
       if (!answers.length || !answers[0]) {
         handleNext();
         return;
       }
+      // remove previously generated questions
+      updatedQuestions[currentSection]['questions'] = 
+      updatedQuestions[currentSection]['questions'].filter((q) => q.index <= currentQuestionIdx || q.index >= 50)
+      .sort((a, b) => a.index - b.index);
+
+      // add new generated questions
       let questionTemplate = updatedQuestions[currentSection][
         "auto_generated_questions"
       ].find((q) => q.index === 1);
@@ -111,9 +117,10 @@ export default function Form({ questions, setQuestions }) {
         );
       }
     } else if (
-      currentQuestionIdx === 14 &&
+      currentQuestionIdx === 15 &&
       (currentAnswer === "no" || currentAnswer === "")
     ) {
+      // delete previously generated questions
       setQuestions(
         {
           ...updatedQuestions,
@@ -157,22 +164,13 @@ export default function Form({ questions, setQuestions }) {
       );
       let key = currentQuestion?.update?.key;
       let updatedTargetQuestions = targetQuestions.map((targetQuestion) => {
-        if (!targetQuestion.question) {
-          let regExp = new RegExp("{{" + key + "}}");
-          return {
-            ...targetQuestion,
-            question:
-              targetQuestion.template?.replace(regExp, currentAnswer) ||
-              targetQuestion.question,
-          };
-        }
-        let { question, template } = targetQuestion;
-        let ginger = "{{" + key + "}}";
-        if (template && template.includes(ginger)) {
-          // find left 3 characters and right 3 characters
-          let left3 = template.indexOf(ginger);
-        }
-        return targetQuestion;
+        let regExp = new RegExp("{{" + key + "}}");
+        return {
+          ...targetQuestion,
+          question:
+            targetQuestion.template?.replace(regExp, currentAnswer) ||
+            targetQuestion.question,
+        };
       });
       
       let replacedQuestions = replaceQuestions(updatedQuestions, updatedTargetQuestions);

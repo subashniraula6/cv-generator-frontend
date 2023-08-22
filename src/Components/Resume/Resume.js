@@ -31,10 +31,10 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
 
   useEffect(() => {
     setGroupedExperience(
-      groupQuestions(questions["workExperiencePast"]["questions"])
+      groupQuestions(questions["workExperience"]["questions"])
     );
     setGroupedEducation(
-      groupQuestions(questions["educationPast"]["questions"])
+      groupQuestions(questions["education"]["questions"])
     );
   }, [questions]);
 
@@ -98,16 +98,16 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               <UpdateResume
                 key={JSON.stringify(questions)}
                 section="basicInfo"
-                index={7}
+                index={8}
                 title="Edit Phone Number"
                 questions={questions}
                 setQuestions={setQuestions}
               />
               <div>
-                {questions?.basicInfo?.questions.find((q) => q.index === 7)
+                {questions?.basicInfo?.questions.find((q) => q.index === 8)
                   ?.answer && <PhoneOutlined />}{" "}
                 {
-                  questions?.basicInfo?.questions.find((q) => q.index === 7)
+                  questions?.basicInfo?.questions.find((q) => q.index === 8)
                     ?.answer
                 }
               </div>
@@ -116,16 +116,16 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               <UpdateResume
                 key={JSON.stringify(questions)}
                 section="basicInfo"
-                index={8}
+                index={9}
                 title="Edit Email"
                 questions={questions}
                 setQuestions={setQuestions}
               />
               <div>
-                {questions?.basicInfo?.questions.find((q) => q.index === 8)
+                {questions?.basicInfo?.questions.find((q) => q.index === 9)
                   ?.answer && <MailOutlined />}{" "}
                 {
-                  questions?.basicInfo?.questions.find((q) => q.index === 8)
+                  questions?.basicInfo?.questions.find((q) => q.index === 9)
                     ?.answer
                 }
               </div>
@@ -134,16 +134,16 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               <UpdateResume
                 key={JSON.stringify(questions)}
                 section="basicInfo"
-                index={9}
+                index={10}
                 title="Edit Linkedin profile"
                 questions={questions}
                 setQuestions={setQuestions}
               />
               <div>
-                {questions?.basicInfo?.questions.find((q) => q.index === 9)
+                {questions?.basicInfo?.questions.find((q) => q.index === 10)
                   ?.answer && <LinkedinOutlined />}{" "}
                 {
-                  questions?.basicInfo?.questions.find((q) => q.index === 9)
+                  questions?.basicInfo?.questions.find((q) => q.index === 10)
                     ?.answer
                 }
               </div>
@@ -152,16 +152,16 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               <UpdateResume
                 key={JSON.stringify(questions)}
                 section="basicInfo"
-                index={10}
+                index={11}
                 title="Edit Website"
                 questions={questions}
                 setQuestions={setQuestions}
               />
               <div>
-                {questions?.basicInfo?.questions.find((q) => q.index === 10)
+                {questions?.basicInfo?.questions.find((q) => q.index === 11)
                   ?.answer && <GlobalOutlined />}{" "}
                 {
-                  questions?.basicInfo?.questions.find((q) => q.index === 10)
+                  questions?.basicInfo?.questions.find((q) => q.index === 11)
                     ?.answer
                 }
               </div>
@@ -171,7 +171,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             <UpdateResume
               key={JSON.stringify(questions)}
               section="basicInfo"
-              index={12}
+              index={13}
               title="Edit Skill's"
               questions={questions}
               setQuestions={setQuestions}
@@ -182,7 +182,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 <h4>Skill's</h4>
                 <Space direction="vertical">
                   {questions?.basicInfo?.questions
-                    .find((q) => q.index === 12)
+                    .find((q) => q.index === 13)
                     ?.answer.split(",")
                     .map((skill) => {
                       return skill ? (
@@ -203,7 +203,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             <UpdateResume
               key={JSON.stringify(questions)}
               section="basicInfo"
-              index={13}
+              index={14}
               title="Edit Language Skills"
               questions={questions}
               setQuestions={setQuestions}
@@ -214,7 +214,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 <h4>Language skills</h4>
                 <Space direction="vertical">
                   {questions?.basicInfo?.questions
-                    .find((q) => q.index === 13)
+                    .find((q) => q.index === 14)
                     ?.answer.split(",")
                     .map((language) => {
                       return language ? (
@@ -291,6 +291,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               </div>
             </Spin>
           </UpdateResumeWrapper>
+          <hr />
           <UpdateResumeWrapper className="info-profile">
             <UpdateResume
               key={JSON.stringify(questions)}
@@ -325,8 +326,8 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
           </UpdateResumeWrapper>
           <hr />
           <div className="info-profile">
-            {questions?.workExperiencePast?.questions &&
-              !questions?.workExperiencePast?.removed && (
+            {questions?.workExperience?.questions &&
+              !questions?.workExperience?.removed && (
                 <>
                   <SectionHeading activeColor={activeColor}>Work Experience</SectionHeading>
                   <div className="info-experience">
@@ -344,7 +345,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                         <UpdateResumeWrapper className="info-position">
                                           <UpdateResume
                                             key={JSON.stringify(questions)}
-                                            section="workExperiencePast"
+                                            section="workExperience"
                                             index={
                                               groupedExperience[group][1].index
                                             }
@@ -360,7 +361,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                         <UpdateResumeWrapper className="info-company">
                                           <UpdateResume
                                             key={JSON.stringify(questions)}
-                                            section="workExperiencePast"
+                                            section="workExperience"
                                             index={
                                               groupedExperience[group][0].index
                                             }
@@ -384,7 +385,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                       <UpdateResumeWrapper className="info-position">
                                         <UpdateResume
                                           key={JSON.stringify(questions)}
-                                          section="workExperiencePast"
+                                          section="workExperience"
                                           index={
                                             groupedExperience[group][2].index
                                           }
@@ -400,7 +401,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                       <UpdateResumeWrapper className="info-position">
                                         <UpdateResume
                                           key={JSON.stringify(questions)}
-                                          section="workExperiencePast"
+                                          section="workExperience"
                                           index={
                                             groupedExperience[group][3].index
                                           }
@@ -420,7 +421,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                     <UpdateResumeWrapper className="info-position">
                                       <UpdateResume
                                         key={JSON.stringify(questions)}
-                                        section="workExperiencePast"
+                                        section="workExperience"
                                         index={
                                           groupedExperience[group][4].index
                                         }
@@ -473,8 +474,8 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
         */}
 
           <div className="info-profile">
-            {questions?.educationPast?.questions &&
-              !questions?.educationPast?.removed && (
+            {questions?.education?.questions &&
+              !questions?.education?.removed && (
                 <>
                   <SectionHeading activeColor={activeColor}>Education</SectionHeading>
                   <div className="info-education">
@@ -492,7 +493,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                         <UpdateResumeWrapper className="info-position">
                                           <UpdateResume
                                             key={JSON.stringify(questions)}
-                                            section="educationPast"
+                                            section="education"
                                             index={
                                               groupedEducation[group][1].index
                                             }
@@ -507,7 +508,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                         <UpdateResumeWrapper className="info-college">
                                           <UpdateResume
                                             key={JSON.stringify(questions)}
-                                            section="educationPast"
+                                            section="education"
                                             index={
                                               groupedEducation[group][2].index
                                             }
@@ -538,7 +539,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                       >
                                         <UpdateResume
                                           key={JSON.stringify(questions)}
-                                          section="educationPast"
+                                          section="education"
                                           index={
                                             groupedEducation[group][3].index
                                           }
@@ -558,7 +559,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                       <UpdateResumeWrapper>
                                         <UpdateResume
                                           key={JSON.stringify(questions)}
-                                          section="educationPast"
+                                          section="education"
                                           index={
                                             groupedEducation[group][0].index
                                           }
@@ -583,7 +584,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                       <UpdateResumeWrapper className="info-position">
                                         <UpdateResume
                                           key={JSON.stringify(questions)}
-                                          section="educationPast"
+                                          section="education"
                                           index={
                                             groupedEducation[group][4].index
                                           }
@@ -601,7 +602,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                       >
                                         <UpdateResume
                                           key={JSON.stringify(questions)}
-                                          section="educationPast"
+                                          section="education"
                                           index={
                                             groupedEducation[group][5].index
                                           }
