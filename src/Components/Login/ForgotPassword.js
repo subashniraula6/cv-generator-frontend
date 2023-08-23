@@ -37,8 +37,7 @@ export default function ForgotPassword() {
                         message: 'Invalid Email',
                         description: errorCode
                     })
-                });
-            console.log(username)   
+                }); 
         }
         else{
             notification.error({
