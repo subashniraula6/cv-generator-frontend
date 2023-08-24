@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Button from "../Wrappers/Button";
 import { toSentenceCase } from "../../utils";
 import Field from "../Common/Field";
+import { useLanguage } from "../../context/Language";
 
 export default function Form({ questions, setQuestions }) {
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(1);
@@ -12,15 +13,17 @@ export default function Form({ questions, setQuestions }) {
   let [isRepeatQuestion, setIsRepeatQuestion] = useState(false);
   let [isUpdateQuestion, setIsUpdateQuestion] = useState(false);
 
+  let { language: lang, t } = useLanguage();
+
   useEffect(() => {
     if (questions?.isNext) {
       handleNext();
     }
   }, [questions]);
-  
+
   useEffect(() => {
     let currentQuestion = findCurrentQuestion();
-    let currentAns = currentQuestion?.answer;
+    let currentAns = currentQuestion?.answer[lang];
     setCurrentAnswer(currentAns);
 
     let isRepeat = currentQuestion?.repeatable;
@@ -29,7 +32,7 @@ export default function Form({ questions, setQuestions }) {
     let isUpdate = currentQuestion?.update ? true : false;
     setIsUpdateQuestion(isUpdate);
   }, [currentQuestionIdx]);
-  
+
   useEffect(() => {
     if (lastEvent == "next") {
       let firstQuestionIdx = findFirstQuestionIdx();
@@ -49,7 +52,7 @@ export default function Form({ questions, setQuestions }) {
     }
     return 0;
   }
-  
+
   const findCurrentQuestion = () => {
     return questions[currentSection]["questions"].find(
       (q) => q.index === currentQuestionIdx
@@ -76,19 +79,21 @@ export default function Form({ questions, setQuestions }) {
     );
     return orderedIndexes[currentQueArrIdx - 1];
   };
-  
+
   const updateQuestions = (updatedQuestions) => {
     if (currentQuestionIdx === 15 && currentAnswer === "yes") {
       let prevQuestion = findPrevQuestion();
-      let answers = prevQuestion.answer.split(",");
+      let answers = prevQuestion.answer[lang].split(",");
       if (!answers.length || !answers[0]) {
         handleNext();
         return;
       }
       // remove previously generated questions
-      updatedQuestions[currentSection]['questions'] = 
-      updatedQuestions[currentSection]['questions'].filter((q) => q.index <= currentQuestionIdx || q.index >= 50)
-      .sort((a, b) => a.index - b.index);
+      updatedQuestions[currentSection]["questions"] = updatedQuestions[
+        currentSection
+      ]["questions"]
+        .filter((q) => q.index <= currentQuestionIdx || q.index >= 50)
+        .sort((a, b) => a.index - b.index);
 
       // add new generated questions
       let questionTemplate = updatedQuestions[currentSection][
@@ -99,7 +104,10 @@ export default function Form({ questions, setQuestions }) {
           return {
             ...questionTemplate,
             index: currentQuestionIdx + (idx + 1),
-            question: questionTemplate["question"].replace(/{{\w+}}/, a),
+            question: {
+              ...questionTemplate["question"],
+              [lang]: questionTemplate["question"][lang].replace(/{{\w+}}/, a),
+            },
           };
         });
         setQuestions(
@@ -159,21 +167,27 @@ export default function Form({ questions, setQuestions }) {
       let currentQuestion = findCurrentQuestion();
       let startIdx = currentQuestionIdx + 1;
       let stopIdx = currentQuestionIdx + currentQuestion?.update?.noOfQues;
-      let targetQuestions = updatedQuestions[currentSection]["questions"].filter(
-        (q) => q.index >= startIdx && q.index <= stopIdx
-      );
+      let targetQuestions = updatedQuestions[currentSection][
+        "questions"
+      ].filter((q) => q.index >= startIdx && q.index <= stopIdx);
       let key = currentQuestion?.update?.key;
       let updatedTargetQuestions = targetQuestions.map((targetQuestion) => {
         let regExp = new RegExp("{{" + key + "}}");
         return {
           ...targetQuestion,
-          question:
-            targetQuestion.template?.replace(regExp, currentAnswer) ||
-            targetQuestion.question,
+          question: {
+            ...targetQuestion["question"],
+            [lang]:
+              targetQuestion.template[lang]?.replace(regExp, currentAnswer) ||
+              targetQuestion.question[lang],
+          },
         };
       });
-      
-      let replacedQuestions = replaceQuestions(updatedQuestions, updatedTargetQuestions);
+
+      let replacedQuestions = replaceQuestions(
+        updatedQuestions,
+        updatedTargetQuestions
+      );
       setQuestions(replacedQuestions, true);
     } else {
       handleNext();
@@ -232,7 +246,7 @@ export default function Form({ questions, setQuestions }) {
 
     let nextSection;
     nextSection = sections[currentSectionIndex + 1];
-    if(currentSection.toLocaleLowerCase() === 'others') {
+    if (currentSection.toLocaleLowerCase() === "others") {
       return "basicInfo";
     }
     return nextSection;
@@ -260,7 +274,7 @@ export default function Form({ questions, setQuestions }) {
 
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "answer"
-    ] = currentAnswer;
+    ][lang] = currentAnswer;
     // Update DB
     // Fetch DB and set questions state
     setQuestions(updatedQuestions);
@@ -299,9 +313,12 @@ export default function Form({ questions, setQuestions }) {
 
   return (
     <>
-      <h1>Form</h1>
       <form>
-        <h3>{toSentenceCase(currentSection)}</h3>
+        <h3>
+          {questions[currentSection]["title"]
+            ? questions[currentSection]["title"][lang]
+            : toSentenceCase(currentSection)}
+        </h3>
         {/* Basic Info */}
         {Object.keys(questions)?.map((section) => {
           return questions[section].questions?.map((question) => {
@@ -309,7 +326,7 @@ export default function Form({ questions, setQuestions }) {
               <QuestionWrapper
                 currentQuestionIdx={currentQuestionIdx}
                 questionIdx={question.index}
-                key={question.index + JSON.stringify(question.answer)}
+                key={question.index + JSON.stringify(question.answer[lang])}
               >
                 <>
                   <Field
@@ -327,7 +344,7 @@ export default function Form({ questions, setQuestions }) {
                       style={{ borderRadius: "2px 0 0 2px" }}
                       onClick={(e) => handleContinue(e)}
                     >
-                      Continue
+                      {t("button.continue")}
                     </Button>
                   </div>
                 </>
@@ -342,14 +359,14 @@ export default function Form({ questions, setQuestions }) {
           onClick={handlePrev}
           disabled={currentQuestionIdx <= 1}
         >
-          Previous
+          {t("button.previous")}
         </Button>
         <Button
           style={{ borderRadius: "2px 0 0 2px" }}
           type="primary"
           onClick={handleNext}
         >
-          Next
+          {t("button.next")}
         </Button>
       </div>
     </>

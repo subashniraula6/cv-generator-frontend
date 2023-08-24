@@ -7,9 +7,11 @@ import "./Signup.css";
 import { useNavigate } from "react-router-dom";
 
 import { useFirebase } from "../../context/Firebase";
+import { useLanguage } from "../../context/Language";
 
 export default function Signup() {
   const navigate = useNavigate();
+  const {t} = useLanguage();
 
   const { signupUserWithEmailAndPassword, user } = useFirebase();
 
@@ -94,18 +96,18 @@ export default function Signup() {
     <div className="signup-page">
       <div style={loginContainer}>
         <h1 style={{ textAlign: "center", margin: "20px 0px" }}>
-          Create An Account
+        {t("signup.title")}
         </h1>
         <div
           className="loginTextDescription"
           style={{ textAlign: "center", marginBottom: "10px" }}
         >
-          Create an account to generate ATS friendly resume
+          {t("signup.info")}
         </div>
         <div style={{ display: "flex", width: "90%", margin: "0px auto" }}>
           <Input
             size="large"
-            placeholder="First Name"
+            placeholder={t("placeholder.firstName")}
             prefix={<UserOutlined />}
             style={{ padding: "10px", marginRight: "2px" }}
             className="mBottom"
@@ -117,7 +119,7 @@ export default function Signup() {
           />
           <Input
             size="large"
-            placeholder="Last Name"
+            placeholder={t("placeholder.lastName")}
             style={{ padding: "10px" }}
             className="mBottom"
             id="lastName"
@@ -130,7 +132,7 @@ export default function Signup() {
         <div style={{ width: "90%", margin: "0px auto" }}>
           <Input
             size="large"
-            placeholder="Email Address"
+            placeholder={t("placeholder.email")}
             type="email"
             prefix={<MailOutlined />}
             style={{ padding: "10px" }}
@@ -145,7 +147,7 @@ export default function Signup() {
         <div style={{ width: "90%", margin: "0px auto" }}>
           <Input.Password
             size="large"
-            placeholder="Password"
+            placeholder={t("placeholder.password")}
             iconRender={(visible) =>
               visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
             }
@@ -160,7 +162,7 @@ export default function Signup() {
           <Input.Password
             size="large"
             status={password !== cPassword ? "error" : ""}
-            placeholder="Confirm Password"
+            placeholder={t("placeholder.cPassword")}
             iconRender={(visible) =>
               visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
             }
@@ -190,14 +192,14 @@ export default function Signup() {
             }}
             onClick={signUpEmailPass}
           >
-            Signup
+            {t("button.signup")}
           </Button>
         </div>
         <div style={{ textAlign: "center" }}>
-          Already have an account ,{" "}
+        {t("signup.logininfo")}{" "}
           <span style={{ fontStyle: "italic", cursor: "pointer" }}>
             <Link to="/login" style={{ color: "unset", fontWeight: "600" }}>
-              Login
+            {t("signup.loginLink")}
             </Link>
           </span>
         </div>
@@ -211,7 +213,7 @@ export default function Signup() {
             textAlign: "center",
           }}
         >
-          Copyright © 2023 <img src="logo-kneg.png" width="10px" alt="KNEG" />
+          {t("footer.copyright")} © 2023 <img src="logo-kneg.png" width="10px" alt="KNEG" />
         </div>
       </div>
     </div>

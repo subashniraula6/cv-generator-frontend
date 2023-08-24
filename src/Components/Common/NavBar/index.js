@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown, Avatar } from "antd";
+import { Dropdown, Avatar, Button } from "antd";
 import {
   DashboardOutlined,
   LogoutOutlined,
@@ -9,7 +9,9 @@ import {
 import { PageHeader } from "@ant-design/pro-layout";
 import { Link } from "react-router-dom";
 import { useFirebase } from "../../../context/Firebase";
+import { useLanguage } from "../../../context/Language";
 import { useNavigate } from "react-router-dom";
+import LanguageSelect from "./LanguageSelect";
 
 const routes = [
   {
@@ -22,7 +24,7 @@ let navBarStyle = {
   backgroundColor: "#EEEEE !important",
 };
 
-function handleLogout(logout, navigate) {
+function handleLogout(logout) {
   try {
     logout();
     // navigate("/login");
@@ -31,12 +33,12 @@ function handleLogout(logout, navigate) {
   }
 }
 
-const getItems = (logout, navigate) => [
+const getItems = (logout, t) => [
   {
     key: "1",
     label: (
       <Link to="/dashboard">
-        Dashboard
+        {t("menu.dashboard")}
         <DashboardOutlined style={{ margin: "0 10px" }} />
       </Link>
     ),
@@ -45,45 +47,49 @@ const getItems = (logout, navigate) => [
     key: "2",
     danger: true,
     label: (
-      <a onClick={(e) => handleLogout(logout, navigate)}>
-        Logout
+      <a onClick={(e) => handleLogout(logout)}>
+        {t("menu.logout")}
         <LogoutOutlined style={{ margin: "0 10px" }} />
       </a>
     ),
   },
 ];
 
-const DropdownMenu = ({logout, navigate}) => (
-  <Dropdown
-    menu={{
-      items: getItems(logout, navigate),
-    }}
-  >
-    <a>
-      <Avatar
-        style={{ backgroundColor: "#87d068" }}
-        size={35}
-        icon={<UserOutlined />}
-      />
-    </a>
-  </Dropdown>
-);
-
-const NavBar = () => {
+const DropdownMenu = () => {
   let { logout, user } = useFirebase();
   let navigate = useNavigate();
-  if(!user) {
-    return null;
-  }
+  let { t } = useLanguage();
+
+  return (
+    <Dropdown
+      menu={{
+        items: getItems(logout, t),
+      }}
+    >
+      <a>
+        <Avatar
+          style={{ backgroundColor: "#87d068" }}
+          size={35}
+          icon={<UserOutlined />}
+        />
+      </a>
+    </Dropdown>
+  );
+};
+
+const NavBar = () => {
+  let { t } = useLanguage();
+  let { user } = useFirebase();
   return (
     <PageHeader
       title="KNEG"
       className="site-page-header"
-      subTitle="An AI generated CV/Cover letter"
-      extra={[
-        // menu,
-        <DropdownMenu key="more" logout={logout} navigate={navigate} />,
-      ]}
+      subTitle={t("app.intro")}
+      extra={
+        [
+          <LanguageSelect />, 
+          user ? <DropdownMenu key="more" /> : null
+        ]}
       avatar={{
         src: "logo-kneg.png",
       }}

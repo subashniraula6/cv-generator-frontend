@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import './Login.css'
 
 import { useFirebase } from '../../context/Firebase'
+import { useLanguage } from '../../context/Language'
 
 export default function Login() {
   // const tokenExist = CheckAuth();
@@ -16,6 +17,7 @@ export default function Login() {
   const [password, setpassword] = useState("");
 
   let {user, signinUserWithEmailAndPassword, loginWithGoogle} = useFirebase();
+  let {t} = useLanguage();
 
   useEffect(()=> {
     if(user) {
@@ -93,19 +95,19 @@ export default function Login() {
             textTransform: "uppercase",
           }}
         >
-          Login
+          {t("login.title")}
         </h1>
         <div
           className="loginTextDescription"
           style={{ textAlign: "center", marginBottom: "10px" }}
         >
-          Login and start creating resume
+          {t("login.info")}
         </div>
         <div style={{ width: "90%", margin: "0px auto" }}>
           <Input
             size="large"
             type="email"
-            placeholder="Email Address"
+            placeholder={t("placeholder.email")}
             prefix={<UserOutlined />}
             style={{ padding: "10px" }}
             className="mBottom"
@@ -117,7 +119,7 @@ export default function Login() {
         <div style={{ width: "90%", margin: "0px auto", position: "relative" }}>
           <Input.Password
             size="large"
-            placeholder="Password"
+            placeholder={t("placeholder.password")}
             // status='error'
             // prefix={<ClockCircleOutlined/>}
             iconRender={(visible) =>
@@ -137,7 +139,7 @@ export default function Login() {
               to="/forgot-password"
               style={{ color: "unset", fontWeight: "600" }}
             >
-              Forgot Password ?
+              {t("login.forgotPassword")}
             </Link>
           </div>
         </div>
@@ -160,7 +162,7 @@ export default function Login() {
             }}
             onClick={userLogin}
           >
-            Login
+            {t("button.login")}
           </Button>
         </div>
         <div
@@ -181,14 +183,14 @@ export default function Login() {
             }}
             onClick={signInWithGoogle}
           >
-            <GoogleOutlined /> Signin With Google
+            <GoogleOutlined /> {t("button.signinwithgoogle")}
           </Button>
         </div>
         <div style={{ textAlign: "center", marginTop: "15px" }}>
-          Don't have an account ,{" "}
+        {t("login.signup")}{" "}
           <span style={{ fontStyle: "italic", cursor: "pointer" }}>
             <Link to="/signup" style={{ color: "unset", fontWeight: "600" }}>
-              Create New Account
+            {t("login.create")}
             </Link>
           </span>
         </div>
@@ -202,7 +204,7 @@ export default function Login() {
           textAlign: 'center'
         }}
       >
-        Copyright © 2023 <img src="logo-kneg.png" width="10px" alt="KNEG" />{" "}
+        {t("footer.copyright")} © 2023 <img src="logo-kneg.png" width="10px" alt="KNEG" />{" "}
       </div>
       </div>
     </div>

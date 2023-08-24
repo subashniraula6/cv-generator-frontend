@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Input, Select, Space, Divider } from 'antd';
 import Button from '../Wrappers/Button';
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined } from '@ant-design/icons';
+import { useLanguage } from '../../context/Language'
 
 function MultiSelect({
         handleSelectChange, 
@@ -25,6 +26,8 @@ function MultiSelect({
         inputRef.current?.focus();
         }, 0);
     };
+
+    let {language: lang} = useLanguage();
 
     return (
     <Select
@@ -59,7 +62,7 @@ function MultiSelect({
             </Space>
           </>
         )}
-        options={question.options?.split(',').map((item) => ({
+        options={question.options[lang]?.split(',').map((item) => ({
           value: item.trim(),
           label: item.trim(),
         }))}
