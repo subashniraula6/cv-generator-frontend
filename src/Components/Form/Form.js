@@ -307,7 +307,7 @@ export default function Form({ questions, setQuestions }) {
     );
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "options"
-    ] += ", " + option;
+    ][lang] += ", " + option;
     setQuestions(updatedQuestions);
   };
 

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const SectionWrapper = styled.div`
+const QuestionContainer = styled.div`
   display: ${(props) =>
     props.removed ? "none" : "block"};
 `;
 
-export { SectionWrapper };
+export { QuestionContainer };

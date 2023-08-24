@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const UpdateResumeWrapper = styled.div`
+const UpdateQuestionWrapper = styled.div`
     padding: 2px;
     margin: 10px 0;
     width: 100%;
@@ -11,9 +11,9 @@ const UpdateResumeWrapper = styled.div`
         background-color: rgb(255,255,255); /* Fallback color */
         background-color: rgba(255,255,255,0.6); /* Black w/ opacity */
     }
-    &:hover .manage-section {
+    &:hover .manage-question {
         display: inline;
     }
 `
 
-export default UpdateResumeWrapper
+export default UpdateQuestionWrapper

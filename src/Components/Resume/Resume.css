@@ -148,8 +148,19 @@ h1, h2, h3, h4, h5, h6 {
   top: -25px;
   right: 0;
 }
-.section-wrapper:hover .manage-section {
-  display: inline;
+.manage-question {
+  display: none;
+  position: absolute;
+  text-align: center;
+  top: -25px;
+  right: 0;
+}
+.manage-item {
+  display: none;
+  position: absolute;
+  text-align: center;
+  top: -25px;
+  right: 0;
 }
 
 .custom-modal {

@@ -374,7 +374,7 @@ const questions = {
       sv: "Arbetslivserfarenhet"
     },
     removed: false,
-    noOfItems: 2,
+    noOfItems: 0,
     auto_generated_questions: [
       {
         index: 2000,
@@ -382,6 +382,7 @@ const questions = {
           en: "Where did you previously work at?",
           sv: "Var har du tidigare arbetat?"
         },
+        removed: false,
         type: "text",
         update: {
           key: "company",
@@ -492,7 +493,7 @@ const questions = {
       sv: "Utbildning"
     },
     removed: false,
-    noOfItems: 2,
+    noOfItems: 0,
     auto_generated_questions: [
       {
         index: 4000,
@@ -500,6 +501,7 @@ const questions = {
           en: "Where did you previously study? (Location)",
           sv: "Var studerade du tidigare? (Plats)"
         },
+        removed: false,
         type: "text",
         answer: {
           en: "",
@@ -616,7 +618,7 @@ const questions = {
       sv: "Projekt"
     },
     removed: false,
-    noOfItems: 2,
+    noOfItems: 0,
     auto_generated_questions: [
       {
         index: 5000,

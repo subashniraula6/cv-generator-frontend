@@ -6,7 +6,7 @@ import PopConfirm from "./PopConfirm";
 import MagicIcon from "./MagicIcon";
 import { useLanguage } from "../../context/Language";
 
-const UpdateResume = ({
+const UpdateQuestion = ({
   section,
   index,
   questions,
@@ -63,11 +63,17 @@ const UpdateResume = ({
     });
   }
 
-  function handleDeleteSection(sectionName) {
+  function handleDeleteSection(sectionName, index) {
     // set removed flag
     setQuestions({
       ...questions,
-      [sectionName]: { ...questions[sectionName], removed: true },
+      [sectionName]: { ...questions[sectionName], 
+      questions: questions[sectionName]['questions'].map(question => {
+        if(question.index === index) {
+          return {...question, removed: true}
+        }
+        return question;
+      })},
     });
   }
 
@@ -89,7 +95,7 @@ const UpdateResume = ({
 
     updatedQuestions[section]["questions"][quesArrIndex][
     "options"
-    ] += ", " + option;
+    ][lang] += ", " + option;
     // Update DB
     // Fetch DB and set questions state
     setQuestions(updatedQuestions);
@@ -137,7 +143,7 @@ const UpdateResume = ({
   }
 
   return (
-    <div className="manage-section">
+    <div className="manage-question">
       <span className="custom-modal">
         {
           AIField && 
@@ -163,11 +169,14 @@ const UpdateResume = ({
           )}
         </CustomModal>
       </span>
-      <span className="pop-confirm">
-        <PopConfirm confirm={(e) => handleDeleteSection(section)} />
-      </span>
+      {
+        questions[section].questions.find(q=> q.index===index)?.hasOwnProperty("removed") &&
+        <span className="pop-confirm">
+          <PopConfirm confirm={(e) => handleDeleteSection(section, index)} />
+        </span>
+      }
     </div>
   );
 };
 
-export default UpdateResume;
+export default UpdateQuestion;
