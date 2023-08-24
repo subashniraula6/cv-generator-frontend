@@ -5,7 +5,6 @@ import ForgotPassword from "./Login/ForgotPassword";
 import Signup from "./Login/Signup";
 import AppPage from "./Pages/App";
 import Dashboard from "./Pages/Dashboard/Dashboard";
-import Homepage from "./home/Homepage";
 
 import { useFirebase } from "../context/Firebase";
 
@@ -24,7 +23,6 @@ const PublicRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path='/homepage' element={<Homepage ></Homepage>} />
       <Route
         path="/app"
         element={

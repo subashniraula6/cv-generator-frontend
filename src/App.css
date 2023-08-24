@@ -46,25 +46,6 @@
   background: white;
 }
 
-.arrow {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%) rotate(0deg);
-  transition: transform 0.3s !important;
-}
-
-.arrow-button:hover {
-  background-color: rgb(149, 0, 255);
-  outline: 1px solid #FCB021;
-}
-
-.arrow-button:hover .arrow {
-  transform: translateY(-50%) rotate(360deg);
-}
-
-
-
 /* custom scrollbar */
 ::-webkit-scrollbar {
   width: 20px;
