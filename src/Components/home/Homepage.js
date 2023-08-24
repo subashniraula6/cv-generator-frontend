@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 // import Button from '../Wrappers/Button'
 import './homepage.css'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,7 +8,10 @@ import 'swiper/css/pagination';
 import 'swiper/css';
 import { MenuOutlined,InstagramOutlined,TwitterOutlined,FacebookFilled } from '@ant-design/icons'
 
-export default function homepage() {
+
+
+export default function Homepage() {
+
 
     const testimonydata=[
         {
@@ -36,26 +39,47 @@ export default function homepage() {
             testimonyName:'Paris'
         }
     ]
+
+    const [showNavLinks, setShowNavLinks] = useState(window.innerWidth > 1200);
+
+    const toggleNavLinks = () => {
+        setShowNavLinks(!showNavLinks);
+    };
+
+    useEffect(() => {
+        const handleResize = () => {
+            setShowNavLinks(window.innerWidth > 1200);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
   return (
-    <div style={{position:'relative'}}>
+    <div style={{position:'relative',overflow:'hidden'}}>
         <nav className='navbarHome'>
             <div style={{display:'flex'}}>
                 <div style={{display:'flex',alignItems:'center'}}><img src="logo-kneg.png" width="25px" alt="KNEG" /></div>
                  <div style={{fontSize:'20px',fontWeight:'600',margin:'10px',padding:'10px 5px'}}>KNEG</div>
             </div>
-            <div className='homeNavLinks'>
-                <ul>
-                    <li>What we do</li>
+            {showNavLinks && (
+                <div className='homeNavLinks' style={{ display: showNavLinks ? 'block' : 'none' }}>
+                    <ul>
+                        <li>What we do</li>
                         <li>Our Services</li>
                         <li>Who we are</li>
                         <li>What people say</li>
                         <li>Our Partners</li>
                         <li>Companies we work with</li>
                         <li>Contact us</li>
-                </ul>
-            </div>
-            <div>
-            <MenuOutlined style={{color:'rgb(149, 0, 255)',fontSize:'25px',cursor:'pointer'}}/>
+                    </ul>
+                </div>
+            )}
+            <div className='menuBar'>
+            <MenuOutlined style={{color:'rgb(149, 0, 255)',fontSize:'25px',cursor:'pointer'}} onClick={toggleNavLinks}/>
                 {/* <Button text="home"></Button> */}
             </div>
         </nav>
