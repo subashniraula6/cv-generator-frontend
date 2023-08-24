@@ -1,5 +1,5 @@
 import React from 'react';
-import './Button.css';
+import './Button.css'; // Make sure to adjust the path to your CSS file
 
 const Button = ({ text }) => {
   return (
