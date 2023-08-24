@@ -198,7 +198,7 @@ export default function Login() {
         style={{
           fontSize: "14px",
           color: "grey",
-          margin: "20px",
+          margin: "10px",
           fontWeight: "600",
           textTransform: "uppercase",
           textAlign: 'center'

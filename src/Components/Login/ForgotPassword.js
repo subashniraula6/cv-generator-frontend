@@ -58,16 +58,19 @@ export default function ForgotPassword() {
             <div style={{width:'90%',margin:'0px auto'}}>
                 <Input size="large" placeholder="Email Address" prefix={<MailOutlined />} style={{padding:'10px'}} className='mBottom' onChange={(text)=> {updateUsername(text)}}/>
             </div>
-            <div className='flex-container' style={{justifyContent:'center',backgroundColor:'unset',marginTop:"20px"}}>
+            <div className='flex-container' style={{justifyContent:'center',backgroundColor:'unset'}}>
                 <Button type="primary" size="large" style={{width:"200px",height:'50px',fontSize:'20px',backgroundColor:"rgb(149, 0, 255)"}} onClick={resetPassword}>Forgot Password</Button>
             </div>
+            <div style={{fontSize:'18px', color:'#ffff',fontWeight:'600',color:'gray',textAlign:'center',textTransform:'uppercase'}}>Copyright © 2023 <img src='/logo-kneg.png'width='15px' alt='KNEG'/></div>
         </div>):
         (
             <div style={loginContainer}>
                 <div style={{display:'flex',justifyContent:'center', alignItems:'center',width:'90%',height:'80%',margin:'auto',padding:'20px 0px',textAlign:'center'}}>The password reset link has already been sent kindy check your mail and click on the link to reset the password</div>
+                <div style={{fontSize:'18px', color:'#ffff',fontWeight:'600',textTransform:'uppercase'}}>Copyright © 2023 <img src='KNEG.png'width='100px' alt='KNEG'/></div>
             </div>
+            
         )}
-        <div style={{fontSize:'18px', color:'#ffff',fontWeight:'600',textTransform:'uppercase'}}>Copyright © 2023 <img src='KNEG.png'width='100px' alt='KNEG'/></div>
+        
     </div>
   )
 }

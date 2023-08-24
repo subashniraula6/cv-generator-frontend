@@ -1,18 +1,13 @@
-import styled from 'styled-components';
-import { Button as AntButton } from 'antd';
+import React from 'react';
+import './Button.css'; // Make sure to adjust the path to your CSS file
 
-const Button = styled(AntButton)`
-  margin: 10px 2px;
-`
+const Button = ({ text }) => {
+  return (
+    <button className="arrow-button" type='button'>
+      <span className="button-text">{text}</span>
+      <span className="arrow">&#10140;</span>
+    </button>
+  );
+};
 
-// const Button = () => {
-//     return (
-//         <>
-//             <StyledButton>
-//                 This is going to be a button with red text and pixel width 400!
-//             </StyledButton>
-//         </>
-//     )
-// }
-
-export default Button
+export default Button;

@@ -1,7 +1,36 @@
-.loginPage {
+.loginPage{
     display: flex;
+    flex-direction: column;
+    height: 92vh;
+    width:100%;
     justify-content: center;
     align-items: center;
-    background-color: white;
-    height: 100vh;
-}
+    /* background-color: #64c7c7; */
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(270deg, #7f44f9, #f75aa6);
+    background-size: 400% 400%;
+  
+    -webkit-animation: gradientAnimation 30s ease infinite;
+    -moz-animation: gradientAnimation 30s ease infinite;
+    animation: gradientAnimation 30s ease infinite;
+  }
+
+  @-webkit-keyframes gradientAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+  @-moz-keyframes gradientAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+  @keyframes gradientAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+  
+  .mBottom{
+    margin-bottom: 10px;
+  }

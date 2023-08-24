@@ -10,7 +10,7 @@ import { PageHeader } from "@ant-design/pro-layout";
 import { Link } from "react-router-dom";
 import { useFirebase } from "../../../context/Firebase";
 import { useLanguage } from "../../../context/Language";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useLocation} from "react-router-dom";
 import LanguageSelect from "./LanguageSelect";
 
 const routes = [
@@ -77,25 +77,32 @@ const DropdownMenu = () => {
   );
 };
 
+
+
 const NavBar = () => {
   let { t } = useLanguage();
   let { user } = useFirebase();
+  const location = useLocation();
+  const isHomePage = location.pathname === "/homepage";
+
   return (
-    <PageHeader
-      title="KNEG"
-      className="site-page-header"
-      subTitle={t("app.intro")}
-      extra={
-        [
-          <LanguageSelect />, 
-          user ? <DropdownMenu key="more" /> : null
+    // Conditionally render the PageHeader only if it's not the homepage
+    !isHomePage && (
+      <PageHeader
+        title="KNEG"
+        className="site-page-header"
+        subTitle={t("app.intro")}
+        extra={[
+          <LanguageSelect />,
+          user ? <DropdownMenu key="more" /> : null,
         ]}
-      avatar={{
-        src: "logo-kneg.png",
-      }}
-      breadcrumb={{ routes }}
-      style={navBarStyle}
-    />
+        avatar={{
+          src: "logo-kneg.png",
+        }}
+        breadcrumb={{ routes }}
+        style={navBarStyle}
+      />
+    )
   );
 };
 
