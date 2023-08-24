@@ -6,8 +6,9 @@ import Resume3 from "../Resume/Resume3/Resume3";
 import { ResumeWrapper } from "../Wrappers/Wrappers";
 import ReactToPrint from "react-to-print";
 import { Button } from "antd";
-import { DownloadOutlined, SaveOutlined } from "@ant-design/icons";
+import { DownloadOutlined, FileDoneOutlined, SaveOutlined } from "@ant-design/icons";
 import { useLanguage } from "../../context/Language";
+import CoverLetter from "../CoverLetter/CoverLetter";
 
 function Resumes({ questions, setQuestions }) {
   const colors = ["#239ce2", "#48bb78", "#0bc5ea", "#98B4D4", "#e3654f", "#da8bad"];
@@ -30,6 +31,7 @@ function Resumes({ questions, setQuestions }) {
           ))}
         </div>
         <div style={{display: 'flex'}}>
+          <CoverLetter title={t("button.coverLetter")} questions={questions}/>
           <Button type="primary" style={{ borderRadius: '2px 0 0 2px', margin: '0 10px' }}>
             <SaveOutlined />
             {t("button.save")}

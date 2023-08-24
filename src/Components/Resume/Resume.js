@@ -567,7 +567,6 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 {t("section.education")}
               </SectionHeading>
               <div className="info-education">
-                {console.log(groupedEducation)}
                 {
                   // resumeSelector?.workExp?.map((workExp, idx) => (
                   groupedEducation &&
