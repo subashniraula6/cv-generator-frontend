@@ -70,10 +70,9 @@ export default function Signup() {
           // Signed in
           //   const authToken = userCredential.user.accessToken;
           //   localStorage.setItem("authToken", authToken);
-          return putData('users/' + userCredential.user.email, { firstName, lastName, questions })
+          return putData('users', { email: userCredential.user.email, firstName, lastName, questions })
         })
         .then(data => {
-          console.log("Data", data)
           notification.success({
             message: "Signup Success",
             description: "Successfully created an account and logged in",

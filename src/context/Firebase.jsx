@@ -9,25 +9,24 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import Password from "antd/es/input/Password";
-import { getDatabase, set, ref } from "firebase/database";
 import { useEffect } from "react";
+import { getFirestore, collection, addDoc } from "firebase/firestore"; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyBQugGmiIurePqkQQJVRwJz1RajXFGiJtw",
   authDomain: "resume-generator-e00af.firebaseapp.com",
+  databaseURL: "https://resume-generator-e00af-default-rtdb.firebaseio.com",
   projectId: "resume-generator-e00af",
   storageBucket: "resume-generator-e00af.appspot.com",
   messagingSenderId: "508687286177",
   appId: "1:508687286177:web:b4b4c85b7fb16073a155e0",
-  measurementId: "G-SG85TGMKYP",
-  databaseURL: "https://resume-generator-e00af-default-rtdb.firebaseio.com/",
+  measurementId: "G-SG85TGMKYP"
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseApp);
 
-const database = getDatabase(firebaseApp);
+const db = getFirestore(firebaseApp);
 
 const FirebaseContext = createContext();
 
@@ -51,7 +50,9 @@ export const FirebaseProvider = (props) => {
     return signOut(firebaseAuth);
   };
 
-  const putData = (key, data) => set(ref(database, key), data);
+  const putData = (coll, data) => {
+    return addDoc(collection(db, coll), data);
+  };
 
   const [user, setUser] = useState(null);
   useEffect(() => {
