@@ -1,0 +1,16 @@
+.navbarHome{
+    display: flex;
+    width:90%;
+    margin:0px auto;
+    padding: 15px;
+    justify-content: space-between;
+    align-items: center;
+}
+ul{
+    list-style: none;
+}
+li{
+    float: left;
+    padding:0px 10px;
+    cursor: pointer;
+}
