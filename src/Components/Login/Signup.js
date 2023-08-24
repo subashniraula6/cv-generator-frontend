@@ -8,12 +8,13 @@ import { useNavigate } from "react-router-dom";
 
 import { useFirebase } from "../../context/Firebase";
 import { useLanguage } from "../../context/Language";
+import questions from '../../Questions2';
 
 export default function Signup() {
   const navigate = useNavigate();
   const {t} = useLanguage();
 
-  const { signupUserWithEmailAndPassword, user } = useFirebase();
+  const { signupUserWithEmailAndPassword, putData, user } = useFirebase();
 
   useEffect(() => {
     if (user) {
@@ -69,13 +70,18 @@ export default function Signup() {
           // Signed in
           //   const authToken = userCredential.user.accessToken;
           //   localStorage.setItem("authToken", authToken);
+          return putData('users/' + userCredential.user.email, { firstName, lastName, questions })
+        })
+        .then(data => {
+          console.log("Data", data)
           notification.success({
             message: "Signup Success",
             description: "Successfully created an account and logged in",
-          });
+          });  
         })
         .catch((error) => {
           // const errorCode = error.code;
+          console.log(error)
           const errorCode = error.code.replace("auth/", "").replace(/-/g, " ");
           notification.error({
             message: "Signup Error",

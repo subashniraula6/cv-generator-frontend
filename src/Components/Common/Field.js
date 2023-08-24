@@ -78,7 +78,7 @@ const Field = ({
             label: item.trim(),
           }))}
           defaultValue={
-            question.answer[lang].length
+            question.answer[lang]?.length
               ? question.answer[lang].split(",").map((a) => a.trim())
               : undefined
           }

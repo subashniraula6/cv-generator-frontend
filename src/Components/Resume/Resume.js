@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useState } from "react";
 import "./Resume.css";
 import { Space, Row, Col, Spin } from "antd";
+import {SectionWrapper} from '../Wrappers/SectionWrapper';
 import UpdateResume from "../Common/UpdateResume";
 import UpdateResumeWrapper from "../Wrappers/UpdateResumeWrapper";
 import {
@@ -10,7 +11,8 @@ import {
   PhoneOutlined,
 } from "@ant-design/icons";
 import { SectionHeading } from "../Wrappers/SectionHeading";
-import { useLanguage } from '../../context/Language'
+import { useLanguage } from "../../context/Language";
+import LangRating from "../Common/LangRating/LangRating";
 
 const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
   const [groupedExperience, setGroupedExperience] = useState({});
@@ -36,9 +38,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
     setGroupedExperience(
       groupQuestions(questions["workExperience"]["questions"])
     );
-    setGroupedEducation(
-      groupQuestions(questions["education"]["questions"])
-    );
+    setGroupedEducation(groupQuestions(questions["education"]["questions"]));
   }, [questions]);
 
   return (
@@ -219,7 +219,7 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                   {questions?.basicInfo?.questions
                     .find((q) => q.index === 14)
                     ?.answer[lang].split(",")
-                    .map((language) => {
+                    .map((language, idx) => {
                       return language ? (
                         <span
                           key={language}
@@ -227,6 +227,22 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                           style={{ whiteSpace: "nowrap" }}
                         >
                           &bull; {language}
+                          <br />
+                          {questions?.basicInfo?.questions.find(
+                            (q) => q.index === 14 + 2 + idx
+                          )?.isLanguageRating && (
+                            <LangRating
+                              rating={
+                                questions.basicInfo.questions.find(
+                                  (q) => q.index === 14 + 2 + idx
+                                )?.answer[lang]
+                              }
+                              lang={lang}
+                              questions={questions}
+                              setQuestions={setQuestions}
+                              questionIdx={14 + 2 + idx}
+                            />
+                          )}
                         </span>
                       ) : null;
                     })}
@@ -283,7 +299,9 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               />
-              <SectionHeading activeColor={activeColor}>{t("section.profileSummary")}</SectionHeading>
+              <SectionHeading activeColor={activeColor}>
+                {t("section.profileSummary")}
+              </SectionHeading>
               <div className="profile-content">
                 <p>
                   {
@@ -295,44 +313,50 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             </Spin>
           </UpdateResumeWrapper>
           <hr />
-          <UpdateResumeWrapper className="info-profile">
-            <UpdateResume
-              key={JSON.stringify(questions)}
-              section="basicInfo"
-              index={51}
-              title="Edit Certificates"
-              questions={questions}
-              setQuestions={setQuestions}
-            />{" "}
-            {
-              // questions?.basicInfo?.questions[8].answer &&
-              <>
-                <SectionHeading activeColor={activeColor}>Certificates</SectionHeading>
-                <Space wrap={true}>
-                  {questions?.basicInfo?.questions
-                    .find((q) => q.index === 51)
-                    ?.answer[lang].split(",")
-                    .map((certificate) => {
-                      return certificate ? (
-                        <span
-                          key={certificate}
-                          className="skills-name"
-                          style={{ whiteSpace: "nowrap" }}
-                        >
-                          &bull; {certificate}
-                        </span>
-                      ) : null;
-                    })}
-                </Space>
-              </>
-            }
-          </UpdateResumeWrapper>
+          <SectionWrapper removed={questions?.basicInfo?.removed}>
+            <UpdateResumeWrapper className="info-profile">
+              <UpdateResume
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={51}
+                title="Edit Certificates"
+                questions={questions}
+                setQuestions={setQuestions}
+              />{" "}
+              {
+                // questions?.basicInfo?.questions[8].answer &&
+                <>
+                  <SectionHeading activeColor={activeColor}>
+                    {t("section.certificates")}
+                  </SectionHeading>
+                  <Space wrap={true}>
+                    {questions?.basicInfo?.questions
+                      .find((q) => q.index === 51)
+                      ?.answer[lang].split(",")
+                      .map((certificate) => {
+                        return certificate ? (
+                          <span
+                            key={certificate}
+                            className="skills-name"
+                            style={{ whiteSpace: "nowrap" }}
+                          >
+                            &bull; {certificate}
+                          </span>
+                        ) : null;
+                      })}
+                  </Space>
+                </>
+              }
+            </UpdateResumeWrapper>
           <hr />
+          </SectionWrapper>
           <div className="info-profile">
             {questions?.workExperience?.questions &&
               !questions?.workExperience?.removed && (
                 <>
-                  <SectionHeading activeColor={activeColor}>{t("section.workExperience")}</SectionHeading>
+                  <SectionHeading activeColor={activeColor}>
+                    {t("section.workExperience")}
+                  </SectionHeading>
                   <div className="info-experience">
                     {
                       // resumeSelector?.workExp?.map((workExp, idx) => (
@@ -356,7 +380,11 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
-                                          {groupedExperience[group][1].answer[lang]}
+                                          {
+                                            groupedExperience[group][1].answer[
+                                              lang
+                                            ]
+                                          }
                                         </UpdateResumeWrapper>
                                       </Col>
                                       <Col>{" - "}</Col>
@@ -372,7 +400,11 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
-                                          {groupedExperience[group][0].answer[lang]}
+                                          {
+                                            groupedExperience[group][0].answer[
+                                              lang
+                                            ]
+                                          }
                                         </UpdateResumeWrapper>
                                       </Col>
                                     </Row>
@@ -396,7 +428,11 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                           questions={questions}
                                           setQuestions={setQuestions}
                                         />
-                                        {groupedExperience[group][2].answer[lang]}
+                                        {
+                                          groupedExperience[group][2].answer[
+                                            lang
+                                          ]
+                                        }
                                       </UpdateResumeWrapper>
                                     </span>
                                     <span>{" - "}</span>
@@ -412,7 +448,11 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                           questions={questions}
                                           setQuestions={setQuestions}
                                         />
-                                        {groupedExperience[group][3].answer[lang]}
+                                        {
+                                          groupedExperience[group][3].answer[
+                                            lang
+                                          ]
+                                        }
                                       </UpdateResumeWrapper>
                                     </span>
                                   </Col>
@@ -480,7 +520,9 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
             {questions?.education?.questions &&
               !questions?.education?.removed && (
                 <>
-                  <SectionHeading activeColor={activeColor}>{t("section.education")}</SectionHeading>
+                  <SectionHeading activeColor={activeColor}>
+                    {t("section.education")}
+                  </SectionHeading>
                   <div className="info-education">
                     {
                       // resumeSelector?.workExp?.map((workExp, idx) => (
@@ -504,7 +546,11 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
-                                          {groupedEducation[group][1].answer[lang]}
+                                          {
+                                            groupedEducation[group][1].answer[
+                                              lang
+                                            ]
+                                          }
                                         </UpdateResumeWrapper>
                                       </Col>
                                       <Col>
@@ -519,9 +565,14 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
-                                          {groupedEducation[group][2].answer[lang] &&
-                                            " - "}{" "}
-                                          {groupedEducation[group][2].answer[lang]}
+                                          {groupedEducation[group][2].answer[
+                                            lang
+                                          ] && " - "}{" "}
+                                          {
+                                            groupedEducation[group][2].answer[
+                                              lang
+                                            ]
+                                          }
                                         </UpdateResumeWrapper>
                                       </Col>
                                     </Row>
@@ -556,7 +607,11 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                             textOverflow: "inherit",
                                           }}
                                         >
-                                          {groupedEducation[group][3].answer[lang]}
+                                          {
+                                            groupedEducation[group][3].answer[
+                                              lang
+                                            ]
+                                          }
                                         </span>
                                       </UpdateResumeWrapper>
                                       <UpdateResumeWrapper>
@@ -570,9 +625,14 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                           questions={questions}
                                           setQuestions={setQuestions}
                                         />
-                                        {groupedEducation[group][0].answer[lang] &&
-                                          ","}{" "}
-                                        {groupedEducation[group][0].answer[lang]}
+                                        {groupedEducation[group][0].answer[
+                                          lang
+                                        ] && ","}{" "}
+                                        {
+                                          groupedEducation[group][0].answer[
+                                            lang
+                                          ]
+                                        }
                                       </UpdateResumeWrapper>
                                     </div>
                                   </Col>
@@ -595,7 +655,11 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                           questions={questions}
                                           setQuestions={setQuestions}
                                         />
-                                        {groupedEducation[group][4].answer[lang]}
+                                        {
+                                          groupedEducation[group][4].answer[
+                                            lang
+                                          ]
+                                        }
                                       </UpdateResumeWrapper>
                                     </span>
                                     <span>{" - "}</span>
@@ -613,7 +677,11 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
                                           questions={questions}
                                           setQuestions={setQuestions}
                                         />
-                                        {groupedEducation[group][5].answer[lang]}
+                                        {
+                                          groupedEducation[group][5].answer[
+                                            lang
+                                          ]
+                                        }
                                       </UpdateResumeWrapper>
                                     </span>
                                   </Col>
@@ -637,7 +705,9 @@ const Resume = forwardRef(({ questions, setQuestions, activeColor }, ref) => {
               questions={questions}
               setQuestions={setQuestions}
             />
-            <SectionHeading activeColor={activeColor}>{t("section.awards")}</SectionHeading>
+            <SectionHeading activeColor={activeColor}>
+              {t("section.awards")}
+            </SectionHeading>
             <div className="awards-content">
               <Space wrap>
                 {questions?.basicInfo?.questions

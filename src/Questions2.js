@@ -13,6 +13,7 @@ const questions = {
           en: "How are your {{language}} skills?",
           sv: "Hur är dina {{language}} kunskaper?"
         },
+        isLanguageRating: true,
         type: "select",
         options: {
           en: "Mother tongue, Fluid, Good knowledge of speech and writing, Very good skills in speaking and writing, Basic skills in speaking and writing",
@@ -123,6 +124,7 @@ const questions = {
           en: "Enter the phone number you want to be included in your application documents. You don't have to answer this question if you don't want to, but your application documents will be better if you do.",
           sv: "Ange det telefonnummer du vill inkludera i dina ansökningshandlingar. Du behöver inte svara på den här frågan om du inte vill, men dina ansökningshandlingar blir bättre om du gör det."
         },
+        removed: false,
         type: "text",
         answer: {
           en: "",
@@ -135,6 +137,7 @@ const questions = {
           en: "Enter your Email",
           sv: "Ange din e-post"
         },
+        removed: false,
         type: "text",
         answer: {
           en: "",
@@ -147,6 +150,7 @@ const questions = {
           en: "Enter your linkedin if you have any",
           sv: "Ange din LinkedIn om du har någon"
         },
+        removed: false,
         type: "text",
         answer: {
           en: "",
@@ -159,6 +163,7 @@ const questions = {
           en: "Enter your Website if you have any",
           sv: "Ange din webbplats om du har någon"
         },
+        removed: false,
         type: "text",
         answer: {
           en: "",
@@ -183,6 +188,7 @@ const questions = {
           en: "What skills do you want to highlight in your CV?",
           sv: "Vilka färdigheter vill du framhäva i ditt CV?"
         },
+        removed: false,
         type: "textSelect",
         options: {
           en: "Business development, Accounting, Copywriting, Economics, Excel, Facebook Business Manager, Google AdWords, Google Analytics, Crafts, Cooking, Microsoft Office, Pedagogy, Powerpoint, Programming, Project management, Service, Writing, Slack, Training, Digital marketing, les, Photoshop, SAP, SEO, Words",
@@ -199,6 +205,7 @@ const questions = {
           en: "Which language(s) do you have knowledge of? If you want, you can indicate how good you are in each language in a later question.",
           sv: "Vilka språk har du kunskap om? Om du vill kan du ange hur bra du är på varje språk i en senare fråga."
         },
+        removed: false,
         type: "textSelect",
         options: {
           en: "Arabic, Danish, French, Greek, Chinese (Cantonese), Persian, Polish, Swedish, Swahili, Ukrainian, English, Farsi, Finnish, Italian, Japanese, Chinese (Mandarin), Korean, Norwegian, Russian, Somali, Spanish, Thai, Tigrinya, German",
@@ -228,6 +235,7 @@ const questions = {
           en: "What are your interests?",
           sv: "Vilka är dina intressen?"
         },
+        removed: false,
         type: "textSelect",
         options: {
           en: "Architecture, Camping, Facebook, History, Baking, Child care, Computers, Computer games, Family activities, Movie, Throat, IT, Cars, Design, Golf, Construction, Digitization, Home remedies, Reading, Marketing, Journalism, Cooking, Art, Fashion, Literature, Politics, Renovation, Writing, Spreak, Styling, TV game, Hiking, Travels, Acting, Song, Tech, Performing arts, Beauty, Textile work, Sailing, Social Media, Tiktok, Skiing, Garden work, Sports",
@@ -244,6 +252,7 @@ const questions = {
           en: "Which certification(s) do you want to include in your CV? Remember to only include certifications that are relevant to the jobs you are applying for.",
           sv: "Vilka certifikat vill du inkludera i ditt CV? Kom ihåg att bara inkludera certifikat som är relevanta för de jobb du söker."
         },
+        removed: false,
         type: "textSelect",
         options: {
           en: "driver's license, Forklift driving license, Google Ads certification, Meta-certification",
@@ -260,6 +269,7 @@ const questions = {
           en: "What prizes or awards do you want to include in your CV?",
           sv: "Vilka priser eller utmärkelser vill du inkludera i ditt CV?"
         },
+        removed: false,
         type: "textSelect",
         options: {
           en: "Teacher of the year, Salesperson of the year, Gold at the Swedish Content Awards, Aret's newcomer, Employee of the month",
@@ -276,6 +286,7 @@ const questions = {
           en: "Wanna include your profile summary? (For best AI experience mention some of it)",
           sv: "Vill du inkludera en sammanfattning av din profil? (För bästa AI-upplevelse, nämna en del av det)"
         },
+        removed: false,
         type: "textArea",
         answer: {
           en: "",
@@ -613,6 +624,7 @@ const questions = {
           en: "Project name",
           sv: "Projektnamn"
         },
+        removed: false,
         type: "text",
         answer: {
           en: "",
@@ -698,6 +710,7 @@ const questions = {
           en: "What other information would you like to include in your application?",
           sv: "Vilken annan information vill du inkludera i din ansökan?"
         },
+        removed: false,
         type: "textArea",
         answer: {
           en: "",

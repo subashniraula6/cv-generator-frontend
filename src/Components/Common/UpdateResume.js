@@ -4,6 +4,7 @@ import CustomModal from "./CustomModal";
 import Field from "./Field";
 import PopConfirm from "./PopConfirm";
 import MagicIcon from "./MagicIcon";
+import { useLanguage } from "../../context/Language";
 
 const UpdateResume = ({
   section,
@@ -23,13 +24,15 @@ const UpdateResume = ({
     setTempQuestions(questions);
   }, [questions]);
 
+  const { language: lang } = useLanguage();
+
   function handleInputChange(e, section, questionIdx) {
     setTempQuestions({
       ...tempQuestions,
       [section]: {
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx ? { ...q, answer: e.target.value } : q
+          q.index === questionIdx ? { ...q, answer: {...q.answer, [lang]: e.target.value} } : q
         ),
       },
     });
@@ -42,7 +45,7 @@ const UpdateResume = ({
       [section]: {
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx ? { ...q, answer: answerStr } : q
+          q.index === questionIdx ? { ...q, answer: {...q.answer, [lang]: answerStr} } : q
         ),
       },
     });
@@ -54,7 +57,7 @@ const UpdateResume = ({
       [section]: {
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx ? { ...q, answer: dateStr } : q
+          q.index === questionIdx ? { ...q, answer: {...q.answer, [lang]: dateStr }} : q
         ),
       },
     });
@@ -95,7 +98,7 @@ const UpdateResume = ({
   function generateAI(e, section, index) {
     let indexes = [3, 6, 7, 13, 50, 53];
     let payload = {
-      questions: questions['basicInfo']['questions'].filter(q => indexes.includes(q.index)).map(q => ({question: q.question, answer: q.answer}))
+      questions: questions['basicInfo']['questions'].filter(q => indexes.includes(q.index)).map(q => ({question: q.question, answer: q.answer[lang]}))
     }
     let dataInput = "Generate a short and elaborated resume profile summary with words less than 100 from following json: ";
     dataInput += JSON.stringify(payload);
@@ -122,7 +125,7 @@ const UpdateResume = ({
         [section]: {
           ...questions[section],
           questions: questions[section]["questions"].map((q) =>
-            q.index === index ? { ...q, answer: response } : q
+            q.index === index ? { ...q, answer: {...q.answer,[lang]: response} } : q
           ),
         },
       });

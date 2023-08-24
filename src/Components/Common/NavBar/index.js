@@ -57,7 +57,6 @@ const getItems = (logout, t) => [
 
 const DropdownMenu = () => {
   let { logout, user } = useFirebase();
-  let navigate = useNavigate();
   let { t } = useLanguage();
 
   return (
@@ -80,18 +79,18 @@ const DropdownMenu = () => {
 const NavBar = () => {
   let { t } = useLanguage();
   let { user } = useFirebase();
+  let navigate = useNavigate();
   return (
     <PageHeader
       title="KNEG"
       className="site-page-header"
       subTitle={t("app.intro")}
-      extra={
-        [
-          <LanguageSelect />, 
-          user ? <DropdownMenu key="more" /> : null
-        ]}
+      extra={[<LanguageSelect />, user ? <DropdownMenu key="more" /> : null]}
       avatar={{
         src: "logo-kneg.png",
+        onClick: () => {
+          navigate("/app");
+        },
       }}
       breadcrumb={{ routes }}
       style={navBarStyle}
