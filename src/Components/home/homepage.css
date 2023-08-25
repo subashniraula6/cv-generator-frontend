@@ -32,7 +32,7 @@ li{
   }
   .contentHeading{
     font-size: 30px;
-    font-weight: 800;
+    font-weight: 900;
     text-align: center;
     margin: 5px 0px;
     padding: 10px;
@@ -99,6 +99,7 @@ li{
     height:250px;
     width:430px;
     padding:20px;
+    margin: 0px auto;
     box-shadow: rgba(2, 2, 2, 0.1) 0px 0px 8px 4px;
     border-radius:20px;
   }
@@ -171,7 +172,8 @@ li{
   }
   .detailContainer{
     display:flex;
-    margin:10px 0px;
+    margin: 20px 0px;
+    align-items: center;
   }
   .detailContainer > *{
     margin: 0px 10px;
@@ -202,7 +204,13 @@ li{
   .menuBar{
     display: none;
   }
-
+  .iconSall{
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 50%;
+    color: #9500ff;
+    text-align: center;
+  }
 
   @media only screen and (max-width: 1200px) {
     .menuBar{
@@ -228,7 +236,12 @@ li{
     }
   }
   @media only screen and (max-width: 720px) {
-  
+    .imgFit{
+      width: 100% !important;
+    }
+    .testimonyContainer{
+      width:380px;
+    }
     .coloredContainerHeading {
         line-height: 1.4;
     }
@@ -257,4 +270,31 @@ li{
     .contactForm,.contactDetails{
         width: 100%;
     }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .contentHeading {
+      line-height: 1.4;
+    }
+    .grid-container{
+      grid-template-columns: auto;
+    }
+    .testimonyContainer {
+      width: 350px;
+  }
+    .testimonyAvatar {
+      height: 80px;
+      width: 80px;
+  }
+
+  }
+  @media only screen and (max-width: 480px) {
+
+    .testimonyAvatar {
+      height: 50px;
+      width: 50px;
+  }
+  .testimonyContainer {
+    width: 280px;
+}
   }

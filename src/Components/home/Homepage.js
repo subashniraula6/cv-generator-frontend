@@ -1,4 +1,7 @@
 import React, { useState,useEffect } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEarthEurope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
+
 // import Button from '../Wrappers/Button'
 import './homepage.css'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,6 +10,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css';
 import { MenuOutlined,InstagramOutlined,TwitterOutlined,FacebookFilled } from '@ant-design/icons'
+import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
+
 
 
 
@@ -41,6 +46,7 @@ export default function Homepage() {
     ]
 
     const [showNavLinks, setShowNavLinks] = useState(window.innerWidth > 1200);
+    const [slidePerView, setSlidePerView] = useState(window.innerWidth >= 1000 ? 2 : 1);
 
     const toggleNavLinks = () => {
         setShowNavLinks(!showNavLinks);
@@ -48,6 +54,7 @@ export default function Homepage() {
 
     useEffect(() => {
         const handleResize = () => {
+            setSlidePerView(window.innerWidth >= 1000 ? 2 : 1);
             setShowNavLinks(window.innerWidth > 1200);
         };
 
@@ -134,7 +141,7 @@ export default function Homepage() {
                     <Swiper
                         modules={[Navigation, Pagination,Autoplay]}
                         spaceBetween={50}
-                        slidesPerView={2}
+                        slidesPerView={slidePerView}
                         autoplay={{ delay: 3000, disableOnInteraction: false }}
                         pagination={{ clickable: true }}
                         onSlideChange={() => console.log('slide change')}
@@ -169,8 +176,8 @@ export default function Homepage() {
                 </div>
             </div>
             <div className='contentContainer'>
-                <div className="contentHeading">People We Helped <span style={{color:'rgb(149, 0, 255)'}}>Employ</span></div>
-                <div className="contentParagraph">
+                <div className='contentHeading'>People We Helped <span style={{color:'rgb(149, 0, 255)'}}>Employ</span></div>
+                <div className={`contentParagraph imgFit`}style={{width:'70%',margin:'0px auto'}}>
                     <img src='./image/chart.png' alt='chart' style={{width:'100%'}}></img>
                 </div>
             </div>
@@ -245,20 +252,20 @@ export default function Homepage() {
                         We're open for any suggestion or just to have a chat
                         </div>
                         <div className="detailContainer">
-                            <span>Icon</span>
+                            <FontAwesomeIcon icon={faLocationDot} className='iconSall'/>
                             <span style={{fontWeight:600}}>Address: Vasagatan 10 stockholm</span>
                         </div>
                         <div className="detailContainer">
-                            <span>Icon</span>
+                            <FontAwesomeIcon icon={faPhone} className='iconSall'/>
                             <span style={{fontWeight:600}}>Phone: +1235 2355 98</span>  
                         </div>
                         <div className="detailContainer">
-                            <span>Icon</span>
+                            <FontAwesomeIcon icon={faPaperPlane} className='iconSall'/>
                             <span style={{fontWeight:600}}>Email: info@yoursite.com</span>
                         </div>
                         <div className="detailContainer">
-                            <span>Icon</span>
-                            <span style={{fontWeight:600}}>Website:Jobb.kneg.net</span>
+                            <FontAwesomeIcon icon={faEarthEurope} className='iconSall'/>
+                            <span style={{fontWeight:600}}>Website: Jobb.kneg.net</span>
                         </div>
                     </div>
                 </div>
