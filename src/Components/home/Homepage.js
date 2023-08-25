@@ -147,7 +147,7 @@ export default function Homepage() {
                                                 <div className="testimonyAvatar">
                                                     <img
                                                     src={data.testimonyavatar}
-                                                    style={{ height: "100%", width: "100%" }}
+                                                    style={{ height: "100%", width: "100%" }} alt={data.testimonyName}
                                                     />
                                                 </div>
                                                 <div className="testimoyRating">
