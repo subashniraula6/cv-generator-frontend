@@ -34,12 +34,12 @@ export function LanguageProvider({ children }) {
   });
   useEffect(()=> {
     localStorage.setItem("lang", JSON.stringify(language));
+    i18n.changeLanguage(language);
   }, [language]);
 
   let {t} = useTranslation();
   const handleLanguageChange = (lang) => {
     setLanguage(lang);
-    i18n.changeLanguage(lang);
   }
   return (
     <LanguageContext.Provider value={{ language, setLanguage: handleLanguageChange, t }}>
