@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import en from "../Locales/en.json";
 import sv from "../Locales/sv.json";
@@ -27,7 +27,15 @@ let LanguageContext = createContext();
 export const useLanguage = () => useContext(LanguageContext);
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState(() => {
+    const saved = localStorage.getItem("lang");
+    const initialValue = JSON.parse(saved);
+    return initialValue || "en";
+  });
+  useEffect(()=> {
+    localStorage.setItem("lang", JSON.stringify(language));
+  }, [language]);
+
   let {t} = useTranslation();
   const handleLanguageChange = (lang) => {
     setLanguage(lang);
