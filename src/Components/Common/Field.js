@@ -66,7 +66,6 @@ const Field = ({
 
       {question.type === "select" && (
         <Select
-          mode="multiple"
           placeholder="Inserted are removed"
           // value={selectedItems}
           onChange={handleSelectChange}

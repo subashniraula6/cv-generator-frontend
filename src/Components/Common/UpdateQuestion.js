@@ -39,7 +39,12 @@ const UpdateQuestion = ({
   }
 
   function handleSelectChange(options, section, questionIdx) {
-    let answerStr = options.join(",").trim();
+    let answerStr;
+    if(Array.isArray(options)) {
+      answerStr = options.join(",").trim();
+    } else {
+      answerStr = options.trim();
+    }
     setTempQuestions({
       ...tempQuestions,
       [section]: {

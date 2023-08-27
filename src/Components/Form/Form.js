@@ -288,7 +288,11 @@ export default function Form({ questions, setQuestions }) {
   };
 
   const handleSelectChange = (options) => {
-    setCurrentAnswer(options.join(",").trim());
+    if(Array.isArray(options)) {
+      setCurrentAnswer(options.join(",").trim());
+    } else {
+      setCurrentAnswer(options.trim());
+    }
   };
 
   const handleSlideChange = ({ target }) => {
