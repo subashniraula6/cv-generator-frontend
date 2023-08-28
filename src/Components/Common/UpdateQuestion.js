@@ -13,6 +13,7 @@ const UpdateQuestion = ({
   setQuestions,
   title,
   AIField,
+  AIType = "profileSummary",
   isLoading,
   setIsLoading,
   ...otherProps
@@ -32,7 +33,9 @@ const UpdateQuestion = ({
       [section]: {
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx ? { ...q, answer: {...q.answer, [lang]: e.target.value} } : q
+          q.index === questionIdx
+            ? { ...q, answer: { ...q.answer, [lang]: e.target.value } }
+            : q
         ),
       },
     });
@@ -40,7 +43,7 @@ const UpdateQuestion = ({
 
   function handleSelectChange(options, section, questionIdx) {
     let answerStr;
-    if(Array.isArray(options)) {
+    if (Array.isArray(options)) {
       answerStr = options.join(",").trim();
     } else {
       answerStr = options.trim();
@@ -50,7 +53,9 @@ const UpdateQuestion = ({
       [section]: {
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx ? { ...q, answer: {...q.answer, [lang]: answerStr} } : q
+          q.index === questionIdx
+            ? { ...q, answer: { ...q.answer, [lang]: answerStr } }
+            : q
         ),
       },
     });
@@ -62,7 +67,9 @@ const UpdateQuestion = ({
       [section]: {
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx ? { ...q, answer: {...q.answer, [lang]: dateStr }} : q
+          q.index === questionIdx
+            ? { ...q, answer: { ...q.answer, [lang]: dateStr } }
+            : q
         ),
       },
     });
@@ -72,13 +79,15 @@ const UpdateQuestion = ({
     // set removed flag
     setQuestions({
       ...questions,
-      [sectionName]: { ...questions[sectionName], 
-      questions: questions[sectionName]['questions'].map(question => {
-        if(question.index === index) {
-          return {...question, removed: true}
-        }
-        return question;
-      })},
+      [sectionName]: {
+        ...questions[sectionName],
+        questions: questions[sectionName]["questions"].map((question) => {
+          if (question.index === index) {
+            return { ...question, removed: true };
+          }
+          return question;
+        }),
+      },
     });
   }
 
@@ -96,65 +105,111 @@ const UpdateQuestion = ({
     let updatedQuestions = JSON.parse(JSON.stringify(tempQuestions));
     let quesArrIndex = questions[section]["questions"].findIndex(
       (q) => q.index === questionIdx
-      );
+    );
 
-    updatedQuestions[section]["questions"][quesArrIndex][
-    "options"
-    ][lang] += ", " + option;
+    updatedQuestions[section]["questions"][quesArrIndex]["options"][lang] +=
+      ", " + option;
     // Update DB
     // Fetch DB and set questions state
     setQuestions(updatedQuestions);
   }
 
   function generateAI(e, section, index) {
-    let indexes = [3, 6, 7, 13, 50, 53];
-    let payload = {
-      questions: questions['basicInfo']['questions'].filter(q => indexes.includes(q.index)).map(q => ({question: q.question, answer: q.answer[lang]}))
-    }
-    let dataInput = "Generate a short and elaborated resume profile summary with words less than 100 from following json: ";
-    dataInput += JSON.stringify(payload);
+    if (AIType === "profileSummary") {
+      let indexes = [3, 6, 7, 13, 50, 53];
+      let payload = {
+        questions: questions[section]["questions"]
+          .filter((q) => indexes.includes(q.index))
+          .map((q) => ({ question: q.question, answer: q.answer[lang] })),
+      };
+      let dataInput =
+        "Generate a short and elaborated resume profile summary with words less than 100 from following json: ";
+      dataInput += JSON.stringify(payload);
 
-    const requestData = {
-      "prompt": "resume maker" + "\n" + dataInput,
-      "engine": "text-davinci-003",
-      "password": "aeZak1939pska"
-    };
-    setIsLoading(true);
-    fetch('https://eric-sales-bot.onrender.com/chat', {
-        method: 'POST',
+      const requestData = {
+        prompt: "resume maker" + "\n" + dataInput,
+        engine: "text-davinci-003",
+        password: "aeZak1939pska",
+      };
+      setIsLoading(true);
+      fetch("https://eric-sales-bot.onrender.com/chat", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestData)
-    })
-    .then(res => res.json())
-    .then(resp => {
-      setIsLoading(false);
-      let {response} = resp;
-      setQuestions({
-        ...questions,
-        [section]: {
-          ...questions[section],
-          questions: questions[section]["questions"].map((q) =>
-            q.index === index ? { ...q, answer: {...q.answer,[lang]: response} } : q
-          ),
+        body: JSON.stringify(requestData),
+      })
+        .then((res) => res.json())
+        .then((resp) => {
+          setIsLoading(false);
+          let { response } = resp;
+          setQuestions({
+            ...questions,
+            [section]: {
+              ...questions[section],
+              questions: questions[section]["questions"].map((q) =>
+                q.index === index
+                  ? { ...q, answer: { ...q.answer, [lang]: response } }
+                  : q
+              ),
+            },
+          });
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          alert("Open AI error");
+        });
+    } else if (AIType === "workSummary") {
+      let payload = {
+        questions: questions[section]["questions"]
+        .filter((q) => q.index >= index - 4 && q.index <= index)
+        .map((q) => ({ question: q.question, answer: q.answer[lang] }))
+      };
+      let dataInput =
+        "Generate a short and elaborated resume work description summary with words less than 100 from following past work experience json: ";
+      dataInput += JSON.stringify(payload);
+      const requestData = {
+        prompt: "resume maker" + "\n" + dataInput,
+        engine: "text-davinci-003",
+        password: "aeZak1939pska",
+      };
+      setIsLoading(true);
+      fetch("https://eric-sales-bot.onrender.com/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      });
-    })
-    .catch(err => {
-      setIsLoading(false)
-      alert("Open AI error")
-    })
+        body: JSON.stringify(requestData),
+      })
+        .then((res) => res.json())
+        .then((resp) => {
+          setIsLoading(false);
+          let { response } = resp;
+          setQuestions({
+            ...questions,
+            [section]: {
+              ...questions[section],
+              questions: questions[section]["questions"].map((q) =>
+                q.index === index
+                  ? { ...q, answer: { ...q.answer, [lang]: response } }
+                  : q
+              ),
+            },
+          });
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          alert("Open AI error");
+        });
+    }
   }
 
   return (
-    <div className="manage-question">
+    <span className="manage-question">
       <span className="custom-modal">
-        {
-          AIField && 
-        // <button onClick={(e) => generateAI(e, section, index)}>AI Generate</button>
-        <MagicIcon onClick={(e) => generateAI(e, section, index)} />
-        }
+        {AIField && (
+          <MagicIcon onClick={(e) => generateAI(e, section, index)} />
+        )}
         <CustomModal
           handleEditSection={(e) => handleEditSection()}
           handleCancelSection={(e) => handleCancelSection()}
@@ -168,19 +223,22 @@ const UpdateQuestion = ({
               )}
               handleInputChange={(e) => handleInputChange(e, section, index)}
               handleSelectChange={(e) => handleSelectChange(e, section, index)}
-              handleDateChange={(date, dateStr) => handleDateChange(date, dateStr, section, index)}
+              handleDateChange={(date, dateStr) =>
+                handleDateChange(date, dateStr, section, index)
+              }
               addDropdownOption={(e) => addDropdownOption(e, section, index)}
             />
           )}
         </CustomModal>
       </span>
-      {
-        questions[section].questions.find(q=> q.index===index)?.hasOwnProperty("removed") &&
+      {questions[section].questions
+        .find((q) => q.index === index)
+        ?.hasOwnProperty("removed") && (
         <span className="pop-confirm">
           <PopConfirm confirm={(e) => handleDeleteSection(section, index)} />
         </span>
-      }
-    </div>
+      )}
+    </span>
   );
 };
 

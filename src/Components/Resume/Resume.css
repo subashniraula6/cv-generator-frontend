@@ -4,12 +4,11 @@
 }
 
 .sider {
-  min-width: 280px;
+  min-width: 250px;
 }
 
 .content {
   padding: 0;
-  min-width: 700px;
 }
 
 ._container {
@@ -38,6 +37,7 @@ hr {
   padding: 0;
   display: inline;
 }
+
 
 .last-name {
   font-weight: 400;
@@ -83,12 +83,13 @@ hr {
 .info-profile,
 .info-skills,
 .info-experience,
+.info-project,
 .info-education,
 .info-hobby {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  margin: 10px 0;
+  margin: 0 0 5px 0;
 }
 .info-company {
   font-weight: 800;
@@ -102,6 +103,9 @@ hr {
 }
 .education-description {
   font-style: italic;
+}
+
+.skills-name {
 }
 
 .profile-content,

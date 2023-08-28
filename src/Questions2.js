@@ -626,7 +626,6 @@ const questions = {
           en: "Project name",
           sv: "Projektnamn"
         },
-        removed: false,
         type: "text",
         answer: {
           en: "",
@@ -635,6 +634,18 @@ const questions = {
       },
       {
         index: 5001,
+        question: {
+          en: "Project link",
+          sv: "Projektlänk"
+        },
+        type: "text",
+        answer: {
+          en: "",
+          sv: ""
+        },
+      },
+      {
+        index: 5002,
         question: {
           en: "Project description",
           sv: "Projektbeskrivning"
@@ -646,7 +657,7 @@ const questions = {
         },
       },
       {
-        index: 5002,
+        index: 5003,
         question: {
           en: "Project start date",
           sv: "Projektets startdatum"
@@ -658,7 +669,7 @@ const questions = {
         },
       },
       {
-        index: 5003,
+        index: 5004,
         question: {
           en: "Project end date",
           sv: "Projektets slutdatum"
@@ -670,7 +681,7 @@ const questions = {
         },
       },
       {
-        index: 5004,
+        index: 5005,
         question: {
           en: "Do you want to add more projects?",
           sv: "Vill du lägga till fler projekt?"

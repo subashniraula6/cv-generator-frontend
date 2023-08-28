@@ -9,6 +9,7 @@
   "section.profileSummary": "Profilsammanfattning",
   "section.certificates": "Certifikat",
   "section.workExperience": "Arbetserfarenhet",
+  "section.projects": "Projekt",
   "section.education": "Utbildning",
   "section.awards": "Utmärkelser",
   "button.previous": "Föregående",
@@ -36,5 +37,9 @@
   "placeholder.email": "E-postadress",
   "placeholder.password": "Lösenord",
   "placeholder.cPassword": "Bekräfta lösenord",
-  "button.signup": "Registrera dig"
+  "button.signup": "Registrera dig",
+  "label.email": "E-post",
+  "label.phone": "Telefon",
+  "label.linkedin": "LinkedIn",
+  "label.website": "Webbplats"
 }

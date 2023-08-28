@@ -1,2 +1,200 @@
-@import url(https://fonts.googleapis.com/css?family=Varela+Round);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+* {
+  font-family: 'Poppins';
+}
+
+.sider3 {
+  min-width: 400px;
+}
+
+.content {
+  padding: 0;
+}
+
+._container3 {
+  max-width: 1000px;
+  height: auto;
+  background: whitesmoke;
+  margin: 10px auto;
+  box-shadow: 1px 1px 2px #dad7d7;
+}
+
+hr {
+  border: 5;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.first-name {
+  font-weight: 700;
+  font-size: 22px;
+  padding: 0;
+  display: inline;
+}
+
+.last-name {
+  font-weight: 400;
+  font-size: 22px;
+  padding: 0;
+  display: inline;
+}
+
+.info-exp {
+  display: inline;
+}
+
+.info-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+.name-style3, .contact-info3 {
+    padding: 25px;
+    min-width: 300px;
+}
+
+.contact-info3 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile,
+.experience,
+.education {
+  padding: 10px 0;
+  width: 100%;
+}
+
+.name-style .bold {
+  font-size: 25px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.name-style p + p {
+  text-align: center;
+  font-family: cursive;
+  font-weight: 400;
+}
+.contact-info {
+  padding: 15px 0;
+  font-weight: 400;
+}
+.info-profile,
+.info-skills,
+.info-experience,
+.info-project,
+.info-education,
+.info-hobby {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 0 0 5px 0;
+}
+.info-company {
+  font-weight: 800;
+}
+.info-college {
+  font-weight: 800;
+}
+
+.work-description {
+  font-style: italic;
+}
+.education-description {
+  font-style: italic;
+}
+
+.skills-name {
+}
+
+.profile-content,
+.skills-content,
+.experience-content,
+.education-content {
+  padding: 0;
+}
+.profile-content p {
+  font-size: 14px;
+}
+.profile,
+.skills,
+.experience,
+.education, .hobby {
+  font-family: cursive;
+  font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700 !important;
+}
+
+.awards-content {
+  flex-wrap: wrap;
+}
+
+.left {
+  max-width: 40%;
+}
+
+.section-wrapper {
+  padding: 0;
+  width: 100%;
+  position: relative;
+}
+.section-wrapper:hover {
+  background: #dad7d7;
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+  background-color: rgb(255,255,255); /* Fallback color */
+  background-color: rgba(255,255,255,0.6); /* Black w/ opacity */
+}
+.manage-section {
+  display: none;
+  position: absolute;
+  text-align: center;
+  top: -25px;
+  right: 0;
+}
+.profile-summary3 {
+    padding: 10px;
+}
+.manage-question {
+  display: none;
+  position: absolute;
+  text-align: center;
+  top: -25px;
+  right: 0;
+}
+.manage-item {
+  display: none;
+  position: absolute;
+  text-align: center;
+  top: -25px;
+  right: 0;
+}
+
+.custom-modal {
+  padding: 5px;
+}
+
+.pop-confirm {
+  padding: 5px;
+}
+
+.body3 {
+    display: flex;
+}
+
+.header3 {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}

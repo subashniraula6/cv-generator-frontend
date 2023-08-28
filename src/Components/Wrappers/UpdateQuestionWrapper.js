@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 
-const UpdateQuestionWrapper = styled.div`
-    padding: 2px;
+const UpdateQuestionWrapper = styled.span`
+    block-size: fit-content;
+    padding: 3px;
     margin: 10px 0;
     width: 100%;
     position: relative;
+    display: ${(props) =>
+    props.removed ? "none" : (props.display || "inline")};
     &:hover {
         outline: 2px solid grey;
         outline-radius: 5px;
