@@ -67,7 +67,6 @@ const Field = ({
       {question.type === "select" && (
         <Select
           placeholder="Inserted are removed"
-          // value={selectedItems}
           onChange={handleSelectChange}
           style={{
             width: "100%",

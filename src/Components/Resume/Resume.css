@@ -55,6 +55,7 @@ hr {
   flex-direction: column;
   justify-content: space-between;
   padding: 25px;
+  max-width: 300px;
 }
 
 .name-style,

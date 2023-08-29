@@ -325,8 +325,8 @@ const questions = {
           sv: "Vad är adressen till {{company}}?"
         },
         question: {
-          en: "",
-          sv: ""
+          en: "What is the address of {{company}}?",
+          sv: "Vad är adressen till {{company}}?"
         },
         type: "text",
         answer: {
@@ -341,8 +341,8 @@ const questions = {
           sv: "Vilken position söker du på {{company}}?"
         },
         question: {
-          en: "",
-          sv: ""
+          en: "Which position are you applying for at {{company}}?",
+          sv: "Vilken position söker du på {{company}}?"
         },
         type: "text",
         answer: {
@@ -357,8 +357,8 @@ const questions = {
           sv: "Vad fick dig att vilja söka detta jobb som nämnd position på {{company}}?"
         },
         question: {
-          en: "",
-          sv: ""
+          en: "What made you want to apply for this job as mentioned position at {{company}}?",
+          sv: "Vad fick dig att vilja söka detta jobb som nämnd position på {{company}}?"
         },
         type: "text",
         answer: {
@@ -718,7 +718,7 @@ const questions = {
     removed: false,
     questions: [
       {
-        index: 1000,
+        index: 6000,
         question: {
           en: "What other information would you like to include in your application?",
           sv: "Vilken annan information vill du inkludera i din ansökan?"
