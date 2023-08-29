@@ -7,7 +7,7 @@ import Resume4 from "../Resume/Resume4/Resume4";
 import Resume5 from "../Resume/Resume5/Resume5";
 import { ResumeWrapper } from "../Wrappers/Wrappers";
 import ReactToPrint from "react-to-print";
-import { Button } from "antd";
+import { Button, Select } from "antd";
 import {
   DownloadOutlined,
   FileDoneOutlined,
@@ -26,6 +26,7 @@ function Resumes({ questions, setQuestions }) {
     "#da8bad",
   ];
   const [activeColor, setActiveColor] = useState(colors[0]);
+  let [template, setTemplate] = useState(1);
   const resumeRef = useRef();
 
   const [groupedExperience, setGroupedExperience] = useState({});
@@ -57,6 +58,10 @@ function Resumes({ questions, setQuestions }) {
     setGroupedProject(groupQuestions(questions["projects"]["questions"]));
   }, [questions]);
 
+  const handleTemplateChange = (selectedTemplate) => {
+    setTemplate(selectedTemplate);
+  };
+
   return (
     <div>
       <div className="toolbar">
@@ -71,6 +76,16 @@ function Resumes({ questions, setQuestions }) {
           ))}
         </div>
         <div style={{ display: "flex" }}>
+          <Select
+            defaultValue={1}
+            value={template}
+            onChange={handleTemplateChange}
+            options={[1, 2, 3, 4, 5].map((item) => ({
+              value: item,
+              label: `Template ${item}`,
+            }))}
+            style={{margin: '0 10px'}}
+          />
           <CoverLetter title={t("button.coverLetter")} questions={questions} />
           <Button
             type="primary"
@@ -92,8 +107,8 @@ function Resumes({ questions, setQuestions }) {
           />
         </div>
       </div>
-       <ResumeWrapper ref={resumeRef}>
-        <Resume
+      <ResumeWrapper ref={resumeRef}>
+        {template===1 && <Resume
           questions={questions}
           setQuestions={setQuestions}
           activeColor={activeColor}
@@ -104,11 +119,8 @@ function Resumes({ questions, setQuestions }) {
           isWorkAILoading={isWorkAILoading}
           setIsProfileAILoading={setIsProfileAILoading}
           setIsWorkAILoading={setIsWorkAILoading}
-        />
-      </ResumeWrapper>
-
-      <ResumeWrapper>
-        <Resume2
+        />}
+        {template===2 && <Resume2
           questions={questions}
           setQuestions={setQuestions}
           activeColor={activeColor}
@@ -119,11 +131,8 @@ function Resumes({ questions, setQuestions }) {
           isWorkAILoading={isWorkAILoading}
           setIsProfileAILoading={setIsProfileAILoading}
           setIsWorkAILoading={setIsWorkAILoading}
-        />
-      </ResumeWrapper>
-
-      <ResumeWrapper>
-        <Resume3
+        />}
+        {template===3 && <Resume3
           questions={questions}
           setQuestions={setQuestions}
           activeColor={activeColor}
@@ -134,10 +143,8 @@ function Resumes({ questions, setQuestions }) {
           isWorkAILoading={isWorkAILoading}
           setIsProfileAILoading={setIsProfileAILoading}
           setIsWorkAILoading={setIsWorkAILoading}
-        />
-      </ResumeWrapper> 
-      <ResumeWrapper>
-        <Resume5
+        />}
+        {template===4 && <Resume4
           questions={questions}
           setQuestions={setQuestions}
           activeColor={activeColor}
@@ -148,10 +155,8 @@ function Resumes({ questions, setQuestions }) {
           isWorkAILoading={isWorkAILoading}
           setIsProfileAILoading={setIsProfileAILoading}
           setIsWorkAILoading={setIsWorkAILoading}
-        />
-      </ResumeWrapper>
-      <ResumeWrapper>
-        <Resume4
+        />}
+        {template===5 && <Resume5
           questions={questions}
           setQuestions={setQuestions}
           activeColor={activeColor}
@@ -162,7 +167,7 @@ function Resumes({ questions, setQuestions }) {
           isWorkAILoading={isWorkAILoading}
           setIsProfileAILoading={setIsProfileAILoading}
           setIsWorkAILoading={setIsWorkAILoading}
-        />
+        />}
       </ResumeWrapper>
     </div>
   );
