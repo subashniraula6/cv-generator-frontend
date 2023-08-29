@@ -3,6 +3,8 @@ import "./Resumes.css";
 import Resume from "../Resume/Resume";
 import Resume2 from "../Resume/Resume2/Resume2";
 import Resume3 from "../Resume/Resume3/Resume3";
+import Resume4 from "../Resume/Resume4/Resume4";
+import Resume5 from "../Resume/Resume5/Resume5";
 import { ResumeWrapper } from "../Wrappers/Wrappers";
 import ReactToPrint from "react-to-print";
 import { Button } from "antd";
@@ -90,7 +92,7 @@ function Resumes({ questions, setQuestions }) {
           />
         </div>
       </div>
-      <ResumeWrapper ref={resumeRef}>
+       <ResumeWrapper ref={resumeRef}>
         <Resume
           questions={questions}
           setQuestions={setQuestions}
@@ -122,6 +124,34 @@ function Resumes({ questions, setQuestions }) {
 
       <ResumeWrapper>
         <Resume3
+          questions={questions}
+          setQuestions={setQuestions}
+          activeColor={activeColor}
+          groupedExperience={groupedExperience}
+          groupedEducation={groupedEducation}
+          groupedProject={groupedProject}
+          isProfileAILoading={isProfileAILoading}
+          isWorkAILoading={isWorkAILoading}
+          setIsProfileAILoading={setIsProfileAILoading}
+          setIsWorkAILoading={setIsWorkAILoading}
+        />
+      </ResumeWrapper> 
+      <ResumeWrapper>
+        <Resume5
+          questions={questions}
+          setQuestions={setQuestions}
+          activeColor={activeColor}
+          groupedExperience={groupedExperience}
+          groupedEducation={groupedEducation}
+          groupedProject={groupedProject}
+          isProfileAILoading={isProfileAILoading}
+          isWorkAILoading={isWorkAILoading}
+          setIsProfileAILoading={setIsProfileAILoading}
+          setIsWorkAILoading={setIsWorkAILoading}
+        />
+      </ResumeWrapper>
+      <ResumeWrapper>
+        <Resume4
           questions={questions}
           setQuestions={setQuestions}
           activeColor={activeColor}
