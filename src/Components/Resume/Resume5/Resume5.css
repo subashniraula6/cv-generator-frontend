@@ -36,7 +36,7 @@
   }
   .header {
     margin-bottom: 30px;
-    padding: 30px 30px 10px 30px ;
+    width: 100%;
   }
   .d-flex{
     display: flex;
@@ -44,7 +44,10 @@
     align-items: flex-start;
    
   }
-  .col1,.col2{
+  .col1{
+    flex: 2;
+  }
+  .col2 {
     flex: 1;
   }
   .header .full-name {
@@ -113,7 +116,6 @@
     width: 60%;
   }
   .details .right {
-    tex-align: right;
     width: 39%;
   }
   .details .name {
@@ -153,11 +155,14 @@
     color: #222;
   } 
 
-  .profile-content {
-    word-wrap: break-word;
-  }
-
   .language-name {
     padding: 5px 5px 5px 0;
     margin: 10px 10px 10px 0;
+  }
+
+  .div-flex-5 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
   }

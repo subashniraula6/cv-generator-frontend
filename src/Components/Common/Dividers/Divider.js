@@ -7,7 +7,7 @@ const CircleDevider = styled.div`
   display: flex;
   align-items: center;
   overflow: hidden;
-  margin: 20px 0;
+  margin: 0;
 `;
 
 const CircleDeviderLine = styled.div`

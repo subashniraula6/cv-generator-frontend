@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const UpdateSectionWrapper = styled.div`
     padding: 2px;
-    margin: 10px 0;
+    margin: 0 0 20px 0;
     width: 100%;
     display: ${(props) =>
         props.removed ? "none" : "block"};

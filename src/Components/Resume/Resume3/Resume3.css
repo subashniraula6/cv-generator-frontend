@@ -9,13 +9,13 @@
 
 .content {
   padding: 0;
+  width: 100%
 }
 
 ._container3 {
   max-width: 1000px;
   height: auto;
   background: whitesmoke;
-  margin: 10px auto;
   box-shadow: 1px 1px 2px #dad7d7;
 }
 
@@ -52,12 +52,17 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 25px;
+  padding: 30px;
 }
 
-.name-style3, .contact-info3 {
-    padding: 25px;
+.name-style3 {
+    padding: 20px;
     min-width: 300px;
+}
+
+.contact-info3 {
+  padding: 0 20px;
+  min-width: 300px;
 }
 
 .contact-info3 {
@@ -195,6 +200,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .header3 {
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: start;
+    padding: 20px;
 }

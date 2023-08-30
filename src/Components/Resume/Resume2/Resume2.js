@@ -39,7 +39,7 @@ export default function Resume2({
         rel="stylesheet"
         type="text/css"
       />
-      <div className="resume-container">
+      <div className="resume-container" style={{flexDirection: "column"}}>
         <div
           className="header"
           style={{ backgroundColor: activeColor, maxWidth: "1450px" }}

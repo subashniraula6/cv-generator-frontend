@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const AstroDivider = styled.div`
-  margin: 64px auto;
+  margin: 0 auto;
   width: 400px;
   max-width: 100%;
   position: relative;
@@ -9,7 +9,7 @@ const AstroDivider = styled.div`
 
 const AstroDividerMask = styled.div`
   overflow: hidden;
-  height: 20px;
+  height: 5px;
   
   &:after {
     content: '';
@@ -23,8 +23,8 @@ const AstroDividerMask = styled.div`
 `;
 
 const AstroDividerSpan = styled.span`
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
   position: absolute;
   bottom: 100%;
   margin-bottom: -25px;
@@ -49,15 +49,9 @@ const AstroDividerI = styled.i`
   color: #049372;
 `;
 const CircleDevider=()=>{
-
-
-
   return (
     <AstroDivider>
       <AstroDividerMask>
-        <AstroDividerSpan>
-          <AstroDividerI>+</AstroDividerI>
-        </AstroDividerSpan>
       </AstroDividerMask>
     </AstroDivider>
   );

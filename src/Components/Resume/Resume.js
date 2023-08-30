@@ -38,7 +38,7 @@ const Resume = forwardRef(
     const { Link } = Anchor;
     const { language: lang, t } = useLanguage();
     return (
-      <div className="_container">
+      <div className="container1">
         <div className="sider" style={{ backgroundColor: activeColor }}>
           <div className="info-header">
             <div className="name-style">
@@ -105,6 +105,7 @@ const Resume = forwardRef(
                   ?.removed
               }
             >
+              <PhoneOutlined />{" "}
               <UpdateQuestion
                 key={JSON.stringify(questions)}
                 section="basicInfo"
@@ -114,8 +115,6 @@ const Resume = forwardRef(
                 setQuestions={setQuestions}
               />
               <span>
-                {questions?.basicInfo?.questions.find((q) => q.index === 8)
-                  ?.answer[lang] && <PhoneOutlined />}{" "}
                 {
                   questions?.basicInfo?.questions.find((q) => q.index === 8)
                     ?.answer[lang]
@@ -131,6 +130,7 @@ const Resume = forwardRef(
                   ?.removed
               }
             >
+              <MailOutlined />{" "}
               <UpdateQuestion
                 key={JSON.stringify(questions)}
                 section="basicInfo"
@@ -139,14 +139,12 @@ const Resume = forwardRef(
                 questions={questions}
                 setQuestions={setQuestions}
               />
-              <div>
-                {questions?.basicInfo?.questions.find((q) => q.index === 9)
-                  ?.answer[lang] && <MailOutlined />}{" "}
+              <span>
                 {
                   questions?.basicInfo?.questions.find((q) => q.index === 9)
                     ?.answer[lang]
                 }
-              </div>
+              </span>
             </UpdateQuestionWrapper>
 
             {/* LinkedIn */}
@@ -157,6 +155,7 @@ const Resume = forwardRef(
                   ?.removed
               }
             >
+              <LinkedinOutlined />{" "}
               <UpdateQuestion
                 key={JSON.stringify(questions)}
                 section="basicInfo"
@@ -165,14 +164,12 @@ const Resume = forwardRef(
                 questions={questions}
                 setQuestions={setQuestions}
               />
-              <div>
-                {questions?.basicInfo?.questions.find((q) => q.index === 10)
-                  ?.answer[lang] && <LinkedinOutlined />}{" "}
+              <span>
                 {
                   questions?.basicInfo?.questions.find((q) => q.index === 10)
                     ?.answer[lang]
                 }
-              </div>
+              </span>
             </UpdateQuestionWrapper>
 
             {/* Website */}
@@ -183,6 +180,7 @@ const Resume = forwardRef(
                   ?.removed
               }
             >
+              <GlobalOutlined />{" "}
               <UpdateQuestion
                 key={JSON.stringify(questions)}
                 section="basicInfo"
@@ -191,14 +189,12 @@ const Resume = forwardRef(
                 questions={questions}
                 setQuestions={setQuestions}
               />
-              <div>
-                {questions?.basicInfo?.questions.find((q) => q.index === 11)
-                  ?.answer[lang] && <GlobalOutlined />}{" "}
+              <span>
                 {
                   questions?.basicInfo?.questions.find((q) => q.index === 11)
                     ?.answer[lang]
                 }
-              </div>
+              </span>
             </UpdateQuestionWrapper>
 
             {/* Skills */}

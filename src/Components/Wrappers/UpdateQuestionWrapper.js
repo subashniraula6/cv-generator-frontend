@@ -3,9 +3,11 @@ import styled from 'styled-components';
 const UpdateQuestionWrapper = styled.span`
     block-size: fit-content;
     padding: 3px;
-    margin: 10px 0;
+    margin: 0 0 20px 0;
     width: 100%;
     position: relative;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;    
     display: ${(props) =>
     props.removed ? "none" : (props.display || "inline")};
     &:hover {
