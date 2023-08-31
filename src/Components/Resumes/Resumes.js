@@ -21,9 +21,9 @@ function Resumes({ questions, setQuestions }) {
     "#239ce2",
     "#48bb78",
     "#0bc5ea",
-    "#98B4D4",
+    "#6f96c3",
     "#e3654f",
-    "#da8bad",
+    "#9b4b8c",
   ];
   const [activeColor, setActiveColor] = useState(colors[0]);
   let [template, setTemplate] = useState(1);

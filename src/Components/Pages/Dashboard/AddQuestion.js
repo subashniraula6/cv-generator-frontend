@@ -121,7 +121,7 @@ const AddQuestion = (props) => {
         elementType: "select",
         col: 10,
         elementConfig: {
-          options: [...types, {label: 'new', value: 'new'}],
+          options: [...types],
         },
         value: "",
         label: "Type",

@@ -149,6 +149,30 @@ export default function Form({ questions, setQuestions }) {
         index: currentQuestionIdx + (idx + 1),
         no: questions[currentSection]["noOfItems"] + 1,
       }));
+      
+      // change next question indexes
+      let nextQuestionsIdxs = updatedQuestions[currentSection]['questions']
+      .map(q => q.index).filter(idx => idx > currentQuestionIdx);
+      let updatedSectionQuestions = updatedQuestions[currentSection]['questions']
+      .map(q => {
+        if (nextQuestionsIdxs.includes(q.index)) {
+          return ({...q, index: q.index + additionalQuestions.length})
+        }
+        return q;
+      });
+      
+      if (nextQuestionsIdxs.length > 0) {
+        updatedQuestions = {
+          ...updatedQuestions,
+          [currentSection]: {
+            ...updatedQuestions[currentSection],
+            noOfItems: updatedQuestions[currentSection]["noOfItems"] + 1,
+            questions: [
+              ...updatedSectionQuestions
+            ].sort((a, b) => a.index - b.index),
+          },
+        }; 
+      }
       setQuestions(
         {
           ...updatedQuestions,

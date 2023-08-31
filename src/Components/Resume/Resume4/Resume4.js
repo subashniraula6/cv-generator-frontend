@@ -18,6 +18,7 @@ import {
   PhoneOutlined,
 } from "@ant-design/icons";
 import LangRating from "../../Common/LangRating/LangRating";
+import { Heading1 } from "../../Common/Headings/Heading1";
 // import ArrowDown from "../../Common/Dividers/ArrowDown";
 
 export default function Resume2({
@@ -56,12 +57,14 @@ export default function Resume2({
                     questions={questions}
                     setQuestions={setQuestions}
                   />
-                  {questions?.basicInfo?.questions.find((q) => q.index === 1)
-                    ?.answer[lang].length === 0 && t("field.fname")}{" "}
-                  {
-                    questions?.basicInfo?.questions.find((q) => q.index === 1)
-                      ?.answer[lang]
-                  }
+                  <Heading1 border={"right"} activeColor={activeColor}>
+                      {questions?.basicInfo?.questions.find((q) => q.index === 1)
+                        ?.answer[lang].length === 0 && t("field.fname")}{" "}
+                      {
+                        questions?.basicInfo?.questions.find((q) => q.index === 1)
+                          ?.answer[lang]
+                      }
+                  </Heading1>
                 </UpdateQuestionWrapper>
               </span>
               {/* Last Name */}
@@ -75,11 +78,13 @@ export default function Resume2({
                     questions={questions}
                     setQuestions={setQuestions}
                   />
-                  {questions?.basicInfo?.questions.find((q) => q.index === 2)
-                    ?.answer[lang].length === 0 && t("field.lname")}
-                  {" " +
-                    questions?.basicInfo?.questions.find((q) => q.index === 2)
-                      ?.answer[lang]}
+                  <Heading1 border={"left"} activeColor={activeColor}>
+                    {questions?.basicInfo?.questions.find((q) => q.index === 2)
+                      ?.answer[lang].length === 0 && t("field.lname")}
+                    {" " +
+                      questions?.basicInfo?.questions.find((q) => q.index === 2)
+                        ?.answer[lang]}
+                  </Heading1>
                 </UpdateQuestionWrapper>
               </span>
             </div>
