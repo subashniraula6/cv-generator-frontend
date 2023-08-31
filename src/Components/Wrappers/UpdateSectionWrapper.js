@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const UpdateSectionWrapper = styled.div`
     padding: 2px;
+    ${({underline}) => underline ? "text-decoration: underline;" : null}
     margin: 0 0 20px 0;
     width: 100%;
     display: ${(props) =>

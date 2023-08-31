@@ -84,6 +84,26 @@ export default function Resume2({
                       ?.answer[lang]}
                 </UpdateQuestionWrapper>
               </span>
+              <br />
+              {/* Title */}
+              <UpdateQuestionWrapper className="title">
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={3}
+                  title="Edit Title"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <SubSectionHeading>
+                  {questions?.basicInfo?.questions.find((q) => q.index === 3)
+                    ?.answer[lang].length === 0 && t("field.title")}
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 3)
+                      ?.answer[lang]
+                  }
+                </SubSectionHeading>
+              </UpdateQuestionWrapper>
             </div>
             <div className="profile-summary-5">
               <UpdateQuestionWrapper
@@ -93,6 +113,7 @@ export default function Resume2({
                     ?.removed
                 }
                 display="block"
+                underline={true}
               >
                 <Spin spinning={isProfileAILoading}>
                   <UpdateQuestion
@@ -128,6 +149,7 @@ export default function Resume2({
                 questions?.basicInfo?.questions.find((q) => q.index === 9)
                   ?.removed
               }
+              underline={true}
             >
               <span className="email">
                 <MailOutlined /> {t("label.email")}:{" "}
@@ -157,6 +179,7 @@ export default function Resume2({
                 questions?.basicInfo?.questions.find((q) => q.index === 8)
                   ?.removed
               }
+              underline={true}
             >
               <span className="phone">
                 <PhoneOutlined /> {t("label.phone")}:{" "}
@@ -184,6 +207,7 @@ export default function Resume2({
                 questions?.basicInfo?.questions.find((q) => q.index === 10)
                   ?.removed
               }
+              underline={true}
             >
               <span className="linkedIn">
                 <LinkedinOutlined /> {t("label.linkedin")}:{" "}
@@ -211,6 +235,7 @@ export default function Resume2({
                 questions?.basicInfo?.questions.find((q) => q.index === 11)
                   ?.removed
               }
+              underline={true}
             >
               <span className="linkedIn">
                 <GlobalOutlined /> {t("label.website")}:{" "}
@@ -275,6 +300,7 @@ export default function Resume2({
               <div className="experience-col">
                 <UpdateSectionWrapper
                   removed={questions["workExperience"]?.removed}
+                  underline={true}
                 >
                   <div className="section">
                     <UpdateSection
@@ -419,7 +445,10 @@ export default function Resume2({
               </div>
               <div className="education-col">
                 {/* Education */}
-                <UpdateSectionWrapper removed={questions["education"]?.removed}>
+                <UpdateSectionWrapper
+                  removed={questions["education"]?.removed}
+                  underline={true}
+                >
                   <div className="section">
                     <UpdateSection
                       section={"education"}
@@ -575,7 +604,10 @@ export default function Resume2({
               </div>
               <div className="projects-col">
                 {/* Projects */}
-                <UpdateSectionWrapper removed={questions["projects"]?.removed}>
+                <UpdateSectionWrapper
+                  removed={questions["projects"]?.removed}
+                  underline={true}
+                >
                   <div className="section">
                     <UpdateSection
                       section={"projects"}
@@ -650,6 +682,7 @@ export default function Resume2({
                       ?.removed
                   }
                   display="block"
+                  underline={true}
                 >
                   <UpdateQuestion
                     key={JSON.stringify(questions)}
@@ -707,6 +740,7 @@ export default function Resume2({
                       ?.removed
                   }
                   display="block"
+                  underline={true}
                 >
                   <UpdateQuestion
                     key={JSON.stringify(questions)}
@@ -752,6 +786,7 @@ export default function Resume2({
                       ?.removed
                   }
                   display="block"
+                  underline={true}
                 >
                   <UpdateQuestion
                     key={JSON.stringify(questions)}
@@ -817,6 +852,7 @@ export default function Resume2({
                       ?.removed
                   }
                   display="block"
+                  underline={true}
                 >
                   <UpdateQuestion
                     key={JSON.stringify(questions)}
@@ -861,6 +897,7 @@ export default function Resume2({
                       ?.removed
                   }
                   display="block"
+                  underline={true}
                 >
                   <div className="section">
                     <UpdateQuestion

@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const UpdateQuestionWrapper = styled.span`
     block-size: fit-content;
-    padding: 3px;
+    ${({underline}) => underline ? "text-decoration: underline;" : null}
+    padding: 2px;
     margin: 0 0 20px 0;
     width: 100%;
     position: relative;

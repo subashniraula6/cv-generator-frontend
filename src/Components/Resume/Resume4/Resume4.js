@@ -87,6 +87,27 @@ export default function Resume2({
                   </Heading1>
                 </UpdateQuestionWrapper>
               </span>
+              <br />
+              <br />
+              {/* Title */}
+              <UpdateQuestionWrapper className="title">
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={3}
+                  title="Edit Title"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <SubSectionHeading>
+                  {questions?.basicInfo?.questions.find((q) => q.index === 3)
+                    ?.answer[lang].length === 0 && t("field.title")}
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 3)
+                      ?.answer[lang]
+                  }
+                </SubSectionHeading>
+              </UpdateQuestionWrapper>
             </div>
           </div>
           <UpdateQuestionWrapper

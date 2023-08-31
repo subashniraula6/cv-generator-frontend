@@ -93,14 +93,14 @@ const Resume3 = forwardRef(
                   questions={questions}
                   setQuestions={setQuestions}
                 />
-                <span>
+                <SubSectionHeading>
                   {questions?.basicInfo?.questions.find((q) => q.index === 3)
                     ?.answer[lang].length === 0 && t("field.title")}
                   {
                     questions?.basicInfo?.questions.find((q) => q.index === 3)
                       ?.answer[lang]
                   }
-                </span>
+                </SubSectionHeading>
               </UpdateQuestionWrapper>
             </div>
           </div>

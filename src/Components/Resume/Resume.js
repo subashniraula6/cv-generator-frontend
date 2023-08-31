@@ -77,6 +77,7 @@ const Resume = forwardRef(
                     ?.answer[lang]}
               </UpdateQuestionWrapper>
               <br />
+              {/* Title */}
               <UpdateQuestionWrapper className="title">
                 <UpdateQuestion
                   key={JSON.stringify(questions)}
@@ -86,14 +87,14 @@ const Resume = forwardRef(
                   questions={questions}
                   setQuestions={setQuestions}
                 />
-                <span>
+                <SubSectionHeading>
                   {questions?.basicInfo?.questions.find((q) => q.index === 3)
                     ?.answer[lang].length === 0 && t("field.title")}
                   {
                     questions?.basicInfo?.questions.find((q) => q.index === 3)
                       ?.answer[lang]
                   }
-                </span>
+                </SubSectionHeading>
               </UpdateQuestionWrapper>
             </div>
 
