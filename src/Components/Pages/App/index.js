@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FormWrapper } from "../../Wrappers/Wrappers";
 import Resumes from "../../Resumes/Resumes";
 import Form from "../../Form/Form";
-import Questions from "../../../Questions2";
+import Questions from "../../../Questions";
 
 const App = () => {
   let [questions, setQuestions] = useState(Questions);

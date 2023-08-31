@@ -5,7 +5,7 @@ import FormDrawer from "./formDrawer";
 import { Button, Popconfirm, Typography } from "antd";
 import { useFormHandler } from "./formHook";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import importedQuestions from "../../../Questions2";
+import importedQuestions from "../../../Questions";
 import { useLanguage } from "../../../context/Language";
 import { toSentenceCase, toCamelCase } from "../../../utils";
 
