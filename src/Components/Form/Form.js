@@ -110,27 +110,23 @@ export default function Form({ questions, setQuestions }) {
             },
           };
         });
-        setQuestions(
-          {
-            ...updatedQuestions,
-            [currentSection]: {
-              ...updatedQuestions[currentSection],
-              questions: [
-                ...updatedQuestions[currentSection]["questions"],
-                ...generated_questions,
-              ].sort((a, b) => a.index - b.index),
-            },
+        return {
+          ...updatedQuestions,
+          [currentSection]: {
+            ...updatedQuestions[currentSection],
+            questions: [
+              ...updatedQuestions[currentSection]["questions"],
+              ...generated_questions,
+            ].sort((a, b) => a.index - b.index),
           },
-          true
-        );
+        };
       }
     } else if (
       currentQuestionIdx === 15 &&
       (currentAnswer === "no" || currentAnswer === "")
     ) {
       // delete previously generated questions
-      setQuestions(
-        {
+        return {
           ...updatedQuestions,
           [currentSection]: {
             ...updatedQuestions[currentSection],
@@ -138,9 +134,7 @@ export default function Form({ questions, setQuestions }) {
               .filter((q) => q.index <= currentQuestionIdx || q.index >= 50)
               .sort((a, b) => a.index - b.index),
           },
-        },
-        true
-      );
+        };
     } else if (isRepeatQuestion && currentAnswer === "yes") {
       let additionalQuestions = updatedQuestions[currentSection][
         "auto_generated_questions"
@@ -149,32 +143,33 @@ export default function Form({ questions, setQuestions }) {
         index: currentQuestionIdx + (idx + 1),
         no: questions[currentSection]["noOfItems"] + 1,
       }));
-      
+
       // change next question indexes
-      let nextQuestionsIdxs = updatedQuestions[currentSection]['questions']
-      .map(q => q.index).filter(idx => idx > currentQuestionIdx);
-      let updatedSectionQuestions = updatedQuestions[currentSection]['questions']
-      .map(q => {
+      let nextQuestionsIdxs = updatedQuestions[currentSection]["questions"]
+        .map((q) => q.index)
+        .filter((idx) => idx > currentQuestionIdx);
+      let updatedSectionQuestions = updatedQuestions[currentSection][
+        "questions"
+      ].map((q) => {
         if (nextQuestionsIdxs.includes(q.index)) {
-          return ({...q, index: q.index + additionalQuestions.length})
+          return { ...q, index: q.index + additionalQuestions.length };
         }
         return q;
       });
-      
+
       if (nextQuestionsIdxs.length > 0) {
         updatedQuestions = {
           ...updatedQuestions,
           [currentSection]: {
             ...updatedQuestions[currentSection],
             noOfItems: updatedQuestions[currentSection]["noOfItems"] + 1,
-            questions: [
-              ...updatedSectionQuestions
-            ].sort((a, b) => a.index - b.index),
+            questions: [...updatedSectionQuestions].sort(
+              (a, b) => a.index - b.index
+            ),
           },
-        }; 
+        };
       }
-      setQuestions(
-        {
+      return {
           ...updatedQuestions,
           [currentSection]: {
             ...updatedQuestions[currentSection],
@@ -184,9 +179,7 @@ export default function Form({ questions, setQuestions }) {
               ...additionalQuestions,
             ].sort((a, b) => a.index - b.index),
           },
-        },
-        true
-      );
+        };
     } else if (isUpdateQuestion) {
       let currentQuestion = findCurrentQuestion();
       let startIdx = currentQuestionIdx + 1;
@@ -212,9 +205,9 @@ export default function Form({ questions, setQuestions }) {
         updatedQuestions,
         updatedTargetQuestions
       );
-      setQuestions(replacedQuestions, true);
+      return replacedQuestions;
     } else {
-      handleNext();
+      return updatedQuestions;
     }
   };
 
@@ -301,8 +294,9 @@ export default function Form({ questions, setQuestions }) {
     ][lang] = currentAnswer;
     // Update DB
     // Fetch DB and set questions state
-    setQuestions(updatedQuestions);
-    updateQuestions(updatedQuestions);
+    // setQuestions(updatedQuestions);
+    updatedQuestions = updateQuestions(updatedQuestions);
+    setQuestions(updatedQuestions, true);
     // setTimeout(()=>{
     // }, [3000]);
   };
@@ -312,7 +306,7 @@ export default function Form({ questions, setQuestions }) {
   };
 
   const handleSelectChange = (options) => {
-    if(Array.isArray(options)) {
+    if (Array.isArray(options)) {
       setCurrentAnswer(options.join(",").trim());
     } else {
       setCurrentAnswer(options.trim());
