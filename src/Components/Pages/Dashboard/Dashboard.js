@@ -6,6 +6,7 @@ import { Route, Routes, useNavigate } from 'react-router';
 import AddQuestion from './AddQuestion';
 import RemoveUser from './RemoveUser';
 import UserResponses from './UserResponses';
+import Languages from './Languages';
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -27,7 +28,10 @@ const items = [
     getItem('Remove users', '/dashboard/remove-user', <UserDeleteOutlined />),
   ]),
   getItem('User responses', 'manageResponses', <MessageOutlined />, [
-    getItem('User responses', '/dashboard/manage-response', <MessageOutlined />),
+    getItem('User responses', '/dashboard/user-responses', <MessageOutlined />),
+  ]),
+  getItem('Languages', 'manageLanguages', <SettingOutlined />, [
+    getItem('Languages', '/dashboard/languages', <SettingOutlined />),
   ]),
 ];
 const Dashboard = () => {
@@ -50,7 +54,8 @@ const Dashboard = () => {
       <Routes>
         <Route path="add-question" element={<AddQuestion />} />
         <Route path="remove-user" element={<RemoveUser />} />
-        <Route path="manage-response" element={<UserResponses />} />
+        <Route path="user-responses" element={<UserResponses />} />
+        <Route path="languages" element={<Languages />} />
       </Routes>
     </div>
   );
