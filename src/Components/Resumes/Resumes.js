@@ -25,8 +25,16 @@ function Resumes({ questions, setQuestions }) {
     "#e3654f",
     "#9b4b8c",
   ];
-  const [activeColor, setActiveColor] = useState(colors[0]);
-  let [template, setTemplate] = useState(1);
+  const [activeColor, setActiveColor] = useState(() => {
+    const saved = localStorage.getItem("activeColor");
+    const initialValue = saved;
+    return initialValue || colors[0];
+  });
+  let [template, setTemplate] = useState(() => {
+    const saved = localStorage.getItem("template");
+    const initialValue = parseInt(saved);
+    return initialValue || 1;
+  });
   const resumeRef = useRef();
 
   const [groupedExperience, setGroupedExperience] = useState({});
@@ -60,6 +68,7 @@ function Resumes({ questions, setQuestions }) {
 
   const handleTemplateChange = (selectedTemplate) => {
     setTemplate(selectedTemplate);
+    localStorage.setItem("template", selectedTemplate);
   };
 
   return (
@@ -71,7 +80,10 @@ function Resumes({ questions, setQuestions }) {
               key={item}
               style={{ backgroundColor: item }}
               className={`${"color"} ${activeColor === item ? "active" : ""}`}
-              onClick={() => setActiveColor(item)}
+              onClick={() => {
+                setActiveColor(item)
+                localStorage.setItem("activeColor", item);
+              }}
             />
           ))}
         </div>
@@ -84,7 +96,7 @@ function Resumes({ questions, setQuestions }) {
               value: item,
               label: `Template ${item}`,
             }))}
-            style={{margin: '0 10px'}}
+            style={{ margin: "0 10px" }}
           />
           <CoverLetter title={t("button.coverLetter")} questions={questions} />
           <Button
@@ -108,66 +120,76 @@ function Resumes({ questions, setQuestions }) {
         </div>
       </div>
       <ResumeWrapper ref={resumeRef}>
-        {template===1 && <Resume
-          questions={questions}
-          setQuestions={setQuestions}
-          activeColor={activeColor}
-          groupedExperience={groupedExperience}
-          groupedEducation={groupedEducation}
-          groupedProject={groupedProject}
-          isProfileAILoading={isProfileAILoading}
-          isWorkAILoading={isWorkAILoading}
-          setIsProfileAILoading={setIsProfileAILoading}
-          setIsWorkAILoading={setIsWorkAILoading}
-        />}
-        {template===2 && <Resume2
-          questions={questions}
-          setQuestions={setQuestions}
-          activeColor={activeColor}
-          groupedExperience={groupedExperience}
-          groupedEducation={groupedEducation}
-          groupedProject={groupedProject}
-          isProfileAILoading={isProfileAILoading}
-          isWorkAILoading={isWorkAILoading}
-          setIsProfileAILoading={setIsProfileAILoading}
-          setIsWorkAILoading={setIsWorkAILoading}
-        />}
-        {template===3 && <Resume3
-          questions={questions}
-          setQuestions={setQuestions}
-          activeColor={activeColor}
-          groupedExperience={groupedExperience}
-          groupedEducation={groupedEducation}
-          groupedProject={groupedProject}
-          isProfileAILoading={isProfileAILoading}
-          isWorkAILoading={isWorkAILoading}
-          setIsProfileAILoading={setIsProfileAILoading}
-          setIsWorkAILoading={setIsWorkAILoading}
-        />}
-        {template===4 && <Resume4
-          questions={questions}
-          setQuestions={setQuestions}
-          activeColor={activeColor}
-          groupedExperience={groupedExperience}
-          groupedEducation={groupedEducation}
-          groupedProject={groupedProject}
-          isProfileAILoading={isProfileAILoading}
-          isWorkAILoading={isWorkAILoading}
-          setIsProfileAILoading={setIsProfileAILoading}
-          setIsWorkAILoading={setIsWorkAILoading}
-        />}
-        {template===5 && <Resume5
-          questions={questions}
-          setQuestions={setQuestions}
-          activeColor={activeColor}
-          groupedExperience={groupedExperience}
-          groupedEducation={groupedEducation}
-          groupedProject={groupedProject}
-          isProfileAILoading={isProfileAILoading}
-          isWorkAILoading={isWorkAILoading}
-          setIsProfileAILoading={setIsProfileAILoading}
-          setIsWorkAILoading={setIsWorkAILoading}
-        />}
+        {template === 1 && (
+          <Resume
+            questions={questions}
+            setQuestions={setQuestions}
+            activeColor={activeColor}
+            groupedExperience={groupedExperience}
+            groupedEducation={groupedEducation}
+            groupedProject={groupedProject}
+            isProfileAILoading={isProfileAILoading}
+            isWorkAILoading={isWorkAILoading}
+            setIsProfileAILoading={setIsProfileAILoading}
+            setIsWorkAILoading={setIsWorkAILoading}
+          />
+        )}
+        {template === 2 && (
+          <Resume2
+            questions={questions}
+            setQuestions={setQuestions}
+            activeColor={activeColor}
+            groupedExperience={groupedExperience}
+            groupedEducation={groupedEducation}
+            groupedProject={groupedProject}
+            isProfileAILoading={isProfileAILoading}
+            isWorkAILoading={isWorkAILoading}
+            setIsProfileAILoading={setIsProfileAILoading}
+            setIsWorkAILoading={setIsWorkAILoading}
+          />
+        )}
+        {template === 3 && (
+          <Resume3
+            questions={questions}
+            setQuestions={setQuestions}
+            activeColor={activeColor}
+            groupedExperience={groupedExperience}
+            groupedEducation={groupedEducation}
+            groupedProject={groupedProject}
+            isProfileAILoading={isProfileAILoading}
+            isWorkAILoading={isWorkAILoading}
+            setIsProfileAILoading={setIsProfileAILoading}
+            setIsWorkAILoading={setIsWorkAILoading}
+          />
+        )}
+        {template === 4 && (
+          <Resume4
+            questions={questions}
+            setQuestions={setQuestions}
+            activeColor={activeColor}
+            groupedExperience={groupedExperience}
+            groupedEducation={groupedEducation}
+            groupedProject={groupedProject}
+            isProfileAILoading={isProfileAILoading}
+            isWorkAILoading={isWorkAILoading}
+            setIsProfileAILoading={setIsProfileAILoading}
+            setIsWorkAILoading={setIsWorkAILoading}
+          />
+        )}
+        {template === 5 && (
+          <Resume5
+            questions={questions}
+            setQuestions={setQuestions}
+            activeColor={activeColor}
+            groupedExperience={groupedExperience}
+            groupedEducation={groupedEducation}
+            groupedProject={groupedProject}
+            isProfileAILoading={isProfileAILoading}
+            isWorkAILoading={isWorkAILoading}
+            setIsProfileAILoading={setIsProfileAILoading}
+            setIsWorkAILoading={setIsWorkAILoading}
+          />
+        )}
       </ResumeWrapper>
     </div>
   );
