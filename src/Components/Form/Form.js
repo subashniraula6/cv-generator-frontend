@@ -265,6 +265,10 @@ export default function Form({ questions, setQuestions, type }) {
 
   const findPrevSection = () => {
     let sections = Object.keys(questions);
+    // Filter
+    if (type === "resume") {
+      sections = sections.filter((section) => section !== "targetCompany");
+    }
     let currentSectionIndex = sections.findIndex(
       (section) => section === currentSection
     );
@@ -277,10 +281,7 @@ export default function Form({ questions, setQuestions, type }) {
     // Filter
     if (type === "resume") {
       sections = sections.filter((section) => section !== "targetCompany");
-    } else if (type == "coverLetter") {
-      sections = sections.filter((section) => section == "targetCompany");
     }
-
     let currentSectionIndex = sections.findIndex(
       (section) => section === currentSection
     );
