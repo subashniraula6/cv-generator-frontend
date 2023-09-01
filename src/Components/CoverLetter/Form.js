@@ -10,7 +10,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
   let [currentAnswer, setCurrentAnswer] = useState("");
   let [currentSection, setCurrentSection] = useState("targetCompany");
   let [isUpdateQuestion, setIsUpdateQuestion] = useState(false);
-  let [isFormComplete, setIsFormComplete] = useState(true);
+  let [isFormComplete, setIsFormComplete] = useState(false);
 
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(() => {
     // Load saved current question index
