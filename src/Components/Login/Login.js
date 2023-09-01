@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { Button, Input } from "antd";
 import { notification } from "antd";
 import { useNavigate } from "react-router-dom";
-import './Login.css'
-
+import './Login.css';
+import { removeLocalUserProfiles } from '../../utils'
 import { useFirebase } from '../../context/Firebase'
 import { useLanguage } from '../../context/Language'
 
@@ -40,6 +40,10 @@ export default function Login() {
           const user = userCredential.user;
           const authToken = user.accessToken;
           localStorage.setItem("authToken", authToken);
+
+          // removed previous localstorages
+          removeLocalUserProfiles();
+
           notification.success({
             message: "Login Success",
             description: "Successfully Logged in please wait",

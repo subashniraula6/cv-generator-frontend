@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { useEffect } from "react";
 import { getFirestore, collection, addDoc } from "firebase/firestore"; 
+import { removeLocalUserProfiles } from '../utils'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBQugGmiIurePqkQQJVRwJz1RajXFGiJtw",
@@ -63,6 +64,7 @@ export const FirebaseProvider = (props) => {
       } else {
         // User is logged out
         setUser(null);
+        removeLocalUserProfiles();
       }
     });
     return () => {
