@@ -389,7 +389,15 @@ export default function Form({ questions, setQuestions, type }) {
                   <div>
                     <Button
                       style={{ borderRadius: "2px 0 0 2px" }}
+                      onClick={handlePrev}
+                      disabled={currentQuestionIdx <= 1}
+                    >
+                      {t("button.previous")}
+                    </Button>
+                    <Button
+                      style={{ borderRadius: "2px 0 0 2px" }}
                       onClick={(e) => handleContinue(e)}
+                      type="primary"
                     >
                       {t("button.continue")}
                     </Button>
@@ -400,22 +408,6 @@ export default function Form({ questions, setQuestions, type }) {
           });
         })}
       </form>
-      <div>
-        <Button
-          style={{ borderRadius: "2px 0 0 2px" }}
-          onClick={handlePrev}
-          disabled={currentQuestionIdx <= 1}
-        >
-          {t("button.previous")}
-        </Button>
-        <Button
-          style={{ borderRadius: "2px 0 0 2px" }}
-          type="primary"
-          onClick={handleNext}
-        >
-          {t("button.next")}
-        </Button>
-      </div>
     </>
   );
 }
