@@ -5,10 +5,24 @@ import { toSentenceCase } from "../../utils";
 import Field from "../Common/Field";
 import { useLanguage } from "../../context/Language";
 
-export default function Form({ questions, setQuestions }) {
-  let [currentQuestionIdx, setcurrentQuestionIdx] = useState(1);
+export default function Form({ questions, setQuestions, type }) {
+  let [currentQuestionIdx, setcurrentQuestionIdx] = useState(() => {
+    // Load saved current question index
+    const saved = localStorage.getItem("currentQuestionIdx");
+    const initialValue = parseInt(saved);
+    if (initialValue) return initialValue;
+    // Find first question idx from first section
+    let firstSection = Object.keys(questions)[0];
+    let firstQuestionIdx = questions[firstSection]["questions"]
+      .map((q) => q.index)
+      .sort((a, b) => a - b)[0];
+    return firstQuestionIdx;
+  });
   let [currentAnswer, setCurrentAnswer] = useState("");
-  let [currentSection, setCurrentSection] = useState("basicInfo");
+  let [currentSection, setCurrentSection] = useState(() => {
+    let firstSection = Object.keys(questions)[0];
+    return firstSection;
+  });
   let [lastEvent, setLastEvent] = useState("");
   let [isRepeatQuestion, setIsRepeatQuestion] = useState(false);
   let [isUpdateQuestion, setIsUpdateQuestion] = useState(false);
@@ -31,6 +45,9 @@ export default function Form({ questions, setQuestions }) {
 
     let isUpdate = currentQuestion?.update ? true : false;
     setIsUpdateQuestion(isUpdate);
+
+    // store to localstorage
+    localStorage.setItem("currentQuestionIdx", currentQuestionIdx);
   }, [currentQuestionIdx]);
 
   useEffect(() => {
@@ -126,15 +143,15 @@ export default function Form({ questions, setQuestions }) {
       (currentAnswer === "no" || currentAnswer === "")
     ) {
       // delete previously generated questions
-        return {
-          ...updatedQuestions,
-          [currentSection]: {
-            ...updatedQuestions[currentSection],
-            questions: updatedQuestions[currentSection]["questions"]
-              .filter((q) => q.index <= currentQuestionIdx || q.index >= 50)
-              .sort((a, b) => a.index - b.index),
-          },
-        };
+      return {
+        ...updatedQuestions,
+        [currentSection]: {
+          ...updatedQuestions[currentSection],
+          questions: updatedQuestions[currentSection]["questions"]
+            .filter((q) => q.index <= currentQuestionIdx || q.index >= 50)
+            .sort((a, b) => a.index - b.index),
+        },
+      };
     } else if (isRepeatQuestion && currentAnswer === "yes") {
       let additionalQuestions = updatedQuestions[currentSection][
         "auto_generated_questions"
@@ -170,16 +187,16 @@ export default function Form({ questions, setQuestions }) {
         };
       }
       return {
-          ...updatedQuestions,
-          [currentSection]: {
-            ...updatedQuestions[currentSection],
-            noOfItems: updatedQuestions[currentSection]["noOfItems"] + 1,
-            questions: [
-              ...updatedQuestions[currentSection]["questions"],
-              ...additionalQuestions,
-            ].sort((a, b) => a.index - b.index),
-          },
-        };
+        ...updatedQuestions,
+        [currentSection]: {
+          ...updatedQuestions[currentSection],
+          noOfItems: updatedQuestions[currentSection]["noOfItems"] + 1,
+          questions: [
+            ...updatedQuestions[currentSection]["questions"],
+            ...additionalQuestions,
+          ].sort((a, b) => a.index - b.index),
+        },
+      };
     } else if (isUpdateQuestion) {
       let currentQuestion = findCurrentQuestion();
       let startIdx = currentQuestionIdx + 1;
@@ -257,6 +274,13 @@ export default function Form({ questions, setQuestions }) {
 
   const findNextSection = () => {
     let sections = Object.keys(questions);
+    // Filter
+    if (type === "resume") {
+      sections = sections.filter((section) => section !== "targetCompany");
+    } else if (type == "coverLetter") {
+      sections = sections.filter((section) => section == "targetCompany");
+    }
+
     let currentSectionIndex = sections.findIndex(
       (section) => section === currentSection
     );
