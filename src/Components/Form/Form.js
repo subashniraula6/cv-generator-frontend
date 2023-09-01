@@ -4,6 +4,7 @@ import Button from "../Wrappers/Button";
 import { toSentenceCase } from "../../utils";
 import Field from "../Common/Field";
 import { useLanguage } from "../../context/Language";
+import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 
 export default function Form({ questions, setQuestions, type }) {
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(() => {
@@ -391,6 +392,7 @@ export default function Form({ questions, setQuestions, type }) {
                       style={{ borderRadius: "2px 0 0 2px" }}
                       onClick={handlePrev}
                       disabled={currentQuestionIdx <= 1}
+                      icon={<LeftCircleOutlined/>}
                     >
                       {t("button.previous")}
                     </Button>
@@ -398,6 +400,7 @@ export default function Form({ questions, setQuestions, type }) {
                       style={{ borderRadius: "2px 0 0 2px" }}
                       onClick={(e) => handleContinue(e)}
                       type="primary"
+                      icon={<RightCircleOutlined/>}
                     >
                       {t("button.continue")}
                     </Button>

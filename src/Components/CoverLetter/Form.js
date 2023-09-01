@@ -4,7 +4,7 @@ import Button from "../Wrappers/Button";
 import { toSentenceCase } from "../../utils";
 import Field from "../Common/Field";
 import { useLanguage } from "../../context/Language";
-import { ArrowLeftOutlined, FilePdfOutlined } from "@ant-design/icons";
+import { FilePdfOutlined, LeftCircleOutlined, RightCircleOutlined, RollbackOutlined } from "@ant-design/icons";
 
 export default function Form({ questions, setQuestions, generateCover }) {
   let [currentAnswer, setCurrentAnswer] = useState("");
@@ -197,9 +197,9 @@ export default function Form({ questions, setQuestions, generateCover }) {
 
   const completedActions = (
     <div>
-      <label>You have collected minimal answers for your cover letter</label>
+      <label><strong>Great!</strong> We have collected minimal answers for your cover letter</label>
       <hr />
-      <Button onClick={answerAgain} icon={<ArrowLeftOutlined/>}>Answer again</Button>
+      <Button onClick={answerAgain} icon={<RollbackOutlined/>}>Answer again</Button>
       <Button
         type="primary"
         style={{
@@ -250,6 +250,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
                     style={{ borderRadius: "2px 0 0 2px" }}
                     onClick={handlePrev}
                     disabled={currentQuestionIdx <= findFirstQuestionIdx()}
+                    icon={<LeftCircleOutlined />}
                   >
                     {t("button.previous")}
                   </Button>
@@ -257,6 +258,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
                     type="primary"
                     style={{ borderRadius: "2px 0 0 2px" }}
                     onClick={(e) => handleContinue(e)}
+                    icon={<RightCircleOutlined/>}
                   >
                     {t("button.continue")}
                   </Button>

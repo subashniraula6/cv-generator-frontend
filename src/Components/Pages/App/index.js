@@ -5,7 +5,6 @@ import Form from "../../Form/Form";
 import Questions from "../../../Questions";
 
 const App = () => {
-
   let [questions, setQuestions] = useState(() => {
     // Load saved questions
     const saved = localStorage.getItem("questions");
