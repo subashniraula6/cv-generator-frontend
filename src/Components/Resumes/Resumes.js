@@ -98,7 +98,7 @@ function Resumes({ questions, setQuestions }) {
             }))}
             style={{ margin: "0 10px" }}
           />
-          <CoverLetter title={t("button.coverLetter")} questions={questions} />
+          <CoverLetter title={t("button.coverLetter")} questions={questions} setQuestions={setQuestions} />
           <Button
             type="primary"
             style={{ borderRadius: "2px 0 0 2px", margin: "0 10px" }}

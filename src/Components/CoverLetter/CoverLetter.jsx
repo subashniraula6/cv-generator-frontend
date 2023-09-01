@@ -1,13 +1,18 @@
 import { Button, Modal, Spin } from "antd";
-import React, { useEffect, useRef, useState } from "react";
-import { EditFilled, FileDoneOutlined } from "@ant-design/icons";
+import React, { useRef, useState } from "react";
+import {
+  DownloadOutlined,
+  FileDoneOutlined,
+} from "@ant-design/icons";
 import { useLanguage } from "../../context/Language";
 import ReactToPrint from "react-to-print";
+import Form from "./Form";
 
-export default function CoverLetter({ title, children, questions }) {
+export default function CoverLetter({ title, questions, setQuestions }) {
   const [content, setContent] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isCoverGenerated, setIsCoverGenerated] = useState(false);
 
   const coverRef = useRef();
 
@@ -30,10 +35,13 @@ export default function CoverLetter({ title, children, questions }) {
 
   function generateCover(e) {
     let payload = {
-      questions: [...questions["targetCompany"]["questions"].map((q) => ({
-        question: q.question,
-        answer: q.answer[lang],
-      })), ...questions["basicInfo"]["questions"]],
+      questions: [
+        ...questions["targetCompany"]["questions"].map((q) => ({
+          question: q.question,
+          answer: q.answer[lang],
+        })),
+        ...questions["basicInfo"]["questions"],
+      ],
     };
     let dataInput =
       "Generate a html cover letter from following json. Do not include title just the ready to send document and include todays date as well: ";
@@ -56,7 +64,11 @@ export default function CoverLetter({ title, children, questions }) {
       .then((resp) => {
         setIsLoading(false);
         let { response } = resp;
-        setContent(response);
+        if (Array.isArray(response) && response[1] === 500) {
+        } else {
+          setContent(response);
+          setIsCoverGenerated(true);
+        }
       })
       .catch((err) => {
         setIsLoading(false);
@@ -65,8 +77,8 @@ export default function CoverLetter({ title, children, questions }) {
   }
 
   const coverLetterStyle = {
-    padding: "30px"
-  }
+    padding: "30px",
+  };
 
   return (
     <>
@@ -89,16 +101,6 @@ export default function CoverLetter({ title, children, questions }) {
                 marginRight: "5px",
                 bottom: 0,
               }}
-              onClick={generateCover}
-            >
-              Generate Cover Letter
-            </Button>
-            <Button
-              style={{
-                borderRadius: "2px 0 0 2px",
-                marginRight: "5px",
-                bottom: 0,
-              }}
               onClick={handleCancel}
             >
               Cancel
@@ -110,6 +112,8 @@ export default function CoverLetter({ title, children, questions }) {
                     style={{ borderRadius: "2px 0 0 2px" }}
                     onClick={handleOk}
                     type="primary"
+                    icon={<DownloadOutlined />}
+                    disabled={!isCoverGenerated}
                   >
                     Download
                   </Button>
@@ -120,8 +124,18 @@ export default function CoverLetter({ title, children, questions }) {
           </div>
         }
       >
+        <Form
+          questions={questions}
+          setQuestions={setQuestions}
+          generateCover={generateCover}
+        />
         <Spin spinning={isLoading}>
-          <div style={coverLetterStyle} ref={coverRef} dangerouslySetInnerHTML={{ __html: content }} />
+          {isCoverGenerated && <h4>Preview</h4>}
+          <div
+            style={coverLetterStyle}
+            ref={coverRef}
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
         </Spin>
       </Modal>
     </>
