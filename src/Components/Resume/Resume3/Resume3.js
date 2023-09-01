@@ -273,7 +273,7 @@ const Resume3 = forwardRef(
                         .map((skill) => {
                           return skill ? (
                             <Tag
-                              color={"magenta"}
+                              color={activeColor}
                               icon={<CheckCircleOutlined />}
                             >
                               {skill}

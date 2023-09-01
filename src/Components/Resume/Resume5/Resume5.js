@@ -699,33 +699,21 @@ export default function Resume2({
                       </SectionHeading>
                     </div>
                     <div className="skills">
-                      {questions?.basicInfo?.questions
-                        .find((q) => q.index === 13)
-                        ?.answer[lang].split(",")
-                        .map((skill) => {
-                          return skill ? (
-                            <div className="skills__item">
-                              <div className="left">
-                                <div className="name">{skill}</div>
-                              </div>
-                              <div className="right">
-                                <input id="ck1" type="checkbox" checked />
-
-                                <label for="ck1"></label>
-                                <input id="ck2" type="checkbox" checked />
-
-                                <label for="ck2"></label>
-                                <input id="ck3" type="checkbox" />
-
-                                <label for="ck3"></label>
-                                <input id="ck4" type="checkbox" />
-                                <label for="ck4"></label>
-                                <input id="ck5" type="checkbox" />
-                                <label for="ck5"></label>
-                              </div>
-                            </div>
-                          ) : null;
-                        })}
+                      <Space wrap>
+                        {questions?.basicInfo?.questions
+                          .find((q) => q.index === 13)
+                          ?.answer[lang].split(",")
+                          .map((skill) => {
+                            return skill ? (
+                              <Tag
+                                color={activeColor}
+                                icon={<CheckCircleOutlined />}
+                              >
+                                {skill}
+                              </Tag>
+                            ) : null;
+                          })}
+                      </Space>
                     </div>
                   </div>
                   <CircleDevider />

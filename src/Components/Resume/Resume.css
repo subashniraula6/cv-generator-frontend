@@ -12,6 +12,10 @@
   width: 100%;
 }
 
+.info-header-1 {
+  max-width: 300px;
+}
+
 .container1 {
   max-width: 1000px;
   height: auto;

@@ -40,7 +40,7 @@ const Resume = forwardRef(
     return (
       <div className="container1">
         <div className="sider" style={{ backgroundColor: activeColor }}>
-          <div className="info-header">
+          <div className="info-header info-header-1">
             <div className="name-style">
               {/* First Name */}
               <UpdateQuestionWrapper className="first-name">

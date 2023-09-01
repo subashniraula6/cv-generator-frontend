@@ -58,12 +58,12 @@ export default function Resume2({
                     setQuestions={setQuestions}
                   />
                   <Heading1 border={"right"} activeColor={activeColor}>
-                      {questions?.basicInfo?.questions.find((q) => q.index === 1)
-                        ?.answer[lang].length === 0 && t("field.fname")}{" "}
-                      {
-                        questions?.basicInfo?.questions.find((q) => q.index === 1)
-                          ?.answer[lang]
-                      }
+                    {questions?.basicInfo?.questions.find((q) => q.index === 1)
+                      ?.answer[lang].length === 0 && t("field.fname")}{" "}
+                    {
+                      questions?.basicInfo?.questions.find((q) => q.index === 1)
+                        ?.answer[lang]
+                    }
                   </Heading1>
                 </UpdateQuestionWrapper>
               </span>
@@ -679,62 +679,47 @@ export default function Resume2({
             <br />
 
             {/* Skill */}
-          <UpdateQuestionWrapper
-            className="skill"
-            removed={
-              questions?.basicInfo?.questions.find((q) => q.index === 13)
-                ?.removed
-            }
-            display="block"
-          >
-            <UpdateQuestion
-              key={JSON.stringify(questions)}
-              section="basicInfo"
-              index={13}
-              title="Edit Skill's"
-              questions={questions}
-              setQuestions={setQuestions}
-            />
-            <div className="section">
-              <div className="section__title">
-                <SectionHeading activeColor={activeColor}>
-                  <h4>{t("section.skills")}</h4>
-                </SectionHeading>
+            <UpdateQuestionWrapper
+              className="skill"
+              removed={
+                questions?.basicInfo?.questions.find((q) => q.index === 13)
+                  ?.removed
+              }
+              display="block"
+            >
+              <UpdateQuestion
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={13}
+                title="Edit Skill's"
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <div className="section">
+                <div className="section__title">
+                  <SectionHeading activeColor={activeColor}>
+                    <h4>{t("section.skills")}</h4>
+                  </SectionHeading>
+                </div>
+                <div className="skills">
+                  <Space wrap>
+                    {questions?.basicInfo?.questions
+                      .find((q) => q.index === 13)
+                      ?.answer[lang].split(",")
+                      .map((skill) => {
+                        return skill ? (
+                          <Tag color={activeColor} icon={<CheckCircleOutlined />}>
+                            {skill}
+                          </Tag>
+                        ) : null;
+                      })}
+                  </Space>
+                </div>
               </div>
-              <div className="skills">
-                {questions?.basicInfo?.questions
-                  .find((q) => q.index === 13)
-                  ?.answer[lang].split(",")
-                  .map((skill) => {
-                    return skill ? (
-                      <div className="skills__item">
-                        <div className="left">
-                          <div className="name">{skill}</div>
-                        </div>
-                        <div className="right">
-                          <input id="ck1" type="checkbox" checked />
+              <Divider />
+            </UpdateQuestionWrapper>
+            <br />
 
-                          <label for="ck1"></label>
-                          <input id="ck2" type="checkbox" checked />
-
-                          <label for="ck2"></label>
-                          <input id="ck3" type="checkbox" />
-
-                          <label for="ck3"></label>
-                          <input id="ck4" type="checkbox" />
-                          <label for="ck4"></label>
-                          <input id="ck5" type="checkbox" />
-                          <label for="ck5"></label>
-                        </div>
-                      </div>
-                    ) : null;
-                  })}
-              </div>
-            </div>
-            <Divider />
-          </UpdateQuestionWrapper>
-          <br />
-          
             {/* Certificates */}
             <UpdateQuestionWrapper
               removed={
