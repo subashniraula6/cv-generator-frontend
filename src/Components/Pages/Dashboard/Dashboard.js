@@ -1,10 +1,11 @@
 import React from 'react';
-import { AppstoreOutlined, MailOutlined, PlusOutlined, QuestionOutlined, SettingOutlined, UserDeleteOutlined, UserOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, MailOutlined, MessageOutlined, PlusOutlined, QuestionOutlined, SettingOutlined, UserDeleteOutlined, UserOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import './Dashboard.css';
 import { Route, Routes, useNavigate } from 'react-router';
 import AddQuestion from './AddQuestion';
 import RemoveUser from './RemoveUser';
+import UserResponses from './UserResponses';
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -24,6 +25,9 @@ const items = [
   },
   getItem('Manage Users', 'manageUsers', <UserOutlined />, [
     getItem('Remove users', '/dashboard/remove-user', <UserDeleteOutlined />),
+  ]),
+  getItem('User responses', 'manageResponses', <MessageOutlined />, [
+    getItem('User responses', '/dashboard/manage-response', <MessageOutlined />),
   ]),
 ];
 const Dashboard = () => {
@@ -46,6 +50,7 @@ const Dashboard = () => {
       <Routes>
         <Route path="add-question" element={<AddQuestion />} />
         <Route path="remove-user" element={<RemoveUser />} />
+        <Route path="manage-response" element={<UserResponses />} />
       </Routes>
     </div>
   );

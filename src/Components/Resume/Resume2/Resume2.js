@@ -575,7 +575,10 @@ export default function Resume2({
                       ?.answer[lang].split(",")
                       .map((skill) => {
                         return skill ? (
-                          <Tag color={activeColor} icon={<CheckCircleOutlined />}>
+                          <Tag
+                            color={activeColor}
+                            icon={<CheckCircleOutlined />}
+                          >
                             {skill}
                           </Tag>
                         ) : null;
@@ -615,7 +618,11 @@ export default function Resume2({
                       ?.answer[lang].split(",")
                       .map((interest) => {
                         return interest ? (
-                          <Tag color={"purple"} icon={<CheckCircleOutlined />}>
+                          <Tag
+                            color={"purple"}
+                            icon={<CheckCircleOutlined />}
+                            style={{ margin: "5px" }}
+                          >
                             {interest}
                           </Tag>
                         ) : null;

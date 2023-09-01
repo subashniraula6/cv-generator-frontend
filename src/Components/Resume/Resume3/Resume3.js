@@ -141,106 +141,106 @@ const Resume3 = forwardRef(
             </UpdateQuestionWrapper>
           </div>
           <div className="contact-info3">
-              {/* Phone */}
-              <UpdateQuestionWrapper
-                className="phone"
-                removed={
+            {/* Phone */}
+            <UpdateQuestionWrapper
+              className="phone"
+              removed={
+                questions?.basicInfo?.questions.find((q) => q.index === 8)
+                  ?.removed
+              }
+            >
+              <PhoneOutlined />{" "}
+              <UpdateQuestion
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={8}
+                title="Edit Phone Number"
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <span>
+                {
                   questions?.basicInfo?.questions.find((q) => q.index === 8)
-                    ?.removed
+                    ?.answer[lang]
                 }
-              >
-                <PhoneOutlined />{" "}
-                <UpdateQuestion
-                  key={JSON.stringify(questions)}
-                  section="basicInfo"
-                  index={8}
-                  title="Edit Phone Number"
-                  questions={questions}
-                  setQuestions={setQuestions}
-                />
-                <span>
-                  {
-                    questions?.basicInfo?.questions.find((q) => q.index === 8)
-                      ?.answer[lang]
-                  }
-                </span>
-              </UpdateQuestionWrapper>
+              </span>
+            </UpdateQuestionWrapper>
 
-              {/* Email */}
-              <UpdateQuestionWrapper
-                className="email"
-                removed={
+            {/* Email */}
+            <UpdateQuestionWrapper
+              className="email"
+              removed={
+                questions?.basicInfo?.questions.find((q) => q.index === 9)
+                  ?.removed
+              }
+            >
+              <MailOutlined />{" "}
+              <UpdateQuestion
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={9}
+                title="Edit Email"
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <span>
+                {
                   questions?.basicInfo?.questions.find((q) => q.index === 9)
-                    ?.removed
+                    ?.answer[lang]
                 }
-              >
-                <MailOutlined />{" "}
-                <UpdateQuestion
-                  key={JSON.stringify(questions)}
-                  section="basicInfo"
-                  index={9}
-                  title="Edit Email"
-                  questions={questions}
-                  setQuestions={setQuestions}
-                />
-                <span>
-                  {
-                    questions?.basicInfo?.questions.find((q) => q.index === 9)
-                      ?.answer[lang]
-                  }
-                </span>
-              </UpdateQuestionWrapper>
+              </span>
+            </UpdateQuestionWrapper>
 
-              {/* LinkedIn */}
-              <UpdateQuestionWrapper
-                className="linkedin"
-                removed={
+            {/* LinkedIn */}
+            <UpdateQuestionWrapper
+              className="linkedin"
+              removed={
+                questions?.basicInfo?.questions.find((q) => q.index === 10)
+                  ?.removed
+              }
+            >
+              <LinkedinOutlined />{" "}
+              <UpdateQuestion
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={10}
+                title="Edit Linkedin profile"
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <span>
+                {
                   questions?.basicInfo?.questions.find((q) => q.index === 10)
-                    ?.removed
+                    ?.answer[lang]
                 }
-              >
-                <LinkedinOutlined />{" "}
-                <UpdateQuestion
-                  key={JSON.stringify(questions)}
-                  section="basicInfo"
-                  index={10}
-                  title="Edit Linkedin profile"
-                  questions={questions}
-                  setQuestions={setQuestions}
-                />
-                <span>
-                  {
-                    questions?.basicInfo?.questions.find((q) => q.index === 10)
-                      ?.answer[lang]
-                  }
-                </span>
-              </UpdateQuestionWrapper>
+              </span>
+            </UpdateQuestionWrapper>
 
-              {/* Website */}
-              <UpdateQuestionWrapper
-                className="website"
-                removed={
+            {/* Website */}
+            <UpdateQuestionWrapper
+              className="website"
+              removed={
+                questions?.basicInfo?.questions.find((q) => q.index === 11)
+                  ?.removed
+              }
+            >
+              <GlobalOutlined />{" "}
+              <UpdateQuestion
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={11}
+                title="Edit Website"
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <span>
+                {
                   questions?.basicInfo?.questions.find((q) => q.index === 11)
-                    ?.removed
+                    ?.answer[lang]
                 }
-              >
-                <GlobalOutlined />{" "}
-                <UpdateQuestion
-                  key={JSON.stringify(questions)}
-                  section="basicInfo"
-                  index={11}
-                  title="Edit Website"
-                  questions={questions}
-                  setQuestions={setQuestions}
-                />
-                <span>
-                  {
-                    questions?.basicInfo?.questions.find((q) => q.index === 11)
-                      ?.answer[lang]
-                  }
-                </span>
-              </UpdateQuestionWrapper>
-            </div>
+              </span>
+            </UpdateQuestionWrapper>
+          </div>
         </div>
         <div className="body3">
           <div className="sider3">

@@ -19,18 +19,28 @@ const dtConfig = [
     sorter: (a, b) => a.index - b.index,
   },
   {
-    title: "Name",
-    dataIndex: "name",
+    title: "Section",
+    dataIndex: "section",
     textFilter: true,
   },
   {
-    title: "Email",
+    title: "Question",
+    dataIndex: "question",
+    textFilter: true,
+  },
+  {
+    title: "Answer",
+    dataIndex: "answer",
+    textFilter: true,
+  },
+  {
+    title: "User Email",
     dataIndex: "email",
     textFilter: true,
   },
   {
-    title: "Image",
-    dataIndex: "image",
+    title: "User Name",
+    dataIndex: "name",
     textFilter: true,
   },
 ];
@@ -38,18 +48,20 @@ const dtConfig = [
 const apiService = { props: {} };
 const title = "Users";
 const roleLevel = "props";
-const RemoveUser = (props) => {
+const UserResponses = (props) => {
   // Data
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
 
   useEffect(()=> {
-    // Fetch users and set Users
+    // Fetch user's questions and set to state
     setUsers([{
       index: 1,
-      name: "Basanta Niraula",
-      email: "subashniraula6@mail.com",
-      image: "http://www.basanta.com.np"
+      section: "Basic Info",
+      question: "What is your name ?",
+      answer: "Basanta Niraula",
+      email: "subashniraula6@gmail.com",
+      name: "Basanta Niraula"
     }]);
   }, [])
 
@@ -113,4 +125,4 @@ const RemoveUser = (props) => {
   );
 };
 
-export default RemoveUser;
+export default UserResponses;

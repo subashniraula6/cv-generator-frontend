@@ -29,10 +29,15 @@ export default function Form({ questions, setQuestions, type }) {
   let [isUpdateQuestion, setIsUpdateQuestion] = useState(false);
 
   let { language: lang, t } = useLanguage();
-
+  
   useEffect(() => {
     if (questions?.isNext) {
       handleNext();
+    }
+    // CHeck if current question index is active/not removed
+    let activeIndexes = questions[currentSection]['questions'].map(q => q.index);
+    if(!activeIndexes.includes(currentQuestionIdx)){
+      setcurrentQuestionIdx(activeIndexes[0]);
     }
   }, [questions]);
 

@@ -754,6 +754,7 @@ export default function Resume2({
                               <Tag
                                 color={"purple"}
                                 icon={<CheckCircleOutlined />}
+                                style={{margin: '5px'}}
                               >
                                 {interest}
                               </Tag>

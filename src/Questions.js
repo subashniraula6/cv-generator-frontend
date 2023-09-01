@@ -451,7 +451,7 @@ const questions = {
           en: "",
           sv: ""
         },
-        type: "A",
+        type: "textArea",
         answer: {
           en: "",
           sv: ""

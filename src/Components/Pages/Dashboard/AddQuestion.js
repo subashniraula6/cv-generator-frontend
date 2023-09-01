@@ -51,7 +51,6 @@ const AddQuestion = (props) => {
   }, [])
 
   useEffect(() => {
-    // Fetch from backend (Questions)
     let sections = Object.keys(questions);
     let tempItems = [];
     let tempTypes = [];
