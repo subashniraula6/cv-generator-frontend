@@ -1,9 +1,8 @@
 import React from "react";
-import { Dropdown, Avatar, Button } from "antd";
+import { Dropdown, Avatar } from "antd";
 import {
   DashboardOutlined,
   LogoutOutlined,
-  PlusOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { PageHeader } from "@ant-design/pro-layout";

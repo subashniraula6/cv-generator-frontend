@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { GoogleOutlined, UserOutlined } from "@ant-design/icons";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { Button, Input } from "antd";
+import { Input } from "antd";
+import { Button } from '../Common/Button';
 import { notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import './Login.css';
@@ -157,12 +158,8 @@ export default function Login() {
         >
           <Button
             type="primary"
-            size="large"
             style={{
-              width: "200px",
-              height: "50px",
-              fontSize: "20px",
-              backgroundColor: "rgb(149, 0, 255)",
+              width: "100%",
             }}
             onClick={userLogin}
           >
@@ -177,14 +174,7 @@ export default function Login() {
           }}
         >
           <Button
-            type="primary"
-            size="small"
-            style={{
-              width: "auto",
-              height: "50px",
-              fontSize: "16px",
-              backgroundColor: "#F44336",
-            }}
+            type="warning"
             onClick={signInWithGoogle}
           >
             <GoogleOutlined /> {t("button.signinwithgoogle")}

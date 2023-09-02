@@ -1,10 +1,15 @@
 import { QuestionWrapper } from "../Wrappers/QuestionWrapper";
 import { useState, useEffect } from "react";
-import Button from "../Wrappers/Button";
+import { Button } from "../Common/Button";
 import { toSentenceCase } from "../../utils";
 import Field from "../Common/Field";
 import { useLanguage } from "../../context/Language";
-import { FilePdfOutlined, LeftCircleOutlined, RightCircleOutlined, RollbackOutlined } from "@ant-design/icons";
+import {
+  FilePdfOutlined,
+  LeftCircleOutlined,
+  RightCircleOutlined,
+  RollbackOutlined,
+} from "@ant-design/icons";
 
 export default function Form({ questions, setQuestions, generateCover }) {
   let [currentAnswer, setCurrentAnswer] = useState("");
@@ -118,6 +123,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
   };
 
   const handlePrev = (e) => {
+    e.preventDefault();
     let firstQuestionIndex = findFirstQuestionIdx();
     if (currentQuestionIdx > firstQuestionIndex) {
       let prevQuestionIdx = findPrevQuestion()?.index;
@@ -197,18 +203,20 @@ export default function Form({ questions, setQuestions, generateCover }) {
 
   const completedActions = (
     <div>
-      <label><strong>Great!</strong> We have collected minimal answers for your cover letter</label>
+      <label>
+        <strong>Great!</strong> We have collected minimal answers for your cover
+        letter
+      </label>
       <hr />
-      <Button onClick={answerAgain} icon={<RollbackOutlined/>}>Answer again</Button>
       <Button
-        type="primary"
-        style={{
-          marginRight: "5px",
-          bottom: 0,
-        }}
-        icon={<FilePdfOutlined/>}
-        onClick={generateCover}
+        onClick={answerAgain}
+        icon={<RollbackOutlined />}
+        btn={"action"}
+        type={"primary"}
       >
+        Answer again
+      </Button>
+      <Button type="primary" icon={<FilePdfOutlined />} onClick={generateCover}>
         Generate Cover Letter
       </Button>
     </div>
@@ -247,18 +255,19 @@ export default function Form({ questions, setQuestions, generateCover }) {
                 />
                 <div>
                   <Button
-                    style={{ borderRadius: "2px 0 0 2px" }}
+                    type={"primary"}
+                    btn={"action"}
                     onClick={handlePrev}
                     disabled={currentQuestionIdx <= findFirstQuestionIdx()}
                     icon={<LeftCircleOutlined />}
+                    iconPosition={"left"}
                   >
                     {t("button.previous")}
                   </Button>
                   <Button
                     type="primary"
-                    style={{ borderRadius: "2px 0 0 2px" }}
                     onClick={(e) => handleContinue(e)}
-                    icon={<RightCircleOutlined/>}
+                    icon={<RightCircleOutlined />}
                   >
                     {t("button.continue")}
                   </Button>

@@ -28,6 +28,7 @@ const Field = ({
       {question.type === "text" && (
         <Input
           type="text"
+          size="large"
           onBlur={handleInputChange}
           defaultValue={question.answer[lang]}
           {...otherProps}
@@ -37,6 +38,7 @@ const Field = ({
       {question.type === "textArea" && (
         <TextArea 
           rows={4}
+          size="large"
           onBlur={handleInputChange}
           defaultValue={question.answer[lang]}
           {...otherProps}
@@ -48,6 +50,7 @@ const Field = ({
           <DatePicker
             picker="month"
             format={monthFormat}
+            size="large"
             onChange={handleDateChange}
             disabledDate={disabledDate}
             defaultValue={question.answer[lang] ? dayjs(question.answer[lang]): undefined}
@@ -60,6 +63,7 @@ const Field = ({
           onBlur={handleSlideChange}
           checkedChildren="Yes"
           unCheckedChildren="No"
+          size="large"
           {...otherProps}
         />
       )}
@@ -71,6 +75,7 @@ const Field = ({
           style={{
             width: "100%",
           }}
+          size="large"
           options={question.options[lang]?.split(",").map((item) => ({
             value: item.trim(),
             label: item.trim(),
@@ -89,6 +94,7 @@ const Field = ({
           addDropdownOption={addDropdownOption}
           handleSelectChange={handleSelectChange}
           question={question}
+          size="large"
           defaultValue={
             question.answer[lang].length
               ? question.answer[lang].split(",").map((a) => a.trim())

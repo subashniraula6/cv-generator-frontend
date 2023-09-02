@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import DataTable from "./dataTable";
 import "./AddQuestion.css";
 import FormDrawer from "./formDrawer";
-import { Button, Popconfirm, Typography } from "antd";
+import { Button as AntButton, Popconfirm, Typography } from "antd";
+import { Button } from "../../Common/Button"
 import { useFormHandler } from "./formHook";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 
@@ -138,8 +139,8 @@ const Languages = (props) => {
       align: "center",
       render: (text, record) => {
         return (
-          <Button.Group>
-            <Button
+          <AntButton.Group>
+            <AntButton
               type="dashed"
               shape="circle"
               icon={<EditOutlined />}
@@ -150,14 +151,14 @@ const Languages = (props) => {
               title="Sure to Delete?"
               onConfirm={() => handleItemDelete(record.id)}
             >
-              <Button
+              <AntButton
                 type="danger"
                 shape="circle"
                 icon={<DeleteOutlined />}
                 size="large"
               />
             </Popconfirm>
-          </Button.Group>
+          </AntButton.Group>
         );
       },
     },
@@ -169,7 +170,6 @@ const Languages = (props) => {
       <Button
         style={{ marginBottom: 16, marginRight: 16, width: "fit-content" }}
         icon={<PlusOutlined />}
-        outline="true"
         type="primary"
         onClick={handleToggle}
       >

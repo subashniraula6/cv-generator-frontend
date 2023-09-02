@@ -1,5 +1,6 @@
 import React from "react";
-import { Drawer, Form, Button } from "antd";
+import { Drawer, Form } from "antd";
+import { Button } from "../../Common/Button"
 import { formGenerator } from "./utility";
 
 const FormDrawer = props => {

@@ -45,6 +45,44 @@
   display: flex;
   background: white;
 }
+.arrow-button {
+  position: relative;
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s, transform 0.3s;
+  overflow: hidden;
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform 0.3s !important;
+}
+
+.arrow-button:hover {
+  background-color: rgb(149, 0, 255);
+  outline: 1px solid #FCB021;
+}
+
+.arrow-button:hover .arrow {
+  transform: translateY(-50%) rotate(360deg);
+}
+
+ div.testimoniesContainer > div{
+  height: 100%;
+  padding: 10px;
+}
+
+.swiper-pagination {
+  margin: -15px 0px !important;
+}
 
 /* custom scrollbar */
 ::-webkit-scrollbar {

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MailOutlined, UserOutlined } from "@ant-design/icons";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Input, notification } from "antd";
+import { Input, notification } from "antd";
+import { Button } from "../Common/Button";
 import "./Signup.css";
 import { useNavigate } from "react-router-dom";
 
@@ -188,13 +189,6 @@ export default function Signup() {
         >
           <Button
             type="primary"
-            size="large"
-            style={{
-              width: "200px",
-              height: "50px",
-              fontSize: "20px",
-              backgroundColor: "rgb(149, 0, 255)",
-            }}
             onClick={signUpEmailPass}
           >
             {t("button.signup")}

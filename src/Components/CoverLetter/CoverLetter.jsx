@@ -1,4 +1,5 @@
-import { Button, Modal, Spin } from "antd";
+import { Modal, Spin } from "antd";
+import { Button } from "../Common/Button";
 import React, { useRef, useState } from "react";
 import {
   DownloadOutlined,
@@ -84,10 +85,9 @@ export default function CoverLetter({ title, questions, setQuestions }) {
     <>
       <Button
         type="primary"
-        style={{ borderRadius: "2px 0 0 2px" }}
         onClick={showModal}
+        icon={<FileDoneOutlined />}
       >
-        <FileDoneOutlined />
         {t("button.coverLetter")}
       </Button>
       <Modal
@@ -96,11 +96,8 @@ export default function CoverLetter({ title, questions, setQuestions }) {
         footer={
           <div>
             <Button
-              style={{
-                borderRadius: "2px 0 0 2px",
-                marginRight: "5px",
-                bottom: 0,
-              }}
+              type={"primary"}
+              btn={"action"}
               onClick={handleCancel}
             >
               Cancel
@@ -109,7 +106,6 @@ export default function CoverLetter({ title, questions, setQuestions }) {
               trigger={() => {
                 return (
                   <Button
-                    style={{ borderRadius: "2px 0 0 2px" }}
                     onClick={handleOk}
                     type="primary"
                     icon={<DownloadOutlined />}

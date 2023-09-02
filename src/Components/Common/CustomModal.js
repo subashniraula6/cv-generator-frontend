@@ -1,4 +1,5 @@
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
+import {Button} from "../Common/Button"
 import React, { useState } from "react";
 import { EditFilled } from "@ant-design/icons";
 
@@ -35,17 +36,13 @@ export default function CustomModal({
         footer={
           <div style={{ marginTop: "20px" }}>
             <Button
-              style={{
-                borderRadius: "2px 0 0 2px",
-                marginRight: "5px",
-                bottom: 0,
-              }}
+              btn={"action"}
+              type={"primary"}
               onClick={handleCancel}
             >
               Cancel
             </Button>
             <Button
-              style={{ borderRadius: "2px 0 0 2px" }}
               onClick={handleOk}
               type="primary"
             >

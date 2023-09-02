@@ -1,10 +1,10 @@
 import { QuestionWrapper } from "../Wrappers/QuestionWrapper";
 import { useState, useEffect } from "react";
-import Button from "../Wrappers/Button";
+import {Button} from "../Common/Button";
 import { toSentenceCase } from "../../utils";
 import Field from "../Common/Field";
 import { useLanguage } from "../../context/Language";
-import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, ArrowRightOutlined, LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 
 export default function Form({ questions, setQuestions, type }) {
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(() => {
@@ -258,6 +258,7 @@ export default function Form({ questions, setQuestions, type }) {
   };
 
   const handlePrev = (e) => {
+    e.preventDefault();
     let firstQuestionIndex = findFirstQuestionIdx();
     if (currentQuestionIdx > firstQuestionIndex) {
       let prevQuestionIdx = findPrevQuestion()?.index;
@@ -394,18 +395,20 @@ export default function Form({ questions, setQuestions, type }) {
                   />
                   <div>
                     <Button
-                      style={{ borderRadius: "2px 0 0 2px" }}
                       onClick={handlePrev}
+                      type={"primary"}
+                      btn={"action"}
                       disabled={currentQuestionIdx <= 1}
-                      icon={<LeftCircleOutlined/>}
+                      icon={<ArrowLeftOutlined/>}
+                      iconPosition={'left'}
                     >
                       {t("button.previous")}
                     </Button>
                     <Button
-                      style={{ borderRadius: "2px 0 0 2px" }}
-                      onClick={(e) => handleContinue(e)}
+                      onClick={handleContinue}
                       type="primary"
-                      icon={<RightCircleOutlined/>}
+                      icon={<ArrowRightOutlined/>}
+                      iconPosition={"right"}
                     >
                       {t("button.continue")}
                     </Button>

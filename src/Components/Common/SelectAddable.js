@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Input, Select, Space, Divider } from 'antd';
-import Button from '../Wrappers/Button';
+import {Button} from '../Common/Button';
 import { PlusOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../context/Language'
 

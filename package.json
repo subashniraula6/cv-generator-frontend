@@ -5,6 +5,9 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.5",
     "@ant-design/pro-layout": "^7.16.9",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -21,6 +24,7 @@
     "react-scripts": "5.0.1",
     "react-to-print": "^2.14.13",
     "styled-components": "^6.0.7",
+    "swiper": "^10.2.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

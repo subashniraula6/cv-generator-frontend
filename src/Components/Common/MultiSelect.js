@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Input, Select, Space, Divider } from 'antd';
-import Button from '../Wrappers/Button';
+import {Button} from '../Common/Button';
 import { PlusOutlined } from '@ant-design/icons';
 import { useLanguage } from '../../context/Language'
 
@@ -55,9 +55,10 @@ function MultiSelect({
                 ref={inputRef}
                 value={name}
                 onChange={onNameChange}
+                size="large"
               />
               <Button type="text" icon={<PlusOutlined />} onClick={(e) => addItem(e)} disabled={!name}>
-                Add item
+                Add
               </Button>
             </Space>
           </>

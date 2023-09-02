@@ -7,7 +7,8 @@ import Resume4 from "../Resume/Resume4/Resume4";
 import Resume5 from "../Resume/Resume5/Resume5";
 import { ResumeWrapper } from "../Wrappers/Wrappers";
 import ReactToPrint from "react-to-print";
-import { Button, Select } from "antd";
+import { Select } from "antd";
+import {Button} from '../Common/Button';
 import {
   DownloadOutlined,
   FileDoneOutlined,
@@ -87,7 +88,7 @@ function Resumes({ questions, setQuestions }) {
             />
           ))}
         </div>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", alignItems: 'center' }}>
           <Select
             defaultValue={1}
             value={template}
@@ -96,21 +97,20 @@ function Resumes({ questions, setQuestions }) {
               value: item,
               label: `Template ${item}`,
             }))}
-            style={{ margin: "0 10px" }}
+            size="large"
           />
           <CoverLetter title={t("button.coverLetter")} questions={questions} setQuestions={setQuestions} />
           <Button
-            type="primary"
-            style={{ borderRadius: "2px 0 0 2px", margin: "0 10px" }}
+            type={"primary"}
+            icon={<SaveOutlined />}
+            iconPosition={"right"}
           >
-            <SaveOutlined />
             {t("button.save")}
           </Button>
           <ReactToPrint
             trigger={() => {
               return (
-                <Button type="primary" style={{ borderRadius: "2px 0 0 2px" }}>
-                  <DownloadOutlined />
+                <Button type="primary" icon={<DownloadOutlined />}>
                   {t("button.download")}
                 </Button>
               );
