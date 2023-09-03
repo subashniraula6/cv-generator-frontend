@@ -4,12 +4,7 @@ import { Button } from "../Common/Button";
 import { toSentenceCase } from "../../utils";
 import Field from "../Common/Field";
 import { useLanguage } from "../../context/Language";
-import {
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-  LeftCircleOutlined,
-  RightCircleOutlined,
-} from "@ant-design/icons";
+import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
 export default function Form({ questions, setQuestions, type }) {
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(() => {
@@ -50,7 +45,7 @@ export default function Form({ questions, setQuestions, type }) {
 
   useEffect(() => {
     let currentQuestion = findCurrentQuestion();
-    let currentAns = currentQuestion?.answer[lang];
+    let currentAns = currentQuestion?.answer;
     setCurrentAnswer(currentAns);
 
     let isRepeat = currentQuestion?.repeatable;
@@ -109,13 +104,17 @@ export default function Form({ questions, setQuestions, type }) {
     );
     return orderedIndexes[currentQueArrIdx - 1];
   };
-  
+
   const updateQuestions = (updatedQuestions) => {
     if (currentQuestionIdx === 4 && currentAnswer == "yes") {
-      let existing = questions[currentSection]["questions"].find(q => q.index === 5);
-      if(existing) return updatedQuestions;
+      let existing = questions[currentSection]["questions"].find(
+        (q) => q.index === 5
+      );
+      if (existing) return updatedQuestions;
       let generated_questions = [
-        questions[currentSection]["auto_generated_questions"].find(q => q.index === 5),
+        questions[currentSection]["auto_generated_questions"].find(
+          (q) => q.index === 5
+        ),
       ];
       return {
         ...updatedQuestions,
@@ -126,7 +125,7 @@ export default function Form({ questions, setQuestions, type }) {
             ...generated_questions,
           ].sort((a, b) => a.index - b.index),
         },
-      }
+      };
     } else if (currentQuestionIdx === 4 && currentAnswer === "no") {
       return {
         ...updatedQuestions,
@@ -138,11 +137,15 @@ export default function Form({ questions, setQuestions, type }) {
         },
       };
     } else if (currentQuestionIdx === 14 && currentAnswer.length > 0) {
-      // add 
-      let existing = questions[currentSection]["questions"].find(q => q.index === 15);
-      if(existing) return updatedQuestions;
+      // add
+      let existing = questions[currentSection]["questions"].find(
+        (q) => q.index === 15
+      );
+      if (existing) return updatedQuestions;
       let generated_questions = [
-        questions[currentSection]["auto_generated_questions"].find(q => q.index === 15),
+        questions[currentSection]["auto_generated_questions"].find(
+          (q) => q.index === 15
+        ),
       ];
       return {
         ...updatedQuestions,
@@ -153,7 +156,7 @@ export default function Form({ questions, setQuestions, type }) {
             ...generated_questions,
           ].sort((a, b) => a.index - b.index),
         },
-      }
+      };
     } else if (currentQuestionIdx === 14 && currentAnswer.length === 0) {
       // remove
       return {
@@ -167,7 +170,7 @@ export default function Form({ questions, setQuestions, type }) {
       };
     } else if (currentQuestionIdx === 15 && currentAnswer === "yes") {
       let prevQuestion = findPrevQuestion();
-      let answers = prevQuestion.answer[lang].split(",");
+      let answers = prevQuestion.answer.split(",");
       if (!answers.length || !answers[0]) {
         handleNext();
         return;
@@ -188,10 +191,7 @@ export default function Form({ questions, setQuestions, type }) {
           return {
             ...questionTemplate,
             index: currentQuestionIdx + (idx + 1),
-            question: {
-              ...questionTemplate["question"],
-              [lang]: questionTemplate["question"][lang].replace(/{{\w+}}/, a),
-            },
+            question: questionTemplate["question"].replace(/{{\w+}}/, a),
           };
         });
         return {
@@ -276,12 +276,8 @@ export default function Form({ questions, setQuestions, type }) {
         let regExp = new RegExp("{{" + key + "}}");
         return {
           ...targetQuestion,
-          question: {
-            ...targetQuestion["question"],
-            [lang]:
-              targetQuestion.template[lang]?.replace(regExp, currentAnswer) ||
-              targetQuestion.question[lang],
-          },
+          question: targetQuestion.template?.replace(regExp, currentAnswer) ||
+            targetQuestion.question,
         };
       });
 
@@ -384,7 +380,7 @@ export default function Form({ questions, setQuestions, type }) {
 
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "answer"
-    ][lang] = currentAnswer;
+    ] = currentAnswer;
     // Update DB
     // Fetch DB and set questions state
     // setQuestions(updatedQuestions);
@@ -426,16 +422,16 @@ export default function Form({ questions, setQuestions, type }) {
     );
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "options"
-    ][lang] += ", " + option;
+    ] += ", " + option;
     setQuestions(updatedQuestions);
   };
-  
+
   return (
     <>
       <form>
         <h3>
           {questions[currentSection]["title"]
-            ? questions[currentSection]["title"][lang]
+            ? questions[currentSection]["title"]
             : toSentenceCase(currentSection)}
         </h3>
         {/* Basic Info */}
@@ -445,7 +441,7 @@ export default function Form({ questions, setQuestions, type }) {
               <QuestionWrapper
                 currentQuestionIdx={currentQuestionIdx}
                 questionIdx={question.index}
-                key={question.index + JSON.stringify(question.answer[lang])}
+                key={question.index + JSON.stringify(question.answer)}
               >
                 <>
                   <Field

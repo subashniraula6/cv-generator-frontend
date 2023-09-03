@@ -6,7 +6,7 @@ import { Button as AntButton, Popconfirm, Typography } from "antd";
 import { Button } from "../../Common/Button";
 import { useFormHandler } from "./formHook";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import importedQuestions from "../../../Questions";
+import importedQuestions from "../../../Questions2";
 import { useLanguage } from "../../../context/Language";
 import { toSentenceCase, toCamelCase } from "../../../utils";
 
@@ -57,16 +57,16 @@ const AddQuestion = (props) => {
     let tempTypes = [];
     let tempSections = [];
     sections?.forEach((section) => {
-      if (section === "isNext") return;
+      if (section === "isNext" || section === "lang") return;
       tempSections.push({
-        label: questions[section]["title"]["en"],
+        label: questions[section]["title"],
         value: section,
       });
       questions[section]["questions"]?.forEach((question) => {
         let item = {};
-        item["title"] = questions[section]["title"]["en"];
+        item["title"] = questions[section]["title"];
         item["repeatable"] = questions[section]["repeatable"];
-        item["question"] = question["question"]["en"];
+        item["question"] = question["question"];
         item["index"] = question["index"];
         item["type"] = question["type"];
         tempItems.push(item);

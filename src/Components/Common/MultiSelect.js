@@ -26,7 +26,7 @@ function MultiSelect({
         inputRef.current?.focus();
         }, 0);
     };
-
+    
     let {language: lang} = useLanguage();
 
     return (
@@ -63,7 +63,7 @@ function MultiSelect({
             </Space>
           </>
         )}
-        options={question.options[lang]?.split(',').map((item) => ({
+        options={question.options?.split(',').map((item) => ({
           value: item.trim(),
           label: item.trim(),
         }))}

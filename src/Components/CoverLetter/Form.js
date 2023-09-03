@@ -33,7 +33,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
 
   useEffect(() => {
     let currentQuestion = findCurrentQuestion();
-    let currentAns = currentQuestion?.answer[lang];
+    let currentAns = currentQuestion?.answer;
     setCurrentAnswer(currentAns);
 
     let isUpdate = currentQuestion?.update ? true : false;
@@ -82,12 +82,9 @@ export default function Form({ questions, setQuestions, generateCover }) {
         let regExp = new RegExp("{{" + key + "}}");
         return {
           ...targetQuestion,
-          question: {
-            ...targetQuestion["question"],
-            [lang]:
-              targetQuestion.template[lang]?.replace(regExp, currentAnswer) ||
-              targetQuestion.question[lang],
-          },
+          question:
+            targetQuestion.template?.replace(regExp, currentAnswer) ||
+            targetQuestion.question,
         };
       });
 
@@ -153,7 +150,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
 
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "answer"
-    ][lang] = currentAnswer;
+    ] = currentAnswer;
     // Update DB
     // Fetch DB and set questions state
     // setQuestions(updatedQuestions);
@@ -192,7 +189,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
     );
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "options"
-    ][lang] += ", " + option;
+    ] += ", " + option;
     setQuestions(updatedQuestions);
   };
 
@@ -232,7 +229,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
       <form>
         <h3>
           {questions[currentSection]["title"]
-            ? questions[currentSection]["title"][lang]
+            ? questions[currentSection]["title"]
             : toSentenceCase(currentSection)}
         </h3>
         {questions[currentSection].questions?.map((question) => {
@@ -240,7 +237,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
             <QuestionWrapper
               currentQuestionIdx={currentQuestionIdx}
               questionIdx={question.index}
-              key={question.index + JSON.stringify(question.answer[lang])}
+              key={question.index + JSON.stringify(question.answer)}
             >
               <>
                 <Field

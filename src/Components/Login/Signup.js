@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useFirebase } from "../../context/Firebase";
 import { useLanguage } from "../../context/Language";
-import questions from '../../Questions';
+import questions from '../../Questions2';
 
 export default function Signup() {
   const navigate = useNavigate();

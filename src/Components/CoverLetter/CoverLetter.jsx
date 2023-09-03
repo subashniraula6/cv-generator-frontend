@@ -39,7 +39,7 @@ export default function CoverLetter({ title, questions, setQuestions }) {
       questions: [
         ...questions["targetCompany"]["questions"].map((q) => ({
           question: q.question,
-          answer: q.answer[lang],
+          answer: q.answer,
         })),
         ...questions["basicInfo"]["questions"],
       ],

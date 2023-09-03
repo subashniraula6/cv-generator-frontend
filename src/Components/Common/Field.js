@@ -26,14 +26,14 @@ const Field = ({
   return (
     <div className="field">
       <div>
-        <label> {question.question[lang]} </label>
+        <label> {question.question} </label>
       </div>
       {question.type === "text" && (
         <Input
           type="text"
           size="large"
           onBlur={handleInputChange}
-          defaultValue={question.answer[lang]}
+          defaultValue={question.answer}
           {...otherProps}
         />
       )}
@@ -43,7 +43,7 @@ const Field = ({
           rows={4}
           size="large"
           onBlur={handleInputChange}
-          defaultValue={question.answer[lang]}
+          defaultValue={question.answer}
           {...otherProps}
         />
       )}
@@ -54,7 +54,7 @@ const Field = ({
           action={uploadUrl}
           handleFileChange={handleFileChange}
           size="small"
-          defaultValue={question.answer[lang]}
+          defaultValue={question.answer}
           {...otherProps}
         />
       )}
@@ -67,7 +67,7 @@ const Field = ({
           onChange={handleDateChange}
           disabledDate={disabledDate}
           defaultValue={
-            question.answer[lang] ? dayjs(question.answer[lang]) : undefined
+            question.answer ? dayjs(question.answer) : undefined
           }
           {...otherProps}
         />
@@ -75,7 +75,7 @@ const Field = ({
 
       {question.type === "boolean" && (
         <Switch
-          defaultChecked={question.answer[lang] === "yes" ? true : false}
+          defaultChecked={question.answer === "yes" ? true : false}
           onChange={handleSlideChange}
           checkedChildren="Yes"
           unCheckedChildren="No"
@@ -92,13 +92,13 @@ const Field = ({
             width: "100%",
           }}
           size="large"
-          options={question.options[lang]?.split(",").map((item) => ({
+          options={question.options?.split(",").map((item) => ({
             value: item.trim(),
             label: item.trim(),
           }))}
           defaultValue={
-            question.answer[lang]?.length
-              ? question.answer[lang].split(",").map((a) => a.trim())
+            question.answer?.length
+              ? question.answer.split(",").map((a) => a.trim())
               : undefined
           }
           {...otherProps}
@@ -112,8 +112,8 @@ const Field = ({
           question={question}
           size="large"
           defaultValue={
-            question.answer[lang].length
-              ? question.answer[lang].split(",").map((a) => a.trim())
+            question.answer.length
+              ? question.answer.split(",").map((a) => a.trim())
               : undefined
           }
           {...otherProps}

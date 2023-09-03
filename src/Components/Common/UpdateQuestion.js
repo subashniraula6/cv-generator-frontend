@@ -34,7 +34,7 @@ const UpdateQuestion = ({
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
           q.index === questionIdx
-            ? { ...q, answer: { ...q.answer, [lang]: e.target.value } }
+            ? { ...q, answer: e.target.value }
             : q
         ),
       },
@@ -54,7 +54,7 @@ const UpdateQuestion = ({
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
           q.index === questionIdx
-            ? { ...q, answer: { ...q.answer, [lang]: answerStr } }
+            ? { ...q, answer: answerStr }
             : q
         ),
       },
@@ -68,7 +68,7 @@ const UpdateQuestion = ({
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
           q.index === questionIdx
-            ? { ...q, answer: { ...q.answer, [lang]: dateStr } }
+            ? { ...q, answer: dateStr }
             : q
         ),
       },
@@ -107,7 +107,7 @@ const UpdateQuestion = ({
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
           q.index === questionIdx
-            ? { ...q, answer: { ...q.answer, [lang]: imageUrl } }
+            ? { ...q, answer: imageUrl }
             : q
         ),
       },
@@ -121,7 +121,7 @@ const UpdateQuestion = ({
       (q) => q.index === questionIdx
     );
 
-    updatedQuestions[section]["questions"][quesArrIndex]["options"][lang] +=
+    updatedQuestions[section]["questions"][quesArrIndex]["options"] +=
       ", " + option;
     // Update DB
     // Fetch DB and set questions state
@@ -134,7 +134,7 @@ const UpdateQuestion = ({
       let payload = {
         questions: questions[section]["questions"]
           .filter((q) => indexes.includes(q.index))
-          .map((q) => ({ question: q.question, answer: q.answer[lang] })),
+          .map((q) => ({ question: q.question, answer: q.answer })),
       };
       let dataInput =
         "Generate a short and elaborated resume profile summary with words less than 100 from following json: ";
@@ -163,7 +163,7 @@ const UpdateQuestion = ({
               ...questions[section],
               questions: questions[section]["questions"].map((q) =>
                 q.index === index
-                  ? { ...q, answer: { ...q.answer, [lang]: response } }
+                  ? { ...q, answer: response }
                   : q
               ),
             },
@@ -177,7 +177,7 @@ const UpdateQuestion = ({
       let payload = {
         questions: questions[section]["questions"]
           .filter((q) => q.index >= index - 4 && q.index <= index)
-          .map((q) => ({ question: q.question, answer: q.answer[lang] })),
+          .map((q) => ({ question: q.question, answer: q.answer })),
       };
       let dataInput =
         "Generate a short and elaborated resume work description summary with words less than 100 from following past work experience json: ";
@@ -205,7 +205,7 @@ const UpdateQuestion = ({
               ...questions[section],
               questions: questions[section]["questions"].map((q) =>
                 q.index === index
-                  ? { ...q, answer: { ...q.answer, [lang]: response } }
+                  ? { ...q, answer: response }
                   : q
               ),
             },

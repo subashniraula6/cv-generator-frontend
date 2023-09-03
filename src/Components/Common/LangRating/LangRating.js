@@ -20,7 +20,7 @@ const LangRating = ({ rating, lang, questionIdx, questions, setQuestions }) => {
   };
 
   function findValue() {
-    let index = RatingsMap[lang]?.findIndex((rate) => rate === rating);
+    let index = RatingsMap?.findIndex((rate) => rate === rating);
     return index + 1;
   }
 

@@ -76,7 +76,7 @@ export default function Resume2({
                   icon={<UserOutlined />}
                   src={
                     questions?.basicInfo?.questions.find((q) => q.index === 5)
-                      ?.answer[lang]
+                      ?.answer
                   }
                 />
               </UpdateQuestionWrapper>
@@ -96,10 +96,10 @@ export default function Resume2({
                     setQuestions={setQuestions}
                   />
                   {questions?.basicInfo?.questions.find((q) => q.index === 1)
-                    ?.answer[lang].length === 0 && t("field.fname")}{" "}
+                    ?.answer.length === 0 && t("field.fname")}{" "}
                   {
                     questions?.basicInfo?.questions.find((q) => q.index === 1)
-                      ?.answer[lang]
+                      ?.answer
                   }
                 </UpdateQuestionWrapper>
               </span>
@@ -115,10 +115,10 @@ export default function Resume2({
                     setQuestions={setQuestions}
                   />
                   {questions?.basicInfo?.questions.find((q) => q.index === 2)
-                    ?.answer[lang].length === 0 && t("field.lname")}
+                    ?.answer.length === 0 && t("field.lname")}
                   {" " +
                     questions?.basicInfo?.questions.find((q) => q.index === 2)
-                      ?.answer[lang]}
+                      ?.answer}
                 </UpdateQuestionWrapper>
               </span>
             </div>
@@ -146,7 +146,7 @@ export default function Resume2({
                   <span>
                     {
                       questions?.basicInfo?.questions.find((q) => q.index === 9)
-                        ?.answer[lang]
+                        ?.answer
                     }
                   </span>
                 </span>
@@ -175,7 +175,7 @@ export default function Resume2({
                 <span className="phone-val">
                   {
                     questions?.basicInfo?.questions.find((q) => q.index === 8)
-                      ?.answer[lang]
+                      ?.answer
                   }
                 </span>
               </UpdateQuestionWrapper>
@@ -203,7 +203,7 @@ export default function Resume2({
                 <span className="linkedIn-val">
                   {
                     questions?.basicInfo?.questions.find((q) => q.index === 10)
-                      ?.answer[lang]
+                      ?.answer
                   }
                 </span>
               </UpdateQuestionWrapper>
@@ -231,7 +231,7 @@ export default function Resume2({
                 <span className="linkedIn-val">
                   {
                     questions?.basicInfo?.questions.find((q) => q.index === 11)
-                      ?.answer[lang]
+                      ?.answer
                   }
                 </span>
               </UpdateQuestionWrapper>
@@ -265,7 +265,7 @@ export default function Resume2({
                       {
                         questions?.basicInfo?.questions.find(
                           (q) => q.index === 53
-                        )?.answer[lang]
+                        )?.answer
                       }
                     </span>
                   </Spin>
@@ -314,7 +314,7 @@ export default function Resume2({
                                       questions={questions}
                                       setQuestions={setQuestions}
                                     />
-                                    {groupedExperience[group][0].answer[lang]}
+                                    {groupedExperience[group][0].answer}
                                   </UpdateQuestionWrapper>
                                 </div>
                                 <div className="addr">San Fr, CA</div>
@@ -331,7 +331,7 @@ export default function Resume2({
                                         questions={questions}
                                         setQuestions={setQuestions}
                                       />
-                                      {groupedExperience[group][2].answer[lang]}
+                                      {groupedExperience[group][2].answer}
                                     </UpdateQuestionWrapper>
                                   </span>
                                   <span>{" - "}</span>
@@ -347,7 +347,7 @@ export default function Resume2({
                                         questions={questions}
                                         setQuestions={setQuestions}
                                       />
-                                      {groupedExperience[group][3].answer[lang]}
+                                      {groupedExperience[group][3].answer}
                                     </UpdateQuestionWrapper>
                                   </span>
                                 </div>
@@ -363,7 +363,7 @@ export default function Resume2({
                                       questions={questions}
                                       setQuestions={setQuestions}
                                     />
-                                    {groupedExperience[group][1].answer[lang]}
+                                    {groupedExperience[group][1].answer}
                                   </UpdateQuestionWrapper>
                                 </div>
                                 <div className="desc">
@@ -380,7 +380,7 @@ export default function Resume2({
                                       setIsLoading={setIsWorkAILoading}
                                       AIType="workSummary"
                                     />
-                                    {groupedExperience[group][4].answer[lang]}
+                                    {groupedExperience[group][4].answer}
                                   </UpdateQuestionWrapper>
                                 </div>
                               </div>
@@ -438,7 +438,7 @@ export default function Resume2({
                                       textOverflow: "inherit",
                                     }}
                                   >
-                                    {groupedEducation[group][3].answer[lang]}
+                                    {groupedEducation[group][3].answer}
                                   </span>
                                 </UpdateQuestionWrapper>
                               </div>
@@ -453,7 +453,7 @@ export default function Resume2({
                                     setQuestions={setQuestions}
                                   />
                                   <span style={{ fontStyle: "italic" }}>
-                                    {groupedEducation[group][0].answer[lang]}
+                                    {groupedEducation[group][0].answer}
                                   </span>
                                 </UpdateQuestionWrapper>
                               </div>
@@ -468,7 +468,7 @@ export default function Resume2({
                                       questions={questions}
                                       setQuestions={setQuestions}
                                     />
-                                    {groupedEducation[group][4].answer[lang]}
+                                    {groupedEducation[group][4].answer}
                                   </UpdateQuestionWrapper>
                                 </span>
                                 <span>{" - "}</span>
@@ -484,7 +484,7 @@ export default function Resume2({
                                       questions={questions}
                                       setQuestions={setQuestions}
                                     />
-                                    {groupedEducation[group][5].answer[lang]}
+                                    {groupedEducation[group][5].answer}
                                   </UpdateQuestionWrapper>
                                 </span>
                               </div>
@@ -500,7 +500,7 @@ export default function Resume2({
                                     questions={questions}
                                     setQuestions={setQuestions}
                                   />
-                                  {groupedEducation[group][1].answer[lang]}
+                                  {groupedEducation[group][1].answer}
                                 </UpdateQuestionWrapper>
                               </div>
                               <div className="desc">
@@ -513,7 +513,7 @@ export default function Resume2({
                                     questions={questions}
                                     setQuestions={setQuestions}
                                   />
-                                  {groupedEducation[group][2].answer[lang]}
+                                  {groupedEducation[group][2].answer}
                                 </UpdateQuestionWrapper>
                               </div>
                             </div>
@@ -559,7 +559,7 @@ export default function Resume2({
                                   setQuestions={setQuestions}
                                 />
                                 <SubSectionHeading>
-                                  {groupedProject[group][0].answer[lang]}
+                                  {groupedProject[group][0].answer}
                                 </SubSectionHeading>
                               </UpdateQuestionWrapper>
                             </div>
@@ -573,7 +573,7 @@ export default function Resume2({
                                   questions={questions}
                                   setQuestions={setQuestions}
                                 />
-                                &bull; {groupedProject[group][2].answer[lang]}
+                                &bull; {groupedProject[group][2].answer}
                               </UpdateQuestionWrapper>
                             </div>
                           </div>
@@ -611,7 +611,7 @@ export default function Resume2({
                   <Space wrap>
                     {questions?.basicInfo?.questions
                       .find((q) => q.index === 13)
-                      ?.answer[lang].split(",")
+                      ?.answer.split(",")
                       .map((skill) => {
                         return skill ? (
                           <Tag
@@ -654,7 +654,7 @@ export default function Resume2({
                   <div className="section__list-item">
                     {questions?.basicInfo?.questions
                       .find((q) => q.index === 50)
-                      ?.answer[lang].split(",")
+                      ?.answer.split(",")
                       .map((interest) => {
                         return interest ? (
                           <Tag
@@ -699,7 +699,7 @@ export default function Resume2({
                   <Space wrap>
                     {questions?.basicInfo?.questions
                       .find((q) => q.index === 14)
-                      ?.answer[lang].split(",")
+                      ?.answer.split(",")
                       .map((language, idx) => {
                         return language ? (
                           <span
@@ -716,7 +716,7 @@ export default function Resume2({
                                 rating={
                                   questions.basicInfo.questions.find(
                                     (q) => q.index === 14 + 2 + idx
-                                  )?.answer[lang]
+                                  )?.answer
                                 }
                                 lang={lang}
                                 questions={questions}
@@ -758,7 +758,7 @@ export default function Resume2({
                 <Space wrap={true}>
                   {questions?.basicInfo?.questions
                     .find((q) => q.index === 51)
-                    ?.answer[lang].split(",")
+                    ?.answer.split(",")
                     .map((certificate) => {
                       return certificate ? (
                         <span
@@ -799,7 +799,7 @@ export default function Resume2({
                   <Space wrap>
                     {questions?.basicInfo?.questions
                       .find((q) => q.index === 52)
-                      ?.answer[lang]?.split(",")
+                      ?.answer?.split(",")
                       .map((award) => {
                         return award ? (
                           <span
