@@ -102,7 +102,7 @@ export default function Form({ questions, setQuestions, type }) {
     );
     return orderedIndexes[currentQueArrIdx - 1];
   };
-
+  
   const updateQuestions = (updatedQuestions) => {
     if (currentQuestionIdx === 15 && currentAnswer === "yes") {
       let prevQuestion = findPrevQuestion();
@@ -345,8 +345,8 @@ export default function Form({ questions, setQuestions, type }) {
     }
   };
 
-  const handleSlideChange = ({ target }) => {
-    setCurrentAnswer(target.ariaChecked === "true" ? "yes" : "no");
+  const handleSlideChange = (checked) => {
+    setCurrentAnswer(checked === true ? "yes" : "no");
   };
 
   const handleDateChange = (date, dateStr) => {

@@ -60,7 +60,7 @@ const Field = ({
 
       {question.type === "boolean" && (
         <Switch defaultChecked={question.answer[lang] === "yes"? true: false} 
-          onBlur={handleSlideChange}
+          onChange={handleSlideChange}
           checkedChildren="Yes"
           unCheckedChildren="No"
           size="large"
