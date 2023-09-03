@@ -41,6 +41,15 @@
     padding: 30px;
     width: 100%;
   }
+
+  .flex2 {
+    display: flex;
+    align-items: center;
+  }
+
+  .left2 {
+    margin-right: 20px;
+  }
   
   .header .full-name {
     font-size: 40px;

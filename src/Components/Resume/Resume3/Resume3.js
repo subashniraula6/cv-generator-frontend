@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState } from "react";
 import "./Resume3.css";
-import { Space, Row, Col, Spin, Anchor, Tag } from "antd";
+import { Space, Row, Col, Spin, Anchor, Tag, Avatar } from "antd";
 import UpdateSectionWrapper from "../../Wrappers/UpdateSectionWrapper";
 import UpdateSection from "../../Common/UpdateSection";
 import UpdateQuestion from "../../Common/UpdateQuestion";
@@ -13,6 +13,7 @@ import {
   LinkedinOutlined,
   MailOutlined,
   PhoneOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { SectionHeading } from "../../Wrappers/SectionHeading";
 import { SubSectionHeading } from "../../Wrappers/SubSectionHeading";
@@ -37,16 +38,48 @@ const Resume3 = forwardRef(
   ) => {
     const { Link } = Anchor;
     const { language: lang, t } = useLanguage();
+    const pictureWrapperStyle = {
+      width: "fit-content",
+    };
     return (
       <div className="_container3">
         <div
           className="header3"
           style={{
-            backgroundImage: `linear-gradient(to right, ${activeColor}, #FFFFFF)`,
+            backgroundImage: `linear-gradient(to bottom, ${activeColor}, #FFFFFF)`,
           }}
         >
           <div className="left">
             <div className="name-style3">
+              {/* Picture */}
+              <UpdateQuestionWrapper
+                className="picture"
+                display={"block"}
+                style={pictureWrapperStyle}
+                removed={
+                  questions?.basicInfo?.questions.find((q) => q.index === 5)
+                    ?.removed
+                }
+              >
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={5}
+                  title="Edit Picture"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <Avatar
+                  shape="circle"
+                  size={120}
+                  icon={<UserOutlined />}
+                  src={
+                    questions?.basicInfo?.questions.find((q) => q.index === 5)
+                      ?.answer[lang]
+                  }
+                />
+              </UpdateQuestionWrapper>
+
               {/* First Name */}
               <UpdateQuestionWrapper className="first-name">
                 <UpdateQuestion

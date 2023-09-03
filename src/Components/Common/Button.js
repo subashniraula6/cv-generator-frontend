@@ -4,7 +4,7 @@ const Icon = styled.span`
   position: absolute;
   top: 50%;
   ${({ iconPosition }) =>
-    iconPosition ? iconPosition + ": 10px;" : "right: 10px;"}
+    iconPosition ? iconPosition + ": 7px;" : "right: 7px;"}
   transform: translateY(-50%) rotate(0deg);
   transition: transform 0.3s !important;
 `;

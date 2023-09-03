@@ -22,23 +22,9 @@
   border: 2px solid #000;
 }
 
-.toolbar button {
-  color: #fff;
-  outline: none;
+.main {
   display: flex;
-  align-items: center;
-  cursor: pointer;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
 }
-  
-  .toolbar button svg {
-    height: 20px;
-    width: 20px;
-  }
-  
-  .main {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    width: 100%;
-  }
-  

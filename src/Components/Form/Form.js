@@ -1,10 +1,15 @@
 import { QuestionWrapper } from "../Wrappers/QuestionWrapper";
 import { useState, useEffect } from "react";
-import {Button} from "../Common/Button";
+import { Button } from "../Common/Button";
 import { toSentenceCase } from "../../utils";
 import Field from "../Common/Field";
 import { useLanguage } from "../../context/Language";
-import { ArrowLeftOutlined, ArrowRightOutlined, LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+  LeftCircleOutlined,
+  RightCircleOutlined,
+} from "@ant-design/icons";
 
 export default function Form({ questions, setQuestions, type }) {
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(() => {
@@ -29,14 +34,16 @@ export default function Form({ questions, setQuestions, type }) {
   let [isUpdateQuestion, setIsUpdateQuestion] = useState(false);
 
   let { language: lang, t } = useLanguage();
-  
+
   useEffect(() => {
     if (questions?.isNext) {
       handleNext();
     }
     // CHeck if current question index is active/not removed
-    let activeIndexes = questions[currentSection]['questions'].map(q => q.index);
-    if(!activeIndexes.includes(currentQuestionIdx)){
+    let activeIndexes = questions[currentSection]["questions"].map(
+      (q) => q.index
+    );
+    if (!activeIndexes.includes(currentQuestionIdx)) {
       setcurrentQuestionIdx(activeIndexes[0]);
     }
   }, [questions]);
@@ -104,7 +111,33 @@ export default function Form({ questions, setQuestions, type }) {
   };
   
   const updateQuestions = (updatedQuestions) => {
-    if (currentQuestionIdx === 15 && currentAnswer === "yes") {
+    if (currentQuestionIdx === 4 && currentAnswer == "yes") {
+      let existing = questions[currentSection]["questions"].find(q => q.index === 5);
+      if(existing) return updatedQuestions;
+      let generated_questions = [
+        questions[currentSection]["auto_generated_questions"].find(q => q.index === 5),
+      ];
+      return {
+        ...updatedQuestions,
+        [currentSection]: {
+          ...updatedQuestions[currentSection],
+          questions: [
+            ...updatedQuestions[currentSection]["questions"],
+            ...generated_questions,
+          ].sort((a, b) => a.index - b.index),
+        },
+      }
+    } else if (currentQuestionIdx === 4 && currentAnswer === "no") {
+      return {
+        ...updatedQuestions,
+        [currentSection]: {
+          ...updatedQuestions[currentSection],
+          questions: updatedQuestions[currentSection]["questions"]
+            .filter((q) => q.index !== 5)
+            .sort((a, b) => a.index - b.index),
+        },
+      };
+    } else if (currentQuestionIdx === 15 && currentAnswer === "yes") {
       let prevQuestion = findPrevQuestion();
       let answers = prevQuestion.answer[lang].split(",");
       if (!answers.length || !answers[0]) {
@@ -353,6 +386,10 @@ export default function Form({ questions, setQuestions, type }) {
     setCurrentAnswer(dateStr);
   };
 
+  const handleFileChange = (imageUrl) => {
+    setCurrentAnswer(imageUrl);
+  };
+
   const addDropdownOption = (option) => {
     // add question options
     let updatedQuestions = JSON.parse(JSON.stringify(questions));
@@ -364,7 +401,7 @@ export default function Form({ questions, setQuestions, type }) {
     ][lang] += ", " + option;
     setQuestions(updatedQuestions);
   };
-
+  
   return (
     <>
       <form>
@@ -391,6 +428,8 @@ export default function Form({ questions, setQuestions, type }) {
                     handleDateChange={(date, dateStr) =>
                       handleDateChange(date, dateStr)
                     }
+                    handleFileChange={handleFileChange}
+                    uploadUrl={"https://fakeql.com/upload"}
                     addDropdownOption={addDropdownOption}
                   />
                   <div>
@@ -399,15 +438,15 @@ export default function Form({ questions, setQuestions, type }) {
                       type={"primary"}
                       btn={"action"}
                       disabled={currentQuestionIdx <= 1}
-                      icon={<ArrowLeftOutlined/>}
-                      iconPosition={'left'}
+                      icon={<ArrowLeftOutlined />}
+                      iconPosition={"left"}
                     >
                       {t("button.previous")}
                     </Button>
                     <Button
                       onClick={handleContinue}
                       type="primary"
-                      icon={<ArrowRightOutlined/>}
+                      icon={<ArrowRightOutlined />}
                       iconPosition={"right"}
                     >
                       {t("button.continue")}

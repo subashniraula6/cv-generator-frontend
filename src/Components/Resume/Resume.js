@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState } from "react";
 import "./Resume.css";
-import { Space, Row, Col, Spin, Anchor, Tag } from "antd";
+import { Space, Row, Col, Spin, Anchor, Tag, Avatar } from "antd";
 import UpdateSectionWrapper from "../Wrappers/UpdateSectionWrapper";
 import UpdateSection from "../Common/UpdateSection";
 import UpdateQuestion from "../Common/UpdateQuestion";
@@ -13,6 +13,7 @@ import {
   LinkedinOutlined,
   MailOutlined,
   PhoneOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { SectionHeading } from "../Wrappers/SectionHeading";
 import { SubSectionHeading } from "../Wrappers/SubSectionHeading";
@@ -37,10 +38,45 @@ const Resume = forwardRef(
   ) => {
     const { Link } = Anchor;
     const { language: lang, t } = useLanguage();
+    const pictureWrapperStyle = {
+      width: 'fit-content',
+      left: '50%',
+      transform: 'translateX(-50%)'
+    };
     return (
       <div className="container1">
         <div className="sider" style={{ backgroundColor: activeColor }}>
           <div className="info-header info-header-1">
+            <div className="picture">
+              {/* Picture */}
+              <UpdateQuestionWrapper
+                className="picture"
+                display={"block"}
+                style={pictureWrapperStyle}
+                removed={
+                  questions?.basicInfo?.questions.find((q) => q.index === 5)
+                    ?.removed
+                }
+              >
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={5}
+                  title="Edit Picture"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <Avatar
+                  shape="circle"
+                  size={150}
+                  icon={<UserOutlined />}
+                  src={
+                    questions?.basicInfo?.questions.find((q) => q.index === 5)
+                      ?.answer[lang]
+                  }
+                />
+              </UpdateQuestionWrapper>
+            </div>
             <div className="name-style">
               {/* First Name */}
               <UpdateQuestionWrapper className="first-name">

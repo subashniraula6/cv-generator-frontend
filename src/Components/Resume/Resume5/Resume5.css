@@ -38,6 +38,9 @@
     margin-bottom: 30px;
     width: 100%;
   }
+  .header5 {
+    padding: 25px 25px 0 25px;
+  }
   .d-flex{
     display: flex;
     justify-content: center; 
@@ -46,9 +49,11 @@
   }
   .col1{
     flex: 2;
+    display: flex;
   }
   .col2 {
     flex: 1;
+    padding: 0;
   }
   .header .full-name {
     font-size: 40px;
@@ -165,4 +170,10 @@
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
+  }
+
+  .profile-summary-5 {
+    padding: 15px;
+    max-width: "1450px";
+    margin-bottom: 20px;
   }

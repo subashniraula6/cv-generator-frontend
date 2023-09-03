@@ -1,4 +1,4 @@
-import { Space, Spin, Tag } from "antd";
+import { Avatar, Space, Spin, Tag } from "antd";
 import { useLanguage } from "../../../context/Language";
 import UpdateQuestion from "../../Common/UpdateQuestion";
 import UpdateQuestionWrapper from "../../Wrappers/UpdateQuestionWrapper";
@@ -16,6 +16,7 @@ import {
   LinkedinOutlined,
   MailOutlined,
   PhoneOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import LangRating from "../../Common/LangRating/LangRating";
 import ArrowDown from "../../Common/Dividers/ArrowDown";
@@ -33,6 +34,9 @@ export default function Resume2({
   setIsWorkAILoading,
 }) {
   const { language: lang, t } = useLanguage();
+  const pictureWrapperStyle = {
+    width: "fit-content",
+  };
   return (
     <>
       <link
@@ -41,11 +45,38 @@ export default function Resume2({
         type="text/css"
       />
       <div className="resume-container d-block">
-        <div
-          className="header d-flex"
-          style={{ backgroundColor: activeColor, maxWidth: "1450px" }}
-        >
+        <div className="header5 d-flex">
           <div className="col1">
+            <div className="picture" style={{marginRight: '20px'}}>
+              {/* Picture */}
+              <UpdateQuestionWrapper
+                className="picture"
+                display={"block"}
+                style={pictureWrapperStyle}
+                removed={
+                  questions?.basicInfo?.questions.find((q) => q.index === 5)
+                    ?.removed
+                }
+              >
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={5}
+                  title="Edit Picture"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <Avatar
+                  shape="square"
+                  size={120}
+                  icon={<UserOutlined />}
+                  src={
+                    questions?.basicInfo?.questions.find((q) => q.index === 5)
+                      ?.answer[lang]
+                  }
+                />
+              </UpdateQuestionWrapper>
+            </div>
             <div className="full-name">
               {/* First Name */}
               <span className="first-name">
@@ -103,41 +134,6 @@ export default function Resume2({
                       ?.answer[lang]
                   }
                 </SubSectionHeading>
-              </UpdateQuestionWrapper>
-            </div>
-            <div className="profile-summary-5">
-              <UpdateQuestionWrapper
-                className="info-profile"
-                removed={
-                  questions?.basicInfo?.questions.find((q) => q.index === 53)
-                    ?.removed
-                }
-                display="block"
-                underline={true}
-              >
-                <Spin spinning={isProfileAILoading}>
-                  <UpdateQuestion
-                    key={JSON.stringify(questions)}
-                    section="basicInfo"
-                    index={53}
-                    title="Edit Profile Summary"
-                    questions={questions}
-                    setQuestions={setQuestions}
-                    AIField={true}
-                    isLoading={isProfileAILoading}
-                    setIsLoading={setIsProfileAILoading}
-                  />
-                  {t("section.profileSummary")} {": "}
-                  <div className="profile-content">
-                    <p>
-                      {
-                        questions?.basicInfo?.questions.find(
-                          (q) => q.index === 53
-                        )?.answer[lang]
-                      }
-                    </p>
-                  </div>
-                </Spin>
               </UpdateQuestionWrapper>
             </div>
           </div>
@@ -256,43 +252,45 @@ export default function Resume2({
               </span>
             </UpdateQuestionWrapper>
           </div>
-
-          {/* <div className="about">
-            <span className="desc">
-              <UpdateQuestionWrapper
-                className="info-profile"
-                removed={
-                  questions?.basicInfo?.questions.find((q) => q.index === 53)
-                    ?.removed
-                }
-                display="block"
-              >
-                <Spin spinning={isProfileAILoading}>
-                  <UpdateQuestion
-                    key={JSON.stringify(questions)}
-                    section="basicInfo"
-                    index={53}
-                    title="Edit Profile Summary"
-                    questions={questions}
-                    setQuestions={setQuestions}
-                    AIField={true}
-                    isLoading={isProfileAILoading}
-                    setIsLoading={setIsProfileAILoading}
-                  />
-                  <span className="position">
-                    {t("section.profileSummary")}
-                  </span>
-                  <span className="profile-content">
-                    {
-                      questions?.basicInfo?.questions.find(
-                        (q) => q.index === 53
-                      )?.answer[lang]
-                    }
-                  </span>
-                </Spin>
-              </UpdateQuestionWrapper>
-            </span>
-          </div> */}
+        </div>
+        {/* Profile Summary */}
+        <div
+          className="profile-summary-5"
+          style={{ backgroundColor: activeColor }}
+        >
+          <UpdateQuestionWrapper
+            className="info-profile"
+            removed={
+              questions?.basicInfo?.questions.find((q) => q.index === 53)
+                ?.removed
+            }
+            display="block"
+            underline={true}
+            style={{margin: 0}}
+          >
+            <Spin spinning={isProfileAILoading}>
+              <UpdateQuestion
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={53}
+                title="Edit Profile Summary"
+                questions={questions}
+                setQuestions={setQuestions}
+                AIField={true}
+                isLoading={isProfileAILoading}
+                setIsLoading={setIsProfileAILoading}
+              />
+              {t("section.profileSummary")} {": "}
+              <div className="profile-content">
+                <p>
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 53)
+                      ?.answer[lang]
+                  }
+                </p>
+              </div>
+            </Spin>
+          </UpdateQuestionWrapper>
         </div>
         <div className="container">
           <div className="details">
@@ -754,7 +752,7 @@ export default function Resume2({
                               <Tag
                                 color={"purple"}
                                 icon={<CheckCircleOutlined />}
-                                style={{margin: '5px'}}
+                                style={{ margin: "5px" }}
                               >
                                 {interest}
                               </Tag>

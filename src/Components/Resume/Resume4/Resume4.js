@@ -1,4 +1,4 @@
-import { Space, Spin, Tag } from "antd";
+import { Avatar, Space, Spin, Tag } from "antd";
 import { useLanguage } from "../../../context/Language";
 import UpdateQuestion from "../../Common/UpdateQuestion";
 import UpdateQuestionWrapper from "../../Wrappers/UpdateQuestionWrapper";
@@ -16,6 +16,7 @@ import {
   LinkedinOutlined,
   MailOutlined,
   PhoneOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import LangRating from "../../Common/LangRating/LangRating";
 import { Heading1 } from "../../Common/Headings/Heading1";
@@ -34,6 +35,9 @@ export default function Resume2({
   setIsWorkAILoading,
 }) {
   const { language: lang, t } = useLanguage();
+  const pictureWrapperStyle = {
+    width: "fit-content",
+  };
   return (
     <>
       <link
@@ -45,6 +49,36 @@ export default function Resume2({
         {/* left start */}
         <div class="div-left-4">
           <div className="header4 div-col" style={{ maxWidth: "1450px" }}>
+            <div className="picture">
+              {/* Picture */}
+              <UpdateQuestionWrapper
+                className="picture"
+                display={"block"}
+                style={pictureWrapperStyle}
+                removed={
+                  questions?.basicInfo?.questions.find((q) => q.index === 5)
+                    ?.removed
+                }
+              >
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={5}
+                  title="Edit Picture"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <Avatar
+                  shape="circle"
+                  size={120}
+                  icon={<UserOutlined />}
+                  src={
+                    questions?.basicInfo?.questions.find((q) => q.index === 5)
+                      ?.answer[lang]
+                  }
+                />
+              </UpdateQuestionWrapper>
+            </div>
             <div className="full-name">
               {/* First Name */}
               <span className="first-name">

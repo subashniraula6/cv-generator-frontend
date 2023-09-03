@@ -100,6 +100,20 @@ const UpdateQuestion = ({
     setFieldKey(fieldKey + 1);
   }
 
+  const handleFileChange = (imageUrl, section, questionIdx) => {
+    setTempQuestions({
+      ...tempQuestions,
+      [section]: {
+        ...tempQuestions[section],
+        questions: tempQuestions[section]["questions"].map((q) =>
+          q.index === questionIdx
+            ? { ...q, answer: { ...q.answer, [lang]: imageUrl } }
+            : q
+        ),
+      },
+    });
+  };
+
   function addDropdownOption(option, section, questionIdx) {
     // add question options
     let updatedQuestions = JSON.parse(JSON.stringify(tempQuestions));
@@ -162,8 +176,8 @@ const UpdateQuestion = ({
     } else if (AIType === "workSummary") {
       let payload = {
         questions: questions[section]["questions"]
-        .filter((q) => q.index >= index - 4 && q.index <= index)
-        .map((q) => ({ question: q.question, answer: q.answer[lang] }))
+          .filter((q) => q.index >= index - 4 && q.index <= index)
+          .map((q) => ({ question: q.question, answer: q.answer[lang] })),
       };
       let dataInput =
         "Generate a short and elaborated resume work description summary with words less than 100 from following past work experience json: ";
@@ -226,6 +240,8 @@ const UpdateQuestion = ({
               handleDateChange={(date, dateStr) =>
                 handleDateChange(date, dateStr, section, index)
               }
+              handleFileChange={(url) => handleFileChange(url, section, index)}
+              uploadUrl={"https://fakeql.com/upload"}
               addDropdownOption={(e) => addDropdownOption(e, section, index)}
             />
           )}

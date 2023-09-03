@@ -35,6 +35,7 @@ const questions = {
           en: "",
           sv: ""
         },
+        removed: false
       },
     ],
     questions: [

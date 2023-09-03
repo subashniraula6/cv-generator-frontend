@@ -1,8 +1,9 @@
 import React from "react";
 import MultiSelect from "./MultiSelect";
-import { Input, Select, Switch, DatePicker } from "antd";
-import dayjs from 'dayjs';
-import { useLanguage } from '../../context/Language';
+import { Input, Select, Switch, DatePicker, message } from "antd";
+import dayjs from "dayjs";
+import { useLanguage } from "../../context/Language";
+import ImageUpload from "./ImageUpload";
 
 const { TextArea } = Input;
 
@@ -12,14 +13,16 @@ const Field = ({
   handleSelectChange,
   handleSlideChange,
   handleDateChange,
+  handleFileChange,
   addDropdownOption,
+  uploadUrl,
   ...otherProps
 }) => {
   let { language: lang } = useLanguage();
   const disabledDate = (current) => {
-    return current && current > dayjs().endOf('day');
+    return current && current > dayjs().endOf("day");
   };
-  const monthFormat = 'MMM YYYY'
+  const monthFormat = "MMM YYYY";
   return (
     <div className="field">
       <div>
@@ -36,7 +39,7 @@ const Field = ({
       )}
 
       {question.type === "textArea" && (
-        <TextArea 
+        <TextArea
           rows={4}
           size="large"
           onBlur={handleInputChange}
@@ -45,21 +48,34 @@ const Field = ({
         />
       )}
 
-      {
-        question.type === "date" && (
-          <DatePicker
-            picker="month"
-            format={monthFormat}
-            size="large"
-            onChange={handleDateChange}
-            disabledDate={disabledDate}
-            defaultValue={question.answer[lang] ? dayjs(question.answer[lang]): undefined}
-            {...otherProps}
-          />
+      {question.type === "file" && (
+        <ImageUpload
+          multiple={false}
+          action={uploadUrl}
+          handleFileChange={handleFileChange}
+          size="small"
+          defaultValue={question.answer[lang]}
+          {...otherProps}
+        />
+      )}
+
+      {question.type === "date" && (
+        <DatePicker
+          picker="month"
+          format={monthFormat}
+          size="large"
+          onChange={handleDateChange}
+          disabledDate={disabledDate}
+          defaultValue={
+            question.answer[lang] ? dayjs(question.answer[lang]) : undefined
+          }
+          {...otherProps}
+        />
       )}
 
       {question.type === "boolean" && (
-        <Switch defaultChecked={question.answer[lang] === "yes"? true: false} 
+        <Switch
+          defaultChecked={question.answer[lang] === "yes" ? true : false}
           onChange={handleSlideChange}
           checkedChildren="Yes"
           unCheckedChildren="No"

@@ -1,4 +1,4 @@
-import { Space, Spin, Tag } from "antd";
+import { Avatar, Space, Spin, Tag } from "antd";
 import { useLanguage } from "../../../context/Language";
 import UpdateQuestion from "../../Common/UpdateQuestion";
 import UpdateQuestionWrapper from "../../Wrappers/UpdateQuestionWrapper";
@@ -15,6 +15,7 @@ import {
   LinkedinOutlined,
   MailOutlined,
   PhoneOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import LangRating from "../../Common/LangRating/LangRating";
 import ArrowDown from "../../Common/Dividers/ArrowDown";
@@ -32,6 +33,11 @@ export default function Resume2({
   setIsWorkAILoading,
 }) {
   const { language: lang, t } = useLanguage();
+  const pictureWrapperStyle = {
+    width: "fit-content",
+    left: "50%",
+    transform: "translateX(-50%)",
+  };
   return (
     <>
       <link
@@ -41,198 +47,231 @@ export default function Resume2({
       />
       <div className="resume-container" style={{ flexDirection: "column" }}>
         <div
-          className="header"
+          className="header flex2"
           style={{ backgroundColor: activeColor, maxWidth: "1450px" }}
         >
-          <div className="full-name">
-            {/* First Name */}
-            <span className="first-name">
-              <UpdateQuestionWrapper className="first-name">
-                <UpdateQuestion
-                  key={JSON.stringify(questions)}
-                  section="basicInfo"
-                  index={1}
-                  title="Edit First Name"
-                  questions={questions}
-                  setQuestions={setQuestions}
-                />
-                {questions?.basicInfo?.questions.find((q) => q.index === 1)
-                  ?.answer[lang].length === 0 && t("field.fname")}{" "}
-                {
-                  questions?.basicInfo?.questions.find((q) => q.index === 1)
-                    ?.answer[lang]
-                }
-              </UpdateQuestionWrapper>
-            </span>
-            {/* Last Name */}
-            <span className="last-name">
-              <UpdateQuestionWrapper className="last-name">
-                <UpdateQuestion
-                  key={JSON.stringify(questions)}
-                  section="basicInfo"
-                  index={2}
-                  title="Edit Last Name"
-                  questions={questions}
-                  setQuestions={setQuestions}
-                />
-                {questions?.basicInfo?.questions.find((q) => q.index === 2)
-                  ?.answer[lang].length === 0 && t("field.lname")}
-                {" " +
-                  questions?.basicInfo?.questions.find((q) => q.index === 2)
-                    ?.answer[lang]}
-              </UpdateQuestionWrapper>
-            </span>
-          </div>
-          <div className="contact-info">
-            {/* Email */}
-            <UpdateQuestionWrapper
-              className="email"
-              removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 9)
-                  ?.removed
-              }
-            >
-              <span className="email">
-                <MailOutlined /> {t("label.email")}:{" "}
-              </span>
-              <span className="email-val">
-                <UpdateQuestion
-                  key={JSON.stringify(questions)}
-                  section="basicInfo"
-                  index={9}
-                  title="Edit Email"
-                  questions={questions}
-                  setQuestions={setQuestions}
-                />
-                <span>
-                  {
-                    questions?.basicInfo?.questions.find((q) => q.index === 9)
-                      ?.answer[lang]
-                  }
-                </span>
-              </span>
-            </UpdateQuestionWrapper>
-            <span className="separator"></span>
-
-            {/* Phone */}
-            <UpdateQuestionWrapper
-              className="phone"
-              removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 8)
-                  ?.removed
-              }
-            >
-              <span className="phone">
-                <PhoneOutlined /> {t("label.phone")}:{" "}
-              </span>
-              <UpdateQuestion
-                key={JSON.stringify(questions)}
-                section="basicInfo"
-                index={8}
-                title="Edit Phone Number"
-                questions={questions}
-                setQuestions={setQuestions}
-              />
-              <span className="phone-val">
-                {
-                  questions?.basicInfo?.questions.find((q) => q.index === 8)
-                    ?.answer[lang]
-                }
-              </span>
-            </UpdateQuestionWrapper>
-            <span className="separator"></span>
-
-            {/* LinkedIn */}
-            <UpdateQuestionWrapper
-              className="linkedin"
-              removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 10)
-                  ?.removed
-              }
-            >
-              <span className="linkedIn">
-                <LinkedinOutlined /> {t("label.linkedin")}:{" "}
-              </span>
-              <UpdateQuestion
-                key={JSON.stringify(questions)}
-                section="basicInfo"
-                index={10}
-                title="Edit Linkedin profile"
-                questions={questions}
-                setQuestions={setQuestions}
-              />
-              <span className="linkedIn-val">
-                {
-                  questions?.basicInfo?.questions.find((q) => q.index === 10)
-                    ?.answer[lang]
-                }
-              </span>
-            </UpdateQuestionWrapper>
-
-            <span className="separator"></span>
-            {/* Website */}
-            <UpdateQuestionWrapper
-              className="website"
-              removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 11)
-                  ?.removed
-              }
-            >
-              <span className="linkedIn">
-                <GlobalOutlined /> {t("label.website")}:{" "}
-              </span>
-              <UpdateQuestion
-                key={JSON.stringify(questions)}
-                section="basicInfo"
-                index={11}
-                title="Edit Website"
-                questions={questions}
-                setQuestions={setQuestions}
-              />
-              <span className="linkedIn-val">
-                {
-                  questions?.basicInfo?.questions.find((q) => q.index === 11)
-                    ?.answer[lang]
-                }
-              </span>
-            </UpdateQuestionWrapper>
-          </div>
-
-          <div className="about">
-            <span className="desc">
+          <div className="left2">
+            <div className="picture">
+              {/* Picture */}
               <UpdateQuestionWrapper
-                className="info-profile"
+                className="picture"
+                display={"block"}
+                style={pictureWrapperStyle}
                 removed={
-                  questions?.basicInfo?.questions.find((q) => q.index === 53)
+                  questions?.basicInfo?.questions.find((q) => q.index === 5)
                     ?.removed
                 }
-                display="block"
               >
-                <Spin spinning={isProfileAILoading}>
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={5}
+                  title="Edit Picture"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <Avatar
+                  shape="square"
+                  size={150}
+                  icon={<UserOutlined />}
+                  src={
+                    questions?.basicInfo?.questions.find((q) => q.index === 5)
+                      ?.answer[lang]
+                  }
+                />
+              </UpdateQuestionWrapper>
+            </div>
+          </div>
+          <div className="right2">
+            <div className="full-name">
+              {/* First Name */}
+              <span className="first-name">
+                <UpdateQuestionWrapper className="first-name">
                   <UpdateQuestion
                     key={JSON.stringify(questions)}
                     section="basicInfo"
-                    index={53}
-                    title="Edit Profile Summary"
+                    index={1}
+                    title="Edit First Name"
                     questions={questions}
                     setQuestions={setQuestions}
-                    AIField={true}
-                    isLoading={isProfileAILoading}
-                    setIsLoading={setIsProfileAILoading}
                   />
-                  <span className="position">
-                    {t("section.profileSummary")}
-                  </span>
-                  <span className="profile-content">
+                  {questions?.basicInfo?.questions.find((q) => q.index === 1)
+                    ?.answer[lang].length === 0 && t("field.fname")}{" "}
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 1)
+                      ?.answer[lang]
+                  }
+                </UpdateQuestionWrapper>
+              </span>
+              {/* Last Name */}
+              <span className="last-name">
+                <UpdateQuestionWrapper className="last-name">
+                  <UpdateQuestion
+                    key={JSON.stringify(questions)}
+                    section="basicInfo"
+                    index={2}
+                    title="Edit Last Name"
+                    questions={questions}
+                    setQuestions={setQuestions}
+                  />
+                  {questions?.basicInfo?.questions.find((q) => q.index === 2)
+                    ?.answer[lang].length === 0 && t("field.lname")}
+                  {" " +
+                    questions?.basicInfo?.questions.find((q) => q.index === 2)
+                      ?.answer[lang]}
+                </UpdateQuestionWrapper>
+              </span>
+            </div>
+            <div className="contact-info">
+              {/* Email */}
+              <UpdateQuestionWrapper
+                className="email"
+                removed={
+                  questions?.basicInfo?.questions.find((q) => q.index === 9)
+                    ?.removed
+                }
+              >
+                <span className="email">
+                  <MailOutlined /> {t("label.email")}:{" "}
+                </span>
+                <span className="email-val">
+                  <UpdateQuestion
+                    key={JSON.stringify(questions)}
+                    section="basicInfo"
+                    index={9}
+                    title="Edit Email"
+                    questions={questions}
+                    setQuestions={setQuestions}
+                  />
+                  <span>
                     {
-                      questions?.basicInfo?.questions.find(
-                        (q) => q.index === 53
-                      )?.answer[lang]
+                      questions?.basicInfo?.questions.find((q) => q.index === 9)
+                        ?.answer[lang]
                     }
                   </span>
-                </Spin>
+                </span>
               </UpdateQuestionWrapper>
-            </span>
+              <span className="separator"></span>
+
+              {/* Phone */}
+              <UpdateQuestionWrapper
+                className="phone"
+                removed={
+                  questions?.basicInfo?.questions.find((q) => q.index === 8)
+                    ?.removed
+                }
+              >
+                <span className="phone">
+                  <PhoneOutlined /> {t("label.phone")}:{" "}
+                </span>
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={8}
+                  title="Edit Phone Number"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <span className="phone-val">
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 8)
+                      ?.answer[lang]
+                  }
+                </span>
+              </UpdateQuestionWrapper>
+              <span className="separator"></span>
+
+              {/* LinkedIn */}
+              <UpdateQuestionWrapper
+                className="linkedin"
+                removed={
+                  questions?.basicInfo?.questions.find((q) => q.index === 10)
+                    ?.removed
+                }
+              >
+                <span className="linkedIn">
+                  <LinkedinOutlined /> {t("label.linkedin")}:{" "}
+                </span>
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={10}
+                  title="Edit Linkedin profile"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <span className="linkedIn-val">
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 10)
+                      ?.answer[lang]
+                  }
+                </span>
+              </UpdateQuestionWrapper>
+
+              <span className="separator"></span>
+              {/* Website */}
+              <UpdateQuestionWrapper
+                className="website"
+                removed={
+                  questions?.basicInfo?.questions.find((q) => q.index === 11)
+                    ?.removed
+                }
+              >
+                <span className="linkedIn">
+                  <GlobalOutlined /> {t("label.website")}:{" "}
+                </span>
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={11}
+                  title="Edit Website"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <span className="linkedIn-val">
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 11)
+                      ?.answer[lang]
+                  }
+                </span>
+              </UpdateQuestionWrapper>
+            </div>
+            <div className="about">
+              <span className="desc">
+                <UpdateQuestionWrapper
+                  className="info-profile"
+                  removed={
+                    questions?.basicInfo?.questions.find((q) => q.index === 53)
+                      ?.removed
+                  }
+                  display="block"
+                >
+                  <Spin spinning={isProfileAILoading}>
+                    <UpdateQuestion
+                      key={JSON.stringify(questions)}
+                      section="basicInfo"
+                      index={53}
+                      title="Edit Profile Summary"
+                      questions={questions}
+                      setQuestions={setQuestions}
+                      AIField={true}
+                      isLoading={isProfileAILoading}
+                      setIsLoading={setIsProfileAILoading}
+                    />
+                    <span className="position">
+                      {t("section.profileSummary")}
+                    </span>
+                    <span className="profile-content">
+                      {
+                        questions?.basicInfo?.questions.find(
+                          (q) => q.index === 53
+                        )?.answer[lang]
+                      }
+                    </span>
+                  </Spin>
+                </UpdateQuestionWrapper>
+              </span>
+            </div>
           </div>
         </div>
         <div className="container">
