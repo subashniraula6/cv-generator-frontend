@@ -137,6 +137,34 @@ export default function Form({ questions, setQuestions, type }) {
             .sort((a, b) => a.index - b.index),
         },
       };
+    } else if (currentQuestionIdx === 14 && currentAnswer.length > 0) {
+      // add 
+      let existing = questions[currentSection]["questions"].find(q => q.index === 15);
+      if(existing) return updatedQuestions;
+      let generated_questions = [
+        questions[currentSection]["auto_generated_questions"].find(q => q.index === 15),
+      ];
+      return {
+        ...updatedQuestions,
+        [currentSection]: {
+          ...updatedQuestions[currentSection],
+          questions: [
+            ...updatedQuestions[currentSection]["questions"],
+            ...generated_questions,
+          ].sort((a, b) => a.index - b.index),
+        },
+      }
+    } else if (currentQuestionIdx === 14 && currentAnswer.length === 0) {
+      // remove
+      return {
+        ...updatedQuestions,
+        [currentSection]: {
+          ...updatedQuestions[currentSection],
+          questions: updatedQuestions[currentSection]["questions"]
+            .filter((q) => q.index !== 15)
+            .sort((a, b) => a.index - b.index),
+        },
+      };
     } else if (currentQuestionIdx === 15 && currentAnswer === "yes") {
       let prevQuestion = findPrevQuestion();
       let answers = prevQuestion.answer[lang].split(",");

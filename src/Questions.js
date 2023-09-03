@@ -37,6 +37,18 @@ const questions = {
         },
         removed: false
       },
+      {
+        index: 15,
+        question: {
+          en: "Do you want to indicate how good you are in each language?",
+          sv: "Vill du ange hur bra du är på varje språk?"
+        },
+        type: "boolean",
+        answer: {
+          en: "no",
+          sv: "no"
+        },
+      },
     ],
     questions: [
       {
@@ -216,18 +228,6 @@ const questions = {
         answer: {
           en: "",
           sv: ""
-        },
-      },
-      {
-        index: 15,
-        question: {
-          en: "Do you want to indicate how good you are in each language?",
-          sv: "Vill du ange hur bra du är på varje språk?"
-        },
-        type: "boolean",
-        answer: {
-          en: "no",
-          sv: "no"
         },
       },
       {
