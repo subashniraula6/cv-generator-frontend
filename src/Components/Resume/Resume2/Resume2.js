@@ -717,16 +717,20 @@ export default function Resume2({
                                     (q) => q.index === 14 + 2 + idx
                                   )?.answer
                                 }
-                                lang={lang}
-                                questions={questions}
-                                setQuestions={setQuestions}
-                                questionIdx={14 + 2 + idx}
+                                options={
+                                  questions.basicInfo.questions.find(
+                                    (q) => q.index === 14 + 2 + idx
+                                  )?.options
+                                }
                               />
                             )}
                           </span>
                         ) : null;
                       })}
                   </Space>
+                  <br />
+                  <br />
+                  <br />
                   <ArrowDown />
                 </>
               }
@@ -771,6 +775,9 @@ export default function Resume2({
                     })}
                 </Space>
               </>
+              <br />
+              <br />
+              <br />
               <ArrowDown />
             </UpdateQuestionWrapper>
             <br />

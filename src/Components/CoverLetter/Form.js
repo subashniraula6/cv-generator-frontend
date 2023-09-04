@@ -118,7 +118,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
       setIsFormComplete(true);
     }
   };
-
+  
   const handlePrev = (e) => {
     e.preventDefault();
     let firstQuestionIndex = findFirstQuestionIdx();
@@ -197,7 +197,6 @@ export default function Form({ questions, setQuestions, generateCover }) {
     setIsFormComplete(false);
     setcurrentQuestionIdx(findFirstQuestionIdx());
   }
-
   const completedActions = (
     <div>
       <label>
@@ -210,6 +209,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
         icon={<RollbackOutlined />}
         btn={"action"}
         type={"primary"}
+        iconPosition={"left"}
       >
         Answer again
       </Button>
@@ -219,19 +219,18 @@ export default function Form({ questions, setQuestions, generateCover }) {
     </div>
   );
 
+  const handleFileChange = (imageUrl) => {
+    setCurrentAnswer(imageUrl);
+  };
+
   if (isFormComplete) {
     return completedActions;
   }
 
   return (
     <>
-      <h2>Please answer following questions: </h2>
+      <h3>Please answer following questions: </h3>
       <form>
-        <h3>
-          {questions[currentSection]["title"]
-            ? questions[currentSection]["title"]
-            : toSentenceCase(currentSection)}
-        </h3>
         {questions[currentSection].questions?.map((question) => {
           return (
             <QuestionWrapper
@@ -248,6 +247,8 @@ export default function Form({ questions, setQuestions, generateCover }) {
                   handleDateChange={(date, dateStr) =>
                     handleDateChange(date, dateStr)
                   }
+                  handleFileChange={handleFileChange}
+                  uploadUrl={"https://fakeql.com/upload"}
                   addDropdownOption={addDropdownOption}
                 />
                 <div>
@@ -263,7 +264,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
                   </Button>
                   <Button
                     type="primary"
-                    onClick={(e) => handleContinue(e)}
+                    onClick={handleContinue}
                     icon={<RightCircleOutlined />}
                   >
                     {t("button.continue")}

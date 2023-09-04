@@ -1,10 +1,7 @@
 import { Modal, Spin } from "antd";
 import { Button } from "../Common/Button";
 import React, { useRef, useState } from "react";
-import {
-  DownloadOutlined,
-  FileDoneOutlined,
-} from "@ant-design/icons";
+import { DownloadOutlined, FileDoneOutlined } from "@ant-design/icons";
 import { useLanguage } from "../../context/Language";
 import ReactToPrint from "react-to-print";
 import Form from "./Form";
@@ -77,29 +74,24 @@ export default function CoverLetter({ title, questions, setQuestions }) {
       });
   }
 
-  const coverLetterStyle = {
-    padding: "30px",
+  const modalContentStyle = {
+    marginBottom: "80px",
   };
 
+  const coverLetterStyle = {};
+
   return (
-    <>
-      <Button
-        type="primary"
-        onClick={showModal}
-        icon={<FileDoneOutlined />}
-      >
+    <div>
+      <Button type="primary" onClick={showModal} icon={<FileDoneOutlined />}>
         {t("button.coverLetter")}
       </Button>
       <Modal
         title={title}
         open={isModalOpen}
+        maskClosable={true}
         footer={
           <div>
-            <Button
-              type={"primary"}
-              btn={"action"}
-              onClick={handleCancel}
-            >
+            <Button type={"primary"} btn={"action"} onClick={handleCancel}>
               Cancel
             </Button>
             <ReactToPrint
@@ -119,21 +111,27 @@ export default function CoverLetter({ title, questions, setQuestions }) {
             />
           </div>
         }
+        onOk={handleOk}
+        onCancel={handleCancel}
       >
-        <Form
-          questions={questions}
-          setQuestions={setQuestions}
-          generateCover={generateCover}
-        />
-        <Spin spinning={isLoading}>
-          {isCoverGenerated && <h4>Preview</h4>}
-          <div
-            style={coverLetterStyle}
-            ref={coverRef}
-            dangerouslySetInnerHTML={{ __html: content }}
+        <div style={modalContentStyle}>
+          <Form
+            questions={questions}
+            setQuestions={setQuestions}
+            generateCover={generateCover}
           />
-        </Spin>
+          <Spin spinning={isLoading}>
+            <div>
+              {isCoverGenerated && <h4>Preview</h4>}
+              <div
+                style={coverLetterStyle}
+                ref={coverRef}
+                dangerouslySetInnerHTML={{ __html: content }}
+              />
+            </div>
+          </Spin>
+        </div>
       </Modal>
-    </>
+    </div>
   );
 }

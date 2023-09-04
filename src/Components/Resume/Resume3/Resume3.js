@@ -356,9 +356,7 @@ const Resume3 = forwardRef(
                                           questions={questions}
                                           setQuestions={setQuestions}
                                         />
-                                        {
-                                          groupedEducation[group][1].answer
-                                        }
+                                        {groupedEducation[group][1].answer}
                                       </UpdateQuestionWrapper>
                                     </Col>
                                     <Col>
@@ -373,10 +371,9 @@ const Resume3 = forwardRef(
                                           questions={questions}
                                           setQuestions={setQuestions}
                                         />
-                                        {groupedEducation[group][2].answer && " - "}{" "}
-                                        {
-                                          groupedEducation[group][2].answer
-                                        }
+                                        {groupedEducation[group][2].answer &&
+                                          " - "}{" "}
+                                        {groupedEducation[group][2].answer}
                                       </UpdateQuestionWrapper>
                                     </Col>
                                   </Row>
@@ -407,9 +404,7 @@ const Resume3 = forwardRef(
                                           textOverflow: "inherit",
                                         }}
                                       >
-                                        {
-                                          groupedEducation[group][3].answer
-                                        }
+                                        {groupedEducation[group][3].answer}
                                       </span>
                                     </UpdateQuestionWrapper>
                                     <UpdateQuestionWrapper>
@@ -423,9 +418,7 @@ const Resume3 = forwardRef(
                                       />
                                       {groupedEducation[group][0].answer && ","}{" "}
                                       <span style={{ fontStyle: "italic" }}>
-                                        {
-                                          groupedEducation[group][0].answer
-                                        }
+                                        {groupedEducation[group][0].answer}
                                       </span>
                                     </UpdateQuestionWrapper>
                                   </div>
@@ -519,10 +512,11 @@ const Resume3 = forwardRef(
                                       (q) => q.index === 14 + 2 + idx
                                     )?.answer
                                   }
-                                  lang={lang}
-                                  questions={questions}
-                                  setQuestions={setQuestions}
-                                  questionIdx={14 + 2 + idx}
+                                  options={
+                                    questions.basicInfo.questions.find(
+                                      (q) => q.index === 14 + 2 + idx
+                                    )?.options
+                                  }
                                 />
                               )}
                             </span>
@@ -621,10 +615,7 @@ const Resume3 = forwardRef(
                                               questions={questions}
                                               setQuestions={setQuestions}
                                             />
-                                            {
-                                              groupedExperience[group][1]
-                                                .answer
-                                            }
+                                            {groupedExperience[group][1].answer}
                                           </UpdateQuestionWrapper>
                                         </Col>
                                         <Col>{" - "}</Col>
@@ -641,10 +632,7 @@ const Resume3 = forwardRef(
                                               questions={questions}
                                               setQuestions={setQuestions}
                                             />
-                                            {
-                                              groupedExperience[group][0]
-                                                .answer
-                                            }
+                                            {groupedExperience[group][0].answer}
                                           </UpdateQuestionWrapper>
                                         </Col>
                                       </Row>
@@ -669,9 +657,7 @@ const Resume3 = forwardRef(
                                             setQuestions={setQuestions}
                                           />
                                           {
-                                            groupedExperience[group][2].answer[
-                                              lang
-                                            ]
+                                            groupedExperience[group][2].answer
                                           }
                                         </UpdateQuestionWrapper>
                                       </span>
@@ -689,9 +675,7 @@ const Resume3 = forwardRef(
                                             setQuestions={setQuestions}
                                           />
                                           {
-                                            groupedExperience[group][3].answer[
-                                              lang
-                                            ]
+                                            groupedExperience[group][3].answer
                                           }
                                         </UpdateQuestionWrapper>
                                       </span>
@@ -717,9 +701,7 @@ const Resume3 = forwardRef(
                                           AIType="workSummary"
                                         />
                                         &bull;{" "}
-                                        {
-                                          groupedExperience[group][4].answer
-                                        }
+                                        {groupedExperience[group][4].answer}
                                       </UpdateQuestionWrapper>
                                     }
                                   </p>
@@ -773,16 +755,12 @@ const Resume3 = forwardRef(
                                         />
                                         <SubSectionHeading>
                                           {
-                                            groupedProject[group][0].answer[
-                                              lang
-                                            ]
+                                            groupedProject[group][0].answer
                                           }
                                         </SubSectionHeading>
                                       </UpdateQuestionWrapper>
                                       <span>
-                                        {groupedProject[group][1].answer[
-                                          lang
-                                        ] && " | "}
+                                        {groupedProject[group][1].answer && " | "}
                                         <UpdateQuestionWrapper className="info-position">
                                           <UpdateQuestion
                                             key={JSON.stringify(questions)}
@@ -799,15 +777,11 @@ const Resume3 = forwardRef(
                                             target="_blank"
                                             rel="noreferrer"
                                             href={
-                                              groupedProject[group][1].answer[
-                                                lang
-                                              ]
+                                              groupedProject[group][1].answer
                                             }
                                           >
                                             {
-                                              groupedProject[group][1].answer[
-                                                lang
-                                              ]
+                                              groupedProject[group][1].answer
                                             }
                                           </a>
                                         </UpdateQuestionWrapper>

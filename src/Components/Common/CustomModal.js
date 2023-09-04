@@ -50,6 +50,8 @@ export default function CustomModal({
             </Button>
           </div>
         }
+        onOk={handleOk}
+        onCancel={handleCancel}
       >
         {children}
       </Modal>

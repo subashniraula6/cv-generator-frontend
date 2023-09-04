@@ -47,7 +47,7 @@ export default function Resume2({
       />
       <div className="resume-container div-flex-4">
         {/* left start */}
-        <div class="div-left-4">
+        <div className="div-left-4">
           <div className="header4 div-col" style={{ maxWidth: "1450px" }}>
             <div className="picture">
               {/* Picture */}
@@ -699,10 +699,11 @@ export default function Resume2({
                                     (q) => q.index === 14 + 2 + idx
                                   )?.answer
                                 }
-                                lang={lang}
-                                questions={questions}
-                                setQuestions={setQuestions}
-                                questionIdx={14 + 2 + idx}
+                                options={
+                                  questions.basicInfo.questions.find(
+                                    (q) => q.index === 14 + 2 + idx
+                                  )?.options
+                                }
                               />
                             )}
                           </span>

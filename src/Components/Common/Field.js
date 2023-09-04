@@ -23,11 +23,11 @@ const Field = ({
     return current && current > dayjs().endOf("day");
   };
   const questionStyle = {
-    fontSize: "18px", 
+    fontSize: "16px",
     fontWeight: "bold",
     color: "#333",
-    marginBottom: "20px" 
-  }
+    marginBottom: "20px",
+  };
 
   const monthFormat = "MMM YYYY";
   return (
@@ -52,6 +52,7 @@ const Field = ({
           onBlur={handleInputChange}
           defaultValue={question.answer}
           {...otherProps}
+          style={{ resize: "none" }}
         />
       )}
 
@@ -73,9 +74,7 @@ const Field = ({
           size="large"
           onChange={handleDateChange}
           disabledDate={disabledDate}
-          defaultValue={
-            question.answer ? dayjs(question.answer) : undefined
-          }
+          defaultValue={question.answer ? dayjs(question.answer) : undefined}
           {...otherProps}
         />
       )}
