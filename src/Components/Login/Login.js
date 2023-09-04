@@ -86,7 +86,7 @@ export default function Login() {
   const loginContainer = {
     height: "450px",
     width: "500px",
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "rgb(149, 0, 255, 0.07)",
     borderRadius: "15px",
   };
 
@@ -108,14 +108,13 @@ export default function Login() {
         >
           {t("login.info")}
         </div>
-        <div style={{ width: "90%", margin: "0px auto" }}>
+        <div style={{ width: "90%", margin: "10px auto" }}>
           <Input
             size="large"
             type="email"
             placeholder={t("placeholder.email")}
             prefix={<UserOutlined />}
             style={{ padding: "10px" }}
-            className="mBottom"
             onChange={(text) => {
               updateUsername(text);
             }}

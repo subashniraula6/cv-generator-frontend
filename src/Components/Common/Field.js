@@ -22,10 +22,17 @@ const Field = ({
   const disabledDate = (current) => {
     return current && current > dayjs().endOf("day");
   };
+  const questionStyle = {
+    fontSize: "18px", 
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: "20px" 
+  }
+
   const monthFormat = "MMM YYYY";
   return (
     <div className="field">
-      <div>
+      <div style={questionStyle}>
         <label> {question.question} </label>
       </div>
       {question.type === "text" && (

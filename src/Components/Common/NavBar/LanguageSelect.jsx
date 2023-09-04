@@ -1,19 +1,23 @@
-import { Radio } from "antd";
+import { Radio, Select } from "antd";
 import React from "react";
 import { useLanguage } from "../../../context/Language";
 
 const LanguageSelect = () => {
-  let { language, setLanguage } = useLanguage();
-  function handleLanguageChange(e) {
-    setLanguage(e.target.value);
+  let { language, setLanguage } = useLanguage("en");
+  function setLocale(value) {
+    setLanguage(value);
   }
-  
+
   return (
     <div>
-      <Radio.Group value={language} onChange={handleLanguageChange}>
-        <Radio.Button value="en">English</Radio.Button>
-        <Radio.Button value="sv">Svenska</Radio.Button>
-      </Radio.Group>
+      <Select
+        value={language}
+        onChange={(v) => setLocale(v)}
+        style={{ marginLeft: 10 }}
+      >
+        <Select.Option value="en">English (en)</Select.Option>
+        <Select.Option value="sv">Svenska (sv)</Select.Option>
+      </Select>
     </div>
   );
 };

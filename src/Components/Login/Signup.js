@@ -94,7 +94,7 @@ export default function Signup() {
   const loginContainer = {
     height: "500px",
     width: "500px",
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "rgb(149, 0, 255, 0.07)",
     borderRadius: "15px",
   };
   // const [passwordVisible, setPasswordVisible] = React.useState(false);
@@ -115,7 +115,7 @@ export default function Signup() {
             size="large"
             placeholder={t("placeholder.firstName")}
             prefix={<UserOutlined />}
-            style={{ padding: "10px", marginRight: "2px" }}
+            style={{ padding: "10px", marginRight: '5px' }}
             className="mBottom"
             id="firstName"
             name="firstName"
@@ -126,6 +126,7 @@ export default function Signup() {
           <Input
             size="large"
             placeholder={t("placeholder.lastName")}
+            prefix={<></>}
             style={{ padding: "10px" }}
             className="mBottom"
             id="lastName"
@@ -135,7 +136,7 @@ export default function Signup() {
             required
           />
         </div>
-        <div style={{ width: "90%", margin: "0px auto" }}>
+        <div style={{ width: "90%", margin: "5px auto" }}>
           <Input
             size="large"
             placeholder={t("placeholder.email")}
@@ -150,7 +151,7 @@ export default function Signup() {
             required
           />
         </div>
-        <div style={{ width: "90%", margin: "0px auto" }}>
+        <div style={{ width: "90%", margin: "5px auto" }}>
           <Input.Password
             size="large"
             placeholder={t("placeholder.password")}
@@ -164,7 +165,7 @@ export default function Signup() {
             onChange={handleChange}
           />
         </div>
-        <div style={{ width: "90%", margin: "0px auto" }}>
+        <div style={{ width: "90%", margin: "5px auto" }}>
           <Input.Password
             size="large"
             status={password !== cPassword ? "error" : ""}

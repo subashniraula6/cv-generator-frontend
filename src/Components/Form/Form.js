@@ -434,7 +434,6 @@ export default function Form({ questions, setQuestions, type }) {
             ? questions[currentSection]["title"]
             : toSentenceCase(currentSection)}
         </h3>
-        {/* Basic Info */}
         {Object.keys(questions)?.map((section) => {
           return questions[section].questions?.map((question) => {
             return (

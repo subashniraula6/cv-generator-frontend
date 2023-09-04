@@ -11,6 +11,7 @@ import { useFirebase } from "../../../context/Firebase";
 import { useLanguage } from "../../../context/Language";
 import { useNavigate } from "react-router-dom";
 import LanguageSelect from "./LanguageSelect";
+import { useLocation } from "react-router-dom"
 
 const routes = [
   {
@@ -64,21 +65,21 @@ const DropdownMenu = () => {
         items: getItems(logout, t),
       }}
     >
-      <a>
         <Avatar
           style={{ backgroundColor: "#87d068" }}
           size={35}
           icon={<UserOutlined />}
         />
-      </a>
     </Dropdown>
   );
 };
 
 const NavBar = () => {
+  const {pathname: location} = useLocation();
   let { t } = useLanguage();
   let { user } = useFirebase();
   let navigate = useNavigate();
+  if(location === "/") return null;
   return (
     <PageHeader
       title="KNEG"

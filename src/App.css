@@ -104,3 +104,6 @@
   background-color: #a8bbbf;
 }
 
+.ant-input, .ant-dropdown-menu-item, .ant-dropdown-menu-item-only-child {
+  background-color: rgba(149, 0, 255, 0.01) !important;
+}
