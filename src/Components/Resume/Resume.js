@@ -39,9 +39,9 @@ const Resume = forwardRef(
     const { Link } = Anchor;
     const { language: lang, t } = useLanguage();
     const pictureWrapperStyle = {
-      width: 'fit-content',
-      left: '50%',
-      transform: 'translateX(-50%)'
+      width: "fit-content",
+      left: "50%",
+      transform: "translateX(-50%)",
     };
     return (
       <div className="container1">
@@ -310,10 +310,11 @@ const Resume = forwardRef(
                                     (q) => q.index === 14 + 2 + idx
                                   )?.answer
                                 }
-                                lang={lang}
-                                questions={questions}
-                                setQuestions={setQuestions}
-                                questionIdx={14 + 2 + idx}
+                                options={
+                                  questions.basicInfo.questions.find(
+                                    (q) => q.index === 14 + 2 + idx
+                                  )?.options
+                                }
                               />
                             )}
                           </span>
@@ -442,9 +443,7 @@ const Resume = forwardRef(
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
-                                          {
-                                            groupedExperience[group][1].answer
-                                          }
+                                          {groupedExperience[group][1].answer}
                                         </UpdateQuestionWrapper>
                                       </Col>
                                       <Col>{" - "}</Col>
@@ -460,9 +459,7 @@ const Resume = forwardRef(
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
-                                          {
-                                            groupedExperience[group][0].answer
-                                          }
+                                          {groupedExperience[group][0].answer}
                                         </UpdateQuestionWrapper>
                                       </Col>
                                     </Row>
@@ -486,9 +483,7 @@ const Resume = forwardRef(
                                           questions={questions}
                                           setQuestions={setQuestions}
                                         />
-                                        {
-                                          groupedExperience[group][2].answer
-                                        }
+                                        {groupedExperience[group][2].answer}
                                       </UpdateQuestionWrapper>
                                     </span>
                                     <span>{" - "}</span>
@@ -504,9 +499,7 @@ const Resume = forwardRef(
                                           questions={questions}
                                           setQuestions={setQuestions}
                                         />
-                                        {
-                                          groupedExperience[group][3].answer
-                                        }
+                                        {groupedExperience[group][3].answer}
                                       </UpdateQuestionWrapper>
                                     </span>
                                   </Col>
@@ -589,8 +582,7 @@ const Resume = forwardRef(
                                       </SubSectionHeading>
                                     </UpdateQuestionWrapper>
                                     <span>
-                                      {groupedProject[group][1].answer &&
-                                        " | "}
+                                      {groupedProject[group][1].answer && " | "}
                                       <UpdateQuestionWrapper className="info-position">
                                         <UpdateQuestion
                                           key={JSON.stringify(questions)}
@@ -729,8 +721,7 @@ const Resume = forwardRef(
                                       questions={questions}
                                       setQuestions={setQuestions}
                                     />
-                                    {groupedEducation[group][2].answer &&
-                                      " - "}{" "}
+                                    {groupedEducation[group][2].answer && " - "}{" "}
                                     {groupedEducation[group][2].answer}
                                   </UpdateQuestionWrapper>
                                 </Col>
@@ -774,8 +765,7 @@ const Resume = forwardRef(
                                     questions={questions}
                                     setQuestions={setQuestions}
                                   />
-                                  {groupedEducation[group][0].answer &&
-                                    ","}{" "}
+                                  {groupedEducation[group][0].answer && ","}{" "}
                                   <span style={{ fontStyle: "italic" }}>
                                     {groupedEducation[group][0].answer}
                                   </span>

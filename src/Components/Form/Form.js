@@ -38,8 +38,9 @@ export default function Form({ questions, setQuestions, type }) {
     let activeIndexes = questions[currentSection]["questions"].map(
       (q) => q.index
     );
+    // if removed switch to next last question of section
     if (!activeIndexes.includes(currentQuestionIdx)) {
-      setcurrentQuestionIdx(activeIndexes[0]);
+      setcurrentQuestionIdx(activeIndexes[activeIndexes.length-1]);
     }
   }, [questions]);
 

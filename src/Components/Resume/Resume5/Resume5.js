@@ -342,7 +342,6 @@ export default function Resume2({
                                         }
                                       </UpdateQuestionWrapper>
                                     </div>
-                                    <div className="addr">San Fr, CA</div>
                                     <div className="duration">
                                       <span>
                                         <UpdateQuestionWrapper className="info-position">

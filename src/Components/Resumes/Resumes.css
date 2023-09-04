@@ -9,7 +9,6 @@
 .colors {
   display: flex;
   gap: 20px;
-  padding: 0 30px;
 }
 
 .colors .color {

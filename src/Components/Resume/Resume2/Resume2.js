@@ -317,7 +317,6 @@ export default function Resume2({
                                     {groupedExperience[group][0].answer}
                                   </UpdateQuestionWrapper>
                                 </div>
-                                <div className="addr">San Fr, CA</div>
                                 <div className="duration">
                                   <span>
                                     <UpdateQuestionWrapper className="info-position">

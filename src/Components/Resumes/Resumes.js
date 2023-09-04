@@ -8,7 +8,7 @@ import Resume5 from "../Resume/Resume5/Resume5";
 import { ResumeWrapper } from "../Wrappers/Wrappers";
 import ReactToPrint from "react-to-print";
 import { Select } from "antd";
-import {Button} from '../Common/Button';
+import { Button } from "../Common/Button";
 import {
   DownloadOutlined,
   FileDoneOutlined,
@@ -76,19 +76,27 @@ function Resumes({ questions, setQuestions }) {
     <div>
       <div className="toolbar">
         <div className="colors">
-          {colors.map((item) => (
-            <span
-              key={item}
-              style={{ backgroundColor: item }}
-              className={`${"color"} ${activeColor === item ? "active" : ""}`}
-              onClick={() => {
-                setActiveColor(item)
-                localStorage.setItem("activeColor", item);
-              }}
-            />
-          ))}
+          <Select
+            value={activeColor}
+            onChange={(color) => {
+              setActiveColor(color);
+              localStorage.setItem("activeColor", color);
+            }}
+            style={{ marginLeft: 10, backgroundColor: activeColor }}
+            size="large"
+          >
+            {colors.map((item) => (
+              <Select.Option
+                key={item}
+                style={{ backgroundColor: item }}
+                className={`${"color"} ${activeColor === item ? "active" : ""}`}
+              >
+                <label style={{color: 'white'}}>{item}</label>
+              </Select.Option>
+            ))}
+          </Select>
         </div>
-        <div style={{ display: "flex", alignItems: 'center' }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <Select
             defaultValue={1}
             value={template}
@@ -99,11 +107,16 @@ function Resumes({ questions, setQuestions }) {
             }))}
             size="large"
           />
-          <CoverLetter title={t("button.coverLetter")} questions={questions} setQuestions={setQuestions} />
+          <CoverLetter
+            title={t("button.coverLetter")}
+            questions={questions}
+            setQuestions={setQuestions}
+          />
           <Button
             type={"primary"}
             icon={<SaveOutlined />}
             iconPosition={"right"}
+            style={{margin: 0}}
           >
             {t("button.save")}
           </Button>

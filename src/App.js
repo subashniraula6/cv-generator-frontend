@@ -25,6 +25,9 @@ function App() {
           Table: {
             colorBgContainer: "rgb(149, 0, 255, 0.01)",
           },
+          Select: {
+            borderRadiusOuter: "4px"
+          }
         }
       }}
     >
