@@ -44,6 +44,7 @@ export default function Login() {
             message: "Login Success",
             description: "Successfully Logged in please wait",
           });
+          console.log(user)
           navigate("/app");
         })
         .catch((error) => {
