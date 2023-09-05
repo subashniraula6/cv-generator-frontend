@@ -2,10 +2,9 @@ import React, { useState,useEffect } from 'react'
 import './homepage.css'
 import { useNavigate } from 'react-router-dom'
 import { MenuOutlined,InstagramOutlined,TwitterOutlined,FacebookFilled } from '@ant-design/icons'
-import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEarthEurope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
-import { Footer } from 'antd/es/layout/layout';
+// import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faEarthEurope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export default function Mainpage() {
     let navigate = useNavigate();
