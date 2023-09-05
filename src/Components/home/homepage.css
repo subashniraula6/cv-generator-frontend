@@ -2,16 +2,21 @@
     display: flex;
     width:90%;
     margin:0px auto;
-    padding: 15px;
+    padding: 5px;
     justify-content: space-between;
     align-items: center;
 }
 .homeNavLinks li{
+  border-radius: 16px;
+  padding: 10px;
     transition:all .3s ease-in-out;
 }
 .homeNavLinks li:hover{
-    background-color: rgb(149, 0, 255);
-    color: #fff;
+    background: rgba(255, 255, 255, 0.52);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     transition:all .3s ease-in-out;
 }
 ul{
@@ -30,16 +35,18 @@ li{
     margin:50px auto;
     flex-direction:column;
   }
-  .contentHeading{
-    font-size: 30px;
+  .contentHeading {
+    font-size: xxx-large;
     font-weight: 900;
     text-align: center;
     margin: 5px 0px;
     padding: 10px;
-  }
+}
   .contentParagraph{
     text-align:center;
-    margin:0px 0px 20px 0px;
+    font-size: larger;
+    text-align: center;
+    margin: 20px 0px 20px 0px
   }
   .coloredContainer{
     display:flex;
@@ -125,6 +132,7 @@ li{
     font-weight:600;
   }
 
+  
   .grid-container {
     display: grid;
     width: 90%;
@@ -298,3 +306,33 @@ li{
     width: 280px;
 }
   }
+
+
+  /* new */
+
+.heroTextContainer {
+    display: flex;
+    text-align: center;
+    height: 500px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.heroText {
+  font-size: xxx-large;
+  width: 80%;
+  letter-spacing: 1.2px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin: 0px auto;
+}
+.heroSubText {
+  margin: 20px 0px;
+  font-size: x-large;
+}
+.appimageContainer{
+  width: 90%;
+  height: 550px;
+  margin: 20px auto;
+}

@@ -36,6 +36,13 @@ export default function Signup() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const [acknowledgmentChecked, setAcknowledgmentChecked] = useState(false);
+
+  const handleAcknowledgmentChange = (e) => {
+    setAcknowledgmentChecked(e.target.checked);
+  };
+  
+
   const signUpEmailPass = () => {
     if (!email) {
       notification.error({
@@ -55,6 +62,13 @@ export default function Signup() {
       notification.error({
         message: "Signup Error",
         description: "Last Name is empty",
+      });
+      return;
+    }
+    if (!acknowledgmentChecked) {
+      notification.error({
+        message: "Signup Error",
+        description: "Please acknowledge the terms and conditions.",
       });
       return;
     }
@@ -178,12 +192,14 @@ export default function Signup() {
             onChange={handleChange}
           />
         </div>
+        <div style={{ width: "90%", margin: "0px auto" , padding:'0px 10px'}}>
+          <input type="checkbox" id="acknowledgementTOC" checked={acknowledgmentChecked} onChange={handleAcknowledgmentChange}/>{"  "}  I agree all the terms and condition
+        </div>
         <div
           className="flex-container"
           style={{
             justifyContent: "center",
-            backgroundColor: "unset",
-            marginTop: "20px",
+            backgroundColor: "unset"
           }}
         >
           <Button

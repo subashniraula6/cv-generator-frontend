@@ -81,7 +81,7 @@ const NavBar = () => {
   let { user } = useFirebase();
   let navigate = useNavigate();
   const location = useLocation();
-  const isHomePage = location.pathname === "/homepage";
+  const isHomePage = location.pathname === "/homepage" || location.pathname === "/mainpage";
   return (
     !isHomePage && (
       <PageHeader
