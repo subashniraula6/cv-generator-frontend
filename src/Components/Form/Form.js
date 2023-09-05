@@ -40,12 +40,18 @@ export default function Form({ questions, setQuestions, type }) {
     );
     // if removed switch to next last question of section
     if (!activeIndexes.includes(currentQuestionIdx)) {
-      setcurrentQuestionIdx(activeIndexes[activeIndexes.length-1]);
+      setcurrentQuestionIdx(activeIndexes[activeIndexes.length - 1]);
     }
   }, [questions]);
 
   useEffect(() => {
     let currentQuestion = findCurrentQuestion();
+    if(!currentQuestion) {
+      // Switch to next section if current question is invalid
+      let nextSection = findNextQuestion();
+      setCurrentSection(nextSection);
+      return;
+    }
     let currentAns = currentQuestion?.answer;
     setCurrentAnswer(currentAns);
 
@@ -137,16 +143,17 @@ export default function Form({ questions, setQuestions, type }) {
             .sort((a, b) => a.index - b.index),
         },
       };
-    } else if (currentQuestionIdx === 14 && currentAnswer.length > 0) {
-      // add
+    } else if (currentQuestionIdx === 2000 && currentAnswer.length > 0) {
+      // add language questions
       let existing = questions[currentSection]["questions"].find(
-        (q) => q.index === 15
+        (q) => q.index === 2001
       );
       if (existing) return updatedQuestions;
       let generated_questions = [
-        questions[currentSection]["auto_generated_questions"].find(
-          (q) => q.index === 15
-        ),
+        {
+          ...questions[currentSection]["auto_generated_questions"][0],
+          index: 2001,
+        },
       ];
       return {
         ...updatedQuestions,
@@ -158,18 +165,18 @@ export default function Form({ questions, setQuestions, type }) {
           ].sort((a, b) => a.index - b.index),
         },
       };
-    } else if (currentQuestionIdx === 14 && currentAnswer.length === 0) {
+    } else if (currentQuestionIdx === 2000 && currentAnswer.length === 0) {
       // remove
       return {
         ...updatedQuestions,
         [currentSection]: {
           ...updatedQuestions[currentSection],
           questions: updatedQuestions[currentSection]["questions"]
-            .filter((q) => q.index !== 15)
+            .filter((q) => q.index <= 2000)
             .sort((a, b) => a.index - b.index),
         },
       };
-    } else if (currentQuestionIdx === 15 && currentAnswer === "yes") {
+    } else if (currentQuestionIdx === 2001 && currentAnswer === "yes") {
       let prevQuestion = findPrevQuestion();
       let answers = prevQuestion.answer.split(",");
       if (!answers.length || !answers[0]) {
@@ -180,13 +187,13 @@ export default function Form({ questions, setQuestions, type }) {
       updatedQuestions[currentSection]["questions"] = updatedQuestions[
         currentSection
       ]["questions"]
-        .filter((q) => q.index <= currentQuestionIdx || q.index >= 50)
+        .filter((q) => q.index <= currentQuestionIdx)
         .sort((a, b) => a.index - b.index);
 
       // add new generated questions
       let questionTemplate = updatedQuestions[currentSection][
         "auto_generated_questions"
-      ].find((q) => q.index === 1);
+      ][1];
       if (questionTemplate) {
         let generated_questions = answers.map((a, idx) => {
           return {
@@ -207,7 +214,7 @@ export default function Form({ questions, setQuestions, type }) {
         };
       }
     } else if (
-      currentQuestionIdx === 15 &&
+      currentQuestionIdx === 2001 &&
       (currentAnswer === "no" || currentAnswer === "")
     ) {
       // delete previously generated questions
@@ -216,7 +223,7 @@ export default function Form({ questions, setQuestions, type }) {
         [currentSection]: {
           ...updatedQuestions[currentSection],
           questions: updatedQuestions[currentSection]["questions"]
-            .filter((q) => q.index <= currentQuestionIdx || q.index >= 50)
+            .filter((q) => q.index <= currentQuestionIdx)
             .sort((a, b) => a.index - b.index),
         },
       };
@@ -271,13 +278,14 @@ export default function Form({ questions, setQuestions, type }) {
       let stopIdx = currentQuestionIdx + currentQuestion?.update?.noOfQues;
       let targetQuestions = updatedQuestions[currentSection][
         "questions"
-      ].filter((q) => q.index >= startIdx && q.index <= stopIdx);
+      ].filter((q) => q.index >= startIdx && q.index <= stopIdx && q.template);
       let key = currentQuestion?.update?.key;
       let updatedTargetQuestions = targetQuestions.map((targetQuestion) => {
         let regExp = new RegExp("{{" + key + "}}");
         return {
           ...targetQuestion,
-          question: targetQuestion.template?.replace(regExp, currentAnswer) ||
+          question:
+            targetQuestion.template?.replace(regExp, currentAnswer) ||
             targetQuestion.question,
         };
       });
@@ -291,7 +299,7 @@ export default function Form({ questions, setQuestions, type }) {
       return updatedQuestions;
     }
   };
-
+  
   function replaceQuestions(updatedQuestions, targetQuestions) {
     let innerQuestions = updatedQuestions[currentSection]["questions"];
     targetQuestions.forEach((targetQuestion) => {

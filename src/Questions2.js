@@ -5,26 +5,11 @@ const questions = {
     repeatable: false,
     auto_generated_questions: [
       {
-        index: 1,
-        question: "How are your {{language}} skills?",
-        isLanguageRating: true,
-        type: "select",
-        options:
-          "Mother tongue, Fluid, Good knowledge of speech and writing, Very good skills in speaking and writing, Basic skills in speaking and writing",
-        answer: "",
-      },
-      {
         index: 5,
         question: "Select your picture",
         type: "file",
         answer: "",
         removed: false,
-      },
-      {
-        index: 15,
-        question: "Do you want to indicate how good you are in each language?",
-        type: "boolean",
-        answer: "no",
       },
     ],
     questions: [
@@ -55,8 +40,8 @@ const questions = {
       },
       {
         index: 6,
-        question:
-          "Which area(s) do you have the most experience in? Write your own answers or choose one or more of the suggestions below.",
+        question: "Which area(s) do you have the most experience in ?",
+        hint: "Write your own answers or choose one or more of the suggestions below.",
         type: "textSelect",
         options:
           "Administration, Analysis, Digital marketing, Economics, Finance, Communication, Creative work, Leadership, Logistics, Marketing, Pedagogy, Project management, Service, Siukvard, Eternal One",
@@ -72,42 +57,49 @@ const questions = {
       },
       {
         index: 8,
-        question:
-          "Enter the phone number you want to be included in your application documents. You don't have to answer this question if you don't want to, but your application documents will be better if you do.",
-        removed: false,
-        type: "text",
+        question: "What is your address ?",
+        type: "textArea",
         answer: "",
       },
       {
         index: 9,
-        question: "Enter your Email",
+        question:
+          "Enter the phone number you want to be included in your application documents",
+        hint: "You don't have to answer this question if you don't want to, but your application documents will be better if you do.",
         removed: false,
         type: "text",
         answer: "",
       },
       {
         index: 10,
-        question: "Enter your linkedin if you have any",
+        question: "Enter your Email",
         removed: false,
         type: "text",
         answer: "",
       },
       {
         index: 11,
-        question: "Enter your Website if you have any",
+        question: "Enter your linkedin if you have any",
         removed: false,
         type: "text",
         answer: "",
       },
       {
         index: 12,
-        question:
-          "Which city do you work in or want a job in? You don't have to answer this question if you don't want to, but your application documents will be better if you do.",
+        question: "Enter your Website if you have any",
+        removed: false,
         type: "text",
         answer: "",
       },
+    ],
+  },
+  skills: {
+    title: "Skills",
+    removed: false,
+    repeatable: false,
+    questions: [
       {
-        index: 13,
+        index: 1000,
         question: "What skills do you want to highlight in your CV?",
         removed: false,
         type: "textSelect",
@@ -115,10 +107,34 @@ const questions = {
           "Business development, Accounting, Copywriting, Economics, Excel, Facebook Business Manager, Google AdWords, Google Analytics, Crafts, Cooking, Microsoft Office, Pedagogy, Powerpoint, Programming, Project management, Service, Writing, Slack, Training, Digital marketing, les, Photoshop, SAP, SEO, Words",
         answer: "",
       },
+    ]
+  },
+  languages: {
+    title: "Languages",
+    removed: false,
+    repeatable: false,
+    auto_generated_questions: [
       {
-        index: 14,
-        question:
-          "Which language(s) do you have knowledge of? If you want, you can indicate how good you are in each language in a later question.",
+        index: 0,
+        question: "Do you want to indicate how good you are in each language?",
+        type: "boolean",
+        answer: "no",
+      },
+      {
+        index: 0,
+        question: "How are your {{language}} skills?",
+        isLanguageRating: true,
+        type: "select",
+        options:
+          "Mother tongue, Fluid, Good knowledge of speech and writing, Very good skills in speaking and writing, Basic skills in speaking and writing",
+        answer: "",
+      },
+    ],
+    questions: [
+      {
+        index: 2000,
+        question: "Which language(s) do you have knowledge of ?",
+        hint: "If you want, you can indicate how good you are in each language in a later question.",
         removed: false,
         type: "textSelect",
         options:
@@ -126,8 +142,15 @@ const questions = {
         required: true,
         answer: "",
       },
+    ],
+  },
+  interests: {
+    title: "Interests",
+    removed: false,
+    repeatable: false,
+    questions: [
       {
-        index: 50,
+        index: 3000,
         question: "What are your interests?",
         removed: false,
         type: "textSelect",
@@ -135,18 +158,15 @@ const questions = {
           "Architecture, Camping, Facebook, History, Baking, Child care, Computers, Computer games, Family activities, Movie, Throat, IT, Cars, Design, Golf, Construction, Digitization, Home remedies, Reading, Marketing, Journalism, Cooking, Art, Fashion, Literature, Politics, Renovation, Writing, Spreak, Styling, TV game, Hiking, Travels, Acting, Song, Tech, Performing arts, Beauty, Textile work, Sailing, Social Media, Tiktok, Skiing, Garden work, Sports",
         answer: "",
       },
+    ],
+  },
+  awards: {
+    title: "Awards",
+    removed: false,
+    repeatable: false,
+    questions: [
       {
-        index: 51,
-        question:
-          "Which certification(s) do you want to include in your CV? Remember to only include certifications that are relevant to the jobs you are applying for.",
-        removed: false,
-        type: "textSelect",
-        options:
-          "driver's license, Forklift driving license, Google Ads certification, Meta-certification",
-        answer: "",
-      },
-      {
-        index: 52,
+        index: 4000,
         question: "What prizes or awards do you want to include in your CV?",
         removed: false,
         type: "textSelect",
@@ -154,12 +174,21 @@ const questions = {
           "Teacher of the year, Salesperson of the year, Gold at the Swedish Content Awards, Aret's newcomer, Employee of the month",
         answer: "",
       },
+    ],
+  },
+  certifications: {
+    title: "Certifications",
+    removed: false,
+    repeatable: false,
+    questions: [
       {
-        index: 53,
-        question:
-          "Wanna include your profile summary? (For best AI experience mention some of it)",
+        index: 5000,
+        question: "Which certification(s) do you want to include in your CV?",
+        hint: "Remember to only include certifications that are relevant to the jobs you are applying for.",
         removed: false,
-        type: "textArea",
+        type: "textSelect",
+        options:
+          "driver's license, Forklift driving license, Google Ads certification, Meta-certification",
         answer: "",
       },
     ],
@@ -169,7 +198,7 @@ const questions = {
     removed: false,
     questions: [
       {
-        index: 1001,
+        index: 6000,
         question: "Name of company/employer you are looking for a job with:",
         type: "text",
         update: {
@@ -179,21 +208,21 @@ const questions = {
         answer: "",
       },
       {
-        index: 1002,
+        index: 6001,
         template: "What is the address of {{company}}?",
         question: "What is the address of {{company}}?",
         type: "text",
         answer: "",
       },
       {
-        index: 1003,
+        index: 6002,
         template: "Which position are you applying for at {{company}}?",
         question: "Which position are you applying for at {{company}}?",
         type: "text",
         answer: "",
       },
       {
-        index: 1004,
+        index: 6003,
         template:
           "What made you want to apply for this job as mentioned position at {{company}}?",
         question:
@@ -209,18 +238,26 @@ const questions = {
     noOfItems: 0,
     auto_generated_questions: [
       {
-        index: 2000,
+        index: 0,
         question: "Where did you previously work at?",
         removed: false,
         type: "text",
         update: {
           key: "company",
-          noOfQues: 4,
+          noOfQues: 5,
         },
         answer: "",
       },
       {
-        index: 2000,
+        index: 0,
+        template: "What is the address of {{company}}?",
+        question: "",
+        removed: false,
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 0,
         template:
           "Your title/position at {{company}}: Type any text. You don't need to scroll through the list.",
         question: "",
@@ -228,28 +265,28 @@ const questions = {
         answer: "",
       },
       {
-        index: 2000,
+        index: 0,
         template: "When did you join {{company}}?",
         question: "",
         type: "date",
         answer: "",
       },
       {
-        index: 2000,
+        index: 0,
         template: "When did you leave {{company}}?",
         question: "",
         type: "date",
         answer: "",
       },
       {
-        index: 2000,
+        index: 0,
         template: "What were your achievements at {{company}}?",
         question: "",
         type: "textArea",
         answer: "",
       },
       {
-        index: 2000,
+        index: 0,
         question: "Do you want to add more experiences?",
         type: "boolean",
         repeatable: true,
@@ -258,11 +295,25 @@ const questions = {
     ],
     questions: [
       {
-        index: 2000,
+        index: 7000,
         question: "Do you want to add your work experience?",
         type: "boolean",
         repeatable: true,
         answer: "no",
+      },
+    ],
+  },
+  profileSummary: {
+    title: "Profile Summary",
+    removed: false,
+    questions: [
+      {
+        index: 8000,
+        question:
+          "Wanna include your profile summary? (For best AI experience mention some of it)",
+        removed: false,
+        type: "textArea",
+        answer: "",
       },
     ],
   },
@@ -272,25 +323,25 @@ const questions = {
     noOfItems: 0,
     auto_generated_questions: [
       {
-        index: 4000,
+        index: 0,
         question: "Where did you previously study? (Location)",
         type: "text",
         answer: "",
       },
       {
-        index: 4001,
-        question: "What kind of degree did you earn?",
+        index: 0,
+        question: "What kind of degree did you earn ?",
         type: "text",
         answer: "",
       },
       {
-        index: 4002,
-        question: "Which field of study did you pursue?",
+        index: 0,
+        question: "Which field of study did you pursue ?",
         type: "text",
         answer: "",
       },
       {
-        index: 4003,
+        index: 0,
         question: "Which university or college did you attend?",
         type: "text",
         update: {
@@ -300,21 +351,21 @@ const questions = {
         answer: "",
       },
       {
-        index: 4004,
+        index: 0,
         template: "When did you start your studies at {{institution}}?",
         question: "When did you start your studies at {{institution}}?",
         type: "date",
         answer: "",
       },
       {
-        index: 4005,
+        index: 0,
         template: "When did you complete your studies at {{institution}}?",
         question: "When did you complete your studies at {{institution}}?",
         type: "date",
         answer: "",
       },
       {
-        index: 4006,
+        index: 0,
         question: "Do you want to add more education experiences?",
         type: "boolean",
         repeatable: true,
@@ -323,7 +374,7 @@ const questions = {
     ],
     questions: [
       {
-        index: 4000,
+        index: 9000,
         question: "Do you want to add your education experience?",
         type: "boolean",
         repeatable: true,
@@ -337,37 +388,37 @@ const questions = {
     noOfItems: 0,
     auto_generated_questions: [
       {
-        index: 5000,
+        index: 0,
         question: "Project name",
         type: "text",
         answer: "",
       },
       {
-        index: 5001,
+        index: 0,
         question: "Project link",
         type: "text",
         answer: "",
       },
       {
-        index: 5002,
+        index: 0,
         question: "Project description",
         type: "textArea",
         answer: "",
       },
       {
-        index: 5003,
+        index: 0,
         question: "Project start date",
         type: "date",
         answer: "",
       },
       {
-        index: 5004,
+        index: 0,
         question: "Project end date",
         type: "date",
         answer: "",
       },
       {
-        index: 5005,
+        index: 0,
         question: "Do you want to add more projects?",
         type: "boolean",
         repeatable: true,
@@ -376,7 +427,7 @@ const questions = {
     ],
     questions: [
       {
-        index: 5000,
+        index: 10000,
         question: "Do you want to add your projects?",
         type: "boolean",
         repeatable: true,
@@ -389,15 +440,16 @@ const questions = {
     removed: false,
     questions: [
       {
-        index: 6000,
-        question: "What other information would you like to include in your application?",
+        index: 11000,
+        question:
+          "What other information would you like to include in your application?",
         type: "textArea",
         answer: "",
       },
     ],
   },
   isNext: false,
-  lang: 'en'
+  lang: "en",
 };
 
 export default questions;

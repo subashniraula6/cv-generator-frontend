@@ -26,14 +26,20 @@ const Field = ({
     fontSize: "16px",
     fontWeight: "bold",
     color: "#333",
+    marginBottom: '10px'
+  };
+  const hintStyle = {
+    color: "grey",
     marginBottom: "20px",
   };
-
   const monthFormat = "MMM YYYY";
   return (
     <div className="field">
       <div style={questionStyle}>
         <label> {question.question} </label>
+      </div>
+      <div style={hintStyle}>
+        <label> {question?.hint || ""} </label>
       </div>
       {question.type === "text" && (
         <Input

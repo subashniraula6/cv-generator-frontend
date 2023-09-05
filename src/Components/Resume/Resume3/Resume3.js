@@ -141,7 +141,7 @@ const Resume3 = forwardRef(
             <UpdateQuestionWrapper
               className="info-profile"
               removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 53)
+                questions?.profileSummary?.questions.find((q) => q.index === 8000)
                   ?.removed
               }
               display="block"
@@ -149,8 +149,8 @@ const Resume3 = forwardRef(
               <Spin spinning={isProfileAILoading}>
                 <UpdateQuestion
                   key={JSON.stringify(questions)}
-                  section="basicInfo"
-                  index={53}
+                  section="profileSummary"
+                  index={8000}
                   title="Edit Profile Summary"
                   questions={questions}
                   setQuestions={setQuestions}
@@ -164,8 +164,8 @@ const Resume3 = forwardRef(
                 <div className="profile-content">
                   <p>
                     {
-                      questions?.basicInfo?.questions.find(
-                        (q) => q.index === 53
+                      questions?.profileSummary?.questions.find(
+                        (q) => q.index === 8000
                       )?.answer
                     }
                   </p>
@@ -178,7 +178,7 @@ const Resume3 = forwardRef(
             <UpdateQuestionWrapper
               className="phone"
               removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 8)
+                questions?.basicInfo?.questions.find((q) => q.index === 9)
                   ?.removed
               }
             >
@@ -186,33 +186,8 @@ const Resume3 = forwardRef(
               <UpdateQuestion
                 key={JSON.stringify(questions)}
                 section="basicInfo"
-                index={8}
-                title="Edit Phone Number"
-                questions={questions}
-                setQuestions={setQuestions}
-              />
-              <span>
-                {
-                  questions?.basicInfo?.questions.find((q) => q.index === 8)
-                    ?.answer
-                }
-              </span>
-            </UpdateQuestionWrapper>
-
-            {/* Email */}
-            <UpdateQuestionWrapper
-              className="email"
-              removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 9)
-                  ?.removed
-              }
-            >
-              <MailOutlined />{" "}
-              <UpdateQuestion
-                key={JSON.stringify(questions)}
-                section="basicInfo"
                 index={9}
-                title="Edit Email"
+                title="Edit Phone Number"
                 questions={questions}
                 setQuestions={setQuestions}
               />
@@ -224,20 +199,20 @@ const Resume3 = forwardRef(
               </span>
             </UpdateQuestionWrapper>
 
-            {/* LinkedIn */}
+            {/* Email */}
             <UpdateQuestionWrapper
-              className="linkedin"
+              className="email"
               removed={
                 questions?.basicInfo?.questions.find((q) => q.index === 10)
                   ?.removed
               }
             >
-              <LinkedinOutlined />{" "}
+              <MailOutlined />{" "}
               <UpdateQuestion
                 key={JSON.stringify(questions)}
                 section="basicInfo"
                 index={10}
-                title="Edit Linkedin profile"
+                title="Edit Email"
                 questions={questions}
                 setQuestions={setQuestions}
               />
@@ -249,11 +224,36 @@ const Resume3 = forwardRef(
               </span>
             </UpdateQuestionWrapper>
 
+            {/* LinkedIn */}
+            <UpdateQuestionWrapper
+              className="linkedin"
+              removed={
+                questions?.basicInfo?.questions.find((q) => q.index === 11)
+                  ?.removed
+              }
+            >
+              <LinkedinOutlined />{" "}
+              <UpdateQuestion
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={11}
+                title="Edit Linkedin profile"
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <span>
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 11)
+                    ?.answer
+                }
+              </span>
+            </UpdateQuestionWrapper>
+
             {/* Website */}
             <UpdateQuestionWrapper
               className="website"
               removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 11)
+                questions?.basicInfo?.questions.find((q) => q.index === 12)
                   ?.removed
               }
             >
@@ -261,14 +261,14 @@ const Resume3 = forwardRef(
               <UpdateQuestion
                 key={JSON.stringify(questions)}
                 section="basicInfo"
-                index={11}
+                index={12}
                 title="Edit Website"
                 questions={questions}
                 setQuestions={setQuestions}
               />
               <span>
                 {
-                  questions?.basicInfo?.questions.find((q) => q.index === 11)
+                  questions?.basicInfo?.questions.find((q) => q.index === 12)
                     ?.answer
                 }
               </span>
@@ -282,14 +282,14 @@ const Resume3 = forwardRef(
               <UpdateQuestionWrapper
                 className="skill"
                 removed={
-                  questions?.basicInfo?.questions.find((q) => q.index === 13)
+                  questions?.skills?.questions.find((q) => q.index === 1000)
                     ?.removed
                 }
               >
                 <UpdateQuestion
                   key={JSON.stringify(questions)}
-                  section="basicInfo"
-                  index={13}
+                  section="skills"
+                  index={1000}
                   title="Edit Skill's"
                   questions={questions}
                   setQuestions={setQuestions}
@@ -300,8 +300,8 @@ const Resume3 = forwardRef(
                       <h4>{t("section.skills")}</h4>
                     </SectionHeading>
                     <Space wrap>
-                      {questions?.basicInfo?.questions
-                        .find((q) => q.index === 13)
+                      {questions?.skills?.questions
+                        .find((q) => q.index === 1000)
                         ?.answer.split(",")
                         .map((skill) => {
                           return skill ? (
@@ -473,14 +473,14 @@ const Resume3 = forwardRef(
               <UpdateQuestionWrapper
                 className="side-menu"
                 removed={
-                  questions?.basicInfo?.questions.find((q) => q.index === 14)
+                  questions?.languages?.questions.find((q) => q.index === 2000)
                     ?.removed
                 }
               >
                 <UpdateQuestion
                   key={JSON.stringify(questions)}
-                  section="basicInfo"
-                  index={14}
+                  section="languages"
+                  index={2000}
                   title="Edit Language Skills"
                   questions={questions}
                   setQuestions={setQuestions}
@@ -491,8 +491,8 @@ const Resume3 = forwardRef(
                       <h4>{t("section.languageSkills")}</h4>
                     </SectionHeading>
                     <Space direction="vertical">
-                      {questions?.basicInfo?.questions
-                        .find((q) => q.index === 14)
+                      {questions?.languages?.questions
+                        .find((q) => q.index === 2000)
                         ?.answer.split(",")
                         .map((language, idx) => {
                           return language ? (
@@ -503,18 +503,18 @@ const Resume3 = forwardRef(
                             >
                               {language}
                               <br />
-                              {questions?.basicInfo?.questions.find(
-                                (q) => q.index === 14 + 2 + idx
+                              {questions?.languages?.questions.find(
+                                (q) => q.index === 2000 + 2 + idx
                               )?.isLanguageRating && (
                                 <LangRating
                                   rating={
-                                    questions.basicInfo.questions.find(
-                                      (q) => q.index === 14 + 2 + idx
+                                    questions.languages.questions.find(
+                                      (q) => q.index === 2000 + 2 + idx
                                     )?.answer
                                   }
                                   options={
-                                    questions.basicInfo.questions.find(
-                                      (q) => q.index === 14 + 2 + idx
+                                    questions.languages.questions.find(
+                                      (q) => q.index === 2000 + 2 + idx
                                     )?.options
                                   }
                                 />
@@ -531,14 +531,14 @@ const Resume3 = forwardRef(
               <UpdateQuestionWrapper
                 className="side-menu"
                 removed={
-                  questions?.basicInfo?.questions.find((q) => q.index === 50)
+                  questions?.interests?.questions.find((q) => q.index === 3000)
                     ?.removed
                 }
               >
                 <UpdateQuestion
                   key={JSON.stringify(questions)}
-                  section="basicInfo"
-                  index={50}
+                  section="interests"
+                  index={3000}
                   title="Edit Interests"
                   questions={questions}
                   setQuestions={setQuestions}
@@ -549,8 +549,8 @@ const Resume3 = forwardRef(
                       <h4>{t("section.interests")}</h4>
                     </SectionHeading>
                     <Space wrap>
-                      {questions?.basicInfo?.questions
-                        .find((q) => q.index === 50)
+                      {questions?.interests?.questions
+                        .find((q) => q.index === 3000)
                         ?.answer.split(",")
                         .map((interest) => {
                           return interest ? (
@@ -608,14 +608,14 @@ const Resume3 = forwardRef(
                                               key={JSON.stringify(questions)}
                                               section="workExperience"
                                               index={
-                                                groupedExperience[group][1]
+                                                groupedExperience[group][2]
                                                   .index
                                               }
                                               title="Edit Profile Summary"
                                               questions={questions}
                                               setQuestions={setQuestions}
                                             />
-                                            {groupedExperience[group][1].answer}
+                                            {groupedExperience[group][2].answer}
                                           </UpdateQuestionWrapper>
                                         </Col>
                                         <Col>{" - "}</Col>
@@ -650,14 +650,14 @@ const Resume3 = forwardRef(
                                             key={JSON.stringify(questions)}
                                             section="workExperience"
                                             index={
-                                              groupedExperience[group][2].index
+                                              groupedExperience[group][3].index
                                             }
                                             title="Edit Profile Summary"
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
                                           {
-                                            groupedExperience[group][2].answer
+                                            groupedExperience[group][3].answer
                                           }
                                         </UpdateQuestionWrapper>
                                       </span>
@@ -668,14 +668,14 @@ const Resume3 = forwardRef(
                                             key={JSON.stringify(questions)}
                                             section="workExperience"
                                             index={
-                                              groupedExperience[group][3].index
+                                              groupedExperience[group][4].index
                                             }
                                             title="Edit Profile Summary"
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
                                           {
-                                            groupedExperience[group][3].answer
+                                            groupedExperience[group][4].answer
                                           }
                                         </UpdateQuestionWrapper>
                                       </span>
@@ -690,7 +690,7 @@ const Resume3 = forwardRef(
                                           key={JSON.stringify(questions)}
                                           section="workExperience"
                                           index={
-                                            groupedExperience[group][4].index
+                                            groupedExperience[group][5].index
                                           }
                                           title="Edit Profile Summary"
                                           questions={questions}
@@ -701,7 +701,7 @@ const Resume3 = forwardRef(
                                           AIType="workSummary"
                                         />
                                         &bull;{" "}
-                                        {groupedExperience[group][4].answer}
+                                        {groupedExperience[group][5].answer}
                                       </UpdateQuestionWrapper>
                                     }
                                   </p>
@@ -850,15 +850,15 @@ const Resume3 = forwardRef(
             {/* Certificates */}
             <UpdateQuestionWrapper
               removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 51)
+                questions?.certifications?.questions.find((q) => q.index === 5000)
                   ?.removed
               }
               display="block"
             >
               <UpdateQuestion
                 key={JSON.stringify(questions)}
-                section="basicInfo"
-                index={51}
+                section="certifications"
+                index={5000}
                 title="Edit Certificates"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -870,8 +870,8 @@ const Resume3 = forwardRef(
                   </SectionHeading>
                   <br />
                   <Space wrap={true}>
-                    {questions?.basicInfo?.questions
-                      .find((q) => q.index === 51)
+                    {questions?.certifications?.questions
+                      .find((q) => q.index === 5000)
                       ?.answer.split(",")
                       .map((certificate) => {
                         return certificate ? (
@@ -893,14 +893,14 @@ const Resume3 = forwardRef(
             <UpdateQuestionWrapper
               className="awards"
               removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 52)
+                questions?.awards?.questions.find((q) => q.index === 4000)
                   ?.removed
               }
               display="block"
             >
               <UpdateQuestion
-                section="basicInfo"
-                index={52}
+                section="awards"
+                index={4000}
                 title="Edit Awards"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -910,8 +910,8 @@ const Resume3 = forwardRef(
               </SectionHeading>
               <div className="awards-content">
                 <Space wrap>
-                  {questions?.basicInfo?.questions
-                    .find((q) => q.index === 52)
+                  {questions?.awards?.questions
+                    .find((q) => q.index === 4000)
                     ?.answer?.split(",")
                     .map((award) => {
                       return award ? (

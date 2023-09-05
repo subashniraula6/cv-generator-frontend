@@ -127,7 +127,7 @@ export default function Resume2({
               <UpdateQuestionWrapper
                 className="email"
                 removed={
-                  questions?.basicInfo?.questions.find((q) => q.index === 9)
+                  questions?.basicInfo?.questions.find((q) => q.index === 10)
                     ?.removed
                 }
               >
@@ -138,14 +138,14 @@ export default function Resume2({
                   <UpdateQuestion
                     key={JSON.stringify(questions)}
                     section="basicInfo"
-                    index={9}
+                    index={10}
                     title="Edit Email"
                     questions={questions}
                     setQuestions={setQuestions}
                   />
                   <span>
                     {
-                      questions?.basicInfo?.questions.find((q) => q.index === 9)
+                      questions?.basicInfo?.questions.find((q) => q.index === 10)
                         ?.answer
                     }
                   </span>
@@ -157,7 +157,7 @@ export default function Resume2({
               <UpdateQuestionWrapper
                 className="phone"
                 removed={
-                  questions?.basicInfo?.questions.find((q) => q.index === 8)
+                  questions?.basicInfo?.questions.find((q) => q.index === 9)
                     ?.removed
                 }
               >
@@ -167,14 +167,14 @@ export default function Resume2({
                 <UpdateQuestion
                   key={JSON.stringify(questions)}
                   section="basicInfo"
-                  index={8}
+                  index={9}
                   title="Edit Phone Number"
                   questions={questions}
                   setQuestions={setQuestions}
                 />
                 <span className="phone-val">
                   {
-                    questions?.basicInfo?.questions.find((q) => q.index === 8)
+                    questions?.basicInfo?.questions.find((q) => q.index === 9)
                       ?.answer
                   }
                 </span>
@@ -185,7 +185,7 @@ export default function Resume2({
               <UpdateQuestionWrapper
                 className="linkedin"
                 removed={
-                  questions?.basicInfo?.questions.find((q) => q.index === 10)
+                  questions?.basicInfo?.questions.find((q) => q.index === 11)
                     ?.removed
                 }
               >
@@ -195,36 +195,8 @@ export default function Resume2({
                 <UpdateQuestion
                   key={JSON.stringify(questions)}
                   section="basicInfo"
-                  index={10}
-                  title="Edit Linkedin profile"
-                  questions={questions}
-                  setQuestions={setQuestions}
-                />
-                <span className="linkedIn-val">
-                  {
-                    questions?.basicInfo?.questions.find((q) => q.index === 10)
-                      ?.answer
-                  }
-                </span>
-              </UpdateQuestionWrapper>
-
-              <span className="separator"></span>
-              {/* Website */}
-              <UpdateQuestionWrapper
-                className="website"
-                removed={
-                  questions?.basicInfo?.questions.find((q) => q.index === 11)
-                    ?.removed
-                }
-              >
-                <span className="linkedIn">
-                  <GlobalOutlined /> {t("label.website")}:{" "}
-                </span>
-                <UpdateQuestion
-                  key={JSON.stringify(questions)}
-                  section="basicInfo"
                   index={11}
-                  title="Edit Website"
+                  title="Edit Linkedin profile"
                   questions={questions}
                   setQuestions={setQuestions}
                 />
@@ -235,13 +207,41 @@ export default function Resume2({
                   }
                 </span>
               </UpdateQuestionWrapper>
+
+              <span className="separator"></span>
+              {/* Website */}
+              <UpdateQuestionWrapper
+                className="website"
+                removed={
+                  questions?.basicInfo?.questions.find((q) => q.index === 12)
+                    ?.removed
+                }
+              >
+                <span className="linkedIn">
+                  <GlobalOutlined /> {t("label.website")}:{" "}
+                </span>
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={12}
+                  title="Edit Website"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <span className="linkedIn-val">
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 12)
+                      ?.answer
+                  }
+                </span>
+              </UpdateQuestionWrapper>
             </div>
             <div className="about">
               <span className="desc">
                 <UpdateQuestionWrapper
                   className="info-profile"
                   removed={
-                    questions?.basicInfo?.questions.find((q) => q.index === 53)
+                    questions?.profileSummary?.questions.find((q) => q.index === 8000)
                       ?.removed
                   }
                   display="block"
@@ -249,8 +249,8 @@ export default function Resume2({
                   <Spin spinning={isProfileAILoading}>
                     <UpdateQuestion
                       key={JSON.stringify(questions)}
-                      section="basicInfo"
-                      index={53}
+                      section="profileSummary"
+                      index={8000}
                       title="Edit Profile Summary"
                       questions={questions}
                       setQuestions={setQuestions}
@@ -263,8 +263,8 @@ export default function Resume2({
                     </span>
                     <span className="profile-content">
                       {
-                        questions?.basicInfo?.questions.find(
-                          (q) => q.index === 53
+                        questions?.profileSummary?.questions.find(
+                          (q) => q.index === 8000
                         )?.answer
                       }
                     </span>
@@ -324,13 +324,13 @@ export default function Resume2({
                                         key={JSON.stringify(questions)}
                                         section="workExperience"
                                         index={
-                                          groupedExperience[group][2].index
+                                          groupedExperience[group][3].index
                                         }
                                         title="Edit Profile Summary"
                                         questions={questions}
                                         setQuestions={setQuestions}
                                       />
-                                      {groupedExperience[group][2].answer}
+                                      {groupedExperience[group][3].answer}
                                     </UpdateQuestionWrapper>
                                   </span>
                                   <span>{" - "}</span>
@@ -340,13 +340,13 @@ export default function Resume2({
                                         key={JSON.stringify(questions)}
                                         section="workExperience"
                                         index={
-                                          groupedExperience[group][3].index
+                                          groupedExperience[group][4].index
                                         }
                                         title="Edit Profile Summary"
                                         questions={questions}
                                         setQuestions={setQuestions}
                                       />
-                                      {groupedExperience[group][3].answer}
+                                      {groupedExperience[group][4].answer}
                                     </UpdateQuestionWrapper>
                                   </span>
                                 </div>
@@ -357,12 +357,12 @@ export default function Resume2({
                                     <UpdateQuestion
                                       key={JSON.stringify(questions)}
                                       section="workExperience"
-                                      index={groupedExperience[group][1].index}
+                                      index={groupedExperience[group][2].index}
                                       title="Edit Profile Summary"
                                       questions={questions}
                                       setQuestions={setQuestions}
                                     />
-                                    {groupedExperience[group][1].answer}
+                                    {groupedExperience[group][2].answer}
                                   </UpdateQuestionWrapper>
                                 </div>
                                 <div className="desc">
@@ -370,7 +370,7 @@ export default function Resume2({
                                     <UpdateQuestion
                                       key={JSON.stringify(questions)}
                                       section="workExperience"
-                                      index={groupedExperience[group][4].index}
+                                      index={groupedExperience[group][5].index}
                                       title="Edit Profile Summary"
                                       questions={questions}
                                       setQuestions={setQuestions}
@@ -379,7 +379,7 @@ export default function Resume2({
                                       setIsLoading={setIsWorkAILoading}
                                       AIType="workSummary"
                                     />
-                                    {groupedExperience[group][4].answer}
+                                    {groupedExperience[group][5].answer}
                                   </UpdateQuestionWrapper>
                                 </div>
                               </div>
@@ -587,15 +587,15 @@ export default function Resume2({
             <UpdateQuestionWrapper
               className="skill"
               removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 13)
+                questions?.skills?.questions.find((q) => q.index === 1000)
                   ?.removed
               }
               display="block"
             >
               <UpdateQuestion
                 key={JSON.stringify(questions)}
-                section="basicInfo"
-                index={13}
+                section="skills"
+                index={1000}
                 title="Edit Skill's"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -608,8 +608,8 @@ export default function Resume2({
                 </div>
                 <div className="skills">
                   <Space wrap>
-                    {questions?.basicInfo?.questions
-                      .find((q) => q.index === 13)
+                    {questions?.skills?.questions
+                      .find((q) => q.index === 1000)
                       ?.answer.split(",")
                       .map((skill) => {
                         return skill ? (
@@ -630,15 +630,15 @@ export default function Resume2({
             <UpdateQuestionWrapper
               className="side-menu"
               removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 50)
+                questions?.interests?.questions.find((q) => q.index === 3000)
                   ?.removed
               }
               display="block"
             >
               <UpdateQuestion
                 key={JSON.stringify(questions)}
-                section="basicInfo"
-                index={50}
+                section="interests"
+                index={3000}
                 title="Edit Interests"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -651,8 +651,8 @@ export default function Resume2({
                 </div>
                 <div className="section__list">
                   <div className="section__list-item">
-                    {questions?.basicInfo?.questions
-                      .find((q) => q.index === 50)
+                    {questions?.interests?.questions
+                      .find((q) => q.index === 3000)
                       ?.answer.split(",")
                       .map((interest) => {
                         return interest ? (
@@ -675,15 +675,15 @@ export default function Resume2({
             <UpdateQuestionWrapper
               className="side-menu"
               removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 14)
+                questions?.languages?.questions.find((q) => q.index === 2000)
                   ?.removed
               }
               display="block"
             >
               <UpdateQuestion
                 key={JSON.stringify(questions)}
-                section="basicInfo"
-                index={14}
+                section="languages"
+                index={2000}
                 title="Edit Language Skills"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -696,8 +696,8 @@ export default function Resume2({
                     </SectionHeading>
                   </div>
                   <Space wrap>
-                    {questions?.basicInfo?.questions
-                      .find((q) => q.index === 14)
+                    {questions?.languages?.questions
+                      .find((q) => q.index === 2000)
                       ?.answer.split(",")
                       .map((language, idx) => {
                         return language ? (
@@ -708,18 +708,18 @@ export default function Resume2({
                           >
                             &bull; {language}
                             <br />
-                            {questions?.basicInfo?.questions.find(
-                              (q) => q.index === 14 + 2 + idx
+                            {questions?.languages?.questions.find(
+                              (q) => q.index === 2000 + 2 + idx
                             )?.isLanguageRating && (
                               <LangRating
                                 rating={
-                                  questions.basicInfo.questions.find(
-                                    (q) => q.index === 14 + 2 + idx
+                                  questions.languages.questions.find(
+                                    (q) => q.index === 2000 + 2 + idx
                                   )?.answer
                                 }
                                 options={
-                                  questions.basicInfo.questions.find(
-                                    (q) => q.index === 14 + 2 + idx
+                                  questions.languages.questions.find(
+                                    (q) => q.index === 2000 + 2 + idx
                                   )?.options
                                 }
                               />
@@ -739,15 +739,15 @@ export default function Resume2({
             {/* Certificates */}
             <UpdateQuestionWrapper
               removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 51)
+                questions?.certifications?.questions.find((q) => q.index === 5000)
                   ?.removed
               }
               display="block"
             >
               <UpdateQuestion
                 key={JSON.stringify(questions)}
-                section="basicInfo"
-                index={51}
+                section="certifications"
+                index={5000}
                 title="Edit Certificates"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -759,8 +759,8 @@ export default function Resume2({
                   </div>
                 </SectionHeading>
                 <Space wrap={true}>
-                  {questions?.basicInfo?.questions
-                    .find((q) => q.index === 51)
+                  {questions?.certifications?.questions
+                    .find((q) => q.index === 5000)
                     ?.answer.split(",")
                     .map((certificate) => {
                       return certificate ? (
@@ -785,15 +785,15 @@ export default function Resume2({
             <UpdateQuestionWrapper
               className="awards"
               removed={
-                questions?.basicInfo?.questions.find((q) => q.index === 52)
+                questions?.awards?.questions.find((q) => q.index === 4000)
                   ?.removed
               }
               display="block"
             >
               <div className="section">
                 <UpdateQuestion
-                  section="basicInfo"
-                  index={52}
+                  section="awards"
+                  index={4000}
                   title="Edit Awards"
                   questions={questions}
                   setQuestions={setQuestions}
@@ -803,8 +803,8 @@ export default function Resume2({
                 </SectionHeading>
                 <div className="awards-content">
                   <Space wrap>
-                    {questions?.basicInfo?.questions
-                      .find((q) => q.index === 52)
+                    {questions?.awards?.questions
+                      .find((q) => q.index === 4000)
                       ?.answer?.split(",")
                       .map((award) => {
                         return award ? (
