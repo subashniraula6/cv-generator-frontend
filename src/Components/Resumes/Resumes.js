@@ -73,7 +73,7 @@ function Resumes({ questions, setQuestions }) {
   };
 
   return (
-    <div>
+    <div className="resume-main-container">
       <div className="toolbar">
         <div className="colors">
           <Select
