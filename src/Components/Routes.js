@@ -7,6 +7,7 @@ import AppPage from "./Pages/App";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Homepage from "./Pages/home/Homepage"
 import { useFirebase } from "../context/Firebase";
+import PrivacyPolicy from "./PrivacyPolicy"
 
 const RestrictedRoute = ({children}) => {
   let { user } = useFirebase();
@@ -23,6 +24,7 @@ const PublicRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/privacyandpolicy" element={<PrivacyPolicy/>} />
       <Route
         path="/app"
         element={

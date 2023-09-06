@@ -4,7 +4,7 @@ import NavBar from "./Components/Common/NavBar";
 import PublicRoutes from "./Components/Routes";
 import { ConfigProvider } from "antd";
 import { StyleProvider } from '@ant-design/cssinjs';
-
+import CookieConsentBanner from "./Components/CookieConsentBanner";
 
 function App() {
   return (
@@ -33,6 +33,7 @@ function App() {
     >
         <NavBar />
         <PublicRoutes />
+        <CookieConsentBanner />
     </ConfigProvider>
   );
 }
