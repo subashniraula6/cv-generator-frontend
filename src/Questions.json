@@ -1,0 +1,444 @@
+{
+    "create_ts": "2023-09-06T10:00:00",
+    "language_id": 1,
+    "question_category": "General",
+    "question_JSON": {
+        "awards": {
+            "questions": [
+                {
+                    "answer": "",
+                    "index": 4000,
+                    "options": "Teacher of the year, Salesperson of the year, Gold at the Swedish Content Awards, Aret's newcomer, Employee of the month",
+                    "question": "What prizes or awards do you want to include in your CV?",
+                    "removed": false,
+                    "type": "textSelect"
+                }
+            ],
+            "removed": false,
+            "repeatable": false,
+            "title": "Awards"
+        },
+        "basicInfo": {
+            "auto_generated_questions": [
+                {
+                    "answer": "",
+                    "index": 5,
+                    "question": "Select your picture",
+                    "removed": false,
+                    "type": "file"
+                }
+            ],
+            "questions": [
+                {
+                    "answer": "",
+                    "index": 1,
+                    "question": "What is your first name?",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 2,
+                    "question": "What is your last name?",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 3,
+                    "question": "What is your job title?",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 4,
+                    "question": "Do you want to include a picture of yourself in your application documents?",
+                    "type": "boolean"
+                },
+                {
+                    "answer": "",
+                    "hint": "Write your own answers or choose one or more of the suggestions below.",
+                    "index": 6,
+                    "options": "Administration, Analysis, Digital marketing, Economics, Finance, Communication, Creative work, Leadership, Logistics, Marketing, Pedagogy, Project management, Service, Siukvard, Eternal One",
+                    "question": "Which area(s) do you have the most experience in ?",
+                    "type": "textSelect"
+                },
+                {
+                    "answer": "",
+                    "index": 7,
+                    "options": "Ambitious, Analytical, Responsible, Driven, Efficient, Committed, Flexible, Initiative-taking, Innovative, Communicative, Creative, Solution-focused, Methodical, Thorough, Curious, Organized, Prestigious, Professional, Relationship-building, Results-oriented, Service-oriented, Self-motivated, Socially competent, Strategic, Persuasive",
+                    "question": "What are your main personal qualities?",
+                    "type": "textSelect"
+                },
+                {
+                    "answer": "",
+                    "index": 8,
+                    "question": "What is your address ?",
+                    "type": "textArea"
+                },
+                {
+                    "answer": "",
+                    "hint": "You don't have to answer this question if you don't want to, but your application documents will be better if you do.",
+                    "index": 9,
+                    "question": "Enter the phone number you want to be included in your application documents",
+                    "removed": false,
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 10,
+                    "question": "Enter your Email",
+                    "removed": false,
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 11,
+                    "question": "Enter your linkedin if you have any",
+                    "removed": false,
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 12,
+                    "question": "Enter your Website if you have any",
+                    "removed": false,
+                    "type": "text"
+                }
+            ],
+            "removed": false,
+            "repeatable": false,
+            "title": "Basic info"
+        },
+        "certifications": {
+            "questions": [
+                {
+                    "answer": "",
+                    "hint": "Remember to only include certifications that are relevant to the jobs you are applying for.",
+                    "index": 5000,
+                    "options": "driver's license, Forklift driving license, Google Ads certification, Meta-certification",
+                    "question": "Which certification(s) do you want to include in your CV?",
+                    "removed": false,
+                    "type": "textSelect"
+                }
+            ],
+            "removed": false,
+            "repeatable": false,
+            "title": "Certifications"
+        },
+        "education": {
+            "auto_generated_questions": [
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Where did you previously study? (Location)",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "What kind of degree did you earn ?",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Which field of study did you pursue ?",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Which university or college did you attend?",
+                    "type": "text",
+                    "update": {
+                        "key": "institution",
+                        "noOfQues": 2
+                    }
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "When did you start your studies at {{institution}}?",
+                    "template": "When did you start your studies at {{institution}}?",
+                    "type": "date"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "When did you complete your studies at {{institution}}?",
+                    "template": "When did you complete your studies at {{institution}}?",
+                    "type": "date"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Do you want to add more education experiences?",
+                    "repeatable": true,
+                    "type": "boolean"
+                }
+            ],
+            "noOfItems": 0,
+            "questions": [
+                {
+                    "answer": "no",
+                    "index": 9000,
+                    "question": "Do you want to add your education experience?",
+                    "repeatable": true,
+                    "type": "boolean"
+                }
+            ],
+            "removed": false,
+            "title": "Education"
+        },
+        "interests": {
+            "questions": [
+                {
+                    "answer": "",
+                    "index": 3000,
+                    "options": "Architecture, Camping, Facebook, History, Baking, Child care, Computers, Computer games, Family activities, Movie, Throat, IT, Cars, Design, Golf, Construction, Digitization, Home remedies, Reading, Marketing, Journalism, Cooking, Art, Fashion, Literature, Politics, Renovation, Writing, Spreak, Styling, TV game, Hiking, Travels, Acting, Song, Tech, Performing arts, Beauty, Textile work, Sailing, Social Media, Tiktok, Skiing, Garden work, Sports",
+                    "question": "What are your interests?",
+                    "removed": false,
+                    "type": "textSelect"
+                }
+            ],
+            "removed": false,
+            "repeatable": false,
+            "title": "Interests"
+        },
+        "isNext": false,
+        "lang": "en",
+        "languages": {
+            "auto_generated_questions": [
+                {
+                    "answer": "no",
+                    "index": 0,
+                    "question": "Do you want to indicate how good you are in each language?",
+                    "type": "boolean"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "isLanguageRating": true,
+                    "options": "Mother tongue, Fluid, Good knowledge of speech and writing, Very good skills in speaking and writing, Basic skills in speaking and writing",
+                    "question": "How are your {{language}} skills?",
+                    "type": "select"
+                }
+            ],
+            "questions": [
+                {
+                    "answer": "",
+                    "hint": "If you want, you can indicate how good you are in each language in a later question.",
+                    "index": 2000,
+                    "options": "Arabic, Danish, French, Greek, Chinese (Cantonese), Persian, Polish, Swedish, Swahili, Ukrainian, English, Farsi, Finnish, Italian, Japanese, Chinese (Mandarin), Korean, Norwegian, Russian, Somali, Spanish, Thai, Tigrinya, German",
+                    "question": "Which language(s) do you have knowledge of ?",
+                    "removed": false,
+                    "required": true,
+                    "type": "textSelect"
+                }
+            ],
+            "removed": false,
+            "repeatable": false,
+            "title": "Languages"
+        },
+        "others": {
+            "questions": [
+                {
+                    "answer": "",
+                    "index": 11000,
+                    "question": "What other information would you like to include in your application?",
+                    "type": "textArea"
+                }
+            ],
+            "removed": false,
+            "title": "Others"
+        },
+        "profileSummary": {
+            "questions": [
+                {
+                    "answer": "",
+                    "index": 8000,
+                    "question": "Wanna include your profile summary? (For best AI experience mention some of it)",
+                    "removed": false,
+                    "type": "textArea"
+                }
+            ],
+            "removed": false,
+            "title": "Profile Summary"
+        },
+        "projects": {
+            "auto_generated_questions": [
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Project name",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Project link",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Project description",
+                    "type": "textArea"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Project start date",
+                    "type": "date"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Project end date",
+                    "type": "date"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Do you want to add more projects?",
+                    "repeatable": true,
+                    "type": "boolean"
+                }
+            ],
+            "noOfItems": 0,
+            "questions": [
+                {
+                    "answer": "no",
+                    "index": 10000,
+                    "question": "Do you want to add your projects?",
+                    "repeatable": true,
+                    "type": "boolean"
+                }
+            ],
+            "removed": false,
+            "title": "Projects"
+        },
+        "skills": {
+            "questions": [
+                {
+                    "answer": "",
+                    "index": 1000,
+                    "options": "Business development, Accounting, Copywriting, Economics, Excel, Facebook Business Manager, Google AdWords, Google Analytics, Crafts, Cooking, Microsoft Office, Pedagogy, Powerpoint, Programming, Project management, Service, Writing, Slack, Training, Digital marketing, les, Photoshop, SAP, SEO, Words",
+                    "question": "What skills do you want to highlight in your CV?",
+                    "removed": false,
+                    "type": "textSelect"
+                }
+            ],
+            "removed": false,
+            "repeatable": false,
+            "title": "Skills"
+        },
+        "targetCompany": {
+            "questions": [
+                {
+                    "answer": "",
+                    "index": 6000,
+                    "question": "Name of company/employer you are looking for a job with:",
+                    "type": "text",
+                    "update": {
+                        "key": "company",
+                        "noOfQues": 4
+                    }
+                },
+                {
+                    "answer": "",
+                    "index": 6001,
+                    "question": "What is the address of {{company}}?",
+                    "template": "What is the address of {{company}}?",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 6002,
+                    "question": "Which position are you applying for at {{company}}?",
+                    "template": "Which position are you applying for at {{company}}?",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 6003,
+                    "question": "What made you want to apply for this job as mentioned position at {{company}}?",
+                    "template": "What made you want to apply for this job as mentioned position at {{company}}?",
+                    "type": "textArea"
+                }
+            ],
+            "removed": false,
+            "title": "Target Company"
+        },
+        "workExperience": {
+            "auto_generated_questions": [
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Where did you previously work at?",
+                    "removed": false,
+                    "type": "text",
+                    "update": {
+                        "key": "company",
+                        "noOfQues": 5
+                    }
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "",
+                    "removed": false,
+                    "template": "What is the address of {{company}}?",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "",
+                    "template": "Your title/position at {{company}}: Type any text. You don't need to scroll through the list.",
+                    "type": "text"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "",
+                    "template": "When did you join {{company}}?",
+                    "type": "date"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "",
+                    "template": "When did you leave {{company}}?",
+                    "type": "date"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "",
+                    "template": "What were your achievements at {{company}}?",
+                    "type": "textArea"
+                },
+                {
+                    "answer": "",
+                    "index": 0,
+                    "question": "Do you want to add more experiences?",
+                    "repeatable": true,
+                    "type": "boolean"
+                }
+            ],
+            "noOfItems": 0,
+            "questions": [
+                {
+                    "answer": "no",
+                    "index": 7000,
+                    "question": "Do you want to add your work experience?",
+                    "repeatable": true,
+                    "type": "boolean"
+                }
+            ],
+            "removed": false,
+            "title": "Work Experience"
+        }
+    },
+    "update_ts": "2023-09-06T10:00:00"
+}

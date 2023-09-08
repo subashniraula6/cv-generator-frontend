@@ -340,7 +340,7 @@ export default function Form({ questions, setQuestions, type }) {
     let sections = Object.keys(questions);
     // Filter
     if (type === "resume") {
-      sections = sections.filter((section) => section !== "targetCompany");
+      sections = sections.filter((section) => section !== "targetCompany" &&  section !== "lang");
     }
     let currentSectionIndex = sections.findIndex(
       (section) => section === currentSection
@@ -353,7 +353,7 @@ export default function Form({ questions, setQuestions, type }) {
     let sections = Object.keys(questions);
     // Filter
     if (type === "resume") {
-      sections = sections.filter((section) => section !== "targetCompany");
+      sections = sections.filter((section) => section !== "targetCompany" &&  section !== "lang" );
     }
     let currentSectionIndex = sections.findIndex(
       (section) => section === currentSection
@@ -434,7 +434,7 @@ export default function Form({ questions, setQuestions, type }) {
     ] += ", " + option;
     setQuestions(updatedQuestions);
   };
-
+  
   return (
     <>
       <form>
