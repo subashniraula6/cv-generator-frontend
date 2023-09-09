@@ -7,7 +7,7 @@ import Resume4 from "../Resume/Resume4/Resume4";
 import Resume5 from "../Resume/Resume5/Resume5";
 import { ResumeWrapper } from "../Wrappers/Wrappers";
 import ReactToPrint from "react-to-print";
-import { Select } from "antd";
+import { Select, notification } from "antd";
 import { Button } from "../Common/Button";
 import {
   DownloadOutlined,
@@ -16,8 +16,9 @@ import {
 } from "@ant-design/icons";
 import { useLanguage } from "../../context/Language";
 import CoverLetter from "../CoverLetter/CoverLetter";
+import axios from "../../axios/axios";
 
-function Resumes({ questions, setQuestions }) {
+function Resumes({ questions, setQuestions, userQuestionsId }) {
   const colors = [
     "#239ce2",
     "#48bb78",
@@ -72,6 +73,32 @@ function Resumes({ questions, setQuestions }) {
     localStorage.setItem("template", selectedTemplate);
   };
 
+  const handleSave = (e) => {
+    e.preventDefault();
+    axios
+      .put(
+        "kneg/user_question/" + userQuestionsId,
+        JSON.stringify({ question_JSON: questions })
+      )
+      .then((response) => {
+        if (response.status == 200) {
+          let updatedJSON = JSON.parse(response.data.data.question_JSON);
+          setQuestions(updatedJSON);
+          notification.success({
+            message: response.data.message,
+          });
+        } else {
+          notification.error({
+            message: "Save Error",
+            description: response.data.message,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="resume-main-container">
       <div className="toolbar">
@@ -91,7 +118,7 @@ function Resumes({ questions, setQuestions }) {
                 style={{ backgroundColor: item }}
                 className={`${"color"} ${activeColor === item ? "active" : ""}`}
               >
-                <label style={{color: 'white'}}>{item}</label>
+                <label style={{ color: "white" }}>{item}</label>
               </Select.Option>
             ))}
           </Select>
@@ -116,7 +143,8 @@ function Resumes({ questions, setQuestions }) {
             type={"primary"}
             icon={<SaveOutlined />}
             iconPosition={"right"}
-            style={{margin: 0}}
+            style={{ margin: 0 }}
+            onClick={handleSave}
           >
             {t("button.save")}
           </Button>

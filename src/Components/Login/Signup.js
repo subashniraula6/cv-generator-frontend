@@ -9,13 +9,13 @@ import { useNavigate } from "react-router-dom";
 
 import { useFirebase } from "../../context/Firebase";
 import { useLanguage } from "../../context/Language";
-import questions from '../../Questions2';
+import axios from "../../axios/axios";
 
 export default function Signup() {
   const navigate = useNavigate();
-  const {t} = useLanguage();
+  const { t } = useLanguage();
 
-  const { signupUserWithEmailAndPassword, putData, user } = useFirebase();
+  const { user } = useFirebase();
 
   useEffect(() => {
     if (user) {
@@ -41,6 +41,11 @@ export default function Signup() {
 
   const handleAcknowledgmentChange = (e) => {
     setAcknowledgmentChecked(e.target.checked);
+  };
+
+  const createUser = async (body) => {
+    let response = await axios.post("signup", JSON.stringify(body));
+    return response.data;
   };
 
   const signUpEmailPass = () => {
@@ -71,35 +76,29 @@ export default function Signup() {
         description: "Password doesn't match",
       });
       return;
-    } if (!acknowledgmentChecked) {
+    }
+    if (!acknowledgmentChecked) {
       notification.error({
         message: "Signup Error",
         description: "Please acknowledge the terms and conditions.",
       });
       return;
     } else {
-      signupUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          // Signed in
-          //   const authToken = userCredential.user.accessToken;
-          //   localStorage.setItem("authToken", authToken);
-          return putData('users', { email: userCredential.user.email, firstName, lastName, questions })
+      createUser({ email, password })
+        .then(({ response }) => {
+          if (response.status == "Error") {
+            notification.error({
+              message: "Signup Error",
+              description: response.message,
+            });
+          } else if (response.status == "Success") {
+            notification.success({
+              message: response.message,
+            });
+            navigate("/login")
+          }
         })
-        .then(data => {
-          notification.success({
-            message: "Signup Success",
-            description: "Successfully created an account and logged in",
-          });  
-        })
-        .catch((error) => {
-          // const errorCode = error.code;
-          console.log(error)
-          const errorCode = error.code.replace("auth/", "").replace(/-/g, " ");
-          notification.error({
-            message: "Signup Error",
-            description: errorCode,
-          });
-        });
+        .catch((err) => console.log(err));
     }
   };
 
@@ -114,7 +113,7 @@ export default function Signup() {
     <div className="signup-page">
       <div style={loginContainer}>
         <h1 style={{ textAlign: "center", margin: "20px 0px" }}>
-        {t("signup.title")}
+          {t("signup.title")}
         </h1>
         <div
           className="loginTextDescription"
@@ -127,7 +126,7 @@ export default function Signup() {
             size="large"
             placeholder={t("placeholder.firstName")}
             prefix={<UserOutlined />}
-            style={{ padding: "10px", marginRight: '5px' }}
+            style={{ padding: "10px", marginRight: "5px" }}
             className="mBottom"
             id="firstName"
             name="firstName"
@@ -192,8 +191,14 @@ export default function Signup() {
             onChange={handleChange}
           />
         </div>
-        <div style={{ width: "90%", margin: "0px auto" , padding:'0px 10px'}}>
-          <input type="checkbox" id="acknowledgementTOC" checked={acknowledgmentChecked} onChange={handleAcknowledgmentChange}/>{"  "}  I agree all the terms and condition
+        <div style={{ width: "90%", margin: "0px auto", padding: "0px 10px" }}>
+          <input
+            type="checkbox"
+            id="acknowledgementTOC"
+            checked={acknowledgmentChecked}
+            onChange={handleAcknowledgmentChange}
+          />
+          {"  "} I agree all the terms and condition
         </div>
         <div
           className="flex-container"
@@ -204,18 +209,15 @@ export default function Signup() {
             marginTop: "20px",
           }}
         >
-          <Button
-            type="primary"
-            onClick={signUpEmailPass}
-          >
+          <Button type="primary" onClick={signUpEmailPass}>
             {t("button.signup")}
           </Button>
         </div>
         <div style={{ textAlign: "center" }}>
-        {t("signup.logininfo")}{" "}
+          {t("signup.logininfo")}{" "}
           <span style={{ fontStyle: "italic", cursor: "pointer" }}>
             <Link to="/login" style={{ color: "unset", fontWeight: "600" }}>
-            {t("signup.loginLink")}
+              {t("signup.loginLink")}
             </Link>
           </span>
         </div>
@@ -229,7 +231,8 @@ export default function Signup() {
             textAlign: "center",
           }}
         >
-          {t("footer.copyright")} © 2023 <img src="logo-kneg.png" width="10px" alt="KNEG" />
+          {t("footer.copyright")} © 2023{" "}
+          <img src="logo-kneg.png" width="10px" alt="KNEG" />
         </div>
       </div>
     </div>

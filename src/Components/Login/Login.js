@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { GoogleOutlined, UserOutlined } from "@ant-design/icons";
+import { GoogleOutlined, LoadingOutlined, UserOutlined } from "@ant-design/icons";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { Input } from "antd";
+import { Input, Spin } from "antd";
 import { Button } from '../Common/Button';
 import { notification } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import { useLanguage } from '../../context/Language'
 
 export default function Login() {
   // const tokenExist = CheckAuth();
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const navigate = useNavigate();
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
@@ -35,6 +36,7 @@ export default function Login() {
 
   const userLogin = () => {
     if (username.length !== 0 && password.length !== 0) {
+      setIsLoggingIn(true);
       signinUserWithEmailAndPassword(username, password)
         .then((userCredential) => {
           // Signed in
@@ -50,6 +52,7 @@ export default function Login() {
             description: "Successfully Logged in please wait",
           });
           navigate("/app");
+          setIsLoggingIn(false);
         })
         .catch((error) => {
           const errorCode = error.code.replace("auth/", "").replace(/-/g, " ");
@@ -58,6 +61,7 @@ export default function Login() {
             message: "Login Error",
             description: errorCode,
           });
+          setIsLoggingIn(false);
         });
     } else {
       notification.error({
@@ -161,8 +165,12 @@ export default function Login() {
               width: "100%",
             }}
             onClick={userLogin}
+            icon={isLoggingIn && <LoadingOutlined />}
+            iconPosition={"center"}
+            isLoggingIn={isLoggingIn}
+            disabled={isLoggingIn}
           >
-            {t("button.login")}
+            {isLoggingIn ? "" : t("button.login")}
           </Button>
         </div>
         <div

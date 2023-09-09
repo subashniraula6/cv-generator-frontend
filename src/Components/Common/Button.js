@@ -3,8 +3,10 @@ import { css, styled } from "styled-components";
 const Icon = styled.span`
   position: absolute;
   top: 50%;
-  ${({ iconPosition }) =>
-    iconPosition ? iconPosition + ": 7px;" : "right: 7px;"}
+  ${({ iconPosition }) => iconPosition == "left" ? "left: 7px;": null}
+  ${({ iconPosition }) => iconPosition == "right" ? "right: 7px;" : null}
+  ${({ iconPosition }) => iconPosition == "center" ? "text-alignment: center;" : null}
+  ${({ iconPosition }) => iconPosition == "center" ? "left: 50%;" : null}
   transform: translateY(-50%) rotate(0deg);
   transition: transform 0.3s !important;
 `;
@@ -40,6 +42,7 @@ const buttonBaseStyles = css`
   position: relative;
   display: inline-block;
   border: none;
+  height: 40px;
   font-size: 16px;
   border-radius: 4px;
   padding: 6px 25px;

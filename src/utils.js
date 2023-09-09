@@ -23,4 +23,28 @@ const removeLocalUserProfiles = () => {
   localStorage.removeItem("currentQuestion");
 };
 
-export { toSentenceCase, toCamelCase, removeLocalUserProfiles };
+const orderQuestions = (originalQuestions) => {
+  let orderedKeys = [
+    "basicInfo",
+    "skills",
+    "languages",
+    "interests",
+    "awards",
+    "certifications",
+    "targetCompany",
+    "workExperience",
+    "profileSummary",
+    "education",
+    "projects",
+    "others",
+  ];
+  const orderedQuestions = {};
+  orderedKeys.forEach(key => {
+    if (originalQuestions.hasOwnProperty(key)) {
+      orderedQuestions[key] = originalQuestions[key];
+    }
+  });
+  return orderedQuestions;
+};
+
+export { toSentenceCase, toCamelCase, removeLocalUserProfiles, orderQuestions };

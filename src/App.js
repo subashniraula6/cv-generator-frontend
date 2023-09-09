@@ -3,37 +3,37 @@ import "antd/dist/reset.css";
 import NavBar from "./Components/Common/NavBar";
 import PublicRoutes from "./Components/Routes";
 import { ConfigProvider } from "antd";
-import { StyleProvider } from '@ant-design/cssinjs';
+import { StyleProvider } from "@ant-design/cssinjs";
 import CookieConsentBanner from "./Components/CookieConsentBanner";
 
 function App() {
-  return (
-    <ConfigProvider
-      theme={{
-        token: {
-          // Seed Token
-          colorPrimary: "rgb(149, 0, 255, 0.4)",
-          borderRadius: 2,
+  let appTheme = {
+    token: {
+      // Seed Token
+      colorPrimary: "rgb(149, 0, 255, 0.4)",
+      borderRadius: 2,
 
-          // Alias Token
-          colorBgContainer: "rgba(149, 0, 255, 0.09)",
-        },
-        components: {
-          Dropdown: {
-            colorBgElevated: "rgb(149, 0, 255)",
-          },
-          Table: {
-            colorBgContainer: "rgb(149, 0, 255, 0.01)",
-          },
-          Select: {
-            borderRadiusOuter: "4px"
-          }
-        }
-      }}
-    >
-        <NavBar />
-        <PublicRoutes />
-        <CookieConsentBanner />
+      // Alias Token
+      colorBgContainer: "rgba(149, 0, 255, 0.09)",
+    },
+    components: {
+      Dropdown: {
+        colorBgElevated: "rgb(149, 0, 255)",
+      },
+      Table: {
+        colorBgContainer: "rgb(149, 0, 255, 0.01)",
+      },
+      Select: {
+        borderRadiusOuter: "4px",
+      },
+    },
+  };
+  
+  return (
+    <ConfigProvider theme={appTheme}>
+      <NavBar />
+      <PublicRoutes />
+      <CookieConsentBanner />
     </ConfigProvider>
   );
 }

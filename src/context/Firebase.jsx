@@ -12,16 +12,17 @@ import {
 import { useEffect } from "react";
 import { getFirestore, collection, addDoc } from "firebase/firestore"; 
 import { removeLocalUserProfiles } from '../utils'
+import axios from "../axios/axios"; 
+import { notification } from "antd";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBQugGmiIurePqkQQJVRwJz1RajXFGiJtw",
-  authDomain: "resume-generator-e00af.firebaseapp.com",
-  databaseURL: "https://resume-generator-e00af-default-rtdb.firebaseio.com",
-  projectId: "resume-generator-e00af",
-  storageBucket: "resume-generator-e00af.appspot.com",
-  messagingSenderId: "508687286177",
-  appId: "1:508687286177:web:b4b4c85b7fb16073a155e0",
-  measurementId: "G-SG85TGMKYP"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGIN_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -55,12 +56,28 @@ export const FirebaseProvider = (props) => {
     return addDoc(collection(db, coll), data);
   };
 
+  const [userLoading, setUserLoading] = useState(false);
   const [user, setUser] = useState(null);
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
-      if (user) {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (firebaseUser) => {
+      if (firebaseUser) {
         // Yes, user is logged in
+        // load user data from db
+        axios.get("kneg/fbuser/"+ firebaseUser.uid)
+        .then(res => {
+          let fetchedUser = res.data.data;
+          setUser({...firebaseUser, ...fetchedUser})
+        })
+        .catch(err => {
+          notification.error({
+            message: "Fetching user error",
+            description: err.message,
+          });
+          console.log(err)
+        })
         setUser(user);
+
       } else {
         // User is logged out
         setUser(null);

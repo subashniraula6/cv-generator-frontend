@@ -4,11 +4,14 @@ import Resumes from "../../Resumes/Resumes";
 import Form from "../../Form/Form";
 import { Button } from "../../Common/Button";
 import axios from "../../../axios/axios";
-import { Spin } from "antd";
+import { Spin, notification } from "antd";
 import { useFirebase } from "../../../context/Firebase";
+import { orderQuestions } from "../../../utils"
+import { useLanguage } from "../../../context/Language";
 
 const App = () => {
   let { user } = useFirebase();
+  let [userQuestionsId, setUserQuestionsId] = useState(0);
   let [questions, setQuestions] = useState(() => {
     // Load saved questions
     const saved = localStorage.getItem("questions");
@@ -18,16 +21,29 @@ const App = () => {
     return {};
   });
 
+  const { language: lang } = useLanguage();
+
   useEffect(() => {
     // Fetch data
     axios
-      .get("questions_per_user/" + 123456789) //replace with user.uid
+      .get("kneg/questions_per_user/" + user.uid) //replace with user.uid
       .then(({ data }) => {
-        let currentQuestions = JSON.parse(data.data[0].question_JSON); // 0 refers first resume
-        setQuestions({ ...currentQuestions, isNext: true });
+        let langBasedQuestion = data.data.find(question => question.language === lang);
+        if(!langBasedQuestion) {
+          notification.error({
+            message: "Question not found",
+            description: "No questions found for the language: " + lang + "\n Using default English",
+          });
+          return;
+        }
+        langBasedQuestion = data.data.find(question => question.language === "en");
+        setUserQuestionsId(langBasedQuestion.id); 
+        let currentQuestions = JSON.parse(langBasedQuestion.question_JSON); // 0 refers first resume
+        let orderedQuestions = orderQuestions(currentQuestions)
+        setQuestions({ ...orderedQuestions, isNext: false });
       });
-  }, []);
-
+  }, [lang]);
+  
   function setUpdatedQuestions(questions, isNext = false) {
     setQuestions({ ...questions, isNext });
     // Store lo localstorage on each questions change
@@ -60,10 +76,11 @@ const App = () => {
             questions={questions}
             setQuestions={setUpdatedQuestions}
             type={"resume"}
+            userQuestionsId={userQuestionsId}
           />
         </FormWrapper>
         {(!phoneMode || showResume) && (
-          <Resumes questions={questions} setQuestions={setUpdatedQuestions} />
+          <Resumes questions={questions} setQuestions={setUpdatedQuestions} userQuestionsId={userQuestionsId}/>
         )}
       </div>
       <div className="toggler">

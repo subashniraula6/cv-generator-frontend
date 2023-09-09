@@ -5,8 +5,10 @@ import { toSentenceCase } from "../../utils";
 import Field from "../Common/Field";
 import { useLanguage } from "../../context/Language";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 
 export default function Form({ questions, setQuestions, type }) {
+  let [saving, setSaving] = useState(false);
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(() => {
     // Load saved current question index
     const saved = localStorage.getItem("currentQuestionIdx");
@@ -46,12 +48,6 @@ export default function Form({ questions, setQuestions, type }) {
 
   useEffect(() => {
     let currentQuestion = findCurrentQuestion();
-    if(!currentQuestion) {
-      // Switch to next section if current question is invalid
-      let nextSection = findNextQuestion();
-      setCurrentSection(nextSection);
-      return;
-    }
     let currentAns = currentQuestion?.answer;
     setCurrentAnswer(currentAns);
 
@@ -381,6 +377,7 @@ export default function Form({ questions, setQuestions, type }) {
   };
 
   const handleContinue = (e) => {
+    setSaving(true);
     e.preventDefault();
     let updatedQuestions = JSON.parse(JSON.stringify(questions));
     let currentQuesArrIndex = questions[currentSection]["questions"].findIndex(
@@ -390,13 +387,12 @@ export default function Form({ questions, setQuestions, type }) {
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "answer"
     ] = currentAnswer;
-    // Update DB
-    // Fetch DB and set questions state
-    // setQuestions(updatedQuestions);
+    
     updatedQuestions = updateQuestions(updatedQuestions);
-    setQuestions(updatedQuestions, true);
-    // setTimeout(()=>{
-    // }, [3000]);
+    setTimeout(()=>{
+      setQuestions(updatedQuestions, true);
+      setSaving(false)
+    }, [700]);
   };
 
   const handleInputChange = (e) => {
@@ -436,7 +432,7 @@ export default function Form({ questions, setQuestions, type }) {
   };
   
   return (
-    <>
+    <Spin spinning={saving}>
       <form>
         <h3>
           {questions[currentSection]["title"]
@@ -490,6 +486,6 @@ export default function Form({ questions, setQuestions, type }) {
           });
         })}
       </form>
-    </>
+    </Spin>
   );
 }

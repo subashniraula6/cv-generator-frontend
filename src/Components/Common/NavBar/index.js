@@ -33,8 +33,8 @@ function handleLogout(logout) {
   }
 }
 
-const getItems = (logout, t) => [
-  {
+const getItems = (user, logout, t) => [
+  ...(user.user_role === 'Admin') ? [{
     key: "1",
     label: (
       <Link to="/dashboard">
@@ -42,7 +42,7 @@ const getItems = (logout, t) => [
         <DashboardOutlined style={{ margin: "0 10px" }} />
       </Link>
     ),
-  },
+  }]: [],
   {
     key: "2",
     danger: true,
@@ -62,7 +62,7 @@ const DropdownMenu = () => {
   return (
     <Dropdown
       menu={{
-        items: getItems(logout, t),
+        items: getItems(user, logout, t),
       }}
     >
         <Avatar
