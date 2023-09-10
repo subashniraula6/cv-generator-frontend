@@ -2,16 +2,24 @@ import React, { useState, useCallback, useEffect } from "react";
 import { populateFormObject, checkFormValidity } from "./utility";
 import { notification } from "antd";
 
-export const useFormHandler = (apiService, formElementsArray, items, questions, setQuestions) => {
+export const useFormHandler = (
+  apiService,
+  formElementsArray,
+  items,
+  questions,
+  handleSave,
+  saveDelete
+) => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [formObject, setFormObject] = useState(formElementsArray);
   const [isVisible, setIsVisible] = useState(false);
+  const [action, setAction] = useState(null);
 
   const initialFormObject = formElementsArray;
 
-  useEffect(()=> {
-    setFormObject(formElementsArray)
-  }, [formElementsArray])
+  useEffect(() => {
+    setFormObject(formElementsArray);
+  }, [formElementsArray]);
 
   const resetForm = useCallback(() => {
     setFormObject(initialFormObject);
@@ -46,59 +54,123 @@ export const useFormHandler = (apiService, formElementsArray, items, questions, 
         formData[formElementIdentifier] =
           formObject[formElementIdentifier].value;
       }
-
       if (window.location.hash === "#Create") {
         //dispatch(datatableActions.create(apiService, formData));
       } else {
-        console.log("Form Submitted", formData);
         // Make and post questions and set Items
-        const {question, section, type} = formData;
+        const { id, question, section, type, originalSection, originalId } =
+          formData;
         // Check if section exist
-        let tempQuestions = {...questions};
+        let tempQuestions = { ...questions };
         let sections = Object.keys(questions);
-        if(sections.includes(section)) {
-          let lastQuestion = questions[section]['questions'].sort((a, b) => b.index - a.index)[0];
-          tempQuestions[section]['questions'].push({
-            index: lastQuestion.index + 1,
-            question: {
-              en: question,
-              sv: ""
-            },
-            type: type,
-            answer: {
-              en: '',
-              sv: ''
-            }
-          })
-          setQuestions(tempQuestions)
-        } else {
-          let tempQuestions = {...questions};
-          let sections = Object.keys(questions).filter(section => section !== 'isNext');
-          let lastSection = sections[sections.length-1];
-          let lastIndexInThousands = questions[lastSection]['questions'][0]['index'];
-          let nextThousandIdx = (lastIndexInThousands + 1000) - lastIndexInThousands % 1000;
-          tempQuestions[section] = {
-            title: {
-              en: section,
-              sv: ""
-            },
-            removed: false,
-            questions: [{
-              index: nextThousandIdx,
-              question: {
-                en: question,
-                sv: ""
-              },
+        if (action == "add") {
+          if (sections.includes(section)) {
+            // append to existing section
+            let lastQuestion = questions[section]["questions"].sort(
+              (a, b) => b?.index - a?.index
+            )[0];
+            tempQuestions[section]["questions"].push({
+              index: lastQuestion
+                ? lastQuestion.index + 1
+                : sections.indexOf(section) * 1000,
+              isCustom: true,
+              question,
+              type: type,
+              answer: "",
+            });
+
+            handleSave(tempQuestions);
+          } else {
+            // create new section and add new question
+            let tempQuestions = { ...questions };
+            let sections = Object.keys(questions).filter(
+              (section) => section !== "isNext"
+            );
+            let lastSection = sections[sections.length - 1];
+            let lastIndexInThousands = sections.indexOf(lastSection) * 1000;
+            let nextThousandIdx = lastIndexInThousands + 1000;
+            tempQuestions[section] = {
+              title: section,
               removed: false,
-              type: type
-            }]
+              questions: [
+                {
+                  index: nextThousandIdx,
+                  isCustom: true,
+                  question,
+                  removed: false,
+                  type: type,
+                  answer: "",
+                },
+              ],
+            };
+            handleSave(tempQuestions);
           }
-          setQuestions(tempQuestions)
+          notification.success({
+            message: "Add Success",
+            description: "Successfully Added Question",
+          });
+        } else if (action == "edit") {
+          if (section == originalSection) {
+            let arrIdx = tempQuestions[section]["questions"].findIndex(
+              (q) => q.index === id
+            );
+            tempQuestions[section]["questions"][arrIdx] = {
+              ...tempQuestions[section]["questions"][arrIdx],
+              question,
+              type,
+            };
+            handleSave(tempQuestions);
+          } else {
+            // remove question from original index
+            console.log(tempQuestions);
+            console.log(originalSection);
+            console.log(id);
+            tempQuestions[originalSection]["questions"] = tempQuestions[
+              originalSection
+            ]["questions"].filter((q) => q?.index !== id);
+
+            if (sections.includes(section)) {
+              // perform add
+              let lastQuestion = questions[section]["questions"].sort(
+                (a, b) => b?.index - a?.index
+              )[0];
+              tempQuestions[section]["questions"].push({
+                index: lastQuestion
+                  ? lastQuestion.index + 1
+                  : sections.indexOf(section) * 1000,
+                isCustom: true,
+                question,
+                type: type,
+                answer: "",
+              });
+              handleSave(tempQuestions);
+            } else {
+              // create new section and add new question
+              let tempQuestions = { ...questions };
+              let sections = Object.keys(questions).filter(
+                (section) => section !== "isNext"
+              );
+              let lastSection = sections[sections.length - 1];
+              let lastIndexInThousands = sections.indexOf(lastSection) * 1000;
+              let nextThousandIdx = lastIndexInThousands + 1000;
+              tempQuestions[section] = {
+                title: section,
+                removed: false,
+                questions: [
+                  {
+                    index: nextThousandIdx,
+                    isCustom: true,
+                    question,
+                    removed: false,
+                    type: type,
+                    answer: "",
+                  },
+                ],
+              };
+              handleSave(tempQuestions);
+            }
+          }
         }
-        notification.success({
-          message: "Add Success",
-          description: "Successfully Added Question",
-        });
         //dispatch(datatableActions.update(apiService, formData));
       }
       resetForm();
@@ -107,13 +179,12 @@ export const useFormHandler = (apiService, formElementsArray, items, questions, 
   }; /*, [formObject,formIsValid])*/
 
   const handleItemEdit = (id) => {
-    handleToggle();
+    handleToggle("edit");
     const item = items.find((item) => item.id === id);
-
     const updatedForm = {
       ...formObject,
     };
-
+    
     for (const key in item) {
       if (formObject.hasOwnProperty(key)) {
         const updatedFormElement = {
@@ -148,13 +219,14 @@ export const useFormHandler = (apiService, formElementsArray, items, questions, 
     setFormIsValid(formIsValid);
   };
 
-  const handleItemDelete = (id) => {
-    //dispatch(datatableActions.delete(apiService, id));
+  const handleItemDelete = (section, id) => {
+    saveDelete(section, id);
   };
 
-  const handleToggle = () => {
+  const handleToggle = (action) => {
     resetForm();
     setIsVisible(!isVisible);
+    setAction(action);
   };
 
   return {
@@ -167,5 +239,6 @@ export const useFormHandler = (apiService, formElementsArray, items, questions, 
     formIsValid,
     formObject,
     isVisible,
+    action
   };
 };

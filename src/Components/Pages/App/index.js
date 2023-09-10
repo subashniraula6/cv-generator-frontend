@@ -6,10 +6,12 @@ import { Button } from "../../Common/Button";
 import axios from "../../../axios/axios";
 import { Spin, notification } from "antd";
 import { useFirebase } from "../../../context/Firebase";
-import { orderQuestions } from "../../../utils"
+import { orderQuestions } from "../../../utils";
 import { useLanguage } from "../../../context/Language";
+import ProgressBar from "../../Common/ProgressBar/ProgressBar";
 
 const App = () => {
+  let [fetchPogress, setFetchProgress] = useState(null);
   let { user } = useFirebase();
   let [userQuestionsId, setUserQuestionsId] = useState(0);
   let [questions, setQuestions] = useState(() => {
@@ -26,24 +28,38 @@ const App = () => {
   useEffect(() => {
     // Fetch data
     axios
-      .get("kneg/questions_per_user/" + user.uid) //replace with user.uid
+      .get("kneg/questions_per_user/" + user.uid, {
+        onDownloadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setFetchProgress(percentCompleted)
+        },
+      }) //replace with user.uid
       .then(({ data }) => {
-        let langBasedQuestion = data.data.find(question => question.language === lang);
-        if(!langBasedQuestion) {
+        let langBasedQuestion = data.data.find(
+          (question) => question.language === lang
+        );
+        if (!langBasedQuestion) {
           notification.error({
             message: "Question not found",
-            description: "No questions found for the language: " + lang + "\n Using default English",
+            description:
+              "No questions found for the language: " +
+              lang +
+              "\n Using default English",
           });
           return;
         }
-        langBasedQuestion = data.data.find(question => question.language === "en");
-        setUserQuestionsId(langBasedQuestion.id); 
+        langBasedQuestion = data.data.find(
+          (question) => question.language === "en"
+        );
+        setUserQuestionsId(langBasedQuestion.id);
         let currentQuestions = JSON.parse(langBasedQuestion.question_JSON); // 0 refers first resume
-        let orderedQuestions = orderQuestions(currentQuestions)
+        let orderedQuestions = orderQuestions(currentQuestions);
         setQuestions({ ...orderedQuestions, isNext: false });
       });
   }, [lang]);
-  
+
   function setUpdatedQuestions(questions, isNext = false) {
     setQuestions({ ...questions, isNext });
     // Store lo localstorage on each questions change
@@ -67,7 +83,7 @@ const App = () => {
     setShowResume(!showResume);
   }
 
-  if (Object.keys(questions).length === 0) return <Spin spinning={true} />;
+  if (Object.keys(questions).length === 0) return <ProgressBar progress={fetchPogress} />;
   return (
     <>
       <div className="flex-container">
@@ -80,7 +96,11 @@ const App = () => {
           />
         </FormWrapper>
         {(!phoneMode || showResume) && (
-          <Resumes questions={questions} setQuestions={setUpdatedQuestions} userQuestionsId={userQuestionsId}/>
+          <Resumes
+            questions={questions}
+            setQuestions={setUpdatedQuestions}
+            userQuestionsId={userQuestionsId}
+          />
         )}
       </div>
       <div className="toggler">

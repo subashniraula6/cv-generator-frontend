@@ -152,7 +152,7 @@ export const checkFormValidity = (value, rules) => {
   return { isValid: isValid, errorMessage: errorMessage };
 };
 
-export const formGenerator = (objectForm, onChange, onInjectValue, addDropdownOption) => {
+export const formGenerator = (objectForm, onChange, onInjectValue, addDropdownOption, action) => {
   const formElementsArray = [];
   for (const key in objectForm) {
     formElementsArray.push({
@@ -160,7 +160,9 @@ export const formGenerator = (objectForm, onChange, onInjectValue, addDropdownOp
       config: objectForm[key]
     });
   }
+  
   return formElementsArray.map(formElement => {
+    if(action == 'edit' && formElement.id == 'section') return null;
     return <InputC
       key={formElement.id}
       name={formElement.id}

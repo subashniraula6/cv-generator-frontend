@@ -457,7 +457,7 @@ export default function Form({ questions, setQuestions, type }) {
                       handleDateChange(date, dateStr)
                     }
                     handleFileChange={handleFileChange}
-                    uploadUrl={"https://fakeql.com/upload"}
+                    uploadUrl={"http://127.0.0.1:5000/kneg/upload_image"}
                     addDropdownOption={addDropdownOption}
                   />
                   <div>

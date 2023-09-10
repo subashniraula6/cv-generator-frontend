@@ -44,6 +44,15 @@ const orderQuestions = (originalQuestions) => {
       orderedQuestions[key] = originalQuestions[key];
     }
   });
+
+  // for custom questions to be added at last
+  let sections = Object.keys(originalQuestions);
+  sections.forEach(section => {
+    if (!orderedKeys.includes(section)) {
+      orderedQuestions[section] = originalQuestions[section];
+    };
+  });
+
   return orderedQuestions;
 };
 

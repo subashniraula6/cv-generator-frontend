@@ -2,22 +2,28 @@ import React, { useEffect, useState } from "react";
 import DataTable from "./dataTable";
 import "./AddQuestion.css";
 import FormDrawer from "./formDrawer";
-import { Button as AntButton, Popconfirm, Typography } from "antd";
+import {
+  Button as AntButton,
+  Popconfirm,
+  Typography,
+  notification,
+} from "antd";
 import { Button } from "../../Common/Button";
 import { useFormHandler } from "./formHook";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import importedQuestions from "../../../Questions2";
 import { useLanguage } from "../../../context/Language";
-import { toSentenceCase, toCamelCase } from "../../../utils";
+import { toSentenceCase, toCamelCase, orderQuestions } from "../../../utils";
+import axios from "../../../axios/axios";
+import ProgressBar from "../../Common/ProgressBar/ProgressBar";
 
 const { Title } = Typography;
 
 const dtConfig = [
   {
     title: "index",
-    dataIndex: "index",
+    dataIndex: "id",
     textFilter: true,
-    sorter: (a, b) => a.index - b.index,
+    sorter: (a, b) => a.id - b.id,
   },
   {
     title: "Section",
@@ -39,17 +45,51 @@ const dtConfig = [
 const apiService = { props: {} };
 const title = "Questions";
 const roleLevel = "props";
+
 const AddQuestion = (props) => {
+  let [fetchPogress, setFetchProgress] = useState(null);
+  let { language: lang } = useLanguage();
+
   // Data
+  const [questionsIndex, setQuestionsIndex] = useState(null);
   const [questions, setQuestions] = useState({});
   const [items, setItems] = useState([]);
   const [sections, setSections] = useState([]);
   const [types, setTypes] = useState([]);
 
-  useEffect(()=> {
+  useEffect(() => {
     // Fetch questions and setQuestions
-    setQuestions(importedQuestions);
-  }, [])
+    axios
+      .get("kneg/questions", {
+        onDownloadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setFetchProgress(percentCompleted);
+        },
+      })
+      .then(({ data }) => {
+        let langBasedQuestion = data.data.find(
+          (question) => question.language === lang
+        );
+        if (langBasedQuestion) {
+          let currentQuestions = JSON.parse(langBasedQuestion.question_JSON); 
+          let orderedQuestions = orderQuestions(currentQuestions)
+          setQuestions({ ...orderedQuestions, isNext: false });
+          setQuestionsIndex(langBasedQuestion.id);
+        } else {
+          setQuestions({});
+          setQuestionsIndex(null);
+        }
+      })
+      .catch((err) => {
+        notification.error({
+          message: "Fetching questions error",
+          description: err.message,
+        });
+        console.log(err);
+      });
+  }, [lang]);
 
   useEffect(() => {
     let sections = Object.keys(questions);
@@ -65,10 +105,13 @@ const AddQuestion = (props) => {
       questions[section]["questions"]?.forEach((question) => {
         let item = {};
         item["title"] = questions[section]["title"];
-        item["repeatable"] = questions[section]["repeatable"];
         item["question"] = question["question"];
-        item["index"] = question["index"];
+        item["id"] = question["index"];
         item["type"] = question["type"];
+        item["section"] = section;
+        item["isCustom"] = question["isCustom"] || false;
+        item["originalId"] = question["index"];
+        item["originalSection"] = section;
         tempItems.push(item);
         if (!tempTypes.includes(question["type"])) {
           tempTypes.push(question["type"]);
@@ -81,32 +124,16 @@ const AddQuestion = (props) => {
       tempTypes.map((type) => ({ label: toSentenceCase(type), value: type }))
     );
   }, [questions]);
-  
+
   // Config
   const [formConfig, setFormConfig] = useState({});
-  useEffect(()=> {
+  useEffect(() => {
     setFormConfig({
-      question: {
-        elementType: "textarea",
-        col: 24,
-        elementConfig: {
-          type: "textarea",
-          placeholder: "Question",
-        },
-        value: "",
-        label: "Question",
-        validation: {
-          required: true,
-        },
-        valid: false,
-        errorMessage: [],
-        touched: false,
-      },
       section: {
         elementType: "select-addable",
         col: 20,
         elementConfig: {
-          options: sections
+          options: sections,
         },
         value: "",
         label: "Section",
@@ -132,11 +159,60 @@ const AddQuestion = (props) => {
         errorMessage: [],
         touched: false,
       },
-    })
-  }, [types, sections, questions])
-  
+      question: {
+        elementType: "textarea",
+        col: 24,
+        elementConfig: {
+          type: "textarea",
+          placeholder: "Question",
+        },
+        value: "",
+        label: "Question",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        errorMessage: [],
+        touched: false,
+      },
+    });
+  }, [types, sections, questions]);
+
   const addDropdownOption = (id, option) => {
-    setSections([...sections, { value: toCamelCase(option), label: option }])
+    setSections([...sections, { value: toCamelCase(option), label: option }]);
+  };
+
+  const handleSave = (formdata) => {
+    axios
+      .put(
+        "/kneg/question/" + questionsIndex,
+        JSON.stringify({ question_JSON: formdata })
+      )
+      .then((res) => {
+        let updatedQuestions = JSON.parse(res.data.data.question_JSON);
+        let orderedQuestions = orderQuestions(updatedQuestions)
+        setQuestions({ ...orderedQuestions, isNext: false });
+        notification.success({
+          message: res.data.message,
+        });
+      })
+      .catch((err) => {
+        notification.error({
+          message: "Fetching questions error",
+          description: err.message,
+        });
+        console.log(err);
+        setQuestions({});
+        setQuestionsIndex(null);
+      });
+  };
+
+  const saveDelete = (section, id) => {
+    let updatedQuestions = JSON.parse(JSON.stringify(questions));
+    updatedQuestions[section]["questions"] = updatedQuestions[section][
+      "questions"
+    ].filter((q) => q.index != id);
+    handleSave(updatedQuestions);
   };
 
   //const {items, loading, isVisible, submitting} = useSelector(store => store.datatable);
@@ -150,9 +226,17 @@ const AddQuestion = (props) => {
     formIsValid,
     formObject,
     isVisible,
-  } = useFormHandler(apiService, formConfig, items, questions, setQuestions);
+    action
+  } = useFormHandler(
+    apiService,
+    formConfig,
+    items,
+    questions,
+    handleSave,
+    saveDelete
+  );
   const objName = "question";
-
+  
   useEffect(() => {
     if (roleLevel === "role admin") {
       //    dispatch(datatableActions.getAll(apiService));
@@ -174,32 +258,35 @@ const AddQuestion = (props) => {
       dataIndex: "Actions",
       align: "center",
       render: (text, record) => {
-        return (
-          <AntButton.Group>
-            <AntButton
-              type="dashed"
-              shape="circle"
-              icon={<EditOutlined />}
-              size="large"
-              onClick={() => handleItemEdit(record.id)}
-            />
-            <Popconfirm
-              title="Sure to Delete?"
-              onConfirm={() => handleItemDelete(record.id)}
-            >
+        if (record.isCustom) {
+          return (
+            <AntButton.Group>
               <AntButton
-                type="danger"
+                type="dashed"
                 shape="circle"
-                icon={<DeleteOutlined />}
+                icon={<EditOutlined />}
                 size="large"
+                onClick={() => handleItemEdit(record.id)}
               />
-            </Popconfirm>
-          </AntButton.Group>
-        );
+              <Popconfirm
+                title="Sure to Delete?"
+                onConfirm={() => handleItemDelete(record.section, record.id)}
+              >
+                <AntButton
+                  type="danger"
+                  shape="circle"
+                  icon={<DeleteOutlined />}
+                  size="large"
+                />
+              </Popconfirm>
+            </AntButton.Group>
+          );
+        }
       },
     },
   ];
-  
+  if (fetchPogress >= 0 && fetchPogress < 100)
+    return <ProgressBar progress={fetchPogress} />;
   return (
     <div className="table-container">
       <Title level={3}>{title}</Title>
@@ -207,7 +294,7 @@ const AddQuestion = (props) => {
         style={{ marginBottom: 16, marginRight: 16, width: "fit-content" }}
         icon={<PlusOutlined />}
         type="primary"
-        onClick={handleToggle}
+        onClick={()=>handleToggle('add')}
       >
         Add new {objName}
       </Button>
@@ -221,6 +308,7 @@ const AddQuestion = (props) => {
         onSubmit={handleFormSubmit}
         onToggle={handleToggle}
         addDropdownOption={addDropdownOption}
+        action={action}
       />
       <DataTable
         items={items}

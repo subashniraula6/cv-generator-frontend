@@ -1,11 +1,13 @@
 import { Radio, Select } from "antd";
 import React from "react";
 import { useLanguage } from "../../../context/Language";
+import { removeLocalUserProfiles } from "../../../utils"
 
 const LanguageSelect = () => {
   let { language, setLanguage } = useLanguage("en");
   function setLocale(value) {
     setLanguage(value);
+    removeLocalUserProfiles();
   }
 
   return (

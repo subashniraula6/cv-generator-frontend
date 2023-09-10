@@ -14,9 +14,10 @@ const FormDrawer = props => {
     onSubmit,
     onToggle,
     isVisible,
-    addDropdownOption
+    addDropdownOption,
+    action
   } = props;
-  let form = formGenerator(formElementsArray, onChange, onInjectValue, addDropdownOption);
+  let form = formGenerator(formElementsArray, onChange, onInjectValue, addDropdownOption, action);
   return (
     <>
       <Drawer
