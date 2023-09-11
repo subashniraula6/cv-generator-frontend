@@ -58,7 +58,7 @@ export const FirebaseProvider = (props) => {
 
   const [userLoading, setUserLoading] = useState(false);
   const [user, setUser] = useState(null);
-
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (firebaseUser) => {
       if (firebaseUser) {

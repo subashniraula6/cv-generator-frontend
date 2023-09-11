@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import DataTable from "./dataTable";
 import "./AddQuestion.css";
 import FormDrawer from "./formDrawer";
-import { Button as AntButton, Popconfirm, Typography } from "antd";
-import { Button } from "../../Common/Button"
+import { Button as AntButton, Popconfirm, Typography, notification } from "antd";
+import { Button } from "../../Common/Button";
 import { useFormHandler } from "./formHook";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import axios from "../../../axios/axios"
 
 const { Title } = Typography;
 
@@ -32,17 +33,31 @@ const apiService = { props: {} };
 const title = "Languages";
 const roleLevel = "props";
 const Languages = (props) => {
+  let [renderCount, setRenderCount] = useState(0)
   // Data
   const [languages, setLanguages] = useState([]);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    // Fetch questions and setQuestions
-    setLanguages([
-      { index: 1, name: "English", abbr: "en" },
-      { index: 2, name: "Swedish", abbr: "sv" },
-    ]);
-  }, []);
+    // Fetch Languages and setLanguages
+    axios
+      .get("kneg/languages")
+      .then(({ data }) => {
+        let languages = data.data.map((l) => ({
+          index: l.id,
+          name: l.language_full,
+          abbr: l.lang_abb,
+        }));
+        setLanguages(languages);
+      })
+      .catch((err) => {
+        notification.error({
+          message: "Fetching languages error",
+          description: err.message,
+        });
+        console.log(err);
+      });
+  }, [renderCount]);
 
   useEffect(() => {
     setItems(languages);
@@ -52,22 +67,6 @@ const Languages = (props) => {
   const [formConfig, setFormConfig] = useState({});
   useEffect(() => {
     setFormConfig({
-      index: {
-        elementType: "input",
-        col: 24,
-        elementConfig: {
-          type: "input",
-          placeholder: "Index",
-        },
-        value: "",
-        label: "Index",
-        validation: {
-          required: true,
-        },
-        valid: false,
-        errorMessage: [],
-        touched: false,
-      },
       name: {
         elementType: "input",
         col: 24,

@@ -1,10 +1,11 @@
-import { Radio, Select } from "antd";
-import React from "react";
+import { Radio, Select, notification } from "antd";
+import React, { useEffect, useState } from "react";
 import { useLanguage } from "../../../context/Language";
-import { removeLocalUserProfiles } from "../../../utils"
+import { removeLocalUserProfiles } from "../../../utils";
 
-const LanguageSelect = () => {
-  let { language, setLanguage } = useLanguage("en");
+const LanguageSelect = () => {  
+  let { languages, language, setLanguage } = useLanguage("en");
+  
   function setLocale(value) {
     setLanguage(value);
     removeLocalUserProfiles();
@@ -17,8 +18,9 @@ const LanguageSelect = () => {
         onChange={(v) => setLocale(v)}
         style={{ marginLeft: 10 }}
       >
-        <Select.Option value="en">English (en)</Select.Option>
-        <Select.Option value="sv">Svenska (sv)</Select.Option>
+        {
+          languages.map(l => <Select.Option value={l.value}>{l.label} ({l.value})</Select.Option>)
+        }
       </Select>
     </div>
   );

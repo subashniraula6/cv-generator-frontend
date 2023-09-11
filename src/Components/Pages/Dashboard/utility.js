@@ -23,7 +23,7 @@ export const populateFormObject = (
     value = eventValue;
   }
   //console.log('value after', value);
-
+  
   const checkValidity = checkFormValidity(
     value,
     formObject[inputIdentifier].validation
@@ -40,6 +40,9 @@ export const populateFormObject = (
 
   let formIsValid = true;
   for (let inputIdentifier in updatedForm) {
+    let ignoredKeys = ['isCustom', 'originalId', 'originalSection'];
+    if(ignoredKeys.includes(inputIdentifier)) continue; //skip
+
     formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
   }
   response["updatedForm"] = updatedForm;

@@ -4,17 +4,24 @@ import "./AddQuestion.css";
 import FormDrawer from "./formDrawer";
 import {
   Button as AntButton,
+  Drawer,
   Popconfirm,
   Typography,
   notification,
 } from "antd";
 import { Button } from "../../Common/Button";
 import { useFormHandler } from "./formHook";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  PlusOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
 import { useLanguage } from "../../../context/Language";
 import { toSentenceCase, toCamelCase, orderQuestions } from "../../../utils";
 import axios from "../../../axios/axios";
 import ProgressBar from "../../Common/ProgressBar/ProgressBar";
+import TranslateDrawer from "./TranslateDrawer";
 
 const { Title } = Typography;
 
@@ -47,12 +54,15 @@ const title = "Questions";
 const roleLevel = "props";
 
 const AddQuestion = (props) => {
+  let [renderCount, setRenderCount] = useState(0)
   let [fetchPogress, setFetchProgress] = useState(null);
   let { language: lang } = useLanguage();
+  let [currentRecord, setCurrentRecord] = useState(null);
 
   // Data
   const [questionsIndex, setQuestionsIndex] = useState(null);
   const [questions, setQuestions] = useState({});
+  const [applicationQuestions, setApplicationQuestions] = useState({});
   const [items, setItems] = useState([]);
   const [sections, setSections] = useState([]);
   const [types, setTypes] = useState([]);
@@ -69,12 +79,13 @@ const AddQuestion = (props) => {
         },
       })
       .then(({ data }) => {
+        setApplicationQuestions(data.data);
         let langBasedQuestion = data.data.find(
           (question) => question.language === lang
         );
         if (langBasedQuestion) {
-          let currentQuestions = JSON.parse(langBasedQuestion.question_JSON); 
-          let orderedQuestions = orderQuestions(currentQuestions)
+          let currentQuestions = JSON.parse(langBasedQuestion.question_JSON);
+          let orderedQuestions = orderQuestions(currentQuestions);
           setQuestions({ ...orderedQuestions, isNext: false });
           setQuestionsIndex(langBasedQuestion.id);
         } else {
@@ -89,7 +100,7 @@ const AddQuestion = (props) => {
         });
         console.log(err);
       });
-  }, [lang]);
+  }, [lang, renderCount]);
 
   useEffect(() => {
     let sections = Object.keys(questions);
@@ -178,20 +189,21 @@ const AddQuestion = (props) => {
     });
   }, [types, sections, questions]);
 
+  // Translate Drawer
+  let [translate, setTranslate] = useState(false);
+
   const addDropdownOption = (id, option) => {
     setSections([...sections, { value: toCamelCase(option), label: option }]);
   };
 
-  const handleSave = (formdata) => {
+  const handleSave = (formdata, index) => {
     axios
       .put(
-        "/kneg/question/" + questionsIndex,
+        "/kneg/question/" + index,
         JSON.stringify({ question_JSON: formdata })
       )
       .then((res) => {
-        let updatedQuestions = JSON.parse(res.data.data.question_JSON);
-        let orderedQuestions = orderQuestions(updatedQuestions)
-        setQuestions({ ...orderedQuestions, isNext: false });
+        setRenderCount(renderCount+1)
         notification.success({
           message: res.data.message,
         });
@@ -201,7 +213,6 @@ const AddQuestion = (props) => {
           message: "Fetching questions error",
           description: err.message,
         });
-        console.log(err);
         setQuestions({});
         setQuestionsIndex(null);
       });
@@ -212,7 +223,7 @@ const AddQuestion = (props) => {
     updatedQuestions[section]["questions"] = updatedQuestions[section][
       "questions"
     ].filter((q) => q.index != id);
-    handleSave(updatedQuestions);
+    handleSave(updatedQuestions, questionsIndex);
   };
 
   //const {items, loading, isVisible, submitting} = useSelector(store => store.datatable);
@@ -226,17 +237,18 @@ const AddQuestion = (props) => {
     formIsValid,
     formObject,
     isVisible,
-    action
+    action,
   } = useFormHandler(
     apiService,
     formConfig,
     items,
     questions,
     handleSave,
-    saveDelete
+    saveDelete,
+    questionsIndex
   );
   const objName = "question";
-  
+
   useEffect(() => {
     if (roleLevel === "role admin") {
       //    dispatch(datatableActions.getAll(apiService));
@@ -251,6 +263,11 @@ const AddQuestion = (props) => {
     // console.log("params", pagination, filters, sorter, extra);
   };
 
+  const handleQuestionTranslate = (record) => {
+    setTranslate(true);
+    setCurrentRecord(record);
+  };
+
   const dtConfigColumns = [
     ...dtConfig,
     {
@@ -258,16 +275,23 @@ const AddQuestion = (props) => {
       dataIndex: "Actions",
       align: "center",
       render: (text, record) => {
-        if (record.isCustom) {
-          return (
-            <AntButton.Group>
-              <AntButton
-                type="dashed"
-                shape="circle"
-                icon={<EditOutlined />}
-                size="large"
-                onClick={() => handleItemEdit(record.id)}
-              />
+        return (
+          <AntButton.Group>
+            <AntButton
+              type="dashed"
+              shape="circle"
+              icon={<EditOutlined />}
+              size="large"
+              onClick={() => handleItemEdit(record.id)}
+            />
+            <AntButton
+              type="dashed"
+              shape="circle"
+              icon={<SettingOutlined />}
+              size="large"
+              onClick={() => handleQuestionTranslate(record)}
+            />
+            {record.isCustom && (
               <Popconfirm
                 title="Sure to Delete?"
                 onConfirm={() => handleItemDelete(record.section, record.id)}
@@ -279,9 +303,9 @@ const AddQuestion = (props) => {
                   size="large"
                 />
               </Popconfirm>
-            </AntButton.Group>
-          );
-        }
+            )}
+          </AntButton.Group>
+        );
       },
     },
   ];
@@ -294,7 +318,7 @@ const AddQuestion = (props) => {
         style={{ marginBottom: 16, marginRight: 16, width: "fit-content" }}
         icon={<PlusOutlined />}
         type="primary"
-        onClick={()=>handleToggle('add')}
+        onClick={() => handleToggle("add")}
       >
         Add new {objName}
       </Button>
@@ -309,6 +333,13 @@ const AddQuestion = (props) => {
         onToggle={handleToggle}
         addDropdownOption={addDropdownOption}
         action={action}
+      />
+      <TranslateDrawer
+        translate={translate}
+        setTranslate={setTranslate}
+        currentRecord={currentRecord}
+        applicationQuestions={applicationQuestions}
+        handleSave={handleSave}
       />
       <DataTable
         items={items}

@@ -8,7 +8,8 @@ export const useFormHandler = (
   items,
   questions,
   handleSave,
-  saveDelete
+  saveDelete,
+  questionsIndex
 ) => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [formObject, setFormObject] = useState(formElementsArray);
@@ -79,7 +80,7 @@ export const useFormHandler = (
               answer: "",
             });
 
-            handleSave(tempQuestions);
+            handleSave(tempQuestions, questionsIndex);
           } else {
             // create new section and add new question
             let tempQuestions = { ...questions };
@@ -103,7 +104,7 @@ export const useFormHandler = (
                 },
               ],
             };
-            handleSave(tempQuestions);
+            handleSave(tempQuestions, questionsIndex);
           }
           notification.success({
             message: "Add Success",
@@ -119,7 +120,7 @@ export const useFormHandler = (
               question,
               type,
             };
-            handleSave(tempQuestions);
+            handleSave(tempQuestions, questionsIndex);
           } else {
             // remove question from original index
             console.log(tempQuestions);
@@ -143,7 +144,7 @@ export const useFormHandler = (
                 type: type,
                 answer: "",
               });
-              handleSave(tempQuestions);
+              handleSave(tempQuestions, questionsIndex);
             } else {
               // create new section and add new question
               let tempQuestions = { ...questions };
@@ -167,7 +168,7 @@ export const useFormHandler = (
                   },
                 ],
               };
-              handleSave(tempQuestions);
+              handleSave(tempQuestions, questionsIndex);
             }
           }
         }

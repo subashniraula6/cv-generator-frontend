@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import DataTable from "./dataTable";
 import "./AddQuestion.css";
 import FormDrawer from "./formDrawer";
-import { Button, Popconfirm, Typography } from "antd";
+import { Button, Popconfirm, Typography, notification } from "antd";
 import { useFormHandler } from "./formHook";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import importedQuestions from "../../../Questions";
 import { useLanguage } from "../../../context/Language";
 import { toSentenceCase, toCamelCase } from "../../../utils";
+import axios from "../../../axios/axios";
+import { useFirebase } from "../../../context/Firebase";
 
 const { Title } = Typography;
 
 const dtConfig = [
   {
     title: "index",
-    dataIndex: "index",
+    dataIndex: "id",
     textFilter: true,
     sorter: (a, b) => a.index - b.index,
   },
@@ -28,38 +30,71 @@ const dtConfig = [
     dataIndex: "email",
     textFilter: true,
   },
-  {
-    title: "Image",
-    dataIndex: "image",
-    textFilter: true,
-  },
+  // {
+  //   title: "Image",
+  //   dataIndex: "image",
+  //   textFilter: true,
+  // },
 ];
 
 const apiService = { props: {} };
 const title = "Users";
 const roleLevel = "props";
 const RemoveUser = (props) => {
+  let [fetchPogress, setFetchProgress] = useState(null);
+  let [renderCount, setRenderCount] = useState(0)
   // Data
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
 
-  useEffect(()=> {
+  const { user } = useFirebase(); 
+  useEffect(() => {
     // Fetch users and set Users
-    setUsers([{
-      index: 1,
-      name: "Basanta Niraula",
-      email: "subashniraula6@mail.com",
-      image: "http://www.basanta.com.np"
-    }]);
-  }, [])
+    axios
+      .get("kneg/users", {
+        onDownloadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setFetchProgress(percentCompleted);
+        },
+      })
+      .then(({ data }) => {
+        let users = data.data.map(u => ({
+          id: u.id,
+          email: u.email,
+          name: (u.fname || "") + " " + (u.lname || ""),
+          uid: u.uid
+        }));
+        setUsers(users);
+      })
+      .catch((err) => {
+        notification.error({
+          message: "Fetching questions error",
+          description: err.message,
+        });
+        console.log(err);
+      });
+  }, [renderCount]);
 
   useEffect(() => {
-    setItems(users.map(user => user));
+    setItems(users.map((user) => user));
   }, [users]);
-  
-  const handleItemDelete = (e) => {
 
-  }
+  const handleItemDelete = (uid) => {
+    axios.post("delete_user", JSON.stringify({
+      u_id: uid,
+    }))
+    .then(res => {
+      setRenderCount(renderCount + 1)
+    })
+    .catch((err) => {
+      notification.error({
+        message: "Delete user error",
+        description: err.message,
+      });
+    });
+  };
 
   useEffect(() => {
     if (roleLevel === "role admin") {
@@ -86,7 +121,7 @@ const RemoveUser = (props) => {
           <Button.Group>
             <Popconfirm
               title="Sure to Delete?"
-              onConfirm={() => handleItemDelete(record.id)}
+              onConfirm={() => handleItemDelete(record.uid)}
             >
               <Button
                 type="danger"
@@ -100,7 +135,7 @@ const RemoveUser = (props) => {
       },
     },
   ];
-  
+
   return (
     <div className="table-container">
       <Title level={3}>{title}</Title>
