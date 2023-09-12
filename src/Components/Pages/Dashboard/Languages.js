@@ -12,6 +12,7 @@ import { Button } from "../../Common/Button";
 import { useFormHandler } from "./formHook";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import axios from "../../../axios/axios";
+import ProgressBar from "../../Common/ProgressBar/ProgressBar";
 
 const { Title } = Typography;
 
@@ -39,6 +40,7 @@ const title = "Languages";
 const roleLevel = "props";
 const Languages = (props) => {
   let [renderCount, setRenderCount] = useState(0);
+  let [fetchPogress, setFetchProgress] = useState(null);
   // Data
   const [languages, setLanguages] = useState([]);
   const [items, setItems] = useState([]);
@@ -46,7 +48,14 @@ const Languages = (props) => {
   useEffect(() => {
     // Fetch Languages and setLanguages
     axios
-      .get("kneg/languages")
+      .get("kneg/languages", {
+        onDownloadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setFetchProgress(percentCompleted);
+        },
+      })
       .then(({ data }) => {
         let languages = data.data.map((l) => ({
           index: l.id,
@@ -194,6 +203,9 @@ const Languages = (props) => {
       },
     },
   ];
+
+  if (fetchPogress >= 0 && fetchPogress < 100)
+    return <ProgressBar progress={fetchPogress} />;
 
   return (
     <div className="table-container">

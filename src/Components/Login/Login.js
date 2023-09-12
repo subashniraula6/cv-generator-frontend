@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { GoogleOutlined, LoadingOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  GoogleOutlined,
+  LoadingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Input, Spin } from "antd";
-import { Button } from '../Common/Button';
+import { Button } from "../Common/Button";
 import { notification } from "antd";
 import { useNavigate } from "react-router-dom";
-import './Login.css';
-import { removeLocalUserProfiles } from '../../utils'
-import { useFirebase } from '../../context/Firebase'
-import { useLanguage } from '../../context/Language'
+import "./Login.css";
+import { removeLocalUserProfiles } from "../../utils";
+import { useFirebase } from "../../context/Firebase";
+import { useLanguage } from "../../context/Language";
 
 export default function Login() {
   // const tokenExist = CheckAuth();
@@ -18,14 +22,14 @@ export default function Login() {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
 
-  let {user, signinUserWithEmailAndPassword, loginWithGoogle} = useFirebase();
-  let {t} = useLanguage();
+  let { user, signinUserWithEmailAndPassword, loginWithGoogle } = useFirebase();
+  let { t } = useLanguage();
 
-  useEffect(()=> {
-    if(user) {
-      navigate('/app');
+  useEffect(() => {
+    if (user) {
+      navigate("/app");
     }
-  }, [user])
+  }, [user]);
 
   const updateUsername = (event) => {
     setusername(event.target.value);
@@ -34,7 +38,8 @@ export default function Login() {
     setpassword(event.target.value);
   };
 
-  const userLogin = () => {
+  const userLogin = (e) => {
+    e.preventDefault();
     if (username.length !== 0 && password.length !== 0) {
       setIsLoggingIn(true);
       signinUserWithEmailAndPassword(username, password)
@@ -76,7 +81,7 @@ export default function Login() {
       const result = await loginWithGoogle();
       navigate("/app");
     } catch (error) {
-      console.log(error)
+      console.log(error);
       const errorCode = error.code.replace("auth/", "").replace(/-/g, " ");
       notification.error({
         message: "Google Sign-In Error",
@@ -112,101 +117,103 @@ export default function Login() {
         >
           {t("login.info")}
         </div>
-        <div style={{ width: "90%", margin: "10px auto" }}>
-          <Input
-            size="large"
-            type="email"
-            placeholder={t("placeholder.email")}
-            prefix={<UserOutlined />}
-            style={{ padding: "10px" }}
-            onChange={(text) => {
-              updateUsername(text);
-            }}
-          />
-        </div>
-        <div style={{ width: "90%", margin: "0px auto", position: "relative" }}>
-          <Input.Password
-            size="large"
-            placeholder={t("placeholder.password")}
-            // status='error'
-            // prefix={<ClockCircleOutlined/>}
-            iconRender={(visible) =>
-              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-            }
-            style={{ padding: "10px" }}
-            className="mBottom"
-            onChange={(text) => {
-              updatePassword(text);
-            }}
-            required
-          />
-          <div
-            style={{ position: "absolute", right: "0px", cursor: "pointer" }}
-          >
-            <Link
-              to="/forgot-password"
-              style={{ color: "unset", fontWeight: "600" }}
-            >
-              {t("login.forgotPassword")}
-            </Link>
+        <form onSubmit={userLogin}>
+          <div style={{ width: "90%", margin: "10px auto" }}>
+            <Input
+              size="large"
+              type="email"
+              placeholder={t("placeholder.email")}
+              prefix={<UserOutlined />}
+              style={{ padding: "10px" }}
+              onChange={(text) => {
+                updateUsername(text);
+              }}
+            />
           </div>
-        </div>
-        <div
-          className="flex-container"
-          style={{
-            justifyContent: "center",
-            backgroundColor: "unset",
-            marginTop: "20px",
-          }}
-        >
-          <Button
-            type="primary"
+          <div
+            style={{ width: "90%", margin: "0px auto", position: "relative" }}
+          >
+            <Input.Password
+              size="large"
+              placeholder={t("placeholder.password")}
+              // status='error'
+              // prefix={<ClockCircleOutlined/>}
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
+              style={{ padding: "10px" }}
+              className="mBottom"
+              onChange={(text) => {
+                updatePassword(text);
+              }}
+            />
+            <div
+              style={{ position: "absolute", right: "0px", cursor: "pointer" }}
+            >
+              <Link
+                to="/forgot-password"
+                style={{ color: "unset", fontWeight: "600" }}
+              >
+                {t("login.forgotPassword")}
+              </Link>
+            </div>
+          </div>
+          <div
+            className="flex-container"
             style={{
-              width: "100%",
+              justifyContent: "center",
+              backgroundColor: "unset",
+              marginTop: "20px",
             }}
-            onClick={userLogin}
-            icon={isLoggingIn && <LoadingOutlined />}
-            iconPosition={"center"}
-            isLoggingIn={isLoggingIn}
-            disabled={isLoggingIn}
           >
-            {isLoggingIn ? "" : t("button.login")}
-          </Button>
-        </div>
+            <Button
+              type="primary"
+              style={{
+                width: "100%",
+              }}
+              // onClick={userLogin}
+              icon={isLoggingIn && <LoadingOutlined />}
+              iconPosition={"center"}
+              isLoggingIn={isLoggingIn}
+              disabled={isLoggingIn}
+              htmlType='submit'
+            >
+              {isLoggingIn ? "" : t("button.login")}
+            </Button>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              backgroundColor: "unset",
+            }}
+          >
+            <Button type="warning" onClick={signInWithGoogle}>
+              <GoogleOutlined /> {t("button.signinwithgoogle")}
+            </Button>
+          </div>
+          <div style={{ textAlign: "center", marginTop: "15px" }}>
+            {t("login.signup")}{" "}
+            <span style={{ fontStyle: "italic", cursor: "pointer" }}>
+              <Link to="/signup" style={{ color: "unset", fontWeight: "600" }}>
+                {t("login.create")}
+              </Link>
+            </span>
+          </div>
+        </form>
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            backgroundColor: "unset",
+            fontSize: "14px",
+            color: "grey",
+            margin: "20px",
+            fontWeight: "600",
+            textTransform: "uppercase",
+            textAlign: "center",
           }}
         >
-          <Button
-            type="warning"
-            onClick={signInWithGoogle}
-          >
-            <GoogleOutlined /> {t("button.signinwithgoogle")}
-          </Button>
+          {t("footer.copyright")} © 2023{" "}
+          <img src="logo-kneg.png" width="10px" alt="KNEG" />{" "}
         </div>
-        <div style={{ textAlign: "center", marginTop: "15px" }}>
-        {t("login.signup")}{" "}
-          <span style={{ fontStyle: "italic", cursor: "pointer" }}>
-            <Link to="/signup" style={{ color: "unset", fontWeight: "600" }}>
-            {t("login.create")}
-            </Link>
-          </span>
-        </div>
-      <div
-        style={{
-          fontSize: "14px",
-          color: "grey",
-          margin: "20px",
-          fontWeight: "600",
-          textTransform: "uppercase",
-          textAlign: 'center'
-        }}
-      >
-        {t("footer.copyright")} © 2023 <img src="logo-kneg.png" width="10px" alt="KNEG" />{" "}
-      </div>
       </div>
     </div>
   );

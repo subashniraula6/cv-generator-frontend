@@ -51,7 +51,7 @@ export default function CoverLetter({ title, questions, setQuestions }) {
       password: "aeZak1939pska",
     };
     setIsLoading(true);
-    fetch("https://eric-sales-bot.onrender.com/chat", {
+    fetch(process.env.REACT_APP_OPENAI_API, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -392,7 +392,7 @@ export default function Form({ questions, setQuestions, type }) {
     setTimeout(()=>{
       setQuestions(updatedQuestions, true);
       setSaving(false)
-    }, [700]);
+    }, [400]);
   };
 
   const handleInputChange = (e) => {

@@ -10,6 +10,7 @@ import { useLanguage } from "../../../context/Language";
 import { toSentenceCase, toCamelCase } from "../../../utils";
 import axios from "../../../axios/axios";
 import { useFirebase } from "../../../context/Firebase";
+import ProgressBar from "../../Common/ProgressBar/ProgressBar";
 
 const { Title } = Typography;
 
@@ -136,6 +137,8 @@ const RemoveUser = (props) => {
     },
   ];
 
+  if (fetchPogress >= 0 && fetchPogress < 100)
+    return <ProgressBar progress={fetchPogress} />;
   return (
     <div className="table-container">
       <Title level={3}>{title}</Title>

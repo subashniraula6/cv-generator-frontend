@@ -130,14 +130,9 @@ const UpdateQuestion = ({
 
   function generateAI(e, section, index) {
     if (AIType === "profileSummary") {
-      let indexes = [3, 6, 7, 13, 50, 53];
-      let payload = {
-        questions: questions[section]["questions"]
-          .filter((q) => indexes.includes(q.index))
-          .map((q) => ({ question: q.question, answer: q.answer })),
-      };
+      let payload = JSON.stringify(questions);
       let dataInput =
-        "Generate a short and elaborated resume profile summary with words less than 100 from following json: ";
+        "Generate a short and elaborated resume profile summary with words less than 100 from the following json: ";
       dataInput += JSON.stringify(payload);
 
       const requestData = {
@@ -146,7 +141,7 @@ const UpdateQuestion = ({
         password: "aeZak1939pska",
       };
       setIsLoading(true);
-      fetch("https://eric-sales-bot.onrender.com/chat", {
+      fetch(process.env.REACT_APP_OPENAI_API, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -174,13 +169,9 @@ const UpdateQuestion = ({
           alert("Open AI error");
         });
     } else if (AIType === "workSummary") {
-      let payload = {
-        questions: questions[section]["questions"]
-          .filter((q) => q.index >= index - 4 && q.index <= index)
-          .map((q) => ({ question: q.question, answer: q.answer })),
-      };
+      let payload = JSON.stringify(questions);
       let dataInput =
-        "Generate a short and elaborated resume work description summary with words less than 100 from following past work experience json: ";
+        "Generate a short and elaborated resume work description summary with words less than 100 from following json: ";
       dataInput += JSON.stringify(payload);
       const requestData = {
         prompt: "resume maker" + "\n" + dataInput,
@@ -188,7 +179,7 @@ const UpdateQuestion = ({
         password: "aeZak1939pska",
       };
       setIsLoading(true);
-      fetch("https://eric-sales-bot.onrender.com/chat", {
+      fetch(process.env.REACT_APP_OPENAI_API, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

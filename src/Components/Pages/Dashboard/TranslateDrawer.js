@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Drawer, Input, Select } from "antd";
+import { Drawer, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useLanguage } from "../../../context/Language";
-import axios from "../../../axios/axios"
+import {Button} from "../../Common/Button"
 
 const TranslateDrawer = ({
   translate,
@@ -63,6 +63,10 @@ const TranslateDrawer = ({
     setTranslate(false)
   }
 
+  const handleCancel = () => {
+    setTranslate(false)
+  }
+
   return (
     <Drawer
       title="Translate Question"
@@ -97,7 +101,7 @@ const TranslateDrawer = ({
       <br />
       <br />
       <Button style={{ marginRight: "10px" }} onClick={handleTranslate} disabled={!selectedLang}>Save</Button>
-      <Button>Cancel</Button>
+      <Button onClick={handleCancel} type="action">Cancel</Button>
     </Drawer>
   );
 };
