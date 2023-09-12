@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import DataTable from "./dataTable";
 import "./AddQuestion.css";
 import FormDrawer from "./formDrawer";
-import { Button as AntButton, Popconfirm, Typography, notification } from "antd";
+import {
+  Button as AntButton,
+  Popconfirm,
+  Typography,
+  notification,
+} from "antd";
 import { Button } from "../../Common/Button";
 import { useFormHandler } from "./formHook";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import axios from "../../../axios/axios"
+import axios from "../../../axios/axios";
 
 const { Title } = Typography;
 
@@ -33,7 +38,7 @@ const apiService = { props: {} };
 const title = "Languages";
 const roleLevel = "props";
 const Languages = (props) => {
-  let [renderCount, setRenderCount] = useState(0)
+  let [renderCount, setRenderCount] = useState(0);
   // Data
   const [languages, setLanguages] = useState([]);
   const [items, setItems] = useState([]);
@@ -102,6 +107,33 @@ const Languages = (props) => {
     });
   }, [languages]);
 
+  const handleSave = (formData) => {
+    axios
+      .post(
+        "kneg/language",
+        JSON.stringify({
+          lang_abb: formData.abbr,
+          language_full: formData.name,
+          create_ts: "2023-09-06T10:00:00",
+          update_ts: "2023-09-06T10:00:00",
+        })
+      )
+      .then((res) => {
+        setRenderCount(renderCount + 1);
+        notification.success({
+          message: res.data.message,
+        });
+        handleToggle()
+      })
+      .catch((err) => {
+        notification.error({
+          message: "Fetching questions error",
+          description: err.message,
+        });
+        handleToggle()
+      });
+  };
+
   //const {items, loading, isVisible, submitting} = useSelector(store => store.datatable);
   const {
     handleFormChange,
@@ -113,7 +145,8 @@ const Languages = (props) => {
     formIsValid,
     formObject,
     isVisible,
-  } = useFormHandler(apiService, formConfig, items, languages, setLanguages);
+    handleLanguageAdd,
+  } = useFormHandler(apiService, formConfig, items, null, handleSave);
   const objName = "language";
 
   useEffect(() => {
@@ -148,7 +181,6 @@ const Languages = (props) => {
             />
             <Popconfirm
               title="Sure to Delete?"
-              onConfirm={() => handleItemDelete(record.id)}
             >
               <AntButton
                 type="danger"
@@ -181,7 +213,7 @@ const Languages = (props) => {
         onChange={handleFormChange}
         onInjectValue={handleFormInject}
         formIsValid={formIsValid}
-        onSubmit={handleFormSubmit}
+        onSubmit={handleLanguageAdd}
         onToggle={handleToggle}
       />
       <DataTable

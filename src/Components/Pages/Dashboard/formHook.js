@@ -9,7 +9,7 @@ export const useFormHandler = (
   questions,
   handleSave,
   saveDelete,
-  questionsIndex
+  questionsIndex,
 ) => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [formObject, setFormObject] = useState(formElementsArray);
@@ -179,6 +179,17 @@ export const useFormHandler = (
     }
   }; /*, [formObject,formIsValid])*/
 
+  const handleLanguageAdd = () => {
+    if (formIsValid) {
+      const formData = {};
+      for (let formElementIdentifier in formObject) {
+        formData[formElementIdentifier] =
+          formObject[formElementIdentifier].value;
+      }
+      handleSave(formData)
+    }
+  }
+
   const handleItemEdit = (id) => {
     handleToggle("edit");
     const item = items.find((item) => item.id === id);
@@ -240,6 +251,7 @@ export const useFormHandler = (
     formIsValid,
     formObject,
     isVisible,
-    action
+    action,
+    handleLanguageAdd
   };
 };
