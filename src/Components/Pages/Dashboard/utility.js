@@ -40,7 +40,7 @@ export const populateFormObject = (
 
   let formIsValid = true;
   for (let inputIdentifier in updatedForm) {
-    let ignoredKeys = ['isCustom', 'originalId', 'originalSection'];
+    let ignoredKeys = ['isCustom', 'originalId', 'originalSection', 'subSection', 'isTemplateQuestion'];
     if(ignoredKeys.includes(inputIdentifier)) continue; //skip
 
     formIsValid = updatedForm[inputIdentifier].valid && formIsValid;

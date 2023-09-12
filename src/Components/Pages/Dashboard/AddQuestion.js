@@ -54,7 +54,7 @@ const title = "Questions";
 const roleLevel = "props";
 
 const AddQuestion = (props) => {
-  let [renderCount, setRenderCount] = useState(0)
+  let [renderCount, setRenderCount] = useState(0);
   let [fetchPogress, setFetchProgress] = useState(null);
   let { language: lang } = useLanguage();
   let [currentRecord, setCurrentRecord] = useState(null);
@@ -113,6 +113,27 @@ const AddQuestion = (props) => {
         label: questions[section]["title"],
         value: section,
       });
+      if (questions[section].hasOwnProperty("auto_generated_questions")) {
+        questions[section]["auto_generated_questions"]?.forEach((question) => {
+          let item = {};
+          item["title"] = questions[section]["title"];
+          item["question"] = question["question"]
+            ? question["question"]
+            : question["template"];
+          item["id"] = question["index"];
+          item["type"] = question["type"];
+          item["section"] = section;
+          item["isCustom"] = question["isCustom"] || false;
+          item["originalId"] = question["index"];
+          item["originalSection"] = section;
+          item["subSection"] = "auto_generated_questions";
+          item["isTemplateQuestion"] = !question["question"];
+          tempItems.push(item);
+          if (!tempTypes.includes(question["type"])) {
+            tempTypes.push(question["type"]);
+          }
+        });
+      }
       questions[section]["questions"]?.forEach((question) => {
         let item = {};
         item["title"] = questions[section]["title"];
@@ -123,6 +144,8 @@ const AddQuestion = (props) => {
         item["isCustom"] = question["isCustom"] || false;
         item["originalId"] = question["index"];
         item["originalSection"] = section;
+        item["subSection"] = "questions";
+        item["isTemplateQuestion"] = false;
         tempItems.push(item);
         if (!tempTypes.includes(question["type"])) {
           tempTypes.push(question["type"]);
@@ -203,7 +226,7 @@ const AddQuestion = (props) => {
         JSON.stringify({ question_JSON: formdata })
       )
       .then((res) => {
-        setRenderCount(renderCount+1)
+        setRenderCount(renderCount + 1);
         notification.success({
           message: res.data.message,
         });

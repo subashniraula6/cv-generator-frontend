@@ -115,13 +115,13 @@ const questions = {
     repeatable: false,
     auto_generated_questions: [
       {
-        index: 0,
+        index: 2001,
         question: "Do you want to indicate how good you are in each language?",
         type: "boolean",
         answer: "no",
       },
       {
-        index: 0,
+        index: 2002,
         question: "How are your {{language}} skills?",
         isLanguageRating: true,
         type: "select",
@@ -238,7 +238,7 @@ const questions = {
     noOfItems: 0,
     auto_generated_questions: [
       {
-        index: 0,
+        index: 7001,
         question: "Where did you previously work at?",
         removed: false,
         type: "text",
@@ -249,7 +249,7 @@ const questions = {
         answer: "",
       },
       {
-        index: 0,
+        index: 7002,
         template: "What is the address of {{company}}?",
         question: "",
         removed: false,
@@ -257,7 +257,7 @@ const questions = {
         answer: "",
       },
       {
-        index: 0,
+        index: 7003,
         template:
           "Your title/position at {{company}}: Type any text. You don't need to scroll through the list.",
         question: "",
@@ -265,28 +265,28 @@ const questions = {
         answer: "",
       },
       {
-        index: 0,
+        index: 7004,
         template: "When did you join {{company}}?",
         question: "",
         type: "date",
         answer: "",
       },
       {
-        index: 0,
+        index: 7005,
         template: "When did you leave {{company}}?",
         question: "",
         type: "date",
         answer: "",
       },
       {
-        index: 0,
+        index: 7006,
         template: "What were your achievements at {{company}}?",
         question: "",
         type: "textArea",
         answer: "",
       },
       {
-        index: 0,
+        index: 7007,
         question: "Do you want to add more experiences?",
         type: "boolean",
         repeatable: true,
@@ -323,25 +323,25 @@ const questions = {
     noOfItems: 0,
     auto_generated_questions: [
       {
-        index: 0,
+        index: 9001,
         question: "Where did you previously study? (Location)",
         type: "text",
         answer: "",
       },
       {
-        index: 0,
+        index: 9002,
         question: "What kind of degree did you earn ?",
         type: "text",
         answer: "",
       },
       {
-        index: 0,
+        index: 9003,
         question: "Which field of study did you pursue ?",
         type: "text",
         answer: "",
       },
       {
-        index: 0,
+        index: 9004,
         question: "Which university or college did you attend?",
         type: "text",
         update: {
@@ -351,21 +351,21 @@ const questions = {
         answer: "",
       },
       {
-        index: 0,
+        index: 9005,
         template: "When did you start your studies at {{institution}}?",
         question: "When did you start your studies at {{institution}}?",
         type: "date",
         answer: "",
       },
       {
-        index: 0,
+        index: 9006,
         template: "When did you complete your studies at {{institution}}?",
         question: "When did you complete your studies at {{institution}}?",
         type: "date",
         answer: "",
       },
       {
-        index: 0,
+        index: 9007,
         question: "Do you want to add more education experiences?",
         type: "boolean",
         repeatable: true,
@@ -388,37 +388,37 @@ const questions = {
     noOfItems: 0,
     auto_generated_questions: [
       {
-        index: 0,
+        index: 10001,
         question: "Project name",
         type: "text",
         answer: "",
       },
       {
-        index: 0,
+        index: 10002,
         question: "Project link",
         type: "text",
         answer: "",
       },
       {
-        index: 0,
+        index: 10003,
         question: "Project description",
         type: "textArea",
         answer: "",
       },
       {
-        index: 0,
+        index: 10004,
         question: "Project start date",
         type: "date",
         answer: "",
       },
       {
-        index: 0,
+        index: 10005,
         question: "Project end date",
         type: "date",
         answer: "",
       },
       {
-        index: 0,
+        index: 10006,
         question: "Do you want to add more projects?",
         type: "boolean",
         repeatable: true,

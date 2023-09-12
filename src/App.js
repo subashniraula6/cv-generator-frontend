@@ -17,12 +17,6 @@ function App() {
       colorBgContainer: "rgba(149, 0, 255, 0.09)",
     },
     components: {
-      Dropdown: {
-        colorBgElevated: "rgb(149, 0, 255)",
-      },
-      Table: {
-        colorBgContainer: "rgb(149, 0, 255, 0.01)",
-      },
       Select: {
         borderRadiusOuter: "4px",
       },

@@ -59,7 +59,7 @@ export const useFormHandler = (
         //dispatch(datatableActions.create(apiService, formData));
       } else {
         // Make and post questions and set Items
-        const { id, question, section, type, originalSection, originalId } =
+        const { id, question, section, type, originalSection, originalId, subSection } =
           formData;
         // Check if section exist
         let tempQuestions = { ...questions };
@@ -112,11 +112,11 @@ export const useFormHandler = (
           });
         } else if (action == "edit") {
           if (section == originalSection) {
-            let arrIdx = tempQuestions[section]["questions"].findIndex(
+            let arrIdx = tempQuestions[section][subSection].findIndex(
               (q) => q.index === id
             );
-            tempQuestions[section]["questions"][arrIdx] = {
-              ...tempQuestions[section]["questions"][arrIdx],
+            tempQuestions[section][subSection][arrIdx] = {
+              ...tempQuestions[section][subSection][arrIdx],
               question,
               type,
             };
@@ -126,16 +126,16 @@ export const useFormHandler = (
             console.log(tempQuestions);
             console.log(originalSection);
             console.log(id);
-            tempQuestions[originalSection]["questions"] = tempQuestions[
+            tempQuestions[originalSection][subSection] = tempQuestions[
               originalSection
-            ]["questions"].filter((q) => q?.index !== id);
+            ][subSection].filter((q) => q?.index !== id);
 
             if (sections.includes(section)) {
               // perform add
-              let lastQuestion = questions[section]["questions"].sort(
+              let lastQuestion = questions[section][subSection].sort(
                 (a, b) => b?.index - a?.index
               )[0];
-              tempQuestions[section]["questions"].push({
+              tempQuestions[section][subSection].push({
                 index: lastQuestion
                   ? lastQuestion.index + 1
                   : sections.indexOf(section) * 1000,
