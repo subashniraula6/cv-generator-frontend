@@ -1,8 +1,10 @@
 .loginPage {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: white;
-    height: 100vh;
+    height: 90vh;
+    padding: 20px;
     top: 40%;
 }

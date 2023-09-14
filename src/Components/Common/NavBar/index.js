@@ -1,8 +1,10 @@
 import React from "react";
-import { Dropdown, Avatar } from "antd";
+import { Dropdown, Avatar, Popconfirm, Button, notification } from "antd";
 import {
   DashboardOutlined,
+  DeleteOutlined,
   LogoutOutlined,
+  UserDeleteOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { PageHeader } from "@ant-design/pro-layout";
@@ -12,6 +14,8 @@ import { useLanguage } from "../../../context/Language";
 import { useNavigate } from "react-router-dom";
 import LanguageSelect from "./LanguageSelect";
 import { useLocation } from "react-router-dom"
+import PopConfirm from "../PopConfirm";
+import axios from "../../../axios/axios";
 
 const routes = [
   {
@@ -27,13 +31,31 @@ let navBarStyle = {
 function handleLogout(logout) {
   try {
     logout();
-    // navigate("/login");
   } catch (e) {
     console.log(e.message);
   }
 }
 
-const getItems = (user, logout, t) => [
+function handleUserDelete(uid, navigate) {
+  axios.post("delete_user", JSON.stringify({
+    u_id: uid,
+  }))
+  .then(res => {
+    notification.success({
+      title: "Deactivate Success",
+      description: "Deactivate Success. Now you can no longer access to our system"
+    });
+    navigate("/login")
+  })
+  .catch((err) => {
+    notification.error({
+      message: "Deactivate error",
+      description: err.message,
+    });
+  });
+}
+
+const getItems = (user, logout, t, navigate) => [
   ...(user.user_role === 'Admin') ? [{
     key: "1",
     label: (
@@ -43,13 +65,29 @@ const getItems = (user, logout, t) => [
       </Link>
     ),
   }]: [],
-  {
+  ...(user.user_role !== 'Admin') ? [{
     key: "2",
-    danger: true,
+    label: (
+      <Popconfirm
+        title="Sure to Deactivate your account? This cannot be undone"
+        onConfirm={() => handleUserDelete(user.uid, navigate)}
+      >
+        <Button
+          type="danger"
+          shape="circle"
+          icon={<UserDeleteOutlined />}
+          size="large"
+        >Deactivate</Button>
+      </Popconfirm>
+    ),
+  }]: [],
+  {
+    key: "3",
+    // danger: true,
     label: (
       <a onClick={(e) => handleLogout(logout)}>
-        {t("menu.logout")}
         <LogoutOutlined style={{ margin: "0 10px" }} />
+        {t("menu.logout")}
       </a>
     ),
   },
@@ -58,11 +96,12 @@ const getItems = (user, logout, t) => [
 const DropdownMenu = () => {
   let { logout, user } = useFirebase();
   let { t } = useLanguage();
+  let navigate = useNavigate();
 
   return (
     <Dropdown
       menu={{
-        items: getItems(user, logout, t),
+        items: getItems(user, logout, t, navigate),
       }}
     >
         <Avatar

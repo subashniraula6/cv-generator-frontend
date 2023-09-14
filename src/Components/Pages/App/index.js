@@ -4,7 +4,7 @@ import Resumes from "../../Resumes/Resumes";
 import Form from "../../Form/Form";
 import { Button } from "../../Common/Button";
 import axios from "../../../axios/axios";
-import { Spin, notification } from "antd";
+import { notification } from "antd";
 import { useFirebase } from "../../../context/Firebase";
 import { orderQuestions } from "../../../utils";
 import { useLanguage } from "../../../context/Language";
@@ -15,11 +15,11 @@ const App = () => {
   let { user } = useFirebase();
   let [userQuestionsId, setUserQuestionsId] = useState(0);
   let [questions, setQuestions] = useState(() => {
-    // Load saved questions
-    const saved = localStorage.getItem("questions");
-    const initialValue = JSON.parse(saved);
+    // // Load saved questions
+    // const saved = localStorage.getItem("questions");
+    // const initialValue = JSON.parse(saved);
 
-    if (initialValue) return { ...initialValue, isNext: false };
+    // if (initialValue) return { ...initialValue, isNext: false };
     return {};
   });
 
@@ -29,11 +29,14 @@ const App = () => {
     // Fetch data
     axios
       .get("kneg/questions_per_user/" + user.uid, {
+        params: {
+          lang: lang,
+        },
         onDownloadProgress: (progressEvent) => {
           const percentCompleted = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
           );
-          setFetchProgress(percentCompleted)
+          setFetchProgress(percentCompleted);
         },
       }) //replace with user.uid
       .then(({ data }) => {
@@ -41,6 +44,8 @@ const App = () => {
           (question) => question.language === lang
         );
         if (!langBasedQuestion) {
+          // Load application questions for the language
+
           notification.error({
             message: "Question not found",
             description:
@@ -51,15 +56,18 @@ const App = () => {
           return;
         }
         langBasedQuestion = data.data.find(
-          (question) => question.language === "en"
+          (question) => question.language === lang
         );
         setUserQuestionsId(langBasedQuestion.id);
         let currentQuestions = JSON.parse(langBasedQuestion.question_JSON); // 0 refers first resume
         let orderedQuestions = orderQuestions(currentQuestions);
         setQuestions({ ...orderedQuestions, isNext: false });
+      })
+      .catch((e) => {
+        console.log(e);
       });
   }, [lang]);
-
+  
   function setUpdatedQuestions(questions, isNext = false) {
     setQuestions({ ...questions, isNext });
     // Store lo localstorage on each questions change
@@ -83,7 +91,8 @@ const App = () => {
     setShowResume(!showResume);
   }
 
-  if (Object.keys(questions).length === 0) return <ProgressBar progress={fetchPogress} />;
+  if (Object.keys(questions).length === 0)
+    return <ProgressBar progress={fetchPogress} />;
   return (
     <>
       <div className="flex-container">

@@ -123,9 +123,6 @@ export const useFormHandler = (
             handleSave(tempQuestions, questionsIndex);
           } else {
             // remove question from original index
-            console.log(tempQuestions);
-            console.log(originalSection);
-            console.log(id);
             tempQuestions[originalSection][subSection] = tempQuestions[
               originalSection
             ][subSection].filter((q) => q?.index !== id);

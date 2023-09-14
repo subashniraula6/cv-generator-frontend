@@ -4,6 +4,7 @@ import "./AddQuestion.css";
 import FormDrawer from "./formDrawer";
 import {
   Button as AntButton,
+  Checkbox,
   Drawer,
   Popconfirm,
   Typography,
@@ -58,6 +59,7 @@ const AddQuestion = (props) => {
   let [fetchPogress, setFetchProgress] = useState(null);
   let { language: lang } = useLanguage();
   let [currentRecord, setCurrentRecord] = useState(null);
+  let [questionsComplete, setQuestionsComplete] = useState(null);
 
   // Data
   const [questionsIndex, setQuestionsIndex] = useState(null);
@@ -86,7 +88,8 @@ const AddQuestion = (props) => {
         if (langBasedQuestion) {
           let currentQuestions = JSON.parse(langBasedQuestion.question_JSON);
           let orderedQuestions = orderQuestions(currentQuestions);
-          setQuestions({ ...orderedQuestions, isNext: false });
+          setQuestionsComplete(currentQuestions.isComplete);
+          setQuestions({ ...orderedQuestions });
           setQuestionsIndex(langBasedQuestion.id);
         } else {
           setQuestions({});
@@ -108,7 +111,12 @@ const AddQuestion = (props) => {
     let tempTypes = [];
     let tempSections = [];
     sections?.forEach((section) => {
-      if (section === "isNext" || section === "lang") return;
+      if (
+        section === "isNext" ||
+        section === "lang" ||
+        section === "isComplete"
+      )
+        return;
       tempSections.push({
         label: questions[section]["title"],
         value: section,
@@ -291,6 +299,22 @@ const AddQuestion = (props) => {
     setCurrentRecord(record);
   };
 
+  const onChange = (e) => {
+    setQuestionsComplete(e.target.checked);
+  };
+
+  const handleComplete = (e) => {
+    let updatedQuestions = JSON.parse(JSON.stringify(questions));
+    updatedQuestions["isComplete"] = questionsComplete;
+    handleSave(updatedQuestions, questionsIndex);
+  };
+
+  const actionContainer = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center"
+  }
+
   const dtConfigColumns = [
     ...dtConfig,
     {
@@ -337,14 +361,28 @@ const AddQuestion = (props) => {
   return (
     <div className="table-container">
       <Title level={3}>{title}</Title>
-      <Button
-        style={{ marginBottom: 16, marginRight: 16, width: "fit-content" }}
-        icon={<PlusOutlined />}
-        type="primary"
-        onClick={() => handleToggle("add")}
-      >
-        Add new {objName}
-      </Button>
+      <div style={actionContainer}>
+        <Button
+          style={{ marginRight: 16, width: "fit-content" }}
+          icon={<PlusOutlined />}
+          type="primary"
+          onClick={() => handleToggle("add")}
+        >
+          Add new {objName}
+        </Button>
+        <div>
+          <Checkbox onChange={onChange} checked={questionsComplete} style={{fontSize: "18px"}}>
+            Complete Status
+          </Checkbox>
+          <Button
+            style={{ marginRight: 16, width: "fit-content", width: "190px" }}
+            type="primary"
+            onClick={handleComplete}
+          >
+            Set {questionsComplete ? "Complete" : "Incomplete"} ?
+          </Button>
+        </div>
+      </div>
       <FormDrawer
         isVisible={isVisible}
         objName={objName}

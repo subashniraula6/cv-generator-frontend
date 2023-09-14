@@ -93,7 +93,6 @@ export default function Login() {
   // const [passwordVisible, setPasswordVisible] = React.useState(false);
 
   const loginContainer = {
-    height: "450px",
     width: "500px",
     backgroundColor: "rgb(149, 0, 255, 0.07)",
     borderRadius: "15px",

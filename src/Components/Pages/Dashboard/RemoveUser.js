@@ -121,7 +121,7 @@ const RemoveUser = (props) => {
         return (
           <Button.Group>
             <Popconfirm
-              title="Sure to Delete?"
+              title="Sure to Delete this user? This cannot be undone"
               onConfirm={() => handleItemDelete(record.uid)}
             >
               <Button
