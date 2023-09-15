@@ -22,7 +22,7 @@ const TranslateDrawer = ({
 
   useEffect(() => {
     // Change translated question
-    let langBasedQuestion = applicationQuestions.find(
+    let langBasedQuestion = applicationQuestions?.find(
       (question) => question.language === selectedLang
     );
     let languageBasedQuestionJSON = langBasedQuestion?.question_JSON;

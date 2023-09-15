@@ -64,7 +64,7 @@ const AddQuestion = (props) => {
   // Data
   const [questionsIndex, setQuestionsIndex] = useState(null);
   const [questions, setQuestions] = useState({});
-  const [applicationQuestions, setApplicationQuestions] = useState({});
+  const [applicationQuestions, setApplicationQuestions] = useState([]);
   const [items, setItems] = useState([]);
   const [sections, setSections] = useState([]);
   const [types, setTypes] = useState([]);
