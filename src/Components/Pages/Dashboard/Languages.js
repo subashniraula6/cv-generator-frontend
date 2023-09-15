@@ -192,7 +192,6 @@ const Languages = (props) => {
               title="Sure to Delete?"
             >
               <AntButton
-                type="danger"
                 shape="circle"
                 icon={<DeleteOutlined />}
                 size="large"

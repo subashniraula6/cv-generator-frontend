@@ -12,3 +12,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ant-checkbox-inner::after {
+  width: 13.714286px;
+  height: 23.142857px;
+}

@@ -372,7 +372,7 @@ const AddQuestion = (props) => {
         </Button>
         <div>
           <Checkbox onChange={onChange} checked={questionsComplete} style={{fontSize: "18px"}}>
-            Complete Status
+            Complete Status 
           </Checkbox>
           <Button
             style={{ marginRight: 16, width: "fit-content", width: "190px" }}

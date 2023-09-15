@@ -1,128 +1,100 @@
-import React, { useEffect, useState } from "react";
-import DataTable from "./dataTable";
-import "./AddQuestion.css";
-import FormDrawer from "./formDrawer";
-import { Button, Popconfirm, Typography } from "antd";
-import { useFormHandler } from "./formHook";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import importedQuestions from "../../../Questions";
-import { useLanguage } from "../../../context/Language";
-import { toSentenceCase, toCamelCase } from "../../../utils";
+import React, { useEffect, useState } from 'react';
+import { Table, Input } from 'antd';
 
-const { Title } = Typography;
+const { Search } = Input;
 
-const dtConfig = [
-  {
-    title: "index",
-    dataIndex: "index",
-    textFilter: true,
-    sorter: (a, b) => a.index - b.index,
-  },
-  {
-    title: "Section",
-    dataIndex: "section",
-    textFilter: true,
-  },
-  {
-    title: "Question",
-    dataIndex: "question",
-    textFilter: true,
-  },
-  {
-    title: "Answer",
-    dataIndex: "answer",
-    textFilter: true,
-  },
-  {
-    title: "User Email",
-    dataIndex: "email",
-    textFilter: true,
-  },
-  {
-    title: "User Name",
-    dataIndex: "name",
-    textFilter: true,
-  },
-];
-
-const apiService = { props: {} };
-const title = "Users";
-const roleLevel = "props";
-const UserResponses = (props) => {
-  // Data
-  const [users, setUsers] = useState([]);
-  const [items, setItems] = useState([]);
-
-  useEffect(()=> {
-    // Fetch user's questions and set to state
-    setUsers([{
-      index: 1,
-      section: "Basic Info",
-      question: "What is your name ?",
-      answer: "Basanta Niraula",
-      email: "subashniraula6@gmail.com",
-      name: "Basanta Niraula"
-    }]);
-  }, [])
+const UserQuestions = () => {
+  const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    setItems(users.map(user => user));
-  }, [users]);
-  
-  const handleItemDelete = (e) => {
+    fetchData();
+  }, [pagination.current, search]);
 
-  }
+  const fetchData = async () => {
+    setLoading(true);
 
-  useEffect(() => {
-    if (roleLevel === "role admin") {
-      //    dispatch(datatableActions.getAll(apiService));
-    } else if (roleLevel === "role manager") {
-      //    dispatch(datatableActions.getByGroupId(apiService, localStorage.getItem('groupId')));
-    } else {
-      //    dispatch(datatableActions.getByUserId(apiService, localStorage.getItem('userId')));
+    try {
+      const response = await fetch(
+        `http://localhost:5000/user_questions?page=${pagination.current}&per_page=${pagination.pageSize}&query=${search}`
+      );
+      const result = await response.json();
+      setData(result.items);
+      setPagination({
+        ...pagination,
+        total: result.total,
+      });
+    } catch (error) {
+      console.error('Error fetching data: ', error);
+    } finally {
+      setLoading(false);
     }
-  }, []);
-
-  const handleTableChange = (pagination, filters, sorter, extra) => {
-    // console.log("params", pagination, filters, sorter, extra);
   };
 
-  const dtConfigColumns = [
-    ...dtConfig,
+  // Create a custom row rendering function
+  const expandedRowRender = (record) => {
+    const questions = record.all_sections_data.map((item) => ({
+      key: item.question,
+      question: item.question,
+      answer: item.answer,
+    }));
+
+    const childColumns = [
+      { title: 'Question', dataIndex: 'question', key: 'question' },
+      { title: 'Answer', dataIndex: 'answer', key: 'answer' },
+    ];
+
+    return (
+      <Table
+        columns={childColumns}
+        dataSource={questions}
+        pagination={false} // Optional: You can remove pagination for child tables
+      />
+    );
+  };
+
+  const handleTableChange = (pagination, filters, sorter) => {
+    setPagination(pagination);
+  };
+
+  const handleSearch = (value) => {
+    setSearch(value);
+  };
+
+  const columns = [
     {
-      title: "Actions",
-      dataIndex: "Actions",
-      align: "center",
-      render: (text, record) => {
-        return (
-          <Button.Group>
-            <Popconfirm
-              title="Sure to Delete?"
-              onConfirm={() => handleItemDelete(record.id)}
-            >
-              <Button
-                type="danger"
-                shape="circle"
-                icon={<DeleteOutlined />}
-                size="large"
-              />
-            </Popconfirm>
-          </Button.Group>
-        );
-      },
+      title: 'User ID',
+      dataIndex: 'user_id',
+      key: 'user_id',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'user_email',
+      key: 'user_email',
     },
   ];
-  
+
   return (
-    <div className="table-container">
-      <Title level={3}>{title}</Title>
-      <DataTable
-        items={items}
-        dtConfigColumns={dtConfigColumns}
+    <div className='table-container'>
+      <h1>User Questions</h1>
+      <Search
+        placeholder="Search questions"
+        onSearch={handleSearch}
+        style={{ marginBottom: '16px' }}
+      />
+      <Table
+        columns={columns}
+        expandable={{expandedRowRender}}
+        dataSource={data}
+        pagination={pagination}
+        loading={loading}
         onChange={handleTableChange}
+        rowKey={(record, index) => index}
       />
     </div>
   );
 };
 
-export default UserResponses;
+export default UserQuestions;

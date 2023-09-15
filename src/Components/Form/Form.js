@@ -377,6 +377,7 @@ export default function Form({ questions, setQuestions, type }) {
   };
 
   const handleContinue = (e) => {
+    e.preventDefault();
     setSaving(true);
     e.preventDefault();
     let updatedQuestions = JSON.parse(JSON.stringify(questions));
@@ -431,6 +432,11 @@ export default function Form({ questions, setQuestions, type }) {
     setQuestions(updatedQuestions);
   };
   
+  const hintStyle = {
+    color: "grey",
+    marginBottom: "20px",
+  };
+
   return (
     <Spin spinning={saving}>
       <form>
@@ -473,12 +479,16 @@ export default function Form({ questions, setQuestions, type }) {
                     </Button>
                     <Button
                       onClick={handleContinue}
+                      htmlType="submit"
                       type="primary"
                       icon={<ArrowRightOutlined />}
                       iconPosition={"right"}
                     >
                       {t("button.continue")}
                     </Button>
+                  </div>
+                  <div style={hintStyle}>
+                    <label>Please ensure to <strong>save your responses,</strong> as they may be lost otherwise, when using this website.</label>
                   </div>
                 </>
               </QuestionWrapper>

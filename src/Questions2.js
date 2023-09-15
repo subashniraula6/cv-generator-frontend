@@ -199,6 +199,60 @@ const questions = {
     questions: [
       {
         index: 6000,
+        question: "What is your first name?",
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 6001,
+        question: "What is your last name?",
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 6002,
+        question: "What is your job title?",
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 6003,
+        question: "What is your address ?",
+        type: "textArea",
+        answer: "",
+      },
+      {
+        index: 6004,
+        question:
+          "Enter the phone number you want to be included in your application documents",
+        hint: "You don't have to answer this question if you don't want to, but your application documents will be better if you do.",
+        removed: false,
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 6005,
+        question: "Enter your Email",
+        removed: false,
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 6006,
+        question: "Enter your linkedin if you have any",
+        removed: false,
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 6007,
+        question: "Enter your Website if you have any",
+        removed: false,
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 6008,
         question: "Name of company/employer you are looking for a job with:",
         type: "text",
         update: {
@@ -208,21 +262,21 @@ const questions = {
         answer: "",
       },
       {
-        index: 6001,
+        index: 6009,
         template: "What is the address of {{company}}?",
         question: "What is the address of {{company}}?",
         type: "text",
         answer: "",
       },
       {
-        index: 6002,
+        index: 6010,
         template: "Which position are you applying for at {{company}}?",
         question: "Which position are you applying for at {{company}}?",
         type: "text",
         answer: "",
       },
       {
-        index: 6003,
+        index: 6011,
         template:
           "What made you want to apply for this job as mentioned position at {{company}}?",
         question:

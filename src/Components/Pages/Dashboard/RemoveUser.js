@@ -1,154 +1,325 @@
-import React, { useEffect, useState } from "react";
-import DataTable from "./dataTable";
-import "./AddQuestion.css";
-import FormDrawer from "./formDrawer";
-import { Button, Popconfirm, Typography, notification } from "antd";
-import { useFormHandler } from "./formHook";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import importedQuestions from "../../../Questions";
-import { useLanguage } from "../../../context/Language";
-import { toSentenceCase, toCamelCase } from "../../../utils";
-import axios from "../../../axios/axios";
-import { useFirebase } from "../../../context/Firebase";
-import ProgressBar from "../../Common/ProgressBar/ProgressBar";
+import React, { useState, useEffect } from "react";
+import {
+  Table,
+  Input,
+  Button,
+  Space,
+  Popconfirm,
+  Drawer,
+  Select,
+  Spin,
+  Tag,
+} from "antd";
+import {
+  CheckCircleOutlined,
+  DeleteOutlined,
+  SearchOutlined,
+  UserAddOutlined,
+} from "@ant-design/icons";
+import Axios from "axios";
+import { Option } from "antd/es/mentions";
 
-const { Title } = Typography;
+const UserTable = () => {
+  // State for table data, pagination, sorting, and filtering
+  const [data, setData] = useState([]);
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
+  const [loading, setLoading] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [sortedInfo, setSortedInfo] = useState({});
 
-const dtConfig = [
-  {
-    title: "index",
-    dataIndex: "id",
-    textFilter: true,
-    sorter: (a, b) => a.index - b.index,
-  },
-  {
-    title: "Name",
-    dataIndex: "name",
-    textFilter: true,
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    textFilter: true,
-  },
-  // {
-  //   title: "Image",
-  //   dataIndex: "image",
-  //   textFilter: true,
-  // },
-];
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
-const apiService = { props: {} };
-const title = "Users";
-const roleLevel = "props";
-const RemoveUser = (props) => {
-  let [fetchPogress, setFetchProgress] = useState(null);
-  let [renderCount, setRenderCount] = useState(0)
-  // Data
-  const [users, setUsers] = useState([]);
-  const [items, setItems] = useState([]);
+  const [userRoles, setUserRoles] = useState([]);
+  const [selectedRole, setSelectedRole] = useState(null);
+  const [defaultRole, setDefaultRole] = useState(null);
+  const [saveRoleLoading, setSaveRoleLoading] = useState(false);
 
-  const { user } = useFirebase(); 
+  // State for API request parameters
+  const [apiParams, setApiParams] = useState({
+    page: 1,
+    per_page: 10,
+    sort_by: "id",
+    sort_order: "asc",
+    search_term: "",
+  });
+
+  // Fetch data from your backend API when the component mounts
   useEffect(() => {
-    // Fetch users and set Users
-    axios
-      .get("kneg/users", {
-        onDownloadProgress: (progressEvent) => {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          setFetchProgress(percentCompleted);
-        },
-      })
-      .then(({ data }) => {
-        let users = data.data.map(u => ({
-          id: u.id,
-          email: u.email,
-          name: (u.fname || "") + " " + (u.lname || ""),
-          uid: u.uid
-        }));
-        setUsers(users);
-      })
-      .catch((err) => {
-        notification.error({
-          message: "Fetching questions error",
-          description: err.message,
-        });
-        console.log(err);
-      });
-  }, [renderCount]);
+    fetchData();
+  }, [apiParams]);
 
-  useEffect(() => {
-    setItems(users.map((user) => user));
-  }, [users]);
+  // Fetch data from your backend API
+  const fetchData = async () => {
+    setLoading(true);
 
-  const handleItemDelete = (uid) => {
-    axios.post("delete_user", JSON.stringify({
-      u_id: uid,
-    }))
-    .then(res => {
-      setRenderCount(renderCount + 1)
-    })
-    .catch((err) => {
-      notification.error({
-        message: "Delete user error",
-        description: err.message,
+    try {
+      const response = await Axios.get("http://localhost:5000/kneg/users", {
+        params: apiParams,
       });
+
+      // Assuming the API response returns data and pagination information
+      setData(response.data.data);
+      setPagination({
+        ...pagination,
+        total: response.data.total_records,
+      });
+    } catch (error) {
+      // Handle errors here
+      console.error(error);
+    }
+
+    setLoading(false);
+  };
+
+  // Handle pagination change
+  const handleTableChange = (newPagination, filters, sorter) => {
+    setApiParams({
+      ...apiParams,
+      page: newPagination.current,
+      per_page: newPagination.pageSize,
+    });
+    setSortedInfo(sorter);
+  };
+
+  // Handle search input
+  const handleSearch = (selectedKeys, confirm) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setApiParams({
+      ...apiParams,
+      search_term: selectedKeys[0],
+      page: 1, // Reset to the first page when searching
     });
   };
 
-  useEffect(() => {
-    if (roleLevel === "role admin") {
-      //    dispatch(datatableActions.getAll(apiService));
-    } else if (roleLevel === "role manager") {
-      //    dispatch(datatableActions.getByGroupId(apiService, localStorage.getItem('groupId')));
-    } else {
-      //    dispatch(datatableActions.getByUserId(apiService, localStorage.getItem('userId')));
-    }
-  }, []);
-
-  const handleTableChange = (pagination, filters, sorter, extra) => {
-    // console.log("params", pagination, filters, sorter, extra);
+  // Reset search filter
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+    setApiParams({
+      ...apiParams,
+      search_term: "",
+      page: 1, // Reset to the first page when clearing search
+    });
   };
 
-  const dtConfigColumns = [
-    ...dtConfig,
+  // Apply filters based on search text
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm)}
+          style={{ width: 188, marginBottom: 8, display: "block" }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+  });
+
+  const handleShowRolesDrawer = async (user) => {
+    setSelectedUser(user);
+    setDrawerVisible(true);
+
+    try {
+      const userRolesResponse = await Axios.get(
+        `http://localhost:5000/kneg/user-role/${user.role_id}`
+      );
+
+      const allRolesResponse = await Axios.get(
+        "http://localhost:5000/kneg/user-roles"
+      );
+
+      setDefaultRole(userRolesResponse.data.data.id);
+      setSelectedRole(userRolesResponse.data.data.id);
+
+      // Add other roles to the default roles if needed
+      const otherRoles = allRolesResponse.data.data.filter(
+        (role) => role.id !== userRolesResponse.data.data.id
+      );
+
+      setUserRoles([...otherRoles, userRolesResponse.data.data]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleHideRolesDrawer = () => {
+    setSelectedUser(null);
+    setDrawerVisible(false);
+    setUserRoles([]);
+    setSelectedRole(null);
+    setDefaultRole(null);
+  };
+
+  const handleSelectRole = (roleId) => {
+    setSelectedRole(roleId);
+  };
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      await Axios.post("http://localhost:5000/delete_user", {
+        user_id: userId,
+      });
+
+      // After successful deletion, fetch the updated user data
+      fetchData();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSaveRole = async () => {
+    try {
+      setSaveRoleLoading(true);
+      await Axios.put(
+        `http://localhost:5000/kneg/user-roles/${selectedUser.id}`,
+        {
+          role_id: selectedRole,
+        }
+      );
+      setSaveRoleLoading(false);
+
+      // After successful role addition, fetch the updated user data
+      fetchData();
+
+      // Close the drawer
+      handleHideRolesDrawer();
+    } catch (error) {
+      setSaveRoleLoading(false);
+      console.error(error);
+    }
+  };
+
+  // Columns configuration
+  const columns = [
     {
-      title: "Actions",
-      dataIndex: "Actions",
-      align: "center",
+      title: "ID",
+      dataIndex: "id",
+      sorter: (a, b) => a.id - b.id,
+      sortOrder: sortedInfo.columnKey === "id" && sortedInfo.order,
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      ...getColumnSearchProps("email"), // Enable searching for this column
+    },
+    {
+      title: "Role",
+      dataIndex: "role",
       render: (text, record) => {
         return (
-          <Button.Group>
-            <Popconfirm
-              title="Sure to Delete this user? This cannot be undone"
-              onConfirm={() => handleItemDelete(record.uid)}
-            >
-              <Button
-                type="danger"
-                shape="circle"
-                icon={<DeleteOutlined />}
-                size="large"
-              />
-            </Popconfirm>
-          </Button.Group>
+          <Tag
+            color={text == "Admin" ? "red" : "blue"}
+            icon={<CheckCircleOutlined />}
+          >
+            {text}
+          </Tag>
         );
       },
+      ...getColumnSearchProps("role"), // Enable searching for this column
+    },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      render: (text, record) => (
+        <span>
+          <Popconfirm
+            title="Are you sure you want to delete this user?"
+            onConfirm={() => handleDeleteUser(record.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button
+              type="danger"
+              shape="circle"
+              icon={<DeleteOutlined />}
+              size="large"
+            />
+          </Popconfirm>
+          <Button
+            type="danger"
+            shape="circle"
+            icon={<UserAddOutlined />}
+            size="large"
+            onClick={() => handleShowRolesDrawer(record)}
+          />
+        </span>
+      ),
     },
   ];
 
-  if (fetchPogress >= 0 && fetchPogress < 100)
-    return <ProgressBar progress={fetchPogress} />;
   return (
     <div className="table-container">
-      <Title level={3}>{title}</Title>
-      <DataTable
-        items={items}
-        dtConfigColumns={dtConfigColumns}
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={pagination}
+        loading={loading}
         onChange={handleTableChange}
       />
+
+      <Drawer
+        title={`Add Roles for ${selectedUser ? selectedUser.email : ""}`}
+        width={400}
+        onClose={handleHideRolesDrawer}
+        visible={drawerVisible}
+      >
+        <Spin spinning={!defaultRole}>
+          <Select
+            placeholder="Select a role"
+            onChange={handleSelectRole}
+            style={{ width: "100%" }}
+            defaultValue={defaultRole}
+            value={selectedRole}
+          >
+            {userRoles.map((userRole) => (
+              <Option key={userRole?.id} value={userRole?.id}>
+                {userRole?.role_name}
+              </Option>
+            ))}
+          </Select>
+        </Spin>
+        <Spin spinning={saveRoleLoading}>
+          <Button
+            type="primary"
+            onClick={handleSaveRole}
+            style={{ marginTop: "10px" }}
+            disabled={selectedRole == defaultRole}
+          >
+            Save Role
+          </Button>
+        </Spin>
+      </Drawer>
     </div>
   );
 };
 
-export default RemoveUser;
+export default UserTable;
