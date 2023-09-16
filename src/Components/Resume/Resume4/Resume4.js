@@ -12,6 +12,7 @@ import { SubSectionHeading } from "../../Wrappers/SubSectionHeading";
 import Divider from "../../Common/Dividers/Divider";
 import {
   CheckCircleOutlined,
+  EnvironmentOutlined,
   GlobalOutlined,
   LinkedinOutlined,
   MailOutlined,
@@ -484,6 +485,35 @@ export default function Resume2({
         <div className="div-right-4">
           <div className="details right-details-4">
             <div className="contact-info-4 div-col">
+              {/* Address */}
+              <UpdateQuestionWrapper
+                className="address margin-3"
+                removed={
+                  questions?.basicInfo?.questions.find((q) => q.index === 8)
+                    ?.removed
+                }
+              >
+                <SectionHeading activeColor={activeColor}>
+                  <span className="section__title ">
+                    <EnvironmentOutlined /> {t("label.address")} {" "}
+                  </span>
+                </SectionHeading>
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={8}
+                  title="Edit Address"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <span>
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 8)
+                      ?.answer
+                  }
+                </span>
+              </UpdateQuestionWrapper>
+
               {/* Email */}
               <UpdateQuestionWrapper
                 className="email margin-3"
@@ -517,7 +547,6 @@ export default function Resume2({
               {/* <span className="separator"></span> */}
 
               {/* Phone */}
-
               <UpdateQuestionWrapper
                 className="phone margin-3"
                 removed={

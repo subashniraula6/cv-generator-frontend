@@ -39,6 +39,7 @@
   "placeholder.cPassword": "Bekräfta lösenord",
   "button.signup": "Registrera dig",
   "label.email": "E-post",
+  "label.address": "Adress",
   "label.phone": "Telefon",
   "label.linkedin": "LinkedIn",
   "label.website": "Webbplats"

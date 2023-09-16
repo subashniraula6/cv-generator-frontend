@@ -11,6 +11,7 @@ import UpdateItem from "../../Common/UpdateItem";
 import { SubSectionHeading } from "../../Wrappers/SubSectionHeading";
 import {
   CheckCircleOutlined,
+  EnvironmentOutlined,
   GlobalOutlined,
   LinkedinOutlined,
   MailOutlined,
@@ -145,14 +146,41 @@ export default function Resume2({
                   />
                   <span>
                     {
-                      questions?.basicInfo?.questions.find((q) => q.index === 10)
-                        ?.answer
+                      questions?.basicInfo?.questions.find(
+                        (q) => q.index === 10
+                      )?.answer
                     }
                   </span>
                 </span>
               </UpdateQuestionWrapper>
               <span className="separator"></span>
 
+              {/* Address */}
+              <UpdateQuestionWrapper
+                className="address"
+                removed={
+                  questions?.basicInfo?.questions.find((q) => q.index === 8)
+                    ?.removed
+                }
+              >
+                <EnvironmentOutlined /> {t("label.address")} {" "}
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={8}
+                  title="Edit Address"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <span>
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 8)
+                      ?.answer
+                  }
+                </span>
+              </UpdateQuestionWrapper>
+              
+              <span className="separator"></span>
               {/* Phone */}
               <UpdateQuestionWrapper
                 className="phone"
@@ -241,8 +269,9 @@ export default function Resume2({
                 <UpdateQuestionWrapper
                   className="info-profile"
                   removed={
-                    questions?.profileSummary?.questions.find((q) => q.index === 8000)
-                      ?.removed
+                    questions?.profileSummary?.questions.find(
+                      (q) => q.index === 8000
+                    )?.removed
                   }
                   display="block"
                 >
@@ -739,8 +768,9 @@ export default function Resume2({
             {/* Certificates */}
             <UpdateQuestionWrapper
               removed={
-                questions?.certifications?.questions.find((q) => q.index === 5000)
-                  ?.removed
+                questions?.certifications?.questions.find(
+                  (q) => q.index === 5000
+                )?.removed
               }
               display="block"
             >

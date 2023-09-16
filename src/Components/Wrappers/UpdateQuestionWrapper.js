@@ -4,7 +4,7 @@ const UpdateQuestionWrapper = styled.span`
     block-size: fit-content;
     ${({underline}) => underline ? "text-decoration: underline;" : null}
     padding: 2px;
-    margin: 0 0 20px 0;
+    margin: ${({margin}) => margin ? margin: "0 0 20px 0"};
     width: 100%;
     position: relative;
     flex-wrap: wrap;

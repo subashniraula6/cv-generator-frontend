@@ -39,6 +39,7 @@
   "placeholder.cPassword": "Confirm Password",
   "button.signup": "Sign Up",
   "label.email": "Email",
+  "label.address": "Address",
   "label.phone": "Phone",
   "label.linkedin": "LinkedIn",
   "label.website": "Website"

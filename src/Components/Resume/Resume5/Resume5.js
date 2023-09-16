@@ -12,6 +12,7 @@ import { SubSectionHeading } from "../../Wrappers/SubSectionHeading";
 import CircleDevider from "../../Common/Dividers/CircleDivider";
 import {
   CheckCircleOutlined,
+  EnvironmentOutlined,
   GlobalOutlined,
   LinkedinOutlined,
   MailOutlined,
@@ -138,6 +139,36 @@ export default function Resume2({
             </div>
           </div>
           <div className="contact-info div-col col2">
+            {/* Address */}
+            <UpdateQuestionWrapper
+              className="address margin-3"
+              removed={
+                questions?.basicInfo?.questions.find((q) => q.index === 8)
+                  ?.removed
+              }
+              underline={true}
+            >
+              <span className="address">
+                <EnvironmentOutlined /> {t("label.address")}:{" "}
+              </span>
+              <span className="address-val">
+                <UpdateQuestion
+                  key={JSON.stringify(questions)}
+                  section="basicInfo"
+                  index={8}
+                  title="Edit address"
+                  questions={questions}
+                  setQuestions={setQuestions}
+                />
+                <span>
+                  {
+                    questions?.basicInfo?.questions.find((q) => q.index === 8)
+                      ?.answer
+                  }
+                </span>
+              </span>
+            </UpdateQuestionWrapper>
+
             {/* Email */}
             <UpdateQuestionWrapper
               className="email margin-3"

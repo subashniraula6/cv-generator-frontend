@@ -9,6 +9,7 @@ import UpdateQuestionWrapper from "../../Wrappers/UpdateQuestionWrapper";
 import UpdateItemWrapper from "../../Wrappers/UpdateItemWrapper";
 import {
   CheckCircleOutlined,
+  EnvironmentOutlined,
   GlobalOutlined,
   LinkedinOutlined,
   MailOutlined,
@@ -141,8 +142,9 @@ const Resume3 = forwardRef(
             <UpdateQuestionWrapper
               className="info-profile"
               removed={
-                questions?.profileSummary?.questions.find((q) => q.index === 8000)
-                  ?.removed
+                questions?.profileSummary?.questions.find(
+                  (q) => q.index === 8000
+                )?.removed
               }
               display="block"
             >
@@ -174,9 +176,36 @@ const Resume3 = forwardRef(
             </UpdateQuestionWrapper>
           </div>
           <div className="contact-info3">
+            {/* Address */}
+            <UpdateQuestionWrapper
+              className="address"
+              margin="2px"
+              removed={
+                questions?.basicInfo?.questions.find((q) => q.index === 8)
+                  ?.removed
+              }
+            >
+              <EnvironmentOutlined /> {" "}
+              <UpdateQuestion
+                key={JSON.stringify(questions)}
+                section="basicInfo"
+                index={8}
+                title="Edit Address"
+                questions={questions}
+                setQuestions={setQuestions}
+              />
+              <span>
+                {
+                  questions?.basicInfo?.questions.find((q) => q.index === 8)
+                    ?.answer
+                }
+              </span>
+            </UpdateQuestionWrapper>
+
             {/* Phone */}
             <UpdateQuestionWrapper
               className="phone"
+              margin="2px"
               removed={
                 questions?.basicInfo?.questions.find((q) => q.index === 9)
                   ?.removed
@@ -202,6 +231,7 @@ const Resume3 = forwardRef(
             {/* Email */}
             <UpdateQuestionWrapper
               className="email"
+              margin="2px"
               removed={
                 questions?.basicInfo?.questions.find((q) => q.index === 10)
                   ?.removed
@@ -227,6 +257,7 @@ const Resume3 = forwardRef(
             {/* LinkedIn */}
             <UpdateQuestionWrapper
               className="linkedin"
+              margin="2px"
               removed={
                 questions?.basicInfo?.questions.find((q) => q.index === 11)
                   ?.removed
@@ -252,6 +283,7 @@ const Resume3 = forwardRef(
             {/* Website */}
             <UpdateQuestionWrapper
               className="website"
+              margin="2px"
               removed={
                 questions?.basicInfo?.questions.find((q) => q.index === 12)
                   ?.removed
@@ -656,9 +688,7 @@ const Resume3 = forwardRef(
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
-                                          {
-                                            groupedExperience[group][3].answer
-                                          }
+                                          {groupedExperience[group][3].answer}
                                         </UpdateQuestionWrapper>
                                       </span>
                                       <span>{" - "}</span>
@@ -674,9 +704,7 @@ const Resume3 = forwardRef(
                                             questions={questions}
                                             setQuestions={setQuestions}
                                           />
-                                          {
-                                            groupedExperience[group][4].answer
-                                          }
+                                          {groupedExperience[group][4].answer}
                                         </UpdateQuestionWrapper>
                                       </span>
                                     </Col>
@@ -754,13 +782,12 @@ const Resume3 = forwardRef(
                                           setQuestions={setQuestions}
                                         />
                                         <SubSectionHeading>
-                                          {
-                                            groupedProject[group][0].answer
-                                          }
+                                          {groupedProject[group][0].answer}
                                         </SubSectionHeading>
                                       </UpdateQuestionWrapper>
                                       <span>
-                                        {groupedProject[group][1].answer && " | "}
+                                        {groupedProject[group][1].answer &&
+                                          " | "}
                                         <UpdateQuestionWrapper className="info-position">
                                           <UpdateQuestion
                                             key={JSON.stringify(questions)}
@@ -780,9 +807,7 @@ const Resume3 = forwardRef(
                                               groupedProject[group][1].answer
                                             }
                                           >
-                                            {
-                                              groupedProject[group][1].answer
-                                            }
+                                            {groupedProject[group][1].answer}
                                           </a>
                                         </UpdateQuestionWrapper>
                                       </span>
@@ -850,8 +875,9 @@ const Resume3 = forwardRef(
             {/* Certificates */}
             <UpdateQuestionWrapper
               removed={
-                questions?.certifications?.questions.find((q) => q.index === 5000)
-                  ?.removed
+                questions?.certifications?.questions.find(
+                  (q) => q.index === 5000
+                )?.removed
               }
               display="block"
             >
