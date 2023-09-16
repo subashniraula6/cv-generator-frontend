@@ -88,9 +88,9 @@ export default function Form({ questions, setQuestions, type }) {
   };
 
   const findNextQuestion = () => {
-    let orderedIndexes = questions[currentSection]["questions"].sort(
-      (a, b) => a.index - b.index
-    );
+    let orderedIndexes = questions[currentSection]["questions"]
+      .filter((q) => !q.removed)
+      .sort((a, b) => a.index - b.index);
     let currentQueArrIdx = orderedIndexes.findIndex(
       (q) => q.index === currentQuestionIdx
     );
@@ -99,9 +99,9 @@ export default function Form({ questions, setQuestions, type }) {
   };
 
   const findPrevQuestion = () => {
-    let orderedIndexes = questions[currentSection]["questions"].sort(
-      (a, b) => a.index - b.index
-    );
+    let orderedIndexes = questions[currentSection]["questions"]
+      .filter((q) => !q.removed)
+      .sort((a, b) => a.index - b.index);
     let currentQueArrIdx = orderedIndexes.findIndex(
       (q) => q.index === currentQuestionIdx
     );
@@ -109,33 +109,21 @@ export default function Form({ questions, setQuestions, type }) {
   };
 
   const updateQuestions = (updatedQuestions) => {
-    if (currentQuestionIdx === 4 && currentAnswer == "yes") {
-      let existing = questions[currentSection]["questions"].find(
-        (q) => q.index === 5
-      );
-      if (existing) return updatedQuestions;
-      let generated_questions = [
-        questions[currentSection]["auto_generated_questions"].find(
-          (q) => q.index === 5
-        ),
-      ];
-      return {
-        ...updatedQuestions,
-        [currentSection]: {
-          ...updatedQuestions[currentSection],
-          questions: [
-            ...updatedQuestions[currentSection]["questions"],
-            ...generated_questions,
-          ].sort((a, b) => a.index - b.index),
-        },
-      };
-    } else if (currentQuestionIdx === 4 && currentAnswer === "no") {
+    if (currentQuestionIdx === 4) {
       return {
         ...updatedQuestions,
         [currentSection]: {
           ...updatedQuestions[currentSection],
           questions: updatedQuestions[currentSection]["questions"]
-            .filter((q) => q.index !== 5)
+            .map((q) => {
+              if (q.index === 5) {
+                return {
+                  ...q,
+                  removed: currentAnswer == "yes" ? false : true,
+                };
+              }
+              return q;
+            })
             .sort((a, b) => a.index - b.index),
         },
       };
@@ -187,9 +175,8 @@ export default function Form({ questions, setQuestions, type }) {
         .sort((a, b) => a.index - b.index);
 
       // add new generated questions
-      let questionTemplate = updatedQuestions[currentSection][
-        "auto_generated_questions"
-      ][1];
+      let questionTemplate =
+        updatedQuestions[currentSection]["auto_generated_questions"][1];
       if (questionTemplate) {
         let generated_questions = answers.map((a, idx) => {
           return {
@@ -295,7 +282,7 @@ export default function Form({ questions, setQuestions, type }) {
       return updatedQuestions;
     }
   };
-  
+
   function replaceQuestions(updatedQuestions, targetQuestions) {
     let innerQuestions = updatedQuestions[currentSection]["questions"];
     targetQuestions.forEach((targetQuestion) => {
@@ -336,7 +323,9 @@ export default function Form({ questions, setQuestions, type }) {
     let sections = Object.keys(questions);
     // Filter
     if (type === "resume") {
-      sections = sections.filter((section) => section !== "targetCompany" &&  section !== "lang");
+      sections = sections.filter(
+        (section) => section !== "targetCompany" && section !== "lang"
+      );
     }
     let currentSectionIndex = sections.findIndex(
       (section) => section === currentSection
@@ -349,7 +338,9 @@ export default function Form({ questions, setQuestions, type }) {
     let sections = Object.keys(questions);
     // Filter
     if (type === "resume") {
-      sections = sections.filter((section) => section !== "targetCompany" &&  section !== "lang" );
+      sections = sections.filter(
+        (section) => section !== "targetCompany" && section !== "lang"
+      );
     }
     let currentSectionIndex = sections.findIndex(
       (section) => section === currentSection
@@ -388,11 +379,11 @@ export default function Form({ questions, setQuestions, type }) {
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "answer"
     ] = currentAnswer;
-    
+
     updatedQuestions = updateQuestions(updatedQuestions);
-    setTimeout(()=>{
+    setTimeout(() => {
       setQuestions(updatedQuestions, true);
-      setSaving(false)
+      setSaving(false);
     }, [400]);
   };
 
@@ -431,7 +422,7 @@ export default function Form({ questions, setQuestions, type }) {
     ] += ", " + option;
     setQuestions(updatedQuestions);
   };
-  
+
   const hintStyle = {
     color: "grey",
     marginBottom: "20px",
@@ -488,7 +479,10 @@ export default function Form({ questions, setQuestions, type }) {
                     </Button>
                   </div>
                   <div style={hintStyle}>
-                    <label>Please ensure to <strong>save your responses,</strong> as they may be lost otherwise, when using this website.</label>
+                    <label>
+                      Please ensure to <strong>save your responses,</strong> as
+                      they may be lost otherwise, when using this website.
+                    </label>
                   </div>
                 </>
               </QuestionWrapper>

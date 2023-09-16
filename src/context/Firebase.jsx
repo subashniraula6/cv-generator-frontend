@@ -88,7 +88,7 @@ export const FirebaseProvider = (props) => {
       unsubscribe();
     };
   }, []);
-console.log(user)
+  
   return (
     <FirebaseContext.Provider
       value={{
