@@ -1,66 +1,121 @@
-import React, { useEffect, useState } from 'react';
-import { Table, Input } from 'antd';
+import React, { useState, useEffect, useRef } from 'react';
+import { Table, Input, Button, Space, Typography } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import Highlighter from 'react-highlight-words';
 
-const { Search } = Input;
+const { Text } = Typography;
 
-const UserQuestions = () => {
+const UserResponses = () => {
   const [data, setData] = useState([]);
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
-  const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState('');
+  const [searchText, setSearchText] = useState({});
+  const [searchedColumns, setSearchedColumns] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 0,
+  });
+
+  let searchInputs = {};
 
   useEffect(() => {
-    fetchData();
-  }, [pagination.current, search]);
+    fetchUserQuestions();
+  }, [pagination.current, pagination.pageSize, searchText]);
 
-  const fetchData = async () => {
+  const fetchUserQuestions = () => {
     setLoading(true);
+    const { current, pageSize } = pagination;
 
-    try {
-      const response = await fetch(
-        `http://localhost:5000/user_questions?page=${pagination.current}&per_page=${pagination.pageSize}&query=${search}`
-      );
-      const result = await response.json();
-      setData(result.items);
-      setPagination({
-        ...pagination,
-        total: result.total,
-      });
-    } catch (error) {
-      console.error('Error fetching data: ', error);
-    } finally {
-      setLoading(false);
+    const queryParams = new URLSearchParams();
+    queryParams.append('page', current);
+    queryParams.append('per_page', pageSize);
+
+    // Append separate queries for each column
+    for (const columnKey in searchText) {
+      if (searchText[columnKey]) {
+        queryParams.append(columnKey, searchText[columnKey]);
+      }
     }
+
+    fetch(`http://localhost:5000/user_questions?${queryParams.toString()}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data.questions_and_answers);
+        setPagination({
+          ...pagination,
+          total: data.total_items,
+        });
+        setLoading(false);
+      });
   };
 
-  // Create a custom row rendering function
-  const expandedRowRender = (record) => {
-    const questions = record.all_sections_data.map((item) => ({
-      key: item.question,
-      question: item.question,
-      answer: item.answer,
-    }));
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          ref={(node) => {
+            searchInputs[dataIndex] = node;
+          }}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{ marginBottom: 8, display: 'block' }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+    onFilter: (value, record) =>
+      record[dataIndex] ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()) : false,
+    onFilterDropdownVisibleChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInputs[dataIndex].select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumns.includes(dataIndex) ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          searchWords={[searchText[dataIndex]]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ''}
+        />
+      ) : (
+        text
+      ),
+  });
 
-    const childColumns = [
-      { title: 'Question', dataIndex: 'question', key: 'question' },
-      { title: 'Answer', dataIndex: 'answer', key: 'answer' },
-    ];
-
-    return (
-      <Table
-        columns={childColumns}
-        dataSource={questions}
-        pagination={false} // Optional: You can remove pagination for child tables
-      />
-    );
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    const newSearchText = { ...searchText, [dataIndex]: selectedKeys[0] };
+    setSearchText(newSearchText);
+    setSearchedColumns([...searchedColumns, dataIndex]);
+    setPagination({ ...pagination, current: 1 });
   };
 
-  const handleTableChange = (pagination, filters, sorter) => {
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText({});
+    setSearchedColumns([]);
+    setPagination({ ...pagination, current: 1 });
+  };
+
+  const handleTableChange = (pagination) => {
     setPagination(pagination);
-  };
-
-  const handleSearch = (value) => {
-    setSearch(value);
   };
 
   const columns = [
@@ -71,30 +126,36 @@ const UserQuestions = () => {
     },
     {
       title: 'Email',
-      dataIndex: 'user_email',
-      key: 'user_email',
+      dataIndex: 'email',
+      key: 'email',
+      ...getColumnSearchProps('email'),
+    },
+    {
+      title: 'Question',
+      dataIndex: 'question',
+      key: 'question',
+      ...getColumnSearchProps('question'),
+    },
+    {
+      title: 'Answer',
+      dataIndex: 'answer',
+      key: 'answer',
+      ...getColumnSearchProps('answer'),
     },
   ];
 
   return (
-    <div className='table-container'>
-      <h1>User Questions</h1>
-      <Search
-        placeholder="Search questions"
-        onSearch={handleSearch}
-        style={{ marginBottom: '16px' }}
-      />
+    <div style={{ padding: '20px' }}>
+      <Text type="secondary">Search by User ID, Question, or Answer:</Text>
       <Table
         columns={columns}
-        expandable={{expandedRowRender}}
         dataSource={data}
-        pagination={pagination}
         loading={loading}
+        pagination={pagination}
         onChange={handleTableChange}
-        rowKey={(record, index) => index}
       />
     </div>
   );
 };
 
-export default UserQuestions;
+export default UserResponses;
