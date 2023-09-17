@@ -5,6 +5,7 @@ import PublicRoutes from "./Components/Routes";
 import { ConfigProvider } from "antd";
 import { StyleProvider } from "@ant-design/cssinjs";
 import CookieConsentBanner from "./Components/CookieConsentBanner";
+import Background from "./Components/Common/Background/Background";
 
 function App() {
   let appTheme = {
@@ -22,11 +23,11 @@ function App() {
       },
     },
   };
-  
+
   return (
     <ConfigProvider theme={appTheme}>
       <NavBar />
-      <PublicRoutes />
+        <PublicRoutes />
       <CookieConsentBanner />
     </ConfigProvider>
   );

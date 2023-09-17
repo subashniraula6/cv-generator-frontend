@@ -242,7 +242,7 @@ const Resume = forwardRef(
             {/* Website */}
             <UpdateQuestionWrapper
               className="website"
-              margin="2px"
+              margin="2px 0 20px 0"
               removed={
                 questions?.basicInfo?.questions.find((q) => q.index === 12)
                   ?.removed

@@ -14,6 +14,7 @@ import "./Login.css";
 import { removeLocalUserProfiles } from "../../utils";
 import { useFirebase } from "../../context/Firebase";
 import { useLanguage } from "../../context/Language";
+import Background from "../Common/Background/Background" 
 
 export default function Login() {
   // const tokenExist = CheckAuth();
@@ -92,15 +93,15 @@ export default function Login() {
 
   // const [passwordVisible, setPasswordVisible] = React.useState(false);
 
-  const loginContainer = {
+  const bodyContainer = {
     width: "500px",
-    backgroundColor: "rgb(149, 0, 255, 0.07)",
+    backgroundColor: "white",
     borderRadius: "15px",
+    padding: '15px'
   };
 
   return (
-    <div className="loginPage">
-      <div style={loginContainer}>
+      <div style={bodyContainer}>
         <h1
           style={{
             textAlign: "center",
@@ -214,6 +215,5 @@ export default function Login() {
           <img src="logo-kneg.png" width="10px" alt="KNEG" />{" "}
         </div>
       </div>
-    </div>
   );
 }

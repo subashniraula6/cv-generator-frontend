@@ -109,9 +109,10 @@ const UserResponses = () => {
 
   const handleReset = (clearFilters) => {
     clearFilters();
-    setSearchText({});
-    setSearchedColumns([]);
+    setSearchText({}); // Clear search text
+    setSearchedColumns([]); // Clear searched columns
     setPagination({ ...pagination, current: 1 });
+    fetchUserQuestions();
   };
 
   const handleTableChange = (pagination, filters, sorter) => {

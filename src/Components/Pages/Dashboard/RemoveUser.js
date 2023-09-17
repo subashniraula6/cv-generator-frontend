@@ -18,6 +18,7 @@ import {
 } from "@ant-design/icons";
 import Axios from "axios";
 import { Option } from "antd/es/mentions";
+import { useFirebase } from "../../../context/Firebase";
 
 const UserTable = () => {
   // State for table data, pagination, sorting, and filtering
@@ -26,6 +27,7 @@ const UserTable = () => {
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [sortedInfo, setSortedInfo] = useState({});
+  let { user } = useFirebase();
 
   const [selectedUser, setSelectedUser] = useState(null);
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -165,7 +167,11 @@ const UserTable = () => {
         (role) => role.id !== userRolesResponse.data.data.id
       );
 
-      setUserRoles([...otherRoles, userRolesResponse.data.data]);
+      setUserRoles(
+        [...otherRoles, userRolesResponse.data.data].filter(
+          (role) => role.role_name.toLowerCase() !== "superadmin"
+        )
+      );
     } catch (error) {
       console.error(error);
     }
@@ -181,6 +187,18 @@ const UserTable = () => {
 
   const handleSelectRole = (roleId) => {
     setSelectedRole(roleId);
+  };
+
+  const checkAction = (userRole, recordRole) => {
+    let user_role_lower = userRole.toLowerCase();
+    let record_role_lower = recordRole.toLowerCase();
+    if (record_role_lower === "user") return true;
+    if (record_role_lower == "admin") {
+      if (user_role_lower == "superadmin") {
+        return true;
+      }
+    }
+    return false;
   };
 
   const handleDeleteUser = async (userId) => {
@@ -251,26 +269,30 @@ const UserTable = () => {
       dataIndex: "actions",
       render: (text, record) => (
         <span>
-          <Popconfirm
-            title="Are you sure you want to delete this user?"
-            onConfirm={() => handleDeleteUser(record.id)}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button
-              type="danger"
-              shape="circle"
-              icon={<DeleteOutlined />}
-              size="large"
-            />
-          </Popconfirm>
-          <Button
-            type="danger"
-            shape="circle"
-            icon={<UserAddOutlined />}
-            size="large"
-            onClick={() => handleShowRolesDrawer(record)}
-          />
+          {checkAction(user.user_role, record.role) && (
+            <>
+              <Popconfirm
+                title="Are you sure you want to delete this user?"
+                onConfirm={() => handleDeleteUser(record.id)}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button
+                  type="danger"
+                  shape="circle"
+                  icon={<DeleteOutlined />}
+                  size="large"
+                />
+              </Popconfirm>
+              <Button
+                type="danger"
+                shape="circle"
+                icon={<UserAddOutlined />}
+                size="large"
+                onClick={() => handleShowRolesDrawer(record)}
+              />
+            </>
+          )}
         </span>
       ),
     },

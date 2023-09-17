@@ -13,7 +13,7 @@ export default function ForgotPassword() {
   const [sentEmail, setsentEmail] = useState(false);
   const loginContainer = {
     width: "500px",
-    backgroundColor: "rgba(149, 0, 255, 0.07)",
+    backgroundColor: "white",
     borderRadius: "15px",
     padding: "20px",
   };
@@ -50,7 +50,6 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="loginPage">
       <div style={loginContainer}>
         {!sentEmail ? (
           <div>
@@ -58,7 +57,6 @@ export default function ForgotPassword() {
               style={{
                 textAlign: "center",
                 margin: "20px 0px",
-                textTransform: "uppercase",
               }}
             >
               Forgot Password
@@ -129,7 +127,7 @@ export default function ForgotPassword() {
           </Link>
           {" "}
           {" "}
-          <Link to="/login" style={{ color: "unset", fontWeight: "600" }}>
+          <Link to="/signup" style={{ color: "unset", fontWeight: "600" }}>
             {t("login.create")}
           </Link>
         </div>
@@ -147,6 +145,5 @@ export default function ForgotPassword() {
           <img src="logo-kneg.png" width="10px" alt="KNEG" />{" "}
         </div>
       </div>
-    </div>
   );
 }

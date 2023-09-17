@@ -122,8 +122,8 @@ export default function Signup() {
 
   const loginContainer = {
     width: "500px",
-    padding: "20px",
-    backgroundColor: "rgb(149, 0, 255, 0.07)",
+    padding: "15px",
+    backgroundColor: "white",
     borderRadius: "15px",
   };
 
@@ -135,7 +135,7 @@ export default function Signup() {
   };
 
   const showTermsModal = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setIsModalVisible(true);
   };
 
@@ -146,152 +146,141 @@ export default function Signup() {
 
   // const [passwordVisible, setPasswordVisible] = React.useState(false);
   return (
-    <div className="signup-page">
-      <div style={loginContainer}>
-        <Spin spinning={isLoading}>
-          <h1 style={{ textAlign: "center", margin: "20px 0px" }}>
-            {t("signup.title")}
-          </h1>
-          <div
-            className="loginTextDescription"
-            style={{ textAlign: "center", marginBottom: "10px" }}
+    <div style={loginContainer}>
+      <Spin spinning={isLoading}>
+        <h1 style={{ textAlign: "center", margin: "20px 0px" }}>
+          {t("signup.title")}
+        </h1>
+        <div
+          className="loginTextDescription"
+          style={{ textAlign: "center", marginBottom: "10px" }}
+        >
+          {t("signup.info")}
+        </div>
+        <form onSubmit={signUpEmailPass}>
+          <div style={{ display: "flex", width: "90%", margin: "0px auto" }}>
+            <Input
+              size="large"
+              placeholder={t("placeholder.firstName")}
+              prefix={<UserOutlined />}
+              style={{ padding: "10px", marginRight: "5px" }}
+              className="mBottom"
+              id="firstName"
+              name="firstName"
+              value={firstName}
+              onChange={handleChange}
+            />
+            <Input
+              size="large"
+              placeholder={t("placeholder.lastName")}
+              prefix={<></>}
+              style={{ padding: "10px" }}
+              className="mBottom"
+              id="lastName"
+              name="lastName"
+              value={lastName}
+              onChange={handleChange}
+            />
+          </div>
+          <div style={{ width: "90%", margin: "5px auto" }}>
+            <Input
+              size="large"
+              placeholder={t("placeholder.email")}
+              type="email"
+              prefix={<MailOutlined />}
+              style={{ padding: "10px" }}
+              className="mBottom"
+              id="emailAddress"
+              name="email"
+              value={email}
+              onChange={handleChange}
+            />
+          </div>
+          <div style={{ width: "90%", margin: "5px auto" }}>
+            <Input.Password
+              size="large"
+              placeholder={t("placeholder.password")}
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
+              style={{ padding: "10px" }}
+              className="mBottom"
+              name="password"
+              value={password}
+              onChange={handleChange}
+            />
+          </div>
+          <div style={{ width: "90%", margin: "5px auto 20px auto" }}>
+            <Input.Password
+              size="large"
+              status={password !== cPassword ? "error" : ""}
+              placeholder={t("placeholder.cPassword")}
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
+              style={{ padding: "10px" }}
+              className="mBottom"
+              name="cPassword"
+              value={cPassword}
+              onChange={handleChange}
+            />
+          </div>
+          <div style={{ width: "90%", margin: "auto" }}>
+            <Checkbox checked={agreed} disabled={!agreed}>
+              I have read and agree to the{" "}
+              <Button onClick={showTermsModal}>Terms and Conditions</Button>
+            </Checkbox>
+          </div>
+          <Modal
+            title="Terms and Conditions"
+            visible={isModalVisible}
+            onCancel={() => setIsModalVisible(false)}
+            footer={null}
+            width={"50rem"}
           >
-            {t("signup.info")}
-          </div>
-          <form onSubmit={signUpEmailPass}>
-            <div style={{ display: "flex", width: "90%", margin: "0px auto" }}>
-              <Input
-                size="large"
-                placeholder={t("placeholder.firstName")}
-                prefix={<UserOutlined />}
-                style={{ padding: "10px", marginRight: "5px" }}
-                className="mBottom"
-                id="firstName"
-                name="firstName"
-                value={firstName}
-                onChange={handleChange}
-              />
-              <Input
-                size="large"
-                placeholder={t("placeholder.lastName")}
-                prefix={<></>}
-                style={{ padding: "10px" }}
-                className="mBottom"
-                id="lastName"
-                name="lastName"
-                value={lastName}
-                onChange={handleChange}
-              />
-            </div>
-            <div style={{ width: "90%", margin: "5px auto" }}>
-              <Input
-                size="large"
-                placeholder={t("placeholder.email")}
-                type="email"
-                prefix={<MailOutlined />}
-                style={{ padding: "10px" }}
-                className="mBottom"
-                id="emailAddress"
-                name="email"
-                value={email}
-                onChange={handleChange}
-              />
-            </div>
-            <div style={{ width: "90%", margin: "5px auto" }}>
-              <Input.Password
-                size="large"
-                placeholder={t("placeholder.password")}
-                iconRender={(visible) =>
-                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                }
-                style={{ padding: "10px" }}
-                className="mBottom"
-                name="password"
-                value={password}
-                onChange={handleChange}
-              />
-            </div>
-            <div style={{ width: "90%", margin: "5px auto 20px auto" }}>
-              <Input.Password
-                size="large"
-                status={password !== cPassword ? "error" : ""}
-                placeholder={t("placeholder.cPassword")}
-                iconRender={(visible) =>
-                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                }
-                style={{ padding: "10px" }}
-                className="mBottom"
-                name="cPassword"
-                value={cPassword}
-                onChange={handleChange}
-              />
-            </div>
-            <div style={{ width: "90%", margin: "5px auto 20px auto" }}>
-              <Checkbox checked={agreed} disabled={!agreed}>
-                I have read and agree to the{" "}
-                <Button onClick={showTermsModal}>
-                  Terms and Conditions
-                </Button>
-              </Checkbox>
-            </div>
-            <Modal
-              title="Terms and Conditions"
-              visible={isModalVisible}
-              onCancel={() => setIsModalVisible(false)}
-              footer={null}
+            <PrivacyPolicy />
+            <Button
+              type="primary"
+              onClick={handleAgree}
+              style={{ marginTop: "15px" }}
             >
-              <PrivacyPolicy />
-              <Text>
-                
-              </Text>
-              <br/>
-              <Button
-                type="primary"
-                onClick={handleAgree}
-                style={{ marginTop: "20px" }}
-              >
-                Agree
-              </Button>
-            </Modal>
-            <div
-              className="flex-container"
-              style={{
-                justifyContent: "center",
-                backgroundColor: "unset",
-              }}
-            >
-              <Button
-                type="primary"
-                htmlType="submit"
-                style={{ width: "100%" }}
-              >
-                {t("button.signup")}
-              </Button>
-            </div>
-          </form>
-          <div style={{ textAlign: "center" }}>
-            {t("signup.logininfo")}{" "}
-            <span style={{ fontStyle: "italic", cursor: "pointer" }}>
-              <Link to="/login" style={{ color: "unset", fontWeight: "600" }}>
-                {t("signup.loginLink")}
-              </Link>
-            </span>
-          </div>
+              Agree
+            </Button>
+          </Modal>
           <div
+            className="flex-container"
             style={{
-              fontSize: "14px",
-              color: "grey",
-              margin: "20px",
-              fontWeight: "600",
-              textTransform: "uppercase",
-              textAlign: "center",
+              justifyContent: "center",
+              backgroundColor: "unset",
             }}
           >
-            {t("footer.copyright")} © 2023{" "}
-            <img src="logo-kneg.png" width="10px" alt="KNEG" />
+            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+              {t("button.signup")}
+            </Button>
           </div>
-        </Spin>
-      </div>
+        </form>
+        <div style={{ textAlign: "center" }}>
+          {t("signup.logininfo")}{" "}
+          <span style={{ fontStyle: "italic", cursor: "pointer" }}>
+            <Link to="/login" style={{ color: "unset", fontWeight: "600" }}>
+              {t("signup.loginLink")}
+            </Link>
+          </span>
+        </div>
+        <div
+          style={{
+            fontSize: "14px",
+            color: "grey",
+            margin: "10px",
+            fontWeight: "600",
+            textTransform: "uppercase",
+            textAlign: "center",
+          }}
+        >
+          {t("footer.copyright")} © 2023{" "}
+          <img src="logo-kneg.png" width="10px" alt="KNEG" />
+        </div>
+      </Spin>
     </div>
   );
 }

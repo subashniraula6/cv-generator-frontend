@@ -13,7 +13,7 @@ import { useFirebase } from "../../../context/Firebase";
 import { useLanguage } from "../../../context/Language";
 import { useNavigate } from "react-router-dom";
 import LanguageSelect from "./LanguageSelect";
-import { useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom";
 import PopConfirm from "../PopConfirm";
 import axios from "../../../axios/axios";
 
@@ -25,7 +25,7 @@ const routes = [
 ];
 
 let navBarStyle = {
-  backgroundColor: "#EEEEE !important",
+  backgroundColor: "red !important",
 };
 
 function handleLogout(logout) {
@@ -37,58 +37,67 @@ function handleLogout(logout) {
 }
 
 function handleUserDelete(uid, navigate) {
-  axios.post("delete_user", JSON.stringify({
-    u_id: uid,
-  }))
-  .then(res => {
-    notification.success({
-      title: "Deactivate Success",
-      description: "Deactivate Success. Now you can no longer access to our system"
+  axios
+    .post(
+      "delete_user",
+      JSON.stringify({
+        u_id: uid,
+      })
+    )
+    .then((res) => {
+      notification.success({
+        title: "Deactivate Success",
+        description:
+          "Deactivate Success. Now you can no longer access to our system",
+      });
+      navigate("/login");
+    })
+    .catch((err) => {
+      notification.error({
+        message: "Deactivate error",
+        description: err.message,
+      });
     });
-    navigate("/login")
-  })
-  .catch((err) => {
-    notification.error({
-      message: "Deactivate error",
-      description: err.message,
-    });
-  });
 }
 
 const getItems = (user, logout, t, navigate) => [
-  ...(user.user_role === 'Admin') ? [{
-    key: "1",
-    label: (
-      <Link to="/dashboard">
-        {t("menu.dashboard")}
-        <DashboardOutlined style={{ margin: "0 10px" }} />
-      </Link>
-    ),
-  }]: [],
-  ...(user.user_role !== 'Admin') ? [{
-    key: "2",
-    label: (
-      <Popconfirm
-        title="Sure to Deactivate your account? This cannot be undone"
-        onConfirm={() => handleUserDelete(user.uid, navigate)}
-      >
-        <Button
-          type="danger"
-          shape="circle"
-          icon={<UserDeleteOutlined />}
-          size="large"
-        >Deactivate</Button>
-      </Popconfirm>
-    ),
-  }]: [],
+  ...(user.user_role.toLowerCase() === "admin" ||
+  user.user_role.toLowerCase() === "superadmin"
+    ? [
+        {
+          key: "1",
+          label: (
+            <Link to="/dashboard">
+              <Button icon={<DashboardOutlined />}>
+                {t("menu.dashboard")}
+              </Button>
+            </Link>
+          ),
+        },
+      ]
+    : []),
+  ...(user.user_role.toLowerCase() !== "superamdin"
+    ? [
+        {
+          key: "2",
+          label: (
+            <Popconfirm
+              title="Sure to Deactivate your account? This cannot be undone"
+              onConfirm={() => handleUserDelete(user.uid, navigate)}
+            >
+              <Button icon={<UserDeleteOutlined />}>Deactivate</Button>
+            </Popconfirm>
+          ),
+        },
+      ]
+    : []),
   {
     key: "3",
     // danger: true,
     label: (
-      <a onClick={(e) => handleLogout(logout)}>
-        <LogoutOutlined style={{ margin: "0 10px" }} />
+      <Button icon={<LogoutOutlined />} onClick={(e) => handleLogout(logout)}>
         {t("menu.logout")}
-      </a>
+      </Button>
     ),
   },
 ];
@@ -104,21 +113,21 @@ const DropdownMenu = () => {
         items: getItems(user, logout, t, navigate),
       }}
     >
-        <Avatar
-          style={{ backgroundColor: "#87d068" }}
-          size={35}
-          icon={<UserOutlined />}
-        />
+      <Avatar
+        style={{ backgroundColor: "#87d068" }}
+        size={35}
+        icon={<UserOutlined />}
+      />
     </Dropdown>
   );
 };
 
 const NavBar = () => {
-  const {pathname: location} = useLocation();
+  const { pathname: location } = useLocation();
   let { t } = useLanguage();
   let { user } = useFirebase();
   let navigate = useNavigate();
-  if(location === "/") return null;
+  if (location === "/") return null;
   return (
     <PageHeader
       title="KNEG"

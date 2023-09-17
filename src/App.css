@@ -10,6 +10,12 @@
   pointer-events: none;
 }
 
+.ant-page-header {
+  -webkit-box-shadow: 0px 12px 20px -20px rgba(149, 0, 255, 1);
+-moz-box-shadow: 0px 12px 20px -20px rgba(149, 0, 255, 1);
+box-shadow: 0px 12px 20px -20px rgba(149, 0, 255, 1);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
