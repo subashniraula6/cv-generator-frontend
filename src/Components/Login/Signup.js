@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MailOutlined, UserOutlined } from "@ant-design/icons";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Input, Spin, notification } from "antd";
+import { Checkbox, Input, Modal, Spin, notification, Typography } from "antd";
 import { Button } from "../Common/Button";
 import "./Signup.css";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { useFirebase } from "../../context/Firebase";
 import { useLanguage } from "../../context/Language";
 import axios from "../../axios/axios";
+import PrivacyPolicy from "../PrivacyPolicy";
+
+const { Text } = Typography;
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -51,6 +54,13 @@ export default function Signup() {
 
   const signUpEmailPass = (e) => {
     e.preventDefault();
+    if (!agreed) {
+      notification.error({
+        message: "Agreement Error",
+        description: "Please view terms and conditions",
+      });
+      return;
+    }
     if (!email) {
       notification.error({
         message: "Signup Error",
@@ -116,6 +126,24 @@ export default function Signup() {
     backgroundColor: "rgb(149, 0, 255, 0.07)",
     borderRadius: "15px",
   };
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [agreed, setAgreed] = useState(false);
+
+  const handleCheckboxChange = (e) => {
+    setAgreed(e.target.checked);
+  };
+
+  const showTermsModal = (e) => {
+    e.preventDefault()
+    setIsModalVisible(true);
+  };
+
+  const handleAgree = () => {
+    setAgreed(true);
+    setIsModalVisible(false);
+  };
+
   // const [passwordVisible, setPasswordVisible] = React.useState(false);
   return (
     <div className="signup-page">
@@ -198,17 +226,33 @@ export default function Signup() {
                 onChange={handleChange}
               />
             </div>
-            <div
-              style={{ width: "90%", margin: "0 auto", padding: "0px 10px" }}
-            >
-              <input
-                type="checkbox"
-                id="acknowledgementTOC"
-                checked={acknowledgmentChecked}
-                onChange={handleAcknowledgmentChange}
-              />
-              {"  "} I agree all the terms and condition
+            <div style={{ width: "90%", margin: "5px auto 20px auto" }}>
+              <Checkbox checked={agreed} disabled={!agreed}>
+                I have read and agree to the{" "}
+                <Button onClick={showTermsModal}>
+                  Terms and Conditions
+                </Button>
+              </Checkbox>
             </div>
+            <Modal
+              title="Terms and Conditions"
+              visible={isModalVisible}
+              onCancel={() => setIsModalVisible(false)}
+              footer={null}
+            >
+              <PrivacyPolicy />
+              <Text>
+                
+              </Text>
+              <br/>
+              <Button
+                type="primary"
+                onClick={handleAgree}
+                style={{ marginTop: "20px" }}
+              >
+                Agree
+              </Button>
+            </Modal>
             <div
               className="flex-container"
               style={{
@@ -216,7 +260,11 @@ export default function Signup() {
                 backgroundColor: "unset",
               }}
             >
-              <Button type="primary" htmlType="submit" style={{width: '100%'}}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{ width: "100%" }}
+              >
                 {t("button.signup")}
               </Button>
             </div>
