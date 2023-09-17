@@ -114,7 +114,7 @@ const UserResponses = () => {
     setPagination({ ...pagination, current: 1 });
   };
 
-  const handleTableChange = (pagination) => {
+  const handleTableChange = (pagination, filters, sorter) => {
     setPagination(pagination);
   };
 
@@ -146,14 +146,21 @@ const UserResponses = () => {
 
   return (
     <div style={{ padding: '20px' }}>
-      <Text type="secondary">Search by User ID, Question, or Answer:</Text>
+      <Text type="secondary">Search by Email, Question, or Answer:</Text>
       <Table
         columns={columns}
         dataSource={data}
         loading={loading}
-        pagination={pagination}
+        pagination={{
+          ...pagination,
+          showSizeChanger: true, // Show the option to change the number of rows per page
+          pageSizeOptions: ['10', '20', '30', '40', '50', '80', '100'], // Specify the available page sizes
+        }}
         onChange={handleTableChange}
       />
+      <div  style={{textAlign: 'right'}}>
+        <Text type="secondary" mark>Total Items: <strong>{pagination.total}</strong></Text>
+      </div>
     </div>
   );
 };
