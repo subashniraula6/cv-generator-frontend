@@ -5,6 +5,7 @@ import { DownloadOutlined, FileDoneOutlined } from "@ant-design/icons";
 import { useLanguage } from "../../context/Language";
 import ReactToPrint from "react-to-print";
 import Form from "./Form";
+import axios from "../../axios/axios";
 
 export default function CoverLetter({ title, questions, setQuestions }) {
   const [content, setContent] = useState("");
@@ -51,17 +52,13 @@ export default function CoverLetter({ title, questions, setQuestions }) {
       password: "aeZak1939pska",
     };
     setIsLoading(true);
-    fetch(process.env.REACT_APP_OPENAI_API, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    })
+    axios
+      .post("/chat", JSON.stringify(requestData))
       .then((res) => res.json())
       .then((resp) => {
         setIsLoading(false);
         let { response } = resp;
+        console.log("response", resp)
         if (Array.isArray(response) && response[1] === 500) {
         } else {
           setContent(response);

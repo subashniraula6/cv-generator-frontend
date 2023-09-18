@@ -65,7 +65,7 @@ const Field = ({
       {question.type === "file" && (
         <ImageUpload
           multiple={false}
-          action={uploadUrl}
+          url={uploadUrl}
           handleFileChange={handleFileChange}
           size="small"
           defaultValue={question.answer}

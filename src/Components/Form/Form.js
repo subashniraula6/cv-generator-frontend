@@ -454,7 +454,7 @@ export default function Form({ questions, setQuestions, type }) {
                       handleDateChange(date, dateStr)
                     }
                     handleFileChange={handleFileChange}
-                    uploadUrl={"http://127.0.0.1:5000/kneg/upload_image"}
+                    uploadUrl={process.env.REACT_APP_BACKEND_URL + "kneg/upload_image"}
                     addDropdownOption={addDropdownOption}
                   />
                   <div>

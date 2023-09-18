@@ -5,6 +5,7 @@ import Field from "./Field";
 import PopConfirm from "./PopConfirm";
 import MagicIcon from "./MagicIcon";
 import { useLanguage } from "../../context/Language";
+import axios from "../../axios/axios";
 
 const UpdateQuestion = ({
   section,
@@ -33,9 +34,7 @@ const UpdateQuestion = ({
       [section]: {
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx
-            ? { ...q, answer: e.target.value }
-            : q
+          q.index === questionIdx ? { ...q, answer: e.target.value } : q
         ),
       },
     });
@@ -53,9 +52,7 @@ const UpdateQuestion = ({
       [section]: {
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx
-            ? { ...q, answer: answerStr }
-            : q
+          q.index === questionIdx ? { ...q, answer: answerStr } : q
         ),
       },
     });
@@ -67,9 +64,7 @@ const UpdateQuestion = ({
       [section]: {
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx
-            ? { ...q, answer: dateStr }
-            : q
+          q.index === questionIdx ? { ...q, answer: dateStr } : q
         ),
       },
     });
@@ -106,9 +101,7 @@ const UpdateQuestion = ({
       [section]: {
         ...tempQuestions[section],
         questions: tempQuestions[section]["questions"].map((q) =>
-          q.index === questionIdx
-            ? { ...q, answer: imageUrl }
-            : q
+          q.index === questionIdx ? { ...q, answer: imageUrl } : q
         ),
       },
     });
@@ -141,13 +134,8 @@ const UpdateQuestion = ({
         password: "aeZak1939pska",
       };
       setIsLoading(true);
-      fetch(process.env.REACT_APP_OPENAI_API, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      })
+      axios
+        .post("/chat", JSON.stringify(requestData))
         .then((res) => res.json())
         .then((resp) => {
           setIsLoading(false);
@@ -157,9 +145,7 @@ const UpdateQuestion = ({
             [section]: {
               ...questions[section],
               questions: questions[section]["questions"].map((q) =>
-                q.index === index
-                  ? { ...q, answer: response }
-                  : q
+                q.index === index ? { ...q, answer: response } : q
               ),
             },
           });
@@ -179,13 +165,8 @@ const UpdateQuestion = ({
         password: "aeZak1939pska",
       };
       setIsLoading(true);
-      fetch(process.env.REACT_APP_OPENAI_API, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      })
+      axios
+        .post("/chat", JSON.stringify(requestData))
         .then((res) => res.json())
         .then((resp) => {
           setIsLoading(false);
@@ -195,9 +176,7 @@ const UpdateQuestion = ({
             [section]: {
               ...questions[section],
               questions: questions[section]["questions"].map((q) =>
-                q.index === index
-                  ? { ...q, answer: response }
-                  : q
+                q.index === index ? { ...q, answer: response } : q
               ),
             },
           });
