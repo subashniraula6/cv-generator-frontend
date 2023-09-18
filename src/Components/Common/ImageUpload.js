@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
-import { useFirebase } from "../../context/Firebase";
+import { useFirebase } from "../../context/Firebase"
 
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
@@ -16,12 +16,25 @@ const beforeUpload = (file) => {
 };
 
 const ImageUpload = ({ defaultValue, handleFileChange, url, ...props }) => {
-  const { user } = useFirebase();
+  const { user } = useFirebase()
   const [imageUrl, setImageUrl] = useState(() => defaultValue || null);
 
   useEffect(() => {
     handleFileChange(imageUrl);
   }, [imageUrl]);
+
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </div>
+  );
 
   const customRequest = async ({ file, onSuccess, onError }) => {
     try {
@@ -35,9 +48,9 @@ const ImageUpload = ({ defaultValue, handleFileChange, url, ...props }) => {
       });
 
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json() 
         message.success(`${file.name} file uploaded successfully`);
-        setImageUrl(process.env.REACT_APP_BACKEND_URL + data.path);
+        setImageUrl(process.env.REACT_APP_BACKEND_URL + data.path)
         onSuccess();
       } else {
         message.error(`${file.name} file upload failed`);
@@ -57,16 +70,21 @@ const ImageUpload = ({ defaultValue, handleFileChange, url, ...props }) => {
         className="avatar-uploader"
         showUploadList={false}
         beforeUpload={beforeUpload}
+        // onChange={handleChange}
         customRequest={customRequest}
         {...props}
       >
-        <img
-          src={imageUrl}
-          alt="avatar"
-          style={{
-            width: "100%",
-          }}
-        />
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt="avatar"
+            style={{
+              width: "100%",
+            }}
+          />
+        ) : (
+          uploadButton
+        )}
       </Upload>
     </>
   );

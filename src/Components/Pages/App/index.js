@@ -9,6 +9,7 @@ import { notification } from "antd";
 import { useFirebase } from "../../../context/Firebase";
 import { orderQuestions } from "../../../utils";
 import { useLanguage } from "../../../context/Language";
+import { removeLocalUserProfiles } from "../../../utils"
 import ProgressBar from "../../Common/ProgressBar/ProgressBar";
 
 const App = () => {
@@ -53,6 +54,9 @@ const App = () => {
           setFetchProgress(percentCompleted);
         },
       });
+      if(selectedResumeOption === "new") {
+        removeLocalUserProfiles()
+      }
       const { data } = response;
       let langBasedQuestion = data.data.find(
         (question) => question.language === lang
