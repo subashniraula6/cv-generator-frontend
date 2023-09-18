@@ -6,6 +6,7 @@ import PopConfirm from "./PopConfirm";
 import MagicIcon from "./MagicIcon";
 import { useLanguage } from "../../context/Language";
 import axios from "../../axios/axios";
+import { extractQuestionsAndAnswers } from "../../utils"
 
 const UpdateQuestion = ({
   section,
@@ -123,7 +124,7 @@ const UpdateQuestion = ({
 
   function generateAI(e, section, index) {
     if (AIType === "profileSummary") {
-      let payload = JSON.stringify(questions);
+      let payload = extractQuestionsAndAnswers(questions);
       let dataInput =
         "Generate a short and elaborated resume profile summary with words less than 100 from the following json: ";
       dataInput += JSON.stringify(payload);
@@ -136,10 +137,9 @@ const UpdateQuestion = ({
       setIsLoading(true);
       axios
         .post("/chat", JSON.stringify(requestData))
-        .then((res) => res.json())
-        .then((resp) => {
+        .then(({data}) => {
           setIsLoading(false);
-          let { response } = resp;
+          let { response } = data;
           setQuestions({
             ...questions,
             [section]: {
@@ -155,7 +155,8 @@ const UpdateQuestion = ({
           alert("Open AI error");
         });
     } else if (AIType === "workSummary") {
-      let payload = JSON.stringify(questions);
+      let payload = extractQuestionsAndAnswers(questions);
+      console.log("payload", payload)
       let dataInput =
         "Generate a short and elaborated resume work description summary with words less than 100 from following json: ";
       dataInput += JSON.stringify(payload);
@@ -167,10 +168,9 @@ const UpdateQuestion = ({
       setIsLoading(true);
       axios
         .post("/chat", JSON.stringify(requestData))
-        .then((res) => res.json())
-        .then((resp) => {
+        .then(({data}) => {
           setIsLoading(false);
-          let { response } = resp;
+          let { response } = data;
           setQuestions({
             ...questions,
             [section]: {
@@ -183,7 +183,7 @@ const UpdateQuestion = ({
         })
         .catch((err) => {
           setIsLoading(false);
-          alert("Open AI error");
+          alert(err);
         });
     }
   }

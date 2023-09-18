@@ -57,4 +57,35 @@ const orderQuestions = (originalQuestions) => {
   return orderedQuestions;
 };
 
-export { toSentenceCase, toCamelCase, removeLocalUserProfiles, orderQuestions };
+const extractQuestionsAndAnswers = (questions) => {
+  const extracted  = {
+    // Extract questions and answers from each section
+    sections: Object.keys(questions).map(sectionKey => {
+      const section = questions[sectionKey];
+      if (section.questions && Array.isArray(section.questions)) {
+        // Filter questions with non-empty answers
+        const filteredQuestions = section.questions.filter(question => {
+          const answer = question.answer;
+          // Check if the answer is not empty
+          return answer
+        });
+  
+        // Map the filtered questions to only contain question and answer
+        const extractedQuestions = filteredQuestions.map(question => ({
+          question: question.question,
+          answer: question.answer,
+        }));
+  
+        return {
+          title: section.title,
+          questions: extractedQuestions,
+        };
+      } else {
+        return null;
+      }
+    }).filter(section => section !== null), // Remove sections without questions
+  };
+  return extracted;  
+}
+
+export { toSentenceCase, toCamelCase, removeLocalUserProfiles, orderQuestions, extractQuestionsAndAnswers };

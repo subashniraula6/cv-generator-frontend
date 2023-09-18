@@ -54,14 +54,12 @@ export default function CoverLetter({ title, questions, setQuestions }) {
     setIsLoading(true);
     axios
       .post("/chat", JSON.stringify(requestData))
-      .then((res) => res.json())
       .then((resp) => {
         setIsLoading(false);
         let { response } = resp;
-        console.log("response", resp)
         if (Array.isArray(response) && response[1] === 500) {
         } else {
-          setContent(response);
+          setContent(resp.data.response);
           setIsCoverGenerated(true);
         }
       })
