@@ -21,6 +21,7 @@ const removeLocalUserProfiles = () => {
   localStorage.removeItem("activeColor");
   localStorage.removeItem("template");
   localStorage.removeItem("currentQuestion");
+  localStorage.removeItem("resumeOptionModalShown");
 };
 
 const orderQuestions = (originalQuestions) => {

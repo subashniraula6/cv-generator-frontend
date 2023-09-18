@@ -41,12 +41,6 @@ export default function Signup() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const [acknowledgmentChecked, setAcknowledgmentChecked] = useState(false);
-
-  const handleAcknowledgmentChange = (e) => {
-    setAcknowledgmentChecked(e.target.checked);
-  };
-
   const createUser = async (body) => {
     let response = await axios.post("signup", JSON.stringify(body));
     return response.data;
@@ -86,13 +80,6 @@ export default function Signup() {
       notification.error({
         message: "Signup Error",
         description: "Password doesn't match",
-      });
-      return;
-    }
-    if (!acknowledgmentChecked) {
-      notification.error({
-        message: "Signup Error",
-        description: "Please acknowledge the terms and conditions.",
       });
       return;
     } else {
