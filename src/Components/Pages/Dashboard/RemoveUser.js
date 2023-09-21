@@ -56,7 +56,7 @@ const UserTable = () => {
     setLoading(true);
 
     try {
-      const response = await Axios.get("http://localhost:5000/kneg/users", {
+      const response = await Axios.get(`${process.env.REACT_APP_BACKEND_URL}kneg/users`, {
         params: apiParams,
       });
 
@@ -152,11 +152,11 @@ const UserTable = () => {
 
     try {
       const userRolesResponse = await Axios.get(
-        `http://localhost:5000/kneg/user-role/${user.role_id}`
+        `${process.env.REACT_APP_BACKEND_URL}kneg/user-role/${user.role_id}`
       );
 
       const allRolesResponse = await Axios.get(
-        "http://localhost:5000/kneg/user-roles"
+        `${process.env.REACT_APP_BACKEND_URL}kneg/user-roles`
       );
 
       setDefaultRole(userRolesResponse.data.data.id);
@@ -203,7 +203,7 @@ const UserTable = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      await Axios.post("http://localhost:5000/delete_user", {
+      await Axios.post(process.env.REACT_APP_BACKEND_URL+"delete_user", {
         user_id: userId,
       });
 
@@ -218,7 +218,7 @@ const UserTable = () => {
     try {
       setSaveRoleLoading(true);
       await Axios.put(
-        `http://localhost:5000/kneg/user-roles/${selectedUser.id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/kneg/user-roles/${selectedUser.id}`,
         {
           role_id: selectedRole,
         }

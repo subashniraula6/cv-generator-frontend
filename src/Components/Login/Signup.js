@@ -108,7 +108,7 @@ export default function Signup() {
   };
 
   const loginContainer = {
-    width: "500px",
+    minWidth: "360px",
     padding: "15px",
     backgroundColor: "white",
     borderRadius: "15px",
@@ -214,7 +214,7 @@ export default function Signup() {
           </div>
           <div style={{ width: "90%", margin: "auto" }}>
             <Checkbox checked={agreed} disabled={!agreed}>
-              I have read and agree to the{" "}
+              I have read and agree to the GDPR Policy{" "}
               <Button onClick={showTermsModal}>Terms and Conditions</Button>
             </Checkbox>
           </div>

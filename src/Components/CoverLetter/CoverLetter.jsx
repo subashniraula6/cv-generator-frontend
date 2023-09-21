@@ -56,10 +56,10 @@ export default function CoverLetter({ title, questions, setQuestions }) {
       .post("/chat", JSON.stringify(requestData))
       .then((resp) => {
         setIsLoading(false);
-        let { response } = resp;
+        let { response } = resp.data;
         if (Array.isArray(response) && response[1] === 500) {
         } else {
-          setContent(resp.data.response);
+          setContent(response);
           setIsCoverGenerated(true);
         }
       })

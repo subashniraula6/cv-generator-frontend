@@ -37,7 +37,7 @@ const UserResponses = () => {
       }
     }
 
-    fetch(`http://localhost:5000/user_questions?${queryParams.toString()}`)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}user_questions?${queryParams.toString()}`)
       .then((response) => response.json())
       .then((data) => {
         setData(data.questions_and_answers);

@@ -85,3 +85,12 @@
     left: 50%;
     transform: translate(-50%, -45%);
 }
+
+@media only screen and (max-width: 600px) {
+  .background {
+    height: fit-content;
+  }
+  .center-container {
+    transform: translate(-50%, -35%);
+  }
+}

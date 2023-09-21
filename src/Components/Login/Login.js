@@ -94,10 +94,10 @@ export default function Login() {
   // const [passwordVisible, setPasswordVisible] = React.useState(false);
 
   const bodyContainer = {
-    width: "500px",
+    minWidth: "360px",
+    padding: "20px",
     backgroundColor: "white",
     borderRadius: "15px",
-    padding: '15px'
   };
 
   return (
@@ -118,7 +118,7 @@ export default function Login() {
           {t("login.info")}
         </div>
         <form onSubmit={userLogin}>
-          <div style={{ width: "90%", margin: "10px auto" }}>
+          <div style={{ margin: "10px auto" }}>
             <Input
               size="large"
               type="email"
@@ -131,7 +131,7 @@ export default function Login() {
             />
           </div>
           <div
-            style={{ width: "90%", margin: "0px auto", position: "relative" }}
+            style={{ margin: "0px auto", position: "relative" }}
           >
             <Input.Password
               size="large"

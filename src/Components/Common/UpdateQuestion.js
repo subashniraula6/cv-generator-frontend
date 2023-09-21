@@ -6,7 +6,7 @@ import PopConfirm from "./PopConfirm";
 import MagicIcon from "./MagicIcon";
 import { useLanguage } from "../../context/Language";
 import axios from "../../axios/axios";
-import { extractQuestionsAndAnswers } from "../../utils"
+import { extractQuestionsAndAnswers } from "../../utils";
 
 const UpdateQuestion = ({
   section,
@@ -137,18 +137,21 @@ const UpdateQuestion = ({
       setIsLoading(true);
       axios
         .post("/chat", JSON.stringify(requestData))
-        .then(({data}) => {
+        .then(({ data }) => {
           setIsLoading(false);
           let { response } = data;
-          setQuestions({
-            ...questions,
-            [section]: {
-              ...questions[section],
-              questions: questions[section]["questions"].map((q) =>
-                q.index === index ? { ...q, answer: response } : q
-              ),
-            },
-          });
+          if (Array.isArray(response) && response[1] === 500) {
+          } else {
+            setQuestions({
+              ...questions,
+              [section]: {
+                ...questions[section],
+                questions: questions[section]["questions"].map((q) =>
+                  q.index === index ? { ...q, answer: response } : q
+                ),
+              },
+            });
+          }
         })
         .catch((err) => {
           setIsLoading(false);
@@ -156,7 +159,7 @@ const UpdateQuestion = ({
         });
     } else if (AIType === "workSummary") {
       let payload = extractQuestionsAndAnswers(questions);
-      console.log("payload", payload)
+      console.log("payload", payload);
       let dataInput =
         "Generate a short and elaborated resume work description summary with words less than 100 from following json: ";
       dataInput += JSON.stringify(payload);
@@ -168,18 +171,21 @@ const UpdateQuestion = ({
       setIsLoading(true);
       axios
         .post("/chat", JSON.stringify(requestData))
-        .then(({data}) => {
+        .then(({ data }) => {
           setIsLoading(false);
           let { response } = data;
-          setQuestions({
-            ...questions,
-            [section]: {
-              ...questions[section],
-              questions: questions[section]["questions"].map((q) =>
-                q.index === index ? { ...q, answer: response } : q
-              ),
-            },
-          });
+          if (Array.isArray(response) && response[1] === 500) {
+          } else {
+            setQuestions({
+              ...questions,
+              [section]: {
+                ...questions[section],
+                questions: questions[section]["questions"].map((q) =>
+                  q.index === index ? { ...q, answer: response } : q
+                ),
+              },
+            });
+          }
         })
         .catch((err) => {
           setIsLoading(false);

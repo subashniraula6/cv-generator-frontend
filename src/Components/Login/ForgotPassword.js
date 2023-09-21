@@ -12,10 +12,11 @@ export default function ForgotPassword() {
   const [username, setusername] = useState("");
   const [sentEmail, setsentEmail] = useState(false);
   const loginContainer = {
-    width: "500px",
+    minWidth: "360px",
+    maxWidth: '400px',
+    padding: "15px",
     backgroundColor: "white",
     borderRadius: "15px",
-    padding: "20px",
   };
   let { t } = useLanguage();
 
@@ -63,12 +64,12 @@ export default function ForgotPassword() {
             </h1>
             <div
               className="loginTextDescription"
-              style={{ textAlign: "center", width: "95%", margin: "10px auto" }}
+              style={{ textAlign: "center", margin: "10px auto" }}
             >
               Please enter your registered email and then click on verification
               link sent to your mail
             </div>
-            <div style={{ width: "90%", margin: "0px auto" }}>
+            <div style={{ margin: "0px auto" }}>
               <Input
                 size="large"
                 placeholder="Email Address"

@@ -9,6 +9,7 @@ import Background from "./Components/Common/Background/Background";
 
 function App() {
   let appTheme = {
+    border: '1px solid red',
     token: {
       // Seed Token
       colorPrimary: "rgb(149, 0, 255, 0.4)",
@@ -21,6 +22,7 @@ function App() {
       Select: {
         borderRadiusOuter: "4px",
       },
+      
     },
   };
 
