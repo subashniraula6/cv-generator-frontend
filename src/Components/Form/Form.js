@@ -384,7 +384,7 @@ export default function Form({ questions, setQuestions, type }) {
     setTimeout(() => {
       setQuestions(updatedQuestions, true);
       setSaving(false);
-    }, [400]);
+    }, [700]);
   };
 
   const handleInputChange = (e) => {
