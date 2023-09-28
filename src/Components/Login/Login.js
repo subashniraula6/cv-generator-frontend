@@ -14,7 +14,8 @@ import "./Login.css";
 import { removeLocalUserProfiles } from "../../utils";
 import { useFirebase } from "../../context/Firebase";
 import { useLanguage } from "../../context/Language";
-import Background from "../Common/Background/Background" 
+import Background from "../Common/Background/Background";
+import axios from "../../axios/axios";
 
 export default function Login() {
   // const tokenExist = CheckAuth();
@@ -77,10 +78,24 @@ export default function Login() {
     }
   };
 
+  const createOrLogin = async (email, uid) => {
+    try {
+      let response = await axios.post(
+        "createOrLogin",
+        JSON.stringify({
+          email,
+          uid,
+        })
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   async function signInWithGoogle() {
     try {
       const result = await loginWithGoogle();
-      navigate("/app");
+      createOrLogin(result.user.email, result.user.uid);
     } catch (error) {
       console.log(error);
       const errorCode = error.code.replace("auth/", "").replace(/-/g, " ");
@@ -101,119 +116,117 @@ export default function Login() {
   };
 
   return (
-      <div style={bodyContainer}>
-        <h1
-          style={{
-            textAlign: "center",
-            margin: "20px 0px",
-            textTransform: "uppercase",
-          }}
-        >
-          {t("login.title")}
-        </h1>
-        <div
-          className="loginTextDescription"
-          style={{ textAlign: "center", marginBottom: "10px" }}
-        >
-          {t("login.info")}
-        </div>
-        <form onSubmit={userLogin}>
-          <div style={{ margin: "10px auto" }}>
-            <Input
-              size="large"
-              type="email"
-              placeholder={t("placeholder.email")}
-              prefix={<UserOutlined />}
-              style={{ padding: "10px" }}
-              onChange={(text) => {
-                updateUsername(text);
-              }}
-            />
-          </div>
-          <div
-            style={{ margin: "0px auto", position: "relative" }}
-          >
-            <Input.Password
-              size="large"
-              placeholder={t("placeholder.password")}
-              // status='error'
-              // prefix={<ClockCircleOutlined/>}
-              iconRender={(visible) =>
-                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-              }
-              style={{ padding: "10px" }}
-              className="mBottom"
-              onChange={(text) => {
-                updatePassword(text);
-              }}
-            />
-            <div
-              style={{ position: "absolute", right: "0px", cursor: "pointer" }}
-            >
-              <Link
-                to="/forgot-password"
-                style={{ color: "unset", fontWeight: "600" }}
-              >
-                {t("login.forgotPassword")}
-              </Link>
-            </div>
-          </div>
-          <div
-            className="flex-container"
-            style={{
-              justifyContent: "center",
-              backgroundColor: "unset",
-              marginTop: "20px",
-            }}
-          >
-            <Button
-              type="primary"
-              style={{
-                width: "100%",
-              }}
-              // onClick={userLogin}
-              icon={isLoggingIn && <LoadingOutlined />}
-              iconPosition={"center"}
-              isLoggingIn={isLoggingIn}
-              disabled={isLoggingIn}
-              htmlType='submit'
-            >
-              {isLoggingIn ? "" : t("button.login")}
-            </Button>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "unset",
-            }}
-          >
-            <Button type="warning" onClick={signInWithGoogle}>
-              <GoogleOutlined /> {t("button.signinwithgoogle")}
-            </Button>
-          </div>
-          <div style={{ textAlign: "center", marginTop: "15px" }}>
-            {t("login.signup")}{" "}
-            <span style={{ fontStyle: "italic", cursor: "pointer" }}>
-              <Link to="/signup" style={{ color: "unset", fontWeight: "600" }}>
-                {t("login.create")}
-              </Link>
-            </span>
-          </div>
-        </form>
-        <div
-          style={{
-            fontSize: "14px",
-            color: "grey",
-            margin: "20px",
-            fontWeight: "600",
-            textTransform: "uppercase",
-            textAlign: "center",
-          }}
-        >
-          {t("footer.copyright")} © 2023{" "}
-          <img src="logo-kneg.png" width="10px" alt="KNEG" />{" "}
-        </div>
+    <div style={bodyContainer}>
+      <h1
+        style={{
+          textAlign: "center",
+          margin: "20px 0px",
+          textTransform: "uppercase",
+        }}
+      >
+        {t("login.title")}
+      </h1>
+      <div
+        className="loginTextDescription"
+        style={{ textAlign: "center", marginBottom: "10px" }}
+      >
+        {t("login.info")}
       </div>
+      <form onSubmit={userLogin}>
+        <div style={{ margin: "10px auto" }}>
+          <Input
+            size="large"
+            type="email"
+            placeholder={t("placeholder.email")}
+            prefix={<UserOutlined />}
+            style={{ padding: "10px" }}
+            onChange={(text) => {
+              updateUsername(text);
+            }}
+          />
+        </div>
+        <div style={{ margin: "0px auto", position: "relative" }}>
+          <Input.Password
+            size="large"
+            placeholder={t("placeholder.password")}
+            // status='error'
+            // prefix={<ClockCircleOutlined/>}
+            iconRender={(visible) =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
+            style={{ padding: "10px" }}
+            className="mBottom"
+            onChange={(text) => {
+              updatePassword(text);
+            }}
+          />
+          <div
+            style={{ position: "absolute", right: "0px", cursor: "pointer" }}
+          >
+            <Link
+              to="/forgot-password"
+              style={{ color: "unset", fontWeight: "600" }}
+            >
+              {t("login.forgotPassword")}
+            </Link>
+          </div>
+        </div>
+        <div
+          className="flex-container"
+          style={{
+            justifyContent: "center",
+            backgroundColor: "unset",
+            marginTop: "20px",
+          }}
+        >
+          <Button
+            type="primary"
+            style={{
+              width: "100%",
+            }}
+            // onClick={userLogin}
+            icon={isLoggingIn && <LoadingOutlined />}
+            iconPosition={"center"}
+            isLoggingIn={isLoggingIn}
+            disabled={isLoggingIn}
+            htmlType="submit"
+          >
+            {isLoggingIn ? "" : t("button.login")}
+          </Button>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "unset",
+          }}
+        >
+          <Button type="warning" onClick={signInWithGoogle}>
+            <GoogleOutlined /> {t("button.signinwithgoogle")}
+          </Button>
+        </div>
+        <div style={{ textAlign: "center", marginTop: "15px" }}>
+          {t("login.signup")}{" "}
+          <span style={{ fontStyle: "italic", cursor: "pointer" }}>
+            <Link to="/signup" style={{ color: "unset", fontWeight: "600" }}>
+              {t("login.create")}
+            </Link>
+          </span>
+        </div>
+      </form>
+      <div
+        style={{
+          fontSize: "14px",
+          color: "grey",
+          margin: "20px",
+          fontWeight: "600",
+          textTransform: "uppercase",
+          textAlign: "center",
+        }}
+      >
+        {t("footer.copyright")} © 2023{" "}
+        <img src="logo-kneg.png" width="10px" alt="KNEG" />{" "}
+      </div>
+    </div>
   );
 }

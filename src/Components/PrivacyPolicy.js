@@ -78,7 +78,7 @@ export default function PrivacyPolicy() {
                     <h2>5. Your Choices</h2>
                 </div>
                     <div className="collapsible-content">
-                    <p>You have the right to access, correct, or delete your personal information. You can also withdraw your consent for processing at any time by contacting us at [contact@email.com].</p>
+                    <p>You have the right to access, correct, or delete your personal information. You can also withdraw your consent for processing at any time by contacting us at [info@kneg.com].</p>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@ export default function PrivacyPolicy() {
                     <h2>6. Contact Us</h2>
                 </div>
                     <div className="collapsible-content">
-                    <p>If you have any questions, concerns, or requests regarding this Privacy Policy, please contact us at [contact@email.com].</p>
+                    <p>If you have any questions, concerns, or requests regarding this Privacy Policy, please contact us at [info@kneg.com].</p>
                     </div>
                 </div>
             </div>
