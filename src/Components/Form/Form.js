@@ -65,6 +65,15 @@ export default function Form({ questions, setQuestions, type }) {
     if (lastEvent == "next") {
       let firstQuestionIdx = findFirstQuestionIdx();
       setcurrentQuestionIdx(firstQuestionIdx || currentQuestionIdx);
+
+      //////////////////////////////////////////////////////
+      // For downloading when last question is reached
+      /////////////////////////////////////////////////////
+      if (
+        questions[currentSection].title.toLocaleLowerCase() === "basic info"
+      ) {
+        console.log("Hawa vneko thau");
+      }
     } else if (lastEvent == "prev") {
       let lastQuestionIdx = findLastQuestionIndex();
       setcurrentQuestionIdx(lastQuestionIdx || currentQuestionIdx);
@@ -413,13 +422,28 @@ export default function Form({ questions, setQuestions, type }) {
 
   const addDropdownOption = (option) => {
     // add question options
+    // console.log("x121: form.js 423");
     let updatedQuestions = JSON.parse(JSON.stringify(questions));
     let currentQuesArrIndex = questions[currentSection]["questions"].findIndex(
       (q) => q.index === currentQuestionIdx
     );
+    // updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
+    //   "options"
+    // ] += ", " + option;
+    
+    // To put the new option on the top
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "options"
-    ] += ", " + option;
+    ] =
+      option +
+      ", " +
+      updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
+        "options"
+      ];
+      // console.log("x121: form.js hawa", updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
+      //   "options"
+      // ] )
+
     setQuestions(updatedQuestions);
   };
 
@@ -454,7 +478,9 @@ export default function Form({ questions, setQuestions, type }) {
                       handleDateChange(date, dateStr)
                     }
                     handleFileChange={handleFileChange}
-                    uploadUrl={process.env.REACT_APP_BACKEND_URL + "kneg/upload_image"}
+                    uploadUrl={
+                      process.env.REACT_APP_BACKEND_URL + "kneg/upload_image"
+                    }
                     addDropdownOption={addDropdownOption}
                   />
                   <div>

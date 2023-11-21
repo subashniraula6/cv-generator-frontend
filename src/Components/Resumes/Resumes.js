@@ -17,8 +17,11 @@ import {
 import { useLanguage } from "../../context/Language";
 import CoverLetter from "../CoverLetter/CoverLetter";
 import axios from "../../axios/axios";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 
 function Resumes({ questions, setQuestions, userQuestionsId }) {
+  const colorNames = ["Blue", "Green", "Cyan", "Grey", "Orange", "Magenta"];
   const colors = [
     "#239ce2",
     "#48bb78",
@@ -98,6 +101,23 @@ function Resumes({ questions, setQuestions, userQuestionsId }) {
         console.log(err);
       });
   };
+  ////////////////////////////////
+  // Download PDF Instantly
+  ////////////////////////////////
+  const handleDownloadPdf = async (e) => {
+    e.preventDefault();
+    const element = resumeRef.current;
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF();
+    const imgProperties = pdf.getImageProperties(data);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+    console.log(pdfWidth, pdfHeight)
+    pdf.addImage(data, "PNG", 0, 0, 210, 248.4855);
+    pdf.save("print.pdf");
+  };
 
   return (
     <div className="resume-main-container">
@@ -109,16 +129,20 @@ function Resumes({ questions, setQuestions, userQuestionsId }) {
               setActiveColor(color);
               localStorage.setItem("activeColor", color);
             }}
-            style={{ marginLeft: 10, backgroundColor: activeColor }}
+            style={{
+              marginLeft: 10,
+              backgroundColor: activeColor,
+              width: "120px",
+            }}
             size="large"
           >
-            {colors.map((item) => (
+            {colors.map((item, index) => (
               <Select.Option
                 key={item}
                 style={{ backgroundColor: item }}
                 className={`${"color"} ${activeColor === item ? "active" : ""}`}
               >
-                <label style={{ color: "white" }}>{item}</label>
+                <label style={{ color: "white" }}>{colorNames[index]}</label>
               </Select.Option>
             ))}
           </Select>
@@ -151,13 +175,24 @@ function Resumes({ questions, setQuestions, userQuestionsId }) {
           <ReactToPrint
             trigger={() => {
               return (
-                <Button type="primary" icon={<DownloadOutlined />}>
+                <Button
+                  type="primary"
+                  icon={<DownloadOutlined />}
+                  onClick={handleDownloadPdf}
+                >
                   {t("button.download")}
                 </Button>
               );
             }}
             content={() => resumeRef.current}
           />
+          <Button
+            type="primary"
+            icon={<DownloadOutlined />}
+            onClick={handleDownloadPdf}
+          >
+            {t("button.download")}zzzz
+          </Button>
         </div>
       </div>
       <ResumeWrapper ref={resumeRef}>

@@ -17,7 +17,7 @@ function MultiSelect({
     };
     const addItem = (e) => {
         e.preventDefault();
-        
+        console.log("x121: multiselect.js:20")
         addDropdownOption(name)
 
         // empty new field

@@ -118,7 +118,7 @@ export default function Form({ questions, setQuestions, generateCover }) {
       setIsFormComplete(true);
     }
   };
-  
+
   const handlePrev = (e) => {
     e.preventDefault();
     let firstQuestionIndex = findFirstQuestionIdx();
@@ -183,13 +183,24 @@ export default function Form({ questions, setQuestions, generateCover }) {
 
   const addDropdownOption = (option) => {
     // add question options
+    console.log("x121: form.js coverletter");
     let updatedQuestions = JSON.parse(JSON.stringify(questions));
     let currentQuesArrIndex = questions[currentSection]["questions"].findIndex(
       (q) => q.index === currentQuestionIdx
     );
+    // updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
+    //   "options"
+    // ] += ", " + option;
+
+    // To put the new option on the top
     updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
       "options"
-    ] += ", " + option;
+    ] =
+      option +
+      ", " +
+      updatedQuestions[currentSection]["questions"][currentQuesArrIndex][
+        "options"
+      ];
     setQuestions(updatedQuestions);
   };
 

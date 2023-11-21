@@ -110,13 +110,23 @@ const UpdateQuestion = ({
 
   function addDropdownOption(option, section, questionIdx) {
     // add question options
+    console.log("X121: updatequestion.js 113");
     let updatedQuestions = JSON.parse(JSON.stringify(tempQuestions));
     let quesArrIndex = questions[section]["questions"].findIndex(
       (q) => q.index === questionIdx
     );
 
-    updatedQuestions[section]["questions"][quesArrIndex]["options"] +=
-      ", " + option;
+    // To put the new option on the top
+    // updatedQuestions[section]["questions"][quesArrIndex]["options"] +=
+    //   ", " + option;
+    updatedQuestions[section]["questions"][quesArrIndex]["options"] =
+      option +
+      ", " +
+      updatedQuestions[section]["questions"][quesArrIndex]["options"];
+    // console.log(
+    //   "x121",
+    //   updatedQuestions[section]["questions"][quesArrIndex]["options"]
+    // );
     // Update DB
     // Fetch DB and set questions state
     setQuestions(updatedQuestions);
