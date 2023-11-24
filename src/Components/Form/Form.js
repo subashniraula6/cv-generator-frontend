@@ -9,7 +9,7 @@ import { Spin } from "antd";
 
 const IGNORED_SECTIONS = ["isNext", "lang"];
 
-export default function Form({ questions, setQuestions, type, handleDownloadPdf }) {
+export default function Form({ questions, setQuestions, type, handleDownloadPdf, setIsModalOpen }) {
   let [saving, setSaving] = useState(false);
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(() => {
     // Load saved current question index
@@ -304,8 +304,7 @@ export default function Form({ questions, setQuestions, type, handleDownloadPdf 
       //////////////////////////////////////////////////////
       // For downloading when last question is reached
       /////////////////////////////////////////////////////
-      console.log("Trigger download pdf")
-      handleDownloadPdf();
+      setIsModalOpen(true);
     }
 
     if (currentQuestionIdx < lastQuestionIndex) {

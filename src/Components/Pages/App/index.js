@@ -14,6 +14,7 @@ import ProgressBar from "../../Common/ProgressBar/ProgressBar";
 
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
+import DownloadModal from "../../Common/DownloadModal";
 
 const App = () => {
   const [fetchProgress, setFetchProgress] = useState(null);
@@ -24,6 +25,8 @@ const App = () => {
     useState(false); // Modal for selecting new or old resume
   const [selectedResumeOption, setSelectedResumeOption] = useState(""); // To store user's choice
   const { language: lang } = useLanguage();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const resumeRef = useRef();
 
@@ -93,7 +96,7 @@ const App = () => {
       })
     }
   };
-  
+
   useEffect(() => {
     // Fetch data
     fetchData()
@@ -176,7 +179,7 @@ const App = () => {
             setQuestions={setUpdatedQuestions}
             type={"resume"}
             userQuestionsId={userQuestionsId}
-            handleDownloadPdf={handleDownloadPdf}
+            setIsModalOpen={setIsModalOpen}
           />
         </FormWrapper>
         {(!phoneMode || showResume) && (
@@ -196,6 +199,11 @@ const App = () => {
           </Button>
         )}
       </div>
+      <DownloadModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        handleDownloadPdf={handleDownloadPdf}
+      />
     </>
   );
 };
