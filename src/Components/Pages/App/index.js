@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FormWrapper } from "../../Wrappers/Wrappers";
 import Resumes from "../../Resumes/Resumes";
 import Form from "../../Form/Form";
@@ -12,6 +12,9 @@ import { useLanguage } from "../../../context/Language";
 import { removeLocalUserProfiles } from "../../../utils"
 import ProgressBar from "../../Common/ProgressBar/ProgressBar";
 
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
+
 const App = () => {
   const [fetchProgress, setFetchProgress] = useState(null);
   const { user } = useFirebase();
@@ -21,6 +24,8 @@ const App = () => {
     useState(false); // Modal for selecting new or old resume
   const [selectedResumeOption, setSelectedResumeOption] = useState(""); // To store user's choice
   const { language: lang } = useLanguage();
+
+  const resumeRef = useRef();
 
   useEffect(() => {
     // Check if the modal has been shown before
@@ -143,6 +148,25 @@ const App = () => {
     return <ProgressBar progress={fetchProgress} />;
   }
 
+  ////////////////////////////////
+  // Download PDF Instantly
+  ////////////////////////////////
+  const handleDownloadPdf = async (e) => {
+    if(e) {
+      e.preventDefault();
+    }
+    const element = resumeRef.current;
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF();
+    const imgProperties = pdf.getImageProperties(data);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+    pdf.addImage(data, "PNG", 0, 0, 210, 248.4855);
+    pdf.save("print.pdf");
+  };
+
   return (
     <>
       <div className="flex-container">
@@ -152,6 +176,7 @@ const App = () => {
             setQuestions={setUpdatedQuestions}
             type={"resume"}
             userQuestionsId={userQuestionsId}
+            handleDownloadPdf={handleDownloadPdf}
           />
         </FormWrapper>
         {(!phoneMode || showResume) && (
@@ -159,6 +184,8 @@ const App = () => {
             questions={questions}
             setQuestions={setUpdatedQuestions}
             userQuestionsId={userQuestionsId}
+            resumeRef={resumeRef}
+            handleDownloadPdf={handleDownloadPdf}
           />
         )}
       </div>

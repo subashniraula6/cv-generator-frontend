@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Resumes.css";
 import Resume from "../Resume/Resume";
 import Resume2 from "../Resume/Resume2/Resume2";
@@ -17,10 +17,8 @@ import {
 import { useLanguage } from "../../context/Language";
 import CoverLetter from "../CoverLetter/CoverLetter";
 import axios from "../../axios/axios";
-import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
 
-function Resumes({ questions, setQuestions, userQuestionsId }) {
+function Resumes({ questions, setQuestions, userQuestionsId, resumeRef, handleDownloadPdf }) {
   const colorNames = ["Blue", "Green", "Cyan", "Grey", "Orange", "Magenta"];
   const colors = [
     "#239ce2",
@@ -40,8 +38,7 @@ function Resumes({ questions, setQuestions, userQuestionsId }) {
     const initialValue = parseInt(saved);
     return initialValue || 1;
   });
-  const resumeRef = useRef();
-
+  
   const [groupedExperience, setGroupedExperience] = useState({});
   const [groupedEducation, setGroupedEducation] = useState({});
   const [groupedProject, setGroupedProject] = useState({});
@@ -101,24 +98,7 @@ function Resumes({ questions, setQuestions, userQuestionsId }) {
         console.log(err);
       });
   };
-  ////////////////////////////////
-  // Download PDF Instantly
-  ////////////////////////////////
-  const handleDownloadPdf = async (e) => {
-    e.preventDefault();
-    const element = resumeRef.current;
-    const canvas = await html2canvas(element);
-    const data = canvas.toDataURL("image/png");
-
-    const pdf = new jsPDF();
-    const imgProperties = pdf.getImageProperties(data);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
-    console.log(pdfWidth, pdfHeight)
-    pdf.addImage(data, "PNG", 0, 0, 210, 248.4855);
-    pdf.save("print.pdf");
-  };
-
+  
   return (
     <div className="resume-main-container">
       <div className="toolbar">

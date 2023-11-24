@@ -7,7 +7,9 @@ import { useLanguage } from "../../context/Language";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 
-export default function Form({ questions, setQuestions, type }) {
+const IGNORED_SECTIONS = ["isNext", "lang"];
+
+export default function Form({ questions, setQuestions, type, handleDownloadPdf }) {
   let [saving, setSaving] = useState(false);
   let [currentQuestionIdx, setcurrentQuestionIdx] = useState(() => {
     // Load saved current question index
@@ -65,15 +67,6 @@ export default function Form({ questions, setQuestions, type }) {
     if (lastEvent == "next") {
       let firstQuestionIdx = findFirstQuestionIdx();
       setcurrentQuestionIdx(firstQuestionIdx || currentQuestionIdx);
-
-      //////////////////////////////////////////////////////
-      // For downloading when last question is reached
-      /////////////////////////////////////////////////////
-      if (
-        questions[currentSection].title.toLocaleLowerCase() === "basic info"
-      ) {
-        console.log("Hawa vneko thau");
-      }
     } else if (lastEvent == "prev") {
       let lastQuestionIdx = findLastQuestionIndex();
       setcurrentQuestionIdx(lastQuestionIdx || currentQuestionIdx);
@@ -305,6 +298,16 @@ export default function Form({ questions, setQuestions, type }) {
 
   const handleNext = () => {
     let lastQuestionIndex = findLastQuestionIndex();
+    let lastSection = findLastSection();
+    
+    if(currentSection === lastSection && currentQuestionIdx === lastQuestionIndex) {
+      //////////////////////////////////////////////////////
+      // For downloading when last question is reached
+      /////////////////////////////////////////////////////
+      console.log("Trigger download pdf")
+      handleDownloadPdf();
+    }
+
     if (currentQuestionIdx < lastQuestionIndex) {
       let nextQuestionIdx = findNextQuestion().index;
       setcurrentQuestionIdx(nextQuestionIdx);
@@ -375,6 +378,13 @@ export default function Form({ questions, setQuestions, type }) {
       ...questions[currentSection]["questions"].map((q) => q.index)
     );
   };
+
+  const findLastSection = () => {
+    let sectionsArr = Object.keys(questions).filter(section => {
+      return IGNORED_SECTIONS.indexOf(section) < 0;
+    }); 
+    return sectionsArr[sectionsArr.length - 1];
+  }
 
   const handleContinue = (e) => {
     e.preventDefault();
