@@ -143,7 +143,7 @@ const Resume3 = forwardRef(
               className="info-profile"
               removed={
                 questions?.profileSummary?.questions.find(
-                  (q) => q.index === 8000
+                  (q) => q.index === 4000
                 )?.removed
               }
               display="block"
@@ -152,7 +152,7 @@ const Resume3 = forwardRef(
                 <UpdateQuestion
                   key={JSON.stringify(questions)}
                   section="profileSummary"
-                  index={8000}
+                  index={4000}
                   title="Edit Profile Summary"
                   questions={questions}
                   setQuestions={setQuestions}
@@ -167,7 +167,7 @@ const Resume3 = forwardRef(
                   <p>
                     {
                       questions?.profileSummary?.questions.find(
-                        (q) => q.index === 8000
+                        (q) => q.index === 4000
                       )?.answer
                     }
                   </p>
@@ -876,7 +876,7 @@ const Resume3 = forwardRef(
             <UpdateQuestionWrapper
               removed={
                 questions?.certifications?.questions.find(
-                  (q) => q.index === 5000
+                  (q) => q.index === 7000
                 )?.removed
               }
               display="block"
@@ -884,7 +884,7 @@ const Resume3 = forwardRef(
               <UpdateQuestion
                 key={JSON.stringify(questions)}
                 section="certifications"
-                index={5000}
+                index={7000}
                 title="Edit Certificates"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -897,7 +897,7 @@ const Resume3 = forwardRef(
                   <br />
                   <Space wrap={true}>
                     {questions?.certifications?.questions
-                      .find((q) => q.index === 5000)
+                      .find((q) => q.index === 7000)
                       ?.answer.split(",")
                       .map((certificate) => {
                         return certificate ? (
@@ -919,14 +919,14 @@ const Resume3 = forwardRef(
             <UpdateQuestionWrapper
               className="awards"
               removed={
-                questions?.awards?.questions.find((q) => q.index === 4000)
+                questions?.awards?.questions.find((q) => q.index === 8000)
                   ?.removed
               }
               display="block"
             >
               <UpdateQuestion
                 section="awards"
-                index={4000}
+                index={8000}
                 title="Edit Awards"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -937,7 +937,7 @@ const Resume3 = forwardRef(
               <div className="awards-content">
                 <Space wrap>
                   {questions?.awards?.questions
-                    .find((q) => q.index === 4000)
+                    .find((q) => q.index === 8000)
                     ?.answer?.split(",")
                     .map((award) => {
                       return award ? (

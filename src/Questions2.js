@@ -160,127 +160,15 @@ const questions = {
       },
     ],
   },
-  awards: {
-    title: "Awards",
+  profileSummary: {
+    title: "Profile Summary",
     removed: false,
-    repeatable: false,
     questions: [
       {
         index: 4000,
-        question: "What prizes or awards do you want to include in your CV?",
-        removed: false,
-        type: "textSelect",
-        options:
-          "Teacher of the year, Salesperson of the year, Gold at the Swedish Content Awards, Aret's newcomer, Employee of the month",
-        answer: "",
-      },
-    ],
-  },
-  certifications: {
-    title: "Certifications",
-    removed: false,
-    repeatable: false,
-    questions: [
-      {
-        index: 5000,
-        question: "Which certification(s) do you want to include in your CV?",
-        hint: "Remember to only include certifications that are relevant to the jobs you are applying for.",
-        removed: false,
-        type: "textSelect",
-        options:
-          "driver's license, Forklift driving license, Google Ads certification, Meta-certification",
-        answer: "",
-      },
-    ],
-  },
-  targetCompany: {
-    title: "Target Company",
-    removed: false,
-    questions: [
-      {
-        index: 6000,
-        question: "What is your first name?",
-        type: "text",
-        answer: "",
-      },
-      {
-        index: 6001,
-        question: "What is your last name?",
-        type: "text",
-        answer: "",
-      },
-      {
-        index: 6002,
-        question: "What is your job title?",
-        type: "text",
-        answer: "",
-      },
-      {
-        index: 6003,
-        question: "What is your address ?",
-        type: "textArea",
-        answer: "",
-      },
-      {
-        index: 6004,
         question:
-          "Enter the phone number you want to be included in your application documents",
-        hint: "You don't have to answer this question if you don't want to, but your application documents will be better if you do.",
+          "Wanna include your profile summary? (For best AI experience mention some of it)",
         removed: false,
-        type: "text",
-        answer: "",
-      },
-      {
-        index: 6005,
-        question: "Enter your Email",
-        removed: false,
-        type: "text",
-        answer: "",
-      },
-      {
-        index: 6006,
-        question: "Enter your linkedin if you have any",
-        removed: false,
-        type: "text",
-        answer: "",
-      },
-      {
-        index: 6007,
-        question: "Enter your Website if you have any",
-        removed: false,
-        type: "text",
-        answer: "",
-      },
-      {
-        index: 6008,
-        question: "Name of company/employer you are looking for a job with:",
-        type: "text",
-        update: {
-          key: "company",
-          noOfQues: 4,
-        },
-        answer: "",
-      },
-      {
-        index: 6009,
-        template: "What is the address of {{company}}?",
-        question: "What is the address of {{company}}?",
-        type: "text",
-        answer: "",
-      },
-      {
-        index: 6010,
-        template: "Which position are you applying for at {{company}}?",
-        question: "Which position are you applying for at {{company}}?",
-        type: "text",
-        answer: "",
-      },
-      {
-        index: 6011,
-        template:
-          "What made you want to apply for this job as mentioned position at {{company}}?",
-        question:
-          "What made you want to apply for this job as mentioned position at {{company}}?",
         type: "textArea",
         answer: "",
       },
@@ -292,7 +180,7 @@ const questions = {
     noOfItems: 0,
     auto_generated_questions: [
       {
-        index: 7001,
+        index: 5001,
         question: "Where did you previously work at?",
         removed: false,
         type: "text",
@@ -303,7 +191,7 @@ const questions = {
         answer: "",
       },
       {
-        index: 7002,
+        index: 5002,
         template: "What is the address of {{company}}?",
         question: "",
         removed: false,
@@ -311,7 +199,7 @@ const questions = {
         answer: "",
       },
       {
-        index: 7003,
+        index: 5003,
         template:
           "Your title/position at {{company}}: Type any text. You don't need to scroll through the list.",
         question: "",
@@ -319,28 +207,28 @@ const questions = {
         answer: "",
       },
       {
-        index: 7004,
+        index: 5004,
         template: "When did you join {{company}}?",
         question: "",
         type: "date",
         answer: "",
       },
       {
-        index: 7005,
+        index: 5005,
         template: "When did you leave {{company}}?",
         question: "",
         type: "date",
         answer: "",
       },
       {
-        index: 7006,
+        index: 5006,
         template: "What were your achievements at {{company}}?",
         question: "",
         type: "textArea",
         answer: "",
       },
       {
-        index: 7007,
+        index: 5007,
         question: "Do you want to add more experiences?",
         type: "boolean",
         repeatable: true,
@@ -349,25 +237,11 @@ const questions = {
     ],
     questions: [
       {
-        index: 7000,
+        index: 5000,
         question: "Do you want to add your work experience?",
         type: "boolean",
         repeatable: true,
         answer: "no",
-      },
-    ],
-  },
-  profileSummary: {
-    title: "Profile Summary",
-    removed: false,
-    questions: [
-      {
-        index: 8000,
-        question:
-          "Wanna include your profile summary? (For best AI experience mention some of it)",
-        removed: false,
-        type: "textArea",
-        answer: "",
       },
     ],
   },
@@ -377,25 +251,25 @@ const questions = {
     noOfItems: 0,
     auto_generated_questions: [
       {
-        index: 9001,
+        index: 6001,
         question: "Where did you previously study? (Location)",
         type: "text",
         answer: "",
       },
       {
-        index: 9002,
+        index: 6002,
         question: "What kind of degree did you earn ?",
         type: "text",
         answer: "",
       },
       {
-        index: 9003,
+        index: 6003,
         question: "Which field of study did you pursue ?",
         type: "text",
         answer: "",
       },
       {
-        index: 9004,
+        index: 6004,
         question: "Which university or college did you attend?",
         type: "text",
         update: {
@@ -405,21 +279,21 @@ const questions = {
         answer: "",
       },
       {
-        index: 9005,
+        index: 6005,
         template: "When did you start your studies at {{institution}}?",
         question: "When did you start your studies at {{institution}}?",
         type: "date",
         answer: "",
       },
       {
-        index: 9006,
+        index: 6006,
         template: "When did you complete your studies at {{institution}}?",
         question: "When did you complete your studies at {{institution}}?",
         type: "date",
         answer: "",
       },
       {
-        index: 9007,
+        index: 6007,
         question: "Do you want to add more education experiences?",
         type: "boolean",
         repeatable: true,
@@ -428,11 +302,137 @@ const questions = {
     ],
     questions: [
       {
-        index: 9000,
+        index: 6000,
         question: "Do you want to add your education experience?",
         type: "boolean",
         repeatable: true,
         answer: "no",
+      },
+    ],
+  },
+  certifications: {
+    title: "Certifications",
+    removed: false,
+    repeatable: false,
+    questions: [
+      {
+        index: 7000,
+        question: "Which certification(s) do you want to include in your CV?",
+        hint: "Remember to only include certifications that are relevant to the jobs you are applying for.",
+        removed: false,
+        type: "textSelect",
+        options:
+          "driver's license, Forklift driving license, Google Ads certification, Meta-certification",
+        answer: "",
+      },
+    ],
+  },
+  awards: {
+    title: "Awards",
+    removed: false,
+    repeatable: false,
+    questions: [
+      {
+        index: 8000,
+        question: "What prizes or awards do you want to include in your CV?",
+        removed: false,
+        type: "textSelect",
+        options:
+          "Teacher of the year, Salesperson of the year, Gold at the Swedish Content Awards, Aret's newcomer, Employee of the month",
+        answer: "",
+      },
+    ],
+  },
+  targetCompany: {
+    title: "Target Company",
+    removed: false,
+    questions: [
+      {
+        index: 9000,
+        question: "What is your first name?",
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 9001,
+        question: "What is your last name?",
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 9002,
+        question: "What is your job title?",
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 9003,
+        question: "What is your address ?",
+        type: "textArea",
+        answer: "",
+      },
+      {
+        index: 9004,
+        question:
+          "Enter the phone number you want to be included in your application documents",
+        hint: "You don't have to answer this question if you don't want to, but your application documents will be better if you do.",
+        removed: false,
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 9005,
+        question: "Enter your Email",
+        removed: false,
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 9006,
+        question: "Enter your linkedin if you have any",
+        removed: false,
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 9007,
+        question: "Enter your Website if you have any",
+        removed: false,
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 9008,
+        question: "Name of company/employer you are looking for a job with:",
+        type: "text",
+        update: {
+          key: "company",
+          noOfQues: 4,
+        },
+        answer: "",
+      },
+      {
+        index: 9009,
+        template: "What is the address of {{company}}?",
+        question: "What is the address of {{company}}?",
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 9010,
+        template: "Which position are you applying for at {{company}}?",
+        question: "Which position are you applying for at {{company}}?",
+        type: "text",
+        answer: "",
+      },
+      {
+        index: 9011,
+        template:
+          "What made you want to apply for this job as mentioned position at {{company}}?",
+        question:
+          "What made you want to apply for this job as mentioned position at {{company}}?",
+        type: "textArea",
+        answer: "",
       },
     ],
   },

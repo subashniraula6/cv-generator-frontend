@@ -292,7 +292,7 @@ export default function Resume2({
           <UpdateQuestionWrapper
             className="info-profile"
             removed={
-              questions?.profileSummary?.questions.find((q) => q.index === 8000)
+              questions?.profileSummary?.questions.find((q) => q.index === 4000)
                 ?.removed
             }
             display="block"
@@ -303,7 +303,7 @@ export default function Resume2({
               <UpdateQuestion
                 key={JSON.stringify(questions)}
                 section="profileSummary"
-                index={8000}
+                index={4000}
                 title="Edit Profile Summary"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -315,7 +315,7 @@ export default function Resume2({
               <div className="profile-content">
                 <p>
                   {
-                    questions?.profileSummary?.questions.find((q) => q.index === 8000)
+                    questions?.profileSummary?.questions.find((q) => q.index === 4000)
                       ?.answer
                   }
                 </p>
@@ -902,7 +902,7 @@ export default function Resume2({
             {/* Certificates */}
             <UpdateQuestionWrapper
               removed={
-                questions?.certifications?.questions.find((q) => q.index === 5000)
+                questions?.certifications?.questions.find((q) => q.index === 7000)
                   ?.removed
               }
               display="block"
@@ -910,7 +910,7 @@ export default function Resume2({
               <UpdateQuestion
                 key={JSON.stringify(questions)}
                 section="certifications"
-                index={5000}
+                index={7000}
                 title="Edit Certificates"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -923,7 +923,7 @@ export default function Resume2({
                   <br />
                   <Space wrap={true}>
                     {questions?.certifications?.questions
-                      .find((q) => q.index === 5000)
+                      .find((q) => q.index === 7000)
                       ?.answer.split(",")
                       .map((certificate) => {
                         return certificate ? (
@@ -945,14 +945,14 @@ export default function Resume2({
             <UpdateQuestionWrapper
               className="awards"
               removed={
-                questions?.awards?.questions.find((q) => q.index === 4000)
+                questions?.awards?.questions.find((q) => q.index === 8000)
                   ?.removed
               }
               display="block"
             >
               <UpdateQuestion
                 section="awards"
-                index={4000}
+                index={8000}
                 title="Edit Awards"
                 questions={questions}
                 setQuestions={setQuestions}
@@ -963,7 +963,7 @@ export default function Resume2({
               <div className="awards-content">
                 <Space wrap>
                   {questions?.awards?.questions
-                    .find((q) => q.index === 4000)
+                    .find((q) => q.index === 8000)
                     ?.answer?.split(",")
                     .map((award) => {
                       return award ? (
