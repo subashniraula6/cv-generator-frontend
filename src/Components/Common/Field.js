@@ -1,6 +1,7 @@
 import React from "react";
 import MultiSelect from "./MultiSelect";
-import { Input, Select, Switch, DatePicker, message } from "antd";
+import { Input, Select, Switch, message, Checkbox } from "antd";
+import DateField from "./DateField";
 import dayjs from "dayjs";
 import { useLanguage } from "../../context/Language";
 import ImageUpload from "./ImageUpload";
@@ -13,6 +14,7 @@ const Field = ({
   handleSelectChange,
   handleSlideChange,
   handleDateChange,
+  handleCheckboxChange,
   handleFileChange,
   addDropdownOption,
   uploadUrl,
@@ -74,13 +76,13 @@ const Field = ({
       )}
 
       {question.type === "date" && (
-        <DatePicker
+        <DateField 
           picker="month"
           format={monthFormat}
           size="large"
-          onChange={handleDateChange}
+          handleDateChange={handleDateChange}
           disabledDate={disabledDate}
-          defaultValue={question.answer ? dayjs(question.answer) : undefined}
+          question={question}
           {...otherProps}
         />
       )}
