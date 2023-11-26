@@ -3,15 +3,6 @@ const questions = {
     title: "Basic info",
     removed: false,
     repeatable: false,
-    auto_generated_questions: [
-      {
-        index: 5,
-        question: "Select your picture",
-        type: "file",
-        answer: "",
-        removed: false,
-      },
-    ],
     questions: [
       {
         index: 1,
@@ -37,6 +28,13 @@ const questions = {
           "Do you want to include a picture of yourself in your application documents?",
         type: "boolean",
         answer: "",
+      },
+      {
+        index: 5,
+        question: "Select your picture",
+        type: "file",
+        answer: "",
+        removed: false,
       },
       {
         index: 6,
