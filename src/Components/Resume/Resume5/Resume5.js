@@ -22,7 +22,7 @@ import {
 import LangRating from "../../Common/LangRating/LangRating";
 import ArrowDown from "../../Common/Dividers/ArrowDown";
 
-export default function Resume2({
+export default function Resume5({
   questions,
   setQuestions,
   activeColor,

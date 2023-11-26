@@ -23,7 +23,7 @@ import LangRating from "../../Common/LangRating/LangRating";
 import { Heading1 } from "../../Common/Headings/Heading1";
 // import ArrowDown from "../../Common/Dividers/ArrowDown";
 
-export default function Resume2({
+export default function Resume4({
   questions,
   setQuestions,
   activeColor,

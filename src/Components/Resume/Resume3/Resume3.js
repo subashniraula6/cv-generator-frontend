@@ -161,7 +161,9 @@ const Resume3 = forwardRef(
                   setIsLoading={setIsProfileAILoading}
                 />
                 <SubSectionHeading>
-                  {t("section.profileSummary")}
+                  <span style={{textTransform: "uppercase"}}>
+                  {t("section.profileSummary")}:
+                  </span>
                 </SubSectionHeading>
                 <div className="profile-content">
                   <p>

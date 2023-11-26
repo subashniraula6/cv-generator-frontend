@@ -20,6 +20,7 @@ import { SectionHeading } from "../Wrappers/SectionHeading";
 import { SubSectionHeading } from "../Wrappers/SubSectionHeading";
 import { useLanguage } from "../../context/Language";
 import LangRating from "../Common/LangRating/LangRating";
+import SimpleDivider from "../Common/Dividers/SimpleDivider";
 
 const Resume = forwardRef(
   (
@@ -393,8 +394,8 @@ const Resume = forwardRef(
           </div>
         </div>
 
-        {/* Profile Summary */}
         <div className="content" style={{ padding: "40px" }}>
+          {/* Profile Summary */}
           <UpdateQuestionWrapper
             className="info-profile"
             removed={
@@ -427,7 +428,7 @@ const Resume = forwardRef(
                 </p>
               </div>
             </Spin>
-            <hr />
+            <SimpleDivider/>
           </UpdateQuestionWrapper>
 
           {/* Work Experience */}
@@ -568,7 +569,7 @@ const Resume = forwardRef(
                       })
                   }
                 </div>
-                <hr />
+                <SimpleDivider/>
               </Spin>
             </UpdateSectionWrapper>
           </div>
@@ -701,7 +702,7 @@ const Resume = forwardRef(
                     );
                   })}
               </div>
-              <hr />
+              <SimpleDivider/>
             </UpdateSectionWrapper>
           </div>
 
@@ -851,7 +852,7 @@ const Resume = forwardRef(
                   );
                 })}
             </div>
-            <hr />
+            <SimpleDivider/>
           </UpdateSectionWrapper>
 
           {/* Certificates */}
@@ -894,7 +895,7 @@ const Resume = forwardRef(
                 </Space>
               </>
             }
-            <hr />
+            <SimpleDivider/>
           </UpdateQuestionWrapper>
 
           {/* Awards */}
