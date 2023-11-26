@@ -200,7 +200,9 @@ export default function Resume2({
                             section={"workExperience"}
                             questions={questions}
                             setQuestions={setQuestions}
+                            totalGroups={Object.keys(groupedExperience).length}
                             group={group}
+                            totalItems={groupedExperience[group].length}
                           />
                           <div className="section__list-item">
                             <div className="left">
@@ -310,7 +312,9 @@ export default function Resume2({
                           section={"education"}
                           questions={questions}
                           setQuestions={setQuestions}
+                          totalGroups={Object.keys(groupedEducation).length}
                           group={group}
+                          totalItems={groupedEducation[group].length}
                         />
                         <div className="section__list-item">
                           <div className="left">

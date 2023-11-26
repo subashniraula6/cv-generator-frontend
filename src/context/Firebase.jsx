@@ -62,7 +62,6 @@ export const FirebaseProvider = (props) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (firebaseUser) => {
       if (firebaseUser) {
-        console.log("firebaseUser", firebaseUser)
         // Yes, user is logged in
         // load user data from db
         axios.get("kneg/fbuser/"+ firebaseUser.uid)

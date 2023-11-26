@@ -47,7 +47,7 @@ export default function Form({ questions, setQuestions, type, handleDownloadPdf,
       setcurrentQuestionIdx(activeIndexes[activeIndexes.length - 1]);
     }
   }, [questions]);
-
+  
   useEffect(() => {
     let currentQuestion = findCurrentQuestion();
     let currentAns = currentQuestion?.answer;
@@ -218,7 +218,7 @@ export default function Form({ questions, setQuestions, type, handleDownloadPdf,
       ].map((q, idx) => ({
         ...q,
         index: currentQuestionIdx + (idx + 1),
-        no: questions[currentSection]["noOfItems"] + 1,
+        no: (questions[currentSection]["questions"].find(q=>q.index===currentQuestionIdx)?.no || 0) + 1,
       }));
 
       // change next question indexes
@@ -229,7 +229,7 @@ export default function Form({ questions, setQuestions, type, handleDownloadPdf,
         "questions"
       ].map((q) => {
         if (nextQuestionsIdxs.includes(q.index)) {
-          return { ...q, index: q.index + additionalQuestions.length };
+          return { ...q, index: q.index + additionalQuestions.length, no: q.no + 1 };
         }
         return q;
       });
@@ -295,7 +295,7 @@ export default function Form({ questions, setQuestions, type, handleDownloadPdf,
     });
     return updatedQuestions;
   }
-
+  
   const handleNext = () => {
     let lastQuestionIndex = findLastQuestionIndex();
     let lastSection = findLastSection();

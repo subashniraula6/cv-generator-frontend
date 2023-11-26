@@ -169,7 +169,7 @@ const UpdateQuestion = ({
         });
     } else if (AIType === "workSummary") {
       let payload = extractQuestionsAndAnswers(questions);
-      console.log("payload", payload);
+      
       let dataInput =
         "Generate a short and elaborated resume work description summary with words less than 100 from following json: ";
       dataInput += JSON.stringify(payload);

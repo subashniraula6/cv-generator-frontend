@@ -57,9 +57,7 @@ function Resumes({ questions, setQuestions, userQuestionsId, resumeRef, handleDo
     }, {});
     return groupByCategory;
   }
-
   const { language: lang, t } = useLanguage();
-
   useEffect(() => {
     setGroupedExperience(
       groupQuestions(questions["workExperience"]["questions"])

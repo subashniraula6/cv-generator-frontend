@@ -369,7 +369,9 @@ const Resume3 = forwardRef(
                             section={"education"}
                             questions={questions}
                             setQuestions={setQuestions}
+                            totalGroups={Object.keys(groupedEducation).length}
                             group={group}
+                            totalItems={groupedEducation[group].length}
                           />
                           <div className="education-content">
                             <div className="education-content more-info">
@@ -627,7 +629,9 @@ const Resume3 = forwardRef(
                                 section={"workExperience"}
                                 questions={questions}
                                 setQuestions={setQuestions}
+                                totalGroups={Object.keys(groupedExperience).length}
                                 group={group}
+                                totalItems={groupedExperience[group].length}
                               />
                               <div className="experience-content">
                                 <div className="experience-content more-info">
