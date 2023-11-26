@@ -42,5 +42,6 @@
   "label.address": "Address",
   "label.phone": "Phone",
   "label.linkedin": "LinkedIn",
-  "label.website": "Website"
+  "label.website": "Website",
+  "label.downloadcv": "Do you want to download your CV ?"
 }

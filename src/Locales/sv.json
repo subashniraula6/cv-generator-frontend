@@ -42,5 +42,6 @@
   "label.address": "Adress",
   "label.phone": "Telefon",
   "label.linkedin": "LinkedIn",
-  "label.website": "Webbplats"
+  "label.website": "Webbplats",
+  "label.downloadcv": "Vill du ladda ner ditt CV ?"
 }

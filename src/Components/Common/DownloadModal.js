@@ -18,6 +18,7 @@ const DownloadModal = ({ isModalOpen, setIsModalOpen, handleDownloadPdf }) => {
       onCancel={hideModal}
     >
       <div style={{ textAlign: "center" }}>
+        <h2>{t("label.downloadcv")}</h2>
         <Button
           type="primary"
           icon={<DownloadOutlined />}
