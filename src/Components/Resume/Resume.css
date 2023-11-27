@@ -20,7 +20,7 @@
 .container1 {
   min-height: 1000px;
   max-width: 1000px;
-  height: auto;
+  height: 1300px;
   background: whitesmoke;
   display: flex;
   margin: 0 auto 10px auto;

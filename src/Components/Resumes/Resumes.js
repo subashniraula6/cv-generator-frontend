@@ -150,7 +150,8 @@ function Resumes({ questions, setQuestions, userQuestionsId, resumeRef, handleDo
           >
             {t("button.save")}
           </Button>
-          <ReactToPrint
+          {/* Simple page printing */}
+          {/* <ReactToPrint
             trigger={() => {
               return (
                 <Button
@@ -163,13 +164,13 @@ function Resumes({ questions, setQuestions, userQuestionsId, resumeRef, handleDo
               );
             }}
             content={() => resumeRef.current}
-          />
+          /> */}
           <Button
             type="primary"
             icon={<DownloadOutlined />}
             onClick={handleDownloadPdf}
           >
-            {t("button.download")}zzzz
+            {t("button.download")}
           </Button>
         </div>
       </div>
