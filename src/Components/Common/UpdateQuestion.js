@@ -134,15 +134,15 @@ const UpdateQuestion = ({
 
   function generateAI(e, section, index) {
     if (AIType === "profileSummary") {
-      let questionIndexes = [6, 7]; // Relevent questions for generating profile summary
+      let questionIndexes = [6, 7, 4000]; // Relevent questions for generating profile summary
       // let payload = extractQuestionsAndAnswers(questions);
-      let payload = questions['basicInfo']['questions']
+      let payload = questions['basicInfo']['questions'].concat(questions['profileSummary']['questions'])
       .filter(q => questionIndexes.includes(q.index))
       .map(q => ({
         question: q.question,
         answer: q.answer
       }));
-      console.log("payload", payload)
+      
       let dataInput =
         "Generate a short and elaborated resume profile summary with words less than 100 from the following json: ";
       dataInput += JSON.stringify(payload);
@@ -178,7 +178,7 @@ const UpdateQuestion = ({
     } else if (AIType === "workSummary") {
       // let payload = extractQuestionsAndAnswers(questions);
       let payload = questions['workExperience']['questions']
-      .filter(q => (q.index > (index-6)) && q.index < index)
+      .filter(q => (q.index > (index-6)) && q.index <= index)
       .map(q => ({
         question: q.question,
         answer: q.answer
