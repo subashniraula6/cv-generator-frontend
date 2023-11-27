@@ -134,7 +134,15 @@ const UpdateQuestion = ({
 
   function generateAI(e, section, index) {
     if (AIType === "profileSummary") {
-      let payload = extractQuestionsAndAnswers(questions);
+      let questionIndexes = [6, 7]; // Relevent questions for generating profile summary
+      // let payload = extractQuestionsAndAnswers(questions);
+      let payload = questions['basicInfo']['questions']
+      .filter(q => questionIndexes.includes(q.index))
+      .map(q => ({
+        question: q.question,
+        answer: q.answer
+      }));
+      console.log("payload", payload)
       let dataInput =
         "Generate a short and elaborated resume profile summary with words less than 100 from the following json: ";
       dataInput += JSON.stringify(payload);
@@ -168,8 +176,14 @@ const UpdateQuestion = ({
           alert("Open AI error");
         });
     } else if (AIType === "workSummary") {
-      let payload = extractQuestionsAndAnswers(questions);
-      
+      // let payload = extractQuestionsAndAnswers(questions);
+      let payload = questions['workExperience']['questions']
+      .filter(q => (q.index > (index-6)) && q.index < index)
+      .map(q => ({
+        question: q.question,
+        answer: q.answer
+      }));
+      console.log("payload", payload)
       let dataInput =
         "Generate a short and elaborated resume work description summary with words less than 100 from following json: ";
       dataInput += JSON.stringify(payload);
