@@ -30,4 +30,5 @@
 
 .resume-main-container {
   /* overflow: auto; */
+  min-width: 1000px;
 }

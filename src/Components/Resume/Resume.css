@@ -4,8 +4,15 @@
 }
 
 .sider {
-  max-width: 300px;
+  height: 100%;
   min-width: 250px;
+}
+
+.sider1 {
+  min-height: -webkit-fill-available;
+  width: 480px;
+  padding-left: 30px;
+  padding-top: 30px;
 }
 
 .content {
@@ -17,14 +24,14 @@
   max-width: 200;
 }
 
+
 .container1 {
-  min-height: 1000px;
+  min-height: 29.7cm;
   max-width: 1000px;
   height: 1300px;
   background: whitesmoke;
   display: flex;
   margin: 0 auto 10px auto;
-  box-shadow: 1px 1px 2px #dad7d7;
 }
 
 hr {
@@ -39,7 +46,6 @@ hr {
 }
 
 .first-name {
-  font-weight: 700;
   font-size: 22px;
   padding: 0;
   display: inline;
@@ -61,7 +67,7 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: 30px 20px auto 30px;
 }
 
 .name-style,

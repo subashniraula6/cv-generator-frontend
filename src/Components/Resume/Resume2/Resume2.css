@@ -23,7 +23,6 @@
     padding: 0 30px;
     background: #fff;
     margin: 0px auto 0px;
-    box-shadow: 1px 1px 2px #dad7d7;
     border-radius: 3px;
     width: 100%;
   }
@@ -45,11 +44,26 @@
   .flex2 {
     display: flex;
     align-items: center;
-    padding: 20px 20px 0 20px;
+    padding: 40px;
   }
 
   .left2 {
+    margin-right: 40px;
+  }
+
+  .left-2 {
     margin-right: 20px;
+    margin-left: 40px;
+    min-width: 500px;
+  }
+  .right-2 {
+    margin-right: 40px;
+    min-width: 350px;
+  }
+
+  .flex-2 {
+    display: flex;
+    min-width: 1000px;
   }
   
   .header .full-name {
@@ -57,7 +71,7 @@
     text-transform: uppercase;
     margin-bottom: 5px;
   }
-  .header .first-name {
+  .header {
     font-weight: 700;
   }
   .header .last-name {

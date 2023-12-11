@@ -6,19 +6,19 @@ const questions = {
     questions: [
       {
         index: 1,
-        question: "What is your first name?",
+        question: "What is your first name ?",
         type: "text",
         answer: "",
       },
       {
         index: 2,
-        question: "What is your last name?",
+        question: "What is your last name ?",
         type: "text",
         answer: "",
       },
       {
         index: 3,
-        question: "What is your job title?",
+        question: "What is your job title ?",
         type: "text",
         answer: "",
       },
@@ -38,7 +38,7 @@ const questions = {
       },
       {
         index: 6,
-        question: "Which area(s) do you have the most experience in ?",
+        question: "Which area(s) do you have the most experience in ?  (This part is preferred for best AI experience)",
         hint: "Write your own answers or choose one or more of the suggestions below.",
         type: "textSelect",
         options:
@@ -47,7 +47,7 @@ const questions = {
       },
       {
         index: 7,
-        question: "What are your main personal qualities?",
+        question: "What are your main personal qualities ?  (This part is preferred for best AI experience)",
         type: "textSelect",
         options:
           "Ambitious, Analytical, Responsible, Driven, Efficient, Committed, Flexible, Initiative-taking, Innovative, Communicative, Creative, Solution-focused, Methodical, Thorough, Curious, Organized, Prestigious, Professional, Relationship-building, Results-oriented, Service-oriented, Self-motivated, Socially competent, Strategic, Persuasive",

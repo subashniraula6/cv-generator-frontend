@@ -23,7 +23,6 @@ body {
   padding: 0 30px;
   background: #fff;
   margin: 0px auto 0px;
-  box-shadow: 1px 1px 2px #dad7d7;
   border-radius: 3px;
 }
 
@@ -61,7 +60,7 @@ body {
   text-transform: uppercase;
   margin-bottom: 5px;
 }
-.header .first-name {
+.header{
   font-weight: 700;
 }
 .div-flex-4 {
@@ -96,6 +95,7 @@ body {
 }
 .right-details-4 {
   padding: 30px 0;
+  min-width: 500px;
 }
 .details {
   line-height: 20px;
@@ -177,4 +177,8 @@ body {
 
 .div-right-4 {
   min-width: 40%;
+}
+
+.p-3 {
+  padding: 30px;
 }

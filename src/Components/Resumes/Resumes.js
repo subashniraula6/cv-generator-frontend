@@ -57,6 +57,14 @@ function Resumes({ questions, setQuestions, userQuestionsId, resumeRef, handleDo
     }, {});
     return groupByCategory;
   }
+
+  const hintStyle = {
+    color: "grey",
+    marginBottom: "5px",
+    textAlign: "right",
+    paddingRight: "20px"
+  };
+
   const { language: lang, t } = useLanguage();
   useEffect(() => {
     setGroupedExperience(
@@ -173,6 +181,11 @@ function Resumes({ questions, setQuestions, userQuestionsId, resumeRef, handleDo
             {t("button.download")}
           </Button>
         </div>
+      </div>
+      <div style={hintStyle}>
+        <label>
+        For best download file layout, it is recommended to use <strong>larger screens.</strong>
+        </label>
       </div>
       <ResumeWrapper ref={resumeRef}>
         {template === 1 && (
