@@ -10,7 +10,7 @@ const FormWrapper = styled.div`
     min-width: 350px;
     padding: 20px;
     margin: 15px;
-    height: 22rem;
+    height: 28rem;
 `;
 
 const ResumeWrapper = styled.div`
