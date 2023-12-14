@@ -10,7 +10,7 @@
 
 .sider1 {
   min-height: -webkit-fill-available;
-  width: 480px;
+  width: 500px;
   padding-left: 30px;
   padding-top: 30px;
 }
@@ -21,7 +21,7 @@
 }
 
 .info-header-1 {
-  max-width: 200;
+  max-width: 250;
 }
 
 
