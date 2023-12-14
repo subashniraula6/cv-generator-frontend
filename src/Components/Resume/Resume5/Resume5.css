@@ -61,6 +61,7 @@
   .col1{
     flex: 1;
     display: flex;
+    margin-top:50px;
   }
   .col2 {
     flex: 1;

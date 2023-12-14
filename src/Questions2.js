@@ -22,20 +22,20 @@ const questions = {
         type: "text",
         answer: "",
       },
-      {
-        index: 4,
-        question:
-          "Do you want to include a picture of yourself in your application documents?",
-        type: "boolean",
-        answer: "",
-      },
-      {
-        index: 5,
-        question: "Select your picture",
-        type: "file",
-        answer: "",
-        removed: false,
-      },
+      // {
+      //   index: 4,
+      //   question:
+      //     "Do you want to include a picture of yourself in your application documents?",
+      //   type: "boolean",
+      //   answer: "",
+      // },
+      // {
+      //   index: 5,
+      //   question: "Select your picture",
+      //   type: "file",
+      //   answer: "",
+      //   removed: false,
+      // },
       {
         index: 6,
         question: "Which area(s) do you have the most experience in ?  (This part is preferred for best AI experience)",

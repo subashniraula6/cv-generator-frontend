@@ -60,8 +60,9 @@ export default function Resume2({
                 display={"block"}
                 style={pictureWrapperStyle}
                 removed={
-                  questions?.basicInfo?.questions.find((q) => q.index === 5)
-                    ?.removed
+                  // questions?.basicInfo?.questions.find((q) => q.index === 5)
+                  //   ?.removed
+                  true
                 }
               >
                 <UpdateQuestion
