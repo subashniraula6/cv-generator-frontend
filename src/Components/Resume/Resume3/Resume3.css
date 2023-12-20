@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 * {
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 .sider3 {
@@ -10,7 +10,7 @@
 
 .content {
   padding: 0;
-  width: 100%
+  width: 100%;
 }
 
 ._container3 {
@@ -58,7 +58,8 @@ hr {
 }
 
 .name-style3 {
-    padding: 20px;
+  padding: 20px;
+  min-width: 200px;
 }
 
 .contact-info3 {
@@ -133,12 +134,18 @@ hr {
 .profile,
 .skills,
 .experience,
-.education, .hobby {
+.education,
+.hobby {
   font-family: cursive;
   font-size: 14px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700 !important;
 }
 
@@ -159,8 +166,8 @@ h1, h2, h3, h4, h5, h6 {
   background: #dad7d7;
   -webkit-filter: invert(100%);
   filter: invert(100%);
-  background-color: rgb(255,255,255); /* Fallback color */
-  background-color: rgba(255,255,255,0.6); /* Black w/ opacity */
+  background-color: rgb(255, 255, 255); /* Fallback color */
+  background-color: rgba(255, 255, 255, 0.6); /* Black w/ opacity */
 }
 .manage-section {
   display: none;
@@ -170,7 +177,7 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
 }
 .profile-summary3 {
-    padding: 10px;
+  padding: 10px;
 }
 .manage-question {
   display: none;
@@ -196,14 +203,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .body3 {
-    display: flex;
-    background-color: white;
-    padding: 40px;
+  display: flex;
+  background-color: white;
+  padding: 40px;
 }
 
 .header3 {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    padding: 50px 40px 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 50px 40px 20px 40px;
 }
