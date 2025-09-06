@@ -4,6 +4,9 @@ An easy-to-use CV/Resume generator with a clean UI and robust backend.
 
 ![Architecture Diagram](docs/architecture-diagram.png)
 
+![Screenshots 1](docs/Screenshot-1.png)
+![Screenshots 1](docs/Screenshot-2.png)
+![Screenshots 1](docs/Screenshot-3.png)
 ---
 
 ## 🚀 Demo
